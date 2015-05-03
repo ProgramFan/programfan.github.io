@@ -18,13 +18,10 @@ rm -rf ../programfan.github.io.master
 url=https://${GH_TOKEN}@github.com/Programfan/programfan.github.io.git
 # clone `master' branch of the repository using encrypted GH_TOKEN for
 # authentification
-echo $url
 git clone ${url} -b master ../programfan.github.io.master
 
-echo "Copying generated site."
 # copy generated HTML site to `master' branch
-cp -R _site/* ../programfan.github.io.master
-echo "Copy done."
+cp -rf _site/* ../programfan.github.io.master
 
 # commit and push generated content to `master' branch
 # since repository was cloned in write mode with token auth - we can push
@@ -34,9 +31,7 @@ git config user.email "zyangmath@gmail.com"
 git config user.name "Yang Zhang"
 git add -A .
 git commit -a -m "Travis #$TRAVIS_BUILD_NUMBER"
-echo "Pushing to remote"
 git push ${url} master:master
-echo "Done."
 
 exit 0
 

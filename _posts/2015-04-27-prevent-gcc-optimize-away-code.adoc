@@ -1,0 +1,158 @@
+= Prevent GCC from optimizing away a snippet of code
+Yang Zhang <zyangmath@gmail.com>
+v0.1, 2015-04-18
+:source-highlighter: pygments
+:icons: font
+:iconfont-remote!:
+:iconfont-name: font-awesome-4.3.0
+:stylesdir: css
+
+Nowadays compilers are extremely capable of elimiting 'dead' code. But in
+benchmarking we need some seemingly 'useless' code to do the work we want. For
+example, to do computation in registers in order to measure instruction
+latency and throughput. In these cases, we need a mechanism to temporarily
+disable optimization.
+
+This document keep an up-to-date collections of techniques to temporarily
+disable compiler optimizations. These techniques are tested on a recent gcc or
+icc compiler.
+
+== Using volatile
+
+`volatile` makes compilers be extremely careful (or conservative) on memory
+load and store of a variable. Most compilers tend to do no optimizations at
+all (even for proven dead code). So the `volatile` technique becomes the top 1
+used. 
+
+For example:
+
+[source, cpp]
+----
+void doTest() {
+    volatile int a = 0;
+    a += 1;
+}
+----
+
+`pass:[g++ -std=c++98 -O2]` compiles the above code down to 
+
+[source, asm]
+----
+movl   $0x0,-0x4(%rsp)
+mov    -0x4(%rsp),%eax
+add    $0x1,%eax
+mov    %eax,-0x4(%rsp)
+retq   
+----
+
+`icpc -std=c++98 -O2` compiles it down to
+
+[source, asm]
+----
+movl   $0x0,-0x8(%rsp)
+incl   -0x8(%rsp)
+retq   
+----
+
+== Empty assembly
+
+Another current weakness of compilers is that they are careful with inline
+assembly. Some version of gcc and icc tends to leave inline assembly touched
+variable intact. This becomes the second technique to prevent optimizations.
+
+For example, Facebook's http://github.com/facebook/folly[Folly] library uses
+the following `doNotOptimizeAway` function to prevent optimizing an
+expression:
+
+[source, cpp]
+----
+template <typename T> inline doNotOptimizeAway(T&& datum) {
+    asm volatile ("" : "+r" datum);
+}
+void doTest() {
+    int a;
+    doNotOptimizeAway(a = 0);
+    doNotOptimizeAway(a += 16);
+}
+----
+
+`icpc -std=c++11 -O2` compiles the above down to
+
+[source, asm]
+----
+movl   $0x0,-0x8(%rsp)
+mov    -0x8(%rsp),%eax
+mov    %eax,-0x8(%rsp)
+addl   $0x10,-0x8(%rsp)
+mov    -0x8(%rsp),%edx
+mov    %edx,-0x8(%rsp)
+incl   -0x8(%rsp)
+mov    -0x8(%rsp),%ecx
+mov    %ecx,-0x8(%rsp)
+retq   
+----
+
+`pass:[g++ -std=c++11 -O2]` compiles straightly down to
+
+[source, asm]
+----
+xor    %eax,%eax
+add    $0x10,%eax
+retq   
+----
+
+NOTE: The `+r` modifier and the volatile modifier in the assembly is
+essential. `+r` means the `datum` is both read from and write to by the
+assembly, so compiler can not optimized it out. `volatile` stops the compiler
+from removing the empty assembly. If you try `=r` instead of `+r`, gcc will
+optimize it away but icc will keep it.
+
+== Compiler specific pragma
+
+Compilers provides ways to control their optimizer. gcc provides `pragma GCC`
+as a way to control temporarily the compiler behavior. By using `pragma GCC
+optimize("O0")`, the optimization level can be set to zero, which means
+absolutely no optimize for gcc.
+
+For example:
+
+[source, cpp]
+----
+#pragma GCC push_options
+#pragma GCC optimize("O0")
+void doTest() {
+    int a;
+    a = 15;
+    a += 1;
+}
+#pragma GCC pop_options
+----
+
+`pass:[g++ -std=c++98 -O2]` compiles it straight forwardly down to
+
+[source, asm]
+----
+movl   $0xf,-0x4(%rsp)
+addl   $0x1,-0x4(%rsp)
+retq   
+----
+
+`icpc -std=c++98 -O2` compiles it down to
+
+[source, asm]
+----
+sub    $0x10,%rsp
+movl   $0xf,-0x10(%rbp)
+mov    $0x1,%eax
+add    -0x10(%rbp),%eax
+mov    %eax,-0x10(%rbp)
+leaveq 
+retq   
+----
+
+Although icc does a strange transformation to the code, it leaves the code any
+way.
+
+NOTE: The above pragma can be replaced by function attribute
+`pass:[__attribute__((optimize("O0")))]`
+
