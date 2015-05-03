@@ -30,12 +30,13 @@ echo "Copy done."
 # since repository was cloned in write mode with token auth - we can push
 # there
 cd ../programfan.github.io.master
-git checkout --track origin/master master
 git config user.email "zyangmath@gmail.com"
 git config user.name "Yang Zhang"
 git add -A .
 git commit -a -m "Travis #$TRAVIS_BUILD_NUMBER"
+echo "Pushing to remote"
 git push ${url} master:master
+echo "Done."
 
 exit 0
 
