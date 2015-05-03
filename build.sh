@@ -18,10 +18,13 @@ rm -rf ../programfan.github.io.master
 url=https://${GH_TOKEN}@github.com/Programfan/programfan.github.io.git
 # clone `master' branch of the repository using encrypted GH_TOKEN for
 # authentification
-git clone ${url} ../programfan.github.io.master
+echo $url
+git clone ${url} -b master ../programfan.github.io.master
 
+echo "Copying generated site."
 # copy generated HTML site to `master' branch
 cp -R _site/* ../programfan.github.io.master
+echo "Copy done."
 
 # commit and push generated content to `master' branch
 # since repository was cloned in write mode with token auth - we can push
