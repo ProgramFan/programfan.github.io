@@ -15,9 +15,10 @@ jekyll build
 # cleanup
 rm -rf ../programfan.github.io.master
 
+url=https://${GH_TOKEN}@github.com/Programfan/programfan.github.io.git
 # clone `master' branch of the repository using encrypted GH_TOKEN for
 # authentification
-git clone https://${GH_TOKEN}@github.com/Programfan/programfan.github.io.git ../programfan.github.io.master
+git clone ${url} ../programfan.github.io.master
 
 # copy generated HTML site to `master' branch
 cp -R _site/* ../programfan.github.io.master
@@ -26,11 +27,12 @@ cp -R _site/* ../programfan.github.io.master
 # since repository was cloned in write mode with token auth - we can push
 # there
 cd ../programfan.github.io.master
+git checkout --track master
 git config user.email "zyangmath@gmail.com"
 git config user.name "Yang Zhang"
 git add -A .
 git commit -a -m "Travis #$TRAVIS_BUILD_NUMBER"
-git push origin master
+git push ${url} master:master
 
 exit 0
 
