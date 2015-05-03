@@ -81,6 +81,8 @@
     <option value="/news/">Home</option>
     <optgroup label="v1.x">
       
+      <option value="/news/2015/04/27/prevent-gcc-optimize-away-code/">Prevent GCC from optimizing away a snippet of code</option>
+      
       <option value="/news/2015/02/27/introducing-jekyll-talk/">Join the Discussion at Jekyll Talk</option>
       
       <option value="/news/2015/01/24/jekyll-3-0-0-beta1-released/">Jekyll 3.0.0.beta1 Released</option>
@@ -88,8 +90,6 @@
       <option value="/news/2015/01/20/jekyll-meet-and-greet/">Jekyll Meet & Greet at GitHub HQ</option>
       
       <option value="/news/2014/12/22/jekyll-2-5-3-released/">Jekyll Release for the Holidays! v2.5.3 Out</option>
-      
-      <option value="/news/2014/12/17/alfredxing-welcome-to-jekyll-core/">Alfred Xing has joined the Jekyll core team</option>
       
       <option value="/news/2014/11/13/jekyll-2-5-2-released/">Jekyll 2.5.2 Released</option>
       
@@ -158,6 +158,229 @@
 
       <div class="unit four-fifths">
         
+  <article>
+  <h2>
+    <a href="/news/2015/04/27/prevent-gcc-optimize-away-code/">
+      Prevent GCC from optimizing away a snippet of code
+    </a>
+  </h2>
+  <span class="post-category">
+    <span class="label">
+      
+    </span>
+  </span>
+  <div class="post-meta">
+    <span class="post-date">
+      27 Apr 2015
+    </span>
+    <a href="https://github.com/Yang Zhang" class="post-author">
+      <img src="https://github.com/Yang Zhang.png" class="avatar" alt="Yang Zhang avatar" width="24" height="24">
+      Yang Zhang
+    </a>
+  </div>
+  <div class="post-content">
+    <h1>Prevent GCC from optimizing away a snippet of code</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Nowadays compilers are extremely capable of elimiting 'dead' code. But in<br>
+benchmarking we need some seemingly 'useless' code to do the work we want. For<br>
+example, to do computation in registers in order to measure instruction<br>
+latency and throughput. In these cases, we need a mechanism to temporarily<br>
+disable optimization.</p>
+</div>
+<div class="paragraph">
+<p>This document keep an up-to-date collections of techniques to temporarily<br>
+disable compiler optimizations. These techniques are tested on a recent gcc or<br>
+icc compiler.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="using-volatile">Using volatile</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><code>volatile</code> makes compilers be extremely careful (or conservative) on memory<br>
+load and store of a variable. Most compilers tend to do no optimizations at<br>
+all (even for proven dead code). So the <code>volatile</code> technique becomes the top 1<br>
+used.</p>
+</div>
+<div class="paragraph">
+<p>For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span class="tok-kt">void</span> <span class="tok-nf">doTest</span><span class="tok-p">()</span> <span class="tok-p">{</span>
+    <span class="tok-k">volatile</span> <span class="tok-kt">int</span> <span class="tok-n">a</span> <span class="tok-o">=</span> <span class="tok-mi">0</span><span class="tok-p">;</span>
+    <span class="tok-n">a</span> <span class="tok-o">+=</span> <span class="tok-mi">1</span><span class="tok-p">;</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>g++ -std=c++98 -O2</code> compiles the above code down to</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="asm"><span class="tok-nf">movl</span>   <span class="tok-kc">$</span><span class="tok-mh">0x0</span><span class="tok-p">,</span><span class="tok-o">-</span><span class="tok-mh">0x4</span><span class="tok-p">(</span><span class="tok-o">%</span><span class="tok-nb">rsp</span><span class="tok-p">)</span>
+<span class="tok-nf">mov</span>    <span class="tok-o">-</span><span class="tok-mh">0x4</span><span class="tok-p">(</span><span class="tok-o">%</span><span class="tok-nb">rsp</span><span class="tok-p">),</span><span class="tok-o">%</span><span class="tok-nb">eax</span>
+<span class="tok-nf">add</span>    <span class="tok-kc">$</span><span class="tok-mh">0x1</span><span class="tok-p">,</span><span class="tok-o">%</span><span class="tok-nb">eax</span>
+<span class="tok-nf">mov</span>    <span class="tok-o">%</span><span class="tok-nb">eax</span><span class="tok-p">,</span><span class="tok-o">-</span><span class="tok-mh">0x4</span><span class="tok-p">(</span><span class="tok-o">%</span><span class="tok-nb">rsp</span><span class="tok-p">)</span>
+<span class="tok-nf">retq</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>icpc -std=c++98 -O2</code> compiles it down to</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="asm"><span class="tok-nf">movl</span>   <span class="tok-kc">$</span><span class="tok-mh">0x0</span><span class="tok-p">,</span><span class="tok-o">-</span><span class="tok-mh">0x8</span><span class="tok-p">(</span><span class="tok-o">%</span><span class="tok-nb">rsp</span><span class="tok-p">)</span>
+<span class="tok-nf">incl</span>   <span class="tok-o">-</span><span class="tok-mh">0x8</span><span class="tok-p">(</span><span class="tok-o">%</span><span class="tok-nb">rsp</span><span class="tok-p">)</span>
+<span class="tok-nf">retq</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="empty-assembly">Empty assembly</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Another current weakness of compilers is that they are careful with inline<br>
+assembly. Some version of gcc and icc tends to leave inline assembly touched<br>
+variable intact. This becomes the second technique to prevent optimizations.</p>
+</div>
+<div class="paragraph">
+<p>For example, Facebook&#8217;s <a href="http://github.com/facebook/folly">Folly</a> library uses<br>
+the following <code>doNotOptimizeAway</code> function to prevent optimizing an<br>
+expression:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span class="tok-k">template</span> <span class="tok-o">&lt;</span><span class="tok-k">typename</span> <span class="tok-n">T</span><span class="tok-o">&gt;</span> <span class="tok-kr">inline</span> <span class="tok-n">doNotOptimizeAway</span><span class="tok-p">(</span><span class="tok-n">T</span><span class="tok-o">&amp;&amp;</span> <span class="tok-n">datum</span><span class="tok-p">)</span> <span class="tok-p">{</span>
+    <span class="tok-k">asm</span> <span class="tok-k">volatile</span> <span class="tok-p">(</span><span class="tok-s">&quot;&quot;</span> <span class="tok-o">:</span> <span class="tok-s">&quot;+r&quot;</span> <span class="tok-n">datum</span><span class="tok-p">);</span>
+<span class="tok-p">}</span>
+<span class="tok-kt">void</span> <span class="tok-n">doTest</span><span class="tok-p">()</span> <span class="tok-p">{</span>
+    <span class="tok-kt">int</span> <span class="tok-n">a</span><span class="tok-p">;</span>
+    <span class="tok-n">doNotOptimizeAway</span><span class="tok-p">(</span><span class="tok-n">a</span> <span class="tok-o">=</span> <span class="tok-mi">0</span><span class="tok-p">);</span>
+    <span class="tok-n">doNotOptimizeAway</span><span class="tok-p">(</span><span class="tok-n">a</span> <span class="tok-o">+=</span> <span class="tok-mi">16</span><span class="tok-p">);</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>icpc -std=c++11 -O2</code> compiles the above down to</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="asm"><span class="tok-nf">movl</span>   <span class="tok-kc">$</span><span class="tok-mh">0x0</span><span class="tok-p">,</span><span class="tok-o">-</span><span class="tok-mh">0x8</span><span class="tok-p">(</span><span class="tok-o">%</span><span class="tok-nb">rsp</span><span class="tok-p">)</span>
+<span class="tok-nf">mov</span>    <span class="tok-o">-</span><span class="tok-mh">0x8</span><span class="tok-p">(</span><span class="tok-o">%</span><span class="tok-nb">rsp</span><span class="tok-p">),</span><span class="tok-o">%</span><span class="tok-nb">eax</span>
+<span class="tok-nf">mov</span>    <span class="tok-o">%</span><span class="tok-nb">eax</span><span class="tok-p">,</span><span class="tok-o">-</span><span class="tok-mh">0x8</span><span class="tok-p">(</span><span class="tok-o">%</span><span class="tok-nb">rsp</span><span class="tok-p">)</span>
+<span class="tok-nf">addl</span>   <span class="tok-kc">$</span><span class="tok-mh">0x10</span><span class="tok-p">,</span><span class="tok-o">-</span><span class="tok-mh">0x8</span><span class="tok-p">(</span><span class="tok-o">%</span><span class="tok-nb">rsp</span><span class="tok-p">)</span>
+<span class="tok-nf">mov</span>    <span class="tok-o">-</span><span class="tok-mh">0x8</span><span class="tok-p">(</span><span class="tok-o">%</span><span class="tok-nb">rsp</span><span class="tok-p">),</span><span class="tok-o">%</span><span class="tok-nb">edx</span>
+<span class="tok-nf">mov</span>    <span class="tok-o">%</span><span class="tok-nb">edx</span><span class="tok-p">,</span><span class="tok-o">-</span><span class="tok-mh">0x8</span><span class="tok-p">(</span><span class="tok-o">%</span><span class="tok-nb">rsp</span><span class="tok-p">)</span>
+<span class="tok-nf">incl</span>   <span class="tok-o">-</span><span class="tok-mh">0x8</span><span class="tok-p">(</span><span class="tok-o">%</span><span class="tok-nb">rsp</span><span class="tok-p">)</span>
+<span class="tok-nf">mov</span>    <span class="tok-o">-</span><span class="tok-mh">0x8</span><span class="tok-p">(</span><span class="tok-o">%</span><span class="tok-nb">rsp</span><span class="tok-p">),</span><span class="tok-o">%</span><span class="tok-nb">ecx</span>
+<span class="tok-nf">mov</span>    <span class="tok-o">%</span><span class="tok-nb">ecx</span><span class="tok-p">,</span><span class="tok-o">-</span><span class="tok-mh">0x8</span><span class="tok-p">(</span><span class="tok-o">%</span><span class="tok-nb">rsp</span><span class="tok-p">)</span>
+<span class="tok-nf">retq</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>g++ -std=c++11 -O2</code> compiles straightly down to</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="asm"><span class="tok-nf">xor</span>    <span class="tok-o">%</span><span class="tok-nb">eax</span><span class="tok-p">,</span><span class="tok-o">%</span><span class="tok-nb">eax</span>
+<span class="tok-nf">add</span>    <span class="tok-kc">$</span><span class="tok-mh">0x10</span><span class="tok-p">,</span><span class="tok-o">%</span><span class="tok-nb">eax</span>
+<span class="tok-nf">retq</span></code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The <code>+r</code> modifier and the volatile modifier in the assembly is<br>
+essential. <code>+r</code> means the <code>datum</code> is both read from and write to by the<br>
+assembly, so compiler can not optimized it out. <code>volatile</code> stops the compiler<br>
+from removing the empty assembly. If you try <code>=r</code> instead of <code>+r</code>, gcc will<br>
+optimize it away but icc will keep it.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="compiler-specific-pragma">Compiler specific pragma</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Compilers provides ways to control their optimizer. gcc provides <code>pragma GCC</code><br>
+as a way to control temporarily the compiler behavior. By using <code>pragma GCC<br>
+optimize("O0")</code>, the optimization level can be set to zero, which means<br>
+absolutely no optimize for gcc.</p>
+</div>
+<div class="paragraph">
+<p>For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span class="tok-cp">#pragma GCC push_options</span>
+<span class="tok-cp">#pragma GCC optimize(&quot;O0&quot;)</span>
+<span class="tok-kt">void</span> <span class="tok-nf">doTest</span><span class="tok-p">()</span> <span class="tok-p">{</span>
+    <span class="tok-kt">int</span> <span class="tok-n">a</span><span class="tok-p">;</span>
+    <span class="tok-n">a</span> <span class="tok-o">=</span> <span class="tok-mi">15</span><span class="tok-p">;</span>
+    <span class="tok-n">a</span> <span class="tok-o">+=</span> <span class="tok-mi">1</span><span class="tok-p">;</span>
+<span class="tok-p">}</span>
+<span class="tok-cp">#pragma GCC pop_options</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>g++ -std=c++98 -O2</code> compiles it straight forwardly down to</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="asm"><span class="tok-nf">movl</span>   <span class="tok-kc">$</span><span class="tok-mh">0xf</span><span class="tok-p">,</span><span class="tok-o">-</span><span class="tok-mh">0x4</span><span class="tok-p">(</span><span class="tok-o">%</span><span class="tok-nb">rsp</span><span class="tok-p">)</span>
+<span class="tok-nf">addl</span>   <span class="tok-kc">$</span><span class="tok-mh">0x1</span><span class="tok-p">,</span><span class="tok-o">-</span><span class="tok-mh">0x4</span><span class="tok-p">(</span><span class="tok-o">%</span><span class="tok-nb">rsp</span><span class="tok-p">)</span>
+<span class="tok-nf">retq</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>icpc -std=c++98 -O2</code> compiles it down to</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="asm"><span class="tok-nf">sub</span>    <span class="tok-kc">$</span><span class="tok-mh">0x10</span><span class="tok-p">,</span><span class="tok-o">%</span><span class="tok-nb">rsp</span>
+<span class="tok-nf">movl</span>   <span class="tok-kc">$</span><span class="tok-mh">0xf</span><span class="tok-p">,</span><span class="tok-o">-</span><span class="tok-mh">0x10</span><span class="tok-p">(</span><span class="tok-o">%</span><span class="tok-nb">rbp</span><span class="tok-p">)</span>
+<span class="tok-nf">mov</span>    <span class="tok-kc">$</span><span class="tok-mh">0x1</span><span class="tok-p">,</span><span class="tok-o">%</span><span class="tok-nb">eax</span>
+<span class="tok-nf">add</span>    <span class="tok-o">-</span><span class="tok-mh">0x10</span><span class="tok-p">(</span><span class="tok-o">%</span><span class="tok-nb">rbp</span><span class="tok-p">),</span><span class="tok-o">%</span><span class="tok-nb">eax</span>
+<span class="tok-nf">mov</span>    <span class="tok-o">%</span><span class="tok-nb">eax</span><span class="tok-p">,</span><span class="tok-o">-</span><span class="tok-mh">0x10</span><span class="tok-p">(</span><span class="tok-o">%</span><span class="tok-nb">rbp</span><span class="tok-p">)</span>
+<span class="tok-nf">leaveq</span>
+<span class="tok-nf">retq</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Although icc does a strange transformation to the code, it leaves the code any<br>
+way.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The above pragma can be replaced by function attribute<br>
+<code>__attribute__((optimize("O0")))</code>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+  </div>
+</article>
+
+
   <article>
   <h2>
     <a href="/news/2015/02/27/introducing-jekyll-talk/">
@@ -318,48 +541,6 @@ over on my personal blog: <a href="https://byparker.com/blog/2014/jekyll-3-the-r
 Feel free to chime in over on GitHub.</p>
 
 <p>Happy Jekylling!</p>
-
-  </div>
-</article>
-
-
-  <article>
-  <h2>
-    <a href="/news/2014/12/17/alfredxing-welcome-to-jekyll-core/">
-      Alfred Xing has joined the Jekyll core team
-    </a>
-  </h2>
-  <span class="post-category">
-    <span class="label">
-      team
-    </span>
-  </span>
-  <div class="post-meta">
-    <span class="post-date">
-      17 Dec 2014
-    </span>
-    <a href="https://github.com/parkr" class="post-author">
-      <img src="https://github.com/parkr.png" class="avatar" alt="parkr avatar" width="24" height="24">
-      parkr
-    </a>
-  </div>
-  <div class="post-content">
-    <p>We’re excited to announce that <a href="https://github.com/alfredxing">@alfredxing</a> has joined the @jekyll/core
-team!</p>
-
-<p>He hails from Vancouver, BC, Canada, where he is studying Economics and
-Computer Science at the <a href="http://ubc.ca">University of British Columbia</a>. Alfred popped up in
-the issues a few months ago with terrific insights, focus, and humility.
-Performance buffs may be pleased to hear incremental regeneration will be
-released in a future version of Jekyll – a significant piece of the
-feature written by Alfred.</p>
-
-<p>Please join me in welcoming Alfred to the Jekyll core team. We’re excited
-he’s agreed to lend his talents to this project. The future is an exciting
-place!</p>
-
-<p>Happy Jekylling!</p>
-
 
   </div>
 </article>
@@ -1679,6 +1860,12 @@ examples and for compiling this list):</p>
         
         
         <li class="">
+          <a href="/news/2015/04/27/prevent-gcc-optimize-away-code/">Prevent GCC from optimizing away a snippet of code</a>
+        </li>
+        
+        
+        
+        <li class="">
           <a href="/news/2015/02/27/introducing-jekyll-talk/">Join the Discussion at Jekyll Talk</a>
         </li>
         
@@ -1691,12 +1878,6 @@ examples and for compiling this list):</p>
         </li>
         
         
-        
-        
-        
-        <li class="">
-          <a href="/news/2014/12/17/alfredxing-welcome-to-jekyll-core/">Alfred Xing has joined the Jekyll core team</a>
-        </li>
         
         
         

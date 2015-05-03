@@ -11,8 +11,8 @@
     <title xml:lang="en">Jekyll • Simple, blog-aware, static sites</title>
     <atom:link type="application/atom+xml" href="http://jekyllrb.com/feed.xml" rel="self"/>
     <link>http://jekyllrb.com/</link>
-    <pubDate>Sun, 03 May 2015 06:13:52 +0000</pubDate>
-    <lastBuildDate>Sun, 03 May 2015 06:13:52 +0000</lastBuildDate>
+    <pubDate>Sun, 03 May 2015 06:20:46 +0000</pubDate>
+    <lastBuildDate>Sun, 03 May 2015 06:20:46 +0000</lastBuildDate>
     <language>en-US</language>
     <generator>Jekyll v2.5.3</generator>
     <description>Transform your plain text into static websites and blogs.</description>
@@ -24,6 +24,214 @@
       <width>144</width>
       <height>73</height>
     </image>
+    
+    <item>
+      <title>Prevent GCC from optimizing away a snippet of code</title>
+      <link>http://jekyllrb.com/news/2015/04/27/prevent-gcc-optimize-away-code/</link>
+      <pubDate>Mon, 27 Apr 2015 00:00:00 +0000</pubDate>
+      <dc:creator>Yang Zhang</dc:creator>
+      
+      
+      <guid isPermaLink="true">http://jekyllrb.com/news/2015/04/27/prevent-gcc-optimize-away-code/</guid>
+      <description>&lt;h1&gt;Prevent GCC from optimizing away a snippet of code&lt;/h1&gt;
+&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Nowadays compilers are extremely capable of elimiting &#39;dead&#39; code. But in&lt;br&gt;
+benchmarking we need some seemingly &#39;useless&#39; code to do the work we want. For&lt;br&gt;
+example, to do computation in registers in order to measure instruction&lt;br&gt;
+latency and throughput. In these cases, we need a mechanism to temporarily&lt;br&gt;
+disable optimization.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This document keep an up-to-date collections of techniques to temporarily&lt;br&gt;
+disable compiler optimizations. These techniques are tested on a recent gcc or&lt;br&gt;
+icc compiler.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;using-volatile&quot;&gt;Using volatile&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;code&gt;volatile&lt;/code&gt; makes compilers be extremely careful (or conservative) on memory&lt;br&gt;
+load and store of a variable. Most compilers tend to do no optimizations at&lt;br&gt;
+all (even for proven dead code). So the &lt;code&gt;volatile&lt;/code&gt; technique becomes the top 1&lt;br&gt;
+used.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;For example:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;tok-kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;tok-nf&quot;&gt;doTest&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;tok-k&quot;&gt;volatile&lt;/span&gt; &lt;span class=&quot;tok-kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;tok-n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;tok-o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;tok-mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;tok-n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;tok-o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;tok-mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;tok-p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;code&gt;g++ -std=c++98 -O2&lt;/code&gt; compiles the above code down to&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;asm&quot;&gt;&lt;span class=&quot;tok-nf&quot;&gt;movl&lt;/span&gt;   &lt;span class=&quot;tok-kc&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;tok-mh&quot;&gt;0x0&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;tok-mh&quot;&gt;0x4&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;tok-nb&quot;&gt;rsp&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;tok-nf&quot;&gt;mov&lt;/span&gt;    &lt;span class=&quot;tok-o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;tok-mh&quot;&gt;0x4&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;tok-nb&quot;&gt;rsp&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;tok-nb&quot;&gt;eax&lt;/span&gt;
+&lt;span class=&quot;tok-nf&quot;&gt;add&lt;/span&gt;    &lt;span class=&quot;tok-kc&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;tok-mh&quot;&gt;0x1&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;tok-nb&quot;&gt;eax&lt;/span&gt;
+&lt;span class=&quot;tok-nf&quot;&gt;mov&lt;/span&gt;    &lt;span class=&quot;tok-o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;tok-nb&quot;&gt;eax&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;tok-mh&quot;&gt;0x4&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;tok-nb&quot;&gt;rsp&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;tok-nf&quot;&gt;retq&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;code&gt;icpc -std=c++98 -O2&lt;/code&gt; compiles it down to&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;asm&quot;&gt;&lt;span class=&quot;tok-nf&quot;&gt;movl&lt;/span&gt;   &lt;span class=&quot;tok-kc&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;tok-mh&quot;&gt;0x0&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;tok-mh&quot;&gt;0x8&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;tok-nb&quot;&gt;rsp&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;tok-nf&quot;&gt;incl&lt;/span&gt;   &lt;span class=&quot;tok-o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;tok-mh&quot;&gt;0x8&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;tok-nb&quot;&gt;rsp&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;tok-nf&quot;&gt;retq&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;empty-assembly&quot;&gt;Empty assembly&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Another current weakness of compilers is that they are careful with inline&lt;br&gt;
+assembly. Some version of gcc and icc tends to leave inline assembly touched&lt;br&gt;
+variable intact. This becomes the second technique to prevent optimizations.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;For example, Facebook&amp;#8217;s &lt;a href=&quot;http://github.com/facebook/folly&quot;&gt;Folly&lt;/a&gt; library uses&lt;br&gt;
+the following &lt;code&gt;doNotOptimizeAway&lt;/code&gt; function to prevent optimizing an&lt;br&gt;
+expression:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;tok-k&quot;&gt;template&lt;/span&gt; &lt;span class=&quot;tok-o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;tok-k&quot;&gt;typename&lt;/span&gt; &lt;span class=&quot;tok-n&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;tok-kr&quot;&gt;inline&lt;/span&gt; &lt;span class=&quot;tok-n&quot;&gt;doNotOptimizeAway&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-n&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;tok-n&quot;&gt;datum&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;tok-k&quot;&gt;asm&lt;/span&gt; &lt;span class=&quot;tok-k&quot;&gt;volatile&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-s&quot;&gt;&amp;quot;&amp;quot;&lt;/span&gt; &lt;span class=&quot;tok-o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-s&quot;&gt;&amp;quot;+r&amp;quot;&lt;/span&gt; &lt;span class=&quot;tok-n&quot;&gt;datum&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;tok-p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;tok-kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;tok-n&quot;&gt;doTest&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;tok-kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;tok-n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;tok-n&quot;&gt;doNotOptimizeAway&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;tok-o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;tok-mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;tok-n&quot;&gt;doNotOptimizeAway&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;tok-o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;tok-mi&quot;&gt;16&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;tok-p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;code&gt;icpc -std=c++11 -O2&lt;/code&gt; compiles the above down to&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;asm&quot;&gt;&lt;span class=&quot;tok-nf&quot;&gt;movl&lt;/span&gt;   &lt;span class=&quot;tok-kc&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;tok-mh&quot;&gt;0x0&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;tok-mh&quot;&gt;0x8&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;tok-nb&quot;&gt;rsp&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;tok-nf&quot;&gt;mov&lt;/span&gt;    &lt;span class=&quot;tok-o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;tok-mh&quot;&gt;0x8&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;tok-nb&quot;&gt;rsp&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;tok-nb&quot;&gt;eax&lt;/span&gt;
+&lt;span class=&quot;tok-nf&quot;&gt;mov&lt;/span&gt;    &lt;span class=&quot;tok-o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;tok-nb&quot;&gt;eax&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;tok-mh&quot;&gt;0x8&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;tok-nb&quot;&gt;rsp&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;tok-nf&quot;&gt;addl&lt;/span&gt;   &lt;span class=&quot;tok-kc&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;tok-mh&quot;&gt;0x10&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;tok-mh&quot;&gt;0x8&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;tok-nb&quot;&gt;rsp&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;tok-nf&quot;&gt;mov&lt;/span&gt;    &lt;span class=&quot;tok-o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;tok-mh&quot;&gt;0x8&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;tok-nb&quot;&gt;rsp&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;tok-nb&quot;&gt;edx&lt;/span&gt;
+&lt;span class=&quot;tok-nf&quot;&gt;mov&lt;/span&gt;    &lt;span class=&quot;tok-o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;tok-nb&quot;&gt;edx&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;tok-mh&quot;&gt;0x8&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;tok-nb&quot;&gt;rsp&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;tok-nf&quot;&gt;incl&lt;/span&gt;   &lt;span class=&quot;tok-o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;tok-mh&quot;&gt;0x8&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;tok-nb&quot;&gt;rsp&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;tok-nf&quot;&gt;mov&lt;/span&gt;    &lt;span class=&quot;tok-o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;tok-mh&quot;&gt;0x8&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;tok-nb&quot;&gt;rsp&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;tok-nb&quot;&gt;ecx&lt;/span&gt;
+&lt;span class=&quot;tok-nf&quot;&gt;mov&lt;/span&gt;    &lt;span class=&quot;tok-o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;tok-nb&quot;&gt;ecx&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;tok-mh&quot;&gt;0x8&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;tok-nb&quot;&gt;rsp&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;tok-nf&quot;&gt;retq&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;code&gt;g++ -std=c++11 -O2&lt;/code&gt; compiles straightly down to&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;asm&quot;&gt;&lt;span class=&quot;tok-nf&quot;&gt;xor&lt;/span&gt;    &lt;span class=&quot;tok-o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;tok-nb&quot;&gt;eax&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;tok-nb&quot;&gt;eax&lt;/span&gt;
+&lt;span class=&quot;tok-nf&quot;&gt;add&lt;/span&gt;    &lt;span class=&quot;tok-kc&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;tok-mh&quot;&gt;0x10&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;tok-nb&quot;&gt;eax&lt;/span&gt;
+&lt;span class=&quot;tok-nf&quot;&gt;retq&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock note&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;i class=&quot;fa icon-note&quot; title=&quot;Note&quot;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+The &lt;code&gt;+r&lt;/code&gt; modifier and the volatile modifier in the assembly is&lt;br&gt;
+essential. &lt;code&gt;+r&lt;/code&gt; means the &lt;code&gt;datum&lt;/code&gt; is both read from and write to by the&lt;br&gt;
+assembly, so compiler can not optimized it out. &lt;code&gt;volatile&lt;/code&gt; stops the compiler&lt;br&gt;
+from removing the empty assembly. If you try &lt;code&gt;=r&lt;/code&gt; instead of &lt;code&gt;+r&lt;/code&gt;, gcc will&lt;br&gt;
+optimize it away but icc will keep it.
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;compiler-specific-pragma&quot;&gt;Compiler specific pragma&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Compilers provides ways to control their optimizer. gcc provides &lt;code&gt;pragma GCC&lt;/code&gt;&lt;br&gt;
+as a way to control temporarily the compiler behavior. By using &lt;code&gt;pragma GCC&lt;br&gt;
+optimize(&quot;O0&quot;)&lt;/code&gt;, the optimization level can be set to zero, which means&lt;br&gt;
+absolutely no optimize for gcc.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;For example:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;tok-cp&quot;&gt;#pragma GCC push_options&lt;/span&gt;
+&lt;span class=&quot;tok-cp&quot;&gt;#pragma GCC optimize(&amp;quot;O0&amp;quot;)&lt;/span&gt;
+&lt;span class=&quot;tok-kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;tok-nf&quot;&gt;doTest&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;tok-kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;tok-n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;tok-n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;tok-o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;tok-mi&quot;&gt;15&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;tok-n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;tok-o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;tok-mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;tok-p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;tok-cp&quot;&gt;#pragma GCC pop_options&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;code&gt;g++ -std=c++98 -O2&lt;/code&gt; compiles it straight forwardly down to&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;asm&quot;&gt;&lt;span class=&quot;tok-nf&quot;&gt;movl&lt;/span&gt;   &lt;span class=&quot;tok-kc&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;tok-mh&quot;&gt;0xf&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;tok-mh&quot;&gt;0x4&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;tok-nb&quot;&gt;rsp&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;tok-nf&quot;&gt;addl&lt;/span&gt;   &lt;span class=&quot;tok-kc&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;tok-mh&quot;&gt;0x1&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;tok-mh&quot;&gt;0x4&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;tok-nb&quot;&gt;rsp&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;tok-nf&quot;&gt;retq&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;code&gt;icpc -std=c++98 -O2&lt;/code&gt; compiles it down to&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;asm&quot;&gt;&lt;span class=&quot;tok-nf&quot;&gt;sub&lt;/span&gt;    &lt;span class=&quot;tok-kc&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;tok-mh&quot;&gt;0x10&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;tok-nb&quot;&gt;rsp&lt;/span&gt;
+&lt;span class=&quot;tok-nf&quot;&gt;movl&lt;/span&gt;   &lt;span class=&quot;tok-kc&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;tok-mh&quot;&gt;0xf&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;tok-mh&quot;&gt;0x10&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;tok-nb&quot;&gt;rbp&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;tok-nf&quot;&gt;mov&lt;/span&gt;    &lt;span class=&quot;tok-kc&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;tok-mh&quot;&gt;0x1&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;tok-nb&quot;&gt;eax&lt;/span&gt;
+&lt;span class=&quot;tok-nf&quot;&gt;add&lt;/span&gt;    &lt;span class=&quot;tok-o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;tok-mh&quot;&gt;0x10&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;tok-nb&quot;&gt;rbp&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;tok-nb&quot;&gt;eax&lt;/span&gt;
+&lt;span class=&quot;tok-nf&quot;&gt;mov&lt;/span&gt;    &lt;span class=&quot;tok-o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;tok-nb&quot;&gt;eax&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;tok-mh&quot;&gt;0x10&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;tok-nb&quot;&gt;rbp&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;tok-nf&quot;&gt;leaveq&lt;/span&gt;
+&lt;span class=&quot;tok-nf&quot;&gt;retq&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Although icc does a strange transformation to the code, it leaves the code any&lt;br&gt;
+way.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock note&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;i class=&quot;fa icon-note&quot; title=&quot;Note&quot;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+The above pragma can be replaced by function attribute&lt;br&gt;
+&lt;code&gt;__attribute__((optimize(&quot;O0&quot;)))&lt;/code&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description>
+    </item>
     
     <item>
       <title>Join the Discussion at Jekyll Talk</title>
@@ -135,35 +343,6 @@ over on my personal blog: &lt;a href=&quot;https://byparker.com/blog/2014/jekyll
 Feel free to chime in over on GitHub.&lt;/p&gt;
 
 &lt;p&gt;Happy Jekylling!&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Alfred Xing has joined the Jekyll core team</title>
-      <link>http://jekyllrb.com/news/2014/12/17/alfredxing-welcome-to-jekyll-core/</link>
-      <pubDate>Wed, 17 Dec 2014 19:16:21 +0000</pubDate>
-      <dc:creator>parkr</dc:creator>
-      
-      
-      <category>team</category>
-      
-      <guid isPermaLink="true">http://jekyllrb.com/news/2014/12/17/alfredxing-welcome-to-jekyll-core/</guid>
-      <description>&lt;p&gt;We’re excited to announce that &lt;a href=&quot;https://github.com/alfredxing&quot;&gt;@alfredxing&lt;/a&gt; has joined the @jekyll/core
-team!&lt;/p&gt;
-
-&lt;p&gt;He hails from Vancouver, BC, Canada, where he is studying Economics and
-Computer Science at the &lt;a href=&quot;http://ubc.ca&quot;&gt;University of British Columbia&lt;/a&gt;. Alfred popped up in
-the issues a few months ago with terrific insights, focus, and humility.
-Performance buffs may be pleased to hear incremental regeneration will be
-released in a future version of Jekyll – a significant piece of the
-feature written by Alfred.&lt;/p&gt;
-
-&lt;p&gt;Please join me in welcoming Alfred to the Jekyll core team. We’re excited
-he’s agreed to lend his talents to this project. The future is an exciting
-place!&lt;/p&gt;
-
-&lt;p&gt;Happy Jekylling!&lt;/p&gt;
-
 </description>
     </item>
     
