@@ -30,7 +30,7 @@ echo "Copy done."
 # since repository was cloned in write mode with token auth - we can push
 # there
 cd ../programfan.github.io.master
-git checkout --track master
+git checkout --track origin/master master
 git config user.email "zyangmath@gmail.com"
 git config user.name "Yang Zhang"
 git add -A .
