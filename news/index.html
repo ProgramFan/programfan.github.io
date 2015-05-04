@@ -83,7 +83,7 @@
       
       <option value="/news/2015/02/27/introducing-jekyll-talk/">Join the Discussion at Jekyll Talk</option>
       
-      <option value="/news/2015/01/20/prevent-gcc-optimize-away-code/">Jekyll Meet & Greet at GitHub HQ</option>
+      <option value="/news/2015/01/20/prevent-gcc-optimize-away-code/">Prevent GCC from optimizing away a snippet of code</option>
       
       <option value="/news/2015/01/20/jekyll-meet-and-greet/">Jekyll Meet & Greet at GitHub HQ</option>
       
@@ -130,7 +130,7 @@
   <article>
   <h2>
     <a href="/news/2015/01/20/prevent-gcc-optimize-away-code/">
-      Jekyll Meet & Greet at GitHub HQ
+      Prevent GCC from optimizing away a snippet of code
     </a>
   </h2>
   <span class="post-category">
@@ -142,36 +142,31 @@
     <span class="post-date">
       20 Jan 2015
     </span>
-    <a href="https://github.com/Yang Zhang" class="post-author">
-      <img src="https://github.com/Yang Zhang.png" class="avatar" alt="Yang Zhang avatar" width="24" height="24">
-      Yang Zhang
+    <a href="https://github.com/ProgramFan" class="post-author">
+      <img src="https://github.com/ProgramFan.png" class="avatar" alt="ProgramFan avatar" width="24" height="24">
+      ProgramFan
     </a>
   </div>
   <div class="post-content">
-    <h1>Prevent GCC from optimizing away a snippet of code</h1>
-<div id="preamble">
-<div class="sectionbody">
-<div class="paragraph">
-<p>Nowadays compilers are extremely capable of elimiting 'dead' code. But in<br>
-benchmarking we need some seemingly 'useless' code to do the work we want. For<br>
-example, to do computation in registers in order to measure instruction<br>
-latency and throughput. In these cases, we need a mechanism to temporarily<br>
+    <div class="paragraph">
+<p>Nowadays compilers are extremely capable of elimiting 'dead' code. But in
+benchmarking we need some seemingly 'useless' code to do the work we want. For
+example, to do computation in registers in order to measure instruction
+latency and throughput. In these cases, we need a mechanism to temporarily
 disable optimization.</p>
 </div>
 <div class="paragraph">
-<p>This document keep an up-to-date collections of techniques to temporarily<br>
-disable compiler optimizations. These techniques are tested on a recent gcc or<br>
+<p>This document keep an up-to-date collections of techniques to temporarily
+disable compiler optimizations. These techniques are tested on a recent gcc or
 icc compiler.</p>
-</div>
-</div>
 </div>
 <div class="sect1">
 <h2 id="using-volatile">Using volatile</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>volatile</code> makes compilers be extremely careful (or conservative) on memory<br>
-load and store of a variable. Most compilers tend to do no optimizations at<br>
-all (even for proven dead code). So the <code>volatile</code> technique becomes the top 1<br>
+<p><code>volatile</code> makes compilers be extremely careful (or conservative) on memory
+load and store of a variable. Most compilers tend to do no optimizations at
+all (even for proven dead code). So the <code>volatile</code> technique becomes the top 1
 used.</p>
 </div>
 <div class="paragraph">
@@ -179,9 +174,9 @@ used.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="cpp"><span class="directive">void</span> doTest() {
-    <span class="directive">volatile</span> <span class="predefined-type">int</span> a = <span class="integer">0</span>;
-    a += <span class="integer">1</span>;
+<pre class="pygments highlight"><code data-lang="cpp"><span style="color: #B00040">void</span> <span style="color: #0000FF">doTest</span>() {
+    <span style="color: #008000; font-weight: bold">volatile</span> <span style="color: #B00040">int</span> a <span style="color: #666666">=</span> <span style="color: #666666">0</span>;
+    a <span style="color: #666666">+=</span> <span style="color: #666666">1</span>;
 }</code></pre>
 </div>
 </div>
@@ -190,11 +185,11 @@ used.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="asm">movl   $0x0,-0x4(%rsp)
-mov    -0x4(%rsp),%eax
-add    $0x1,%eax
-mov    %eax,-0x4(%rsp)
-retq</code></pre>
+<pre class="pygments highlight"><code data-lang="asm"><span style="color: #0000FF">movl</span>   <span style="color: #008000; font-weight: bold">$</span><span style="color: #666666">0x0</span>,<span style="color: #666666">-0x4</span>(<span style="color: #666666">%</span><span style="color: #008000">rsp</span>)
+<span style="color: #0000FF">mov</span>    <span style="color: #666666">-0x4</span>(<span style="color: #666666">%</span><span style="color: #008000">rsp</span>),<span style="color: #666666">%</span><span style="color: #008000">eax</span>
+<span style="color: #0000FF">add</span>    <span style="color: #008000; font-weight: bold">$</span><span style="color: #666666">0x1</span>,<span style="color: #666666">%</span><span style="color: #008000">eax</span>
+<span style="color: #0000FF">mov</span>    <span style="color: #666666">%</span><span style="color: #008000">eax</span>,<span style="color: #666666">-0x4</span>(<span style="color: #666666">%</span><span style="color: #008000">rsp</span>)
+<span style="color: #0000FF">retq</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -202,9 +197,9 @@ retq</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="asm">movl   $0x0,-0x8(%rsp)
-incl   -0x8(%rsp)
-retq</code></pre>
+<pre class="pygments highlight"><code data-lang="asm"><span style="color: #0000FF">movl</span>   <span style="color: #008000; font-weight: bold">$</span><span style="color: #666666">0x0</span>,<span style="color: #666666">-0x8</span>(<span style="color: #666666">%</span><span style="color: #008000">rsp</span>)
+<span style="color: #0000FF">incl</span>   <span style="color: #666666">-0x8</span>(<span style="color: #666666">%</span><span style="color: #008000">rsp</span>)
+<span style="color: #0000FF">retq</span></code></pre>
 </div>
 </div>
 </div>
@@ -213,24 +208,24 @@ retq</code></pre>
 <h2 id="empty-assembly">Empty assembly</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Another current weakness of compilers is that they are careful with inline<br>
-assembly. Some version of gcc and icc tends to leave inline assembly touched<br>
+<p>Another current weakness of compilers is that they are careful with inline
+assembly. Some version of gcc and icc tends to leave inline assembly touched
 variable intact. This becomes the second technique to prevent optimizations.</p>
 </div>
 <div class="paragraph">
-<p>For example, Facebook&#8217;s <a href="http://github.com/facebook/folly">Folly</a> library uses<br>
-the following <code>doNotOptimizeAway</code> function to prevent optimizing an<br>
+<p>For example, Facebook&#8217;s <a href="http://github.com/facebook/folly">Folly</a> library uses
+the following <code>doNotOptimizeAway</code> function to prevent optimizing an
 expression:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="cpp"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="directive">inline</span> doNotOptimizeAway(T&amp;&amp; datum) {
-    <span class="keyword">asm</span> <span class="directive">volatile</span> (<span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span> : <span class="string"><span class="delimiter">&quot;</span><span class="content">+r</span><span class="delimiter">&quot;</span></span> datum);
+<pre class="pygments highlight"><code data-lang="cpp"><span style="color: #008000; font-weight: bold">template</span> <span style="color: #666666">&lt;</span><span style="color: #008000; font-weight: bold">typename</span> T<span style="color: #666666">&gt;</span> <span style="color: #008000; font-weight: bold">inline</span> doNotOptimizeAway(T<span style="color: #666666">&amp;&amp;</span> datum) {
+    <span style="color: #008000; font-weight: bold">asm</span> <span style="color: #008000; font-weight: bold">volatile</span> (<span style="color: #BA2121">&quot;&quot;</span> <span style="color: #666666">:</span> <span style="color: #BA2121">&quot;+r&quot;</span> datum);
 }
-<span class="directive">void</span> doTest() {
-    <span class="predefined-type">int</span> a;
-    doNotOptimizeAway(a = <span class="integer">0</span>);
-    doNotOptimizeAway(a += <span class="integer">16</span>);
+<span style="color: #B00040">void</span> doTest() {
+    <span style="color: #B00040">int</span> a;
+    doNotOptimizeAway(a <span style="color: #666666">=</span> <span style="color: #666666">0</span>);
+    doNotOptimizeAway(a <span style="color: #666666">+=</span> <span style="color: #666666">16</span>);
 }</code></pre>
 </div>
 </div>
@@ -239,16 +234,16 @@ expression:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="asm">movl   $0x0,-0x8(%rsp)
-mov    -0x8(%rsp),%eax
-mov    %eax,-0x8(%rsp)
-addl   $0x10,-0x8(%rsp)
-mov    -0x8(%rsp),%edx
-mov    %edx,-0x8(%rsp)
-incl   -0x8(%rsp)
-mov    -0x8(%rsp),%ecx
-mov    %ecx,-0x8(%rsp)
-retq</code></pre>
+<pre class="pygments highlight"><code data-lang="asm"><span style="color: #0000FF">movl</span>   <span style="color: #008000; font-weight: bold">$</span><span style="color: #666666">0x0</span>,<span style="color: #666666">-0x8</span>(<span style="color: #666666">%</span><span style="color: #008000">rsp</span>)
+<span style="color: #0000FF">mov</span>    <span style="color: #666666">-0x8</span>(<span style="color: #666666">%</span><span style="color: #008000">rsp</span>),<span style="color: #666666">%</span><span style="color: #008000">eax</span>
+<span style="color: #0000FF">mov</span>    <span style="color: #666666">%</span><span style="color: #008000">eax</span>,<span style="color: #666666">-0x8</span>(<span style="color: #666666">%</span><span style="color: #008000">rsp</span>)
+<span style="color: #0000FF">addl</span>   <span style="color: #008000; font-weight: bold">$</span><span style="color: #666666">0x10</span>,<span style="color: #666666">-0x8</span>(<span style="color: #666666">%</span><span style="color: #008000">rsp</span>)
+<span style="color: #0000FF">mov</span>    <span style="color: #666666">-0x8</span>(<span style="color: #666666">%</span><span style="color: #008000">rsp</span>),<span style="color: #666666">%</span><span style="color: #008000">edx</span>
+<span style="color: #0000FF">mov</span>    <span style="color: #666666">%</span><span style="color: #008000">edx</span>,<span style="color: #666666">-0x8</span>(<span style="color: #666666">%</span><span style="color: #008000">rsp</span>)
+<span style="color: #0000FF">incl</span>   <span style="color: #666666">-0x8</span>(<span style="color: #666666">%</span><span style="color: #008000">rsp</span>)
+<span style="color: #0000FF">mov</span>    <span style="color: #666666">-0x8</span>(<span style="color: #666666">%</span><span style="color: #008000">rsp</span>),<span style="color: #666666">%</span><span style="color: #008000">ecx</span>
+<span style="color: #0000FF">mov</span>    <span style="color: #666666">%</span><span style="color: #008000">ecx</span>,<span style="color: #666666">-0x8</span>(<span style="color: #666666">%</span><span style="color: #008000">rsp</span>)
+<span style="color: #0000FF">retq</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -256,9 +251,9 @@ retq</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="asm">xor    %eax,%eax
-add    $0x10,%eax
-retq</code></pre>
+<pre class="pygments highlight"><code data-lang="asm"><span style="color: #0000FF">xor</span>    <span style="color: #666666">%</span><span style="color: #008000">eax</span>,<span style="color: #666666">%</span><span style="color: #008000">eax</span>
+<span style="color: #0000FF">add</span>    <span style="color: #008000; font-weight: bold">$</span><span style="color: #666666">0x10</span>,<span style="color: #666666">%</span><span style="color: #008000">eax</span>
+<span style="color: #0000FF">retq</span></code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -268,10 +263,10 @@ retq</code></pre>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-The <code>+r</code> modifier and the volatile modifier in the assembly is<br>
-essential. <code>+r</code> means the <code>datum</code> is both read from and write to by the<br>
-assembly, so compiler can not optimized it out. <code>volatile</code> stops the compiler<br>
-from removing the empty assembly. If you try <code>=r</code> instead of <code>+r</code>, gcc will<br>
+The <code>+r</code> modifier and the volatile modifier in the assembly is
+essential. <code>+r</code> means the <code>datum</code> is both read from and write to by the
+assembly, so compiler can not optimized it out. <code>volatile</code> stops the compiler
+from removing the empty assembly. If you try <code>=r</code> instead of <code>+r</code>, gcc will
 optimize it away but icc will keep it.
 </td>
 </tr>
@@ -283,34 +278,39 @@ optimize it away but icc will keep it.
 <h2 id="compiler-specific-pragma">Compiler specific pragma</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Compilers provides ways to control their optimizer. gcc provides <code>pragma GCC</code><br>
-as a way to control temporarily the compiler behavior. By using <code>pragma GCC<br>
-optimize("O0")</code>, the optimization level can be set to zero, which means<br>
-absolutely no optimize for gcc.</p>
+<p>Compilers provides ways to control their optimizer. gcc provides <code>pragma GCC</code> as a way to control temporarily the compiler behavior. By using <code>pragma GCC optimize("O0")</code>, the optimization level can be set to zero, which means absolutely no optimize for gcc.</p>
 </div>
 <div class="paragraph">
 <p>For example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="cpp"><span class="preprocessor">#pragma</span> GCC push_options
-<span class="preprocessor">#pragma</span> GCC optimize(<span class="string"><span class="delimiter">&quot;</span><span class="content">O0</span><span class="delimiter">&quot;</span></span>)
-<span class="directive">void</span> doTest() {
-    <span class="predefined-type">int</span> a;
-    a = <span class="integer">15</span>;
-    a += <span class="integer">1</span>;
+<pre class="pygments highlight"><code data-lang="cpp"><span style="color: #BC7A00">#pragma GCC push_options</span>
+<span style="color: #BC7A00">#pragma GCC optimize(&quot;O0&quot;)</span>
+<span style="color: #B00040">void</span> <span style="color: #0000FF">doTest</span>() {
+    <span style="color: #B00040">int</span> a;  <i class="conum" data-value="1"></i><b>(1)</b>
+    a <span style="color: #666666">=</span> <span style="color: #666666">15</span>;
+    a <span style="color: #666666">+=</span> <span style="color: #666666">1</span>;
 }
-<span class="preprocessor">#pragma</span> GCC pop_options</code></pre>
+<span style="color: #BC7A00">#pragma GCC pop_options</span></code></pre>
 </div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>This is a callout.</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p><code>g++ -std=c++98 -O2</code> compiles it straight forwardly down to</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="asm">movl   $0xf,-0x4(%rsp)
-addl   $0x1,-0x4(%rsp)
-retq</code></pre>
+<pre class="pygments highlight"><code data-lang="asm"><span style="color: #0000FF">movl</span>   <span style="color: #008000; font-weight: bold">$</span><span style="color: #666666">0xf</span>,<span style="color: #666666">-0x4</span>(<span style="color: #666666">%</span><span style="color: #008000">rsp</span>)
+<span style="color: #0000FF">addl</span>   <span style="color: #008000; font-weight: bold">$</span><span style="color: #666666">0x1</span>,<span style="color: #666666">-0x4</span>(<span style="color: #666666">%</span><span style="color: #008000">rsp</span>)
+<span style="color: #0000FF">retq</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -318,17 +318,17 @@ retq</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="asm">sub    $0x10,%rsp
-movl   $0xf,-0x10(%rbp)
-mov    $0x1,%eax
-add    -0x10(%rbp),%eax
-mov    %eax,-0x10(%rbp)
-leaveq
-retq</code></pre>
+<pre class="pygments highlight"><code data-lang="asm"><span style="color: #0000FF">sub</span>    <span style="color: #008000; font-weight: bold">$</span><span style="color: #666666">0x10</span>,<span style="color: #666666">%</span><span style="color: #008000">rsp</span>
+<span style="color: #0000FF">movl</span>   <span style="color: #008000; font-weight: bold">$</span><span style="color: #666666">0xf</span>,<span style="color: #666666">-0x10</span>(<span style="color: #666666">%</span><span style="color: #008000">rbp</span>)
+<span style="color: #0000FF">mov</span>    <span style="color: #008000; font-weight: bold">$</span><span style="color: #666666">0x1</span>,<span style="color: #666666">%</span><span style="color: #008000">eax</span>
+<span style="color: #0000FF">add</span>    <span style="color: #666666">-0x10</span>(<span style="color: #666666">%</span><span style="color: #008000">rbp</span>),<span style="color: #666666">%</span><span style="color: #008000">eax</span>
+<span style="color: #0000FF">mov</span>    <span style="color: #666666">%</span><span style="color: #008000">eax</span>,<span style="color: #666666">-0x10</span>(<span style="color: #666666">%</span><span style="color: #008000">rbp</span>)
+<span style="color: #0000FF">leaveq</span>
+<span style="color: #0000FF">retq</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Although icc does a strange transformation to the code, it leaves the code any<br>
+<p>Although icc does a strange transformation to the code, it leaves the code any
 way.</p>
 </div>
 <div class="admonitionblock note">
@@ -338,7 +338,7 @@ way.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-The above pragma can be replaced by function attribute<br>
+The above pragma can be replaced by function attribute
 <code>__attribute__((optimize("O0")))</code>
 </td>
 </tr>
@@ -419,7 +419,7 @@ all possible! You rock.</p>
         
         
         <li class="">
-          <a href="/news/2015/01/20/prevent-gcc-optimize-away-code/">Jekyll Meet & Greet at GitHub HQ</a>
+          <a href="/news/2015/01/20/prevent-gcc-optimize-away-code/">Prevent GCC from optimizing away a snippet of code</a>
         </li>
         
         
@@ -491,34 +491,7 @@ all possible! You rock.</p>
 </script>
 
   
-  <!-- Gauges (http://gaug.es/) -->
-  <script>
-    var _gauges = _gauges || [];
-    (function() {
-      var t   = document.createElement('script');
-      t.type  = 'text/javascript';
-      t.async = true;
-      t.id    = 'gauges-tracker';
-      t.setAttribute('data-site-id', '503c5af6613f5d0f19000027');
-      t.src = '//secure.gaug.es/track.js';
-      var s = document.getElementsByTagName('script')[0];
-      s.parentNode.insertBefore(t, s);
-    })();
-  </script>
 
-
-
-  <!-- Google Analytics (http://google.com/analytics) -->
-  <script>
-    !function(j,e,k,y,l,L){j.GoogleAnalyticsObject=y,j[y]||(j[y]=function(){
-    (j[y].q=j[y].q||[]).push(arguments)}),j[y].l=+new Date,l=e.createElement(k),
-    L=e.getElementsByTagName(k)[0],l.src='//www.google-analytics.com/analytics.js',
-    L.parentNode.insertBefore(l,L)}(window,document,'script','ga');
-
-    ga('create', 'UA-50755011-1', 'jekyllrb.com');
-    ga('send', 'pageview');
-
-  </script>
 
 
 

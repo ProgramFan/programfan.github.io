@@ -11,8 +11,8 @@
     <title xml:lang="en">Jekyll • Simple, blog-aware, static sites</title>
     <atom:link type="application/atom+xml" href="http://jekyllrb.com/feed.xml" rel="self"/>
     <link>http://jekyllrb.com/</link>
-    <pubDate>Mon, 04 May 2015 15:18:44 +0000</pubDate>
-    <lastBuildDate>Mon, 04 May 2015 15:18:44 +0000</lastBuildDate>
+    <pubDate>Mon, 04 May 2015 16:18:17 +0000</pubDate>
+    <lastBuildDate>Mon, 04 May 2015 16:18:17 +0000</lastBuildDate>
     <language>en-US</language>
     <generator>Jekyll v2.5.3</generator>
     <description>Transform your plain text into static websites and blogs.</description>
@@ -46,10 +46,10 @@
     </item>
     
     <item>
-      <title>Jekyll Meet &amp; Greet at GitHub HQ</title>
+      <title>Prevent GCC from optimizing away a snippet of code</title>
       <link>http://jekyllrb.com/news/2015/01/20/prevent-gcc-optimize-away-code/</link>
       <pubDate>Tue, 20 Jan 2015 19:23:12 -0800</pubDate>
-      <dc:creator>Yang Zhang</dc:creator>
+      <dc:creator>ProgramFan</dc:creator>
       
       
       <category>c++</category>
@@ -57,30 +57,25 @@
       <category>gcc</category>
       
       <guid isPermaLink="true">http://jekyllrb.com/news/2015/01/20/prevent-gcc-optimize-away-code/</guid>
-      <description>&lt;h1&gt;Prevent GCC from optimizing away a snippet of code&lt;/h1&gt;
-&lt;div id=&quot;preamble&quot;&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Nowadays compilers are extremely capable of elimiting &#39;dead&#39; code. But in&lt;br&gt;
-benchmarking we need some seemingly &#39;useless&#39; code to do the work we want. For&lt;br&gt;
-example, to do computation in registers in order to measure instruction&lt;br&gt;
-latency and throughput. In these cases, we need a mechanism to temporarily&lt;br&gt;
+      <description>&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Nowadays compilers are extremely capable of elimiting &#39;dead&#39; code. But in
+benchmarking we need some seemingly &#39;useless&#39; code to do the work we want. For
+example, to do computation in registers in order to measure instruction
+latency and throughput. In these cases, we need a mechanism to temporarily
 disable optimization.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;This document keep an up-to-date collections of techniques to temporarily&lt;br&gt;
-disable compiler optimizations. These techniques are tested on a recent gcc or&lt;br&gt;
+&lt;p&gt;This document keep an up-to-date collections of techniques to temporarily
+disable compiler optimizations. These techniques are tested on a recent gcc or
 icc compiler.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;sect1&quot;&gt;
 &lt;h2 id=&quot;using-volatile&quot;&gt;Using volatile&lt;/h2&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;code&gt;volatile&lt;/code&gt; makes compilers be extremely careful (or conservative) on memory&lt;br&gt;
-load and store of a variable. Most compilers tend to do no optimizations at&lt;br&gt;
-all (even for proven dead code). So the &lt;code&gt;volatile&lt;/code&gt; technique becomes the top 1&lt;br&gt;
+&lt;p&gt;&lt;code&gt;volatile&lt;/code&gt; makes compilers be extremely careful (or conservative) on memory
+load and store of a variable. Most compilers tend to do no optimizations at
+all (even for proven dead code). So the &lt;code&gt;volatile&lt;/code&gt; technique becomes the top 1
 used.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
@@ -88,9 +83,9 @@ used.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;CodeRay highlight&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;directive&quot;&gt;void&lt;/span&gt; doTest() {
-    &lt;span class=&quot;directive&quot;&gt;volatile&lt;/span&gt; &lt;span class=&quot;predefined-type&quot;&gt;int&lt;/span&gt; a = &lt;span class=&quot;integer&quot;&gt;0&lt;/span&gt;;
-    a += &lt;span class=&quot;integer&quot;&gt;1&lt;/span&gt;;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span style=&quot;color: #B00040&quot;&gt;void&lt;/span&gt; &lt;span style=&quot;color: #0000FF&quot;&gt;doTest&lt;/span&gt;() {
+    &lt;span style=&quot;color: #008000; font-weight: bold&quot;&gt;volatile&lt;/span&gt; &lt;span style=&quot;color: #B00040&quot;&gt;int&lt;/span&gt; a &lt;span style=&quot;color: #666666&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color: #666666&quot;&gt;0&lt;/span&gt;;
+    a &lt;span style=&quot;color: #666666&quot;&gt;+=&lt;/span&gt; &lt;span style=&quot;color: #666666&quot;&gt;1&lt;/span&gt;;
 }&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -99,11 +94,11 @@ used.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;CodeRay highlight&quot;&gt;&lt;code data-lang=&quot;asm&quot;&gt;movl   $0x0,-0x4(%rsp)
-mov    -0x4(%rsp),%eax
-add    $0x1,%eax
-mov    %eax,-0x4(%rsp)
-retq&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;asm&quot;&gt;&lt;span style=&quot;color: #0000FF&quot;&gt;movl&lt;/span&gt;   &lt;span style=&quot;color: #008000; font-weight: bold&quot;&gt;$&lt;/span&gt;&lt;span style=&quot;color: #666666&quot;&gt;0x0&lt;/span&gt;,&lt;span style=&quot;color: #666666&quot;&gt;-0x4&lt;/span&gt;(&lt;span style=&quot;color: #666666&quot;&gt;%&lt;/span&gt;&lt;span style=&quot;color: #008000&quot;&gt;rsp&lt;/span&gt;)
+&lt;span style=&quot;color: #0000FF&quot;&gt;mov&lt;/span&gt;    &lt;span style=&quot;color: #666666&quot;&gt;-0x4&lt;/span&gt;(&lt;span style=&quot;color: #666666&quot;&gt;%&lt;/span&gt;&lt;span style=&quot;color: #008000&quot;&gt;rsp&lt;/span&gt;),&lt;span style=&quot;color: #666666&quot;&gt;%&lt;/span&gt;&lt;span style=&quot;color: #008000&quot;&gt;eax&lt;/span&gt;
+&lt;span style=&quot;color: #0000FF&quot;&gt;add&lt;/span&gt;    &lt;span style=&quot;color: #008000; font-weight: bold&quot;&gt;$&lt;/span&gt;&lt;span style=&quot;color: #666666&quot;&gt;0x1&lt;/span&gt;,&lt;span style=&quot;color: #666666&quot;&gt;%&lt;/span&gt;&lt;span style=&quot;color: #008000&quot;&gt;eax&lt;/span&gt;
+&lt;span style=&quot;color: #0000FF&quot;&gt;mov&lt;/span&gt;    &lt;span style=&quot;color: #666666&quot;&gt;%&lt;/span&gt;&lt;span style=&quot;color: #008000&quot;&gt;eax&lt;/span&gt;,&lt;span style=&quot;color: #666666&quot;&gt;-0x4&lt;/span&gt;(&lt;span style=&quot;color: #666666&quot;&gt;%&lt;/span&gt;&lt;span style=&quot;color: #008000&quot;&gt;rsp&lt;/span&gt;)
+&lt;span style=&quot;color: #0000FF&quot;&gt;retq&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
@@ -111,9 +106,9 @@ retq&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;CodeRay highlight&quot;&gt;&lt;code data-lang=&quot;asm&quot;&gt;movl   $0x0,-0x8(%rsp)
-incl   -0x8(%rsp)
-retq&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;asm&quot;&gt;&lt;span style=&quot;color: #0000FF&quot;&gt;movl&lt;/span&gt;   &lt;span style=&quot;color: #008000; font-weight: bold&quot;&gt;$&lt;/span&gt;&lt;span style=&quot;color: #666666&quot;&gt;0x0&lt;/span&gt;,&lt;span style=&quot;color: #666666&quot;&gt;-0x8&lt;/span&gt;(&lt;span style=&quot;color: #666666&quot;&gt;%&lt;/span&gt;&lt;span style=&quot;color: #008000&quot;&gt;rsp&lt;/span&gt;)
+&lt;span style=&quot;color: #0000FF&quot;&gt;incl&lt;/span&gt;   &lt;span style=&quot;color: #666666&quot;&gt;-0x8&lt;/span&gt;(&lt;span style=&quot;color: #666666&quot;&gt;%&lt;/span&gt;&lt;span style=&quot;color: #008000&quot;&gt;rsp&lt;/span&gt;)
+&lt;span style=&quot;color: #0000FF&quot;&gt;retq&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -122,24 +117,24 @@ retq&lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&quot;empty-assembly&quot;&gt;Empty assembly&lt;/h2&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Another current weakness of compilers is that they are careful with inline&lt;br&gt;
-assembly. Some version of gcc and icc tends to leave inline assembly touched&lt;br&gt;
+&lt;p&gt;Another current weakness of compilers is that they are careful with inline
+assembly. Some version of gcc and icc tends to leave inline assembly touched
 variable intact. This becomes the second technique to prevent optimizations.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;For example, Facebook&amp;#8217;s &lt;a href=&quot;http://github.com/facebook/folly&quot;&gt;Folly&lt;/a&gt; library uses&lt;br&gt;
-the following &lt;code&gt;doNotOptimizeAway&lt;/code&gt; function to prevent optimizing an&lt;br&gt;
+&lt;p&gt;For example, Facebook&amp;#8217;s &lt;a href=&quot;http://github.com/facebook/folly&quot;&gt;Folly&lt;/a&gt; library uses
+the following &lt;code&gt;doNotOptimizeAway&lt;/code&gt; function to prevent optimizing an
 expression:&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;CodeRay highlight&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;template&lt;/span&gt; &amp;lt;&lt;span class=&quot;keyword&quot;&gt;typename&lt;/span&gt; T&amp;gt; &lt;span class=&quot;directive&quot;&gt;inline&lt;/span&gt; doNotOptimizeAway(T&amp;amp;&amp;amp; datum) {
-    &lt;span class=&quot;keyword&quot;&gt;asm&lt;/span&gt; &lt;span class=&quot;directive&quot;&gt;volatile&lt;/span&gt; (&lt;span class=&quot;string&quot;&gt;&lt;span class=&quot;delimiter&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;delimiter&quot;&gt;&amp;quot;&lt;/span&gt;&lt;/span&gt; : &lt;span class=&quot;string&quot;&gt;&lt;span class=&quot;delimiter&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;content&quot;&gt;+r&lt;/span&gt;&lt;span class=&quot;delimiter&quot;&gt;&amp;quot;&lt;/span&gt;&lt;/span&gt; datum);
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span style=&quot;color: #008000; font-weight: bold&quot;&gt;template&lt;/span&gt; &lt;span style=&quot;color: #666666&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&quot;color: #008000; font-weight: bold&quot;&gt;typename&lt;/span&gt; T&lt;span style=&quot;color: #666666&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&quot;color: #008000; font-weight: bold&quot;&gt;inline&lt;/span&gt; doNotOptimizeAway(T&lt;span style=&quot;color: #666666&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; datum) {
+    &lt;span style=&quot;color: #008000; font-weight: bold&quot;&gt;asm&lt;/span&gt; &lt;span style=&quot;color: #008000; font-weight: bold&quot;&gt;volatile&lt;/span&gt; (&lt;span style=&quot;color: #BA2121&quot;&gt;&amp;quot;&amp;quot;&lt;/span&gt; &lt;span style=&quot;color: #666666&quot;&gt;:&lt;/span&gt; &lt;span style=&quot;color: #BA2121&quot;&gt;&amp;quot;+r&amp;quot;&lt;/span&gt; datum);
 }
-&lt;span class=&quot;directive&quot;&gt;void&lt;/span&gt; doTest() {
-    &lt;span class=&quot;predefined-type&quot;&gt;int&lt;/span&gt; a;
-    doNotOptimizeAway(a = &lt;span class=&quot;integer&quot;&gt;0&lt;/span&gt;);
-    doNotOptimizeAway(a += &lt;span class=&quot;integer&quot;&gt;16&lt;/span&gt;);
+&lt;span style=&quot;color: #B00040&quot;&gt;void&lt;/span&gt; doTest() {
+    &lt;span style=&quot;color: #B00040&quot;&gt;int&lt;/span&gt; a;
+    doNotOptimizeAway(a &lt;span style=&quot;color: #666666&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color: #666666&quot;&gt;0&lt;/span&gt;);
+    doNotOptimizeAway(a &lt;span style=&quot;color: #666666&quot;&gt;+=&lt;/span&gt; &lt;span style=&quot;color: #666666&quot;&gt;16&lt;/span&gt;);
 }&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -148,16 +143,16 @@ expression:&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;CodeRay highlight&quot;&gt;&lt;code data-lang=&quot;asm&quot;&gt;movl   $0x0,-0x8(%rsp)
-mov    -0x8(%rsp),%eax
-mov    %eax,-0x8(%rsp)
-addl   $0x10,-0x8(%rsp)
-mov    -0x8(%rsp),%edx
-mov    %edx,-0x8(%rsp)
-incl   -0x8(%rsp)
-mov    -0x8(%rsp),%ecx
-mov    %ecx,-0x8(%rsp)
-retq&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;asm&quot;&gt;&lt;span style=&quot;color: #0000FF&quot;&gt;movl&lt;/span&gt;   &lt;span style=&quot;color: #008000; font-weight: bold&quot;&gt;$&lt;/span&gt;&lt;span style=&quot;color: #666666&quot;&gt;0x0&lt;/span&gt;,&lt;span style=&quot;color: #666666&quot;&gt;-0x8&lt;/span&gt;(&lt;span style=&quot;color: #666666&quot;&gt;%&lt;/span&gt;&lt;span style=&quot;color: #008000&quot;&gt;rsp&lt;/span&gt;)
+&lt;span style=&quot;color: #0000FF&quot;&gt;mov&lt;/span&gt;    &lt;span style=&quot;color: #666666&quot;&gt;-0x8&lt;/span&gt;(&lt;span style=&quot;color: #666666&quot;&gt;%&lt;/span&gt;&lt;span style=&quot;color: #008000&quot;&gt;rsp&lt;/span&gt;),&lt;span style=&quot;color: #666666&quot;&gt;%&lt;/span&gt;&lt;span style=&quot;color: #008000&quot;&gt;eax&lt;/span&gt;
+&lt;span style=&quot;color: #0000FF&quot;&gt;mov&lt;/span&gt;    &lt;span style=&quot;color: #666666&quot;&gt;%&lt;/span&gt;&lt;span style=&quot;color: #008000&quot;&gt;eax&lt;/span&gt;,&lt;span style=&quot;color: #666666&quot;&gt;-0x8&lt;/span&gt;(&lt;span style=&quot;color: #666666&quot;&gt;%&lt;/span&gt;&lt;span style=&quot;color: #008000&quot;&gt;rsp&lt;/span&gt;)
+&lt;span style=&quot;color: #0000FF&quot;&gt;addl&lt;/span&gt;   &lt;span style=&quot;color: #008000; font-weight: bold&quot;&gt;$&lt;/span&gt;&lt;span style=&quot;color: #666666&quot;&gt;0x10&lt;/span&gt;,&lt;span style=&quot;color: #666666&quot;&gt;-0x8&lt;/span&gt;(&lt;span style=&quot;color: #666666&quot;&gt;%&lt;/span&gt;&lt;span style=&quot;color: #008000&quot;&gt;rsp&lt;/span&gt;)
+&lt;span style=&quot;color: #0000FF&quot;&gt;mov&lt;/span&gt;    &lt;span style=&quot;color: #666666&quot;&gt;-0x8&lt;/span&gt;(&lt;span style=&quot;color: #666666&quot;&gt;%&lt;/span&gt;&lt;span style=&quot;color: #008000&quot;&gt;rsp&lt;/span&gt;),&lt;span style=&quot;color: #666666&quot;&gt;%&lt;/span&gt;&lt;span style=&quot;color: #008000&quot;&gt;edx&lt;/span&gt;
+&lt;span style=&quot;color: #0000FF&quot;&gt;mov&lt;/span&gt;    &lt;span style=&quot;color: #666666&quot;&gt;%&lt;/span&gt;&lt;span style=&quot;color: #008000&quot;&gt;edx&lt;/span&gt;,&lt;span style=&quot;color: #666666&quot;&gt;-0x8&lt;/span&gt;(&lt;span style=&quot;color: #666666&quot;&gt;%&lt;/span&gt;&lt;span style=&quot;color: #008000&quot;&gt;rsp&lt;/span&gt;)
+&lt;span style=&quot;color: #0000FF&quot;&gt;incl&lt;/span&gt;   &lt;span style=&quot;color: #666666&quot;&gt;-0x8&lt;/span&gt;(&lt;span style=&quot;color: #666666&quot;&gt;%&lt;/span&gt;&lt;span style=&quot;color: #008000&quot;&gt;rsp&lt;/span&gt;)
+&lt;span style=&quot;color: #0000FF&quot;&gt;mov&lt;/span&gt;    &lt;span style=&quot;color: #666666&quot;&gt;-0x8&lt;/span&gt;(&lt;span style=&quot;color: #666666&quot;&gt;%&lt;/span&gt;&lt;span style=&quot;color: #008000&quot;&gt;rsp&lt;/span&gt;),&lt;span style=&quot;color: #666666&quot;&gt;%&lt;/span&gt;&lt;span style=&quot;color: #008000&quot;&gt;ecx&lt;/span&gt;
+&lt;span style=&quot;color: #0000FF&quot;&gt;mov&lt;/span&gt;    &lt;span style=&quot;color: #666666&quot;&gt;%&lt;/span&gt;&lt;span style=&quot;color: #008000&quot;&gt;ecx&lt;/span&gt;,&lt;span style=&quot;color: #666666&quot;&gt;-0x8&lt;/span&gt;(&lt;span style=&quot;color: #666666&quot;&gt;%&lt;/span&gt;&lt;span style=&quot;color: #008000&quot;&gt;rsp&lt;/span&gt;)
+&lt;span style=&quot;color: #0000FF&quot;&gt;retq&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
@@ -165,9 +160,9 @@ retq&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;CodeRay highlight&quot;&gt;&lt;code data-lang=&quot;asm&quot;&gt;xor    %eax,%eax
-add    $0x10,%eax
-retq&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;asm&quot;&gt;&lt;span style=&quot;color: #0000FF&quot;&gt;xor&lt;/span&gt;    &lt;span style=&quot;color: #666666&quot;&gt;%&lt;/span&gt;&lt;span style=&quot;color: #008000&quot;&gt;eax&lt;/span&gt;,&lt;span style=&quot;color: #666666&quot;&gt;%&lt;/span&gt;&lt;span style=&quot;color: #008000&quot;&gt;eax&lt;/span&gt;
+&lt;span style=&quot;color: #0000FF&quot;&gt;add&lt;/span&gt;    &lt;span style=&quot;color: #008000; font-weight: bold&quot;&gt;$&lt;/span&gt;&lt;span style=&quot;color: #666666&quot;&gt;0x10&lt;/span&gt;,&lt;span style=&quot;color: #666666&quot;&gt;%&lt;/span&gt;&lt;span style=&quot;color: #008000&quot;&gt;eax&lt;/span&gt;
+&lt;span style=&quot;color: #0000FF&quot;&gt;retq&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;admonitionblock note&quot;&gt;
@@ -177,10 +172,10 @@ retq&lt;/code&gt;&lt;/pre&gt;
 &lt;i class=&quot;fa icon-note&quot; title=&quot;Note&quot;&gt;&lt;/i&gt;
 &lt;/td&gt;
 &lt;td class=&quot;content&quot;&gt;
-The &lt;code&gt;+r&lt;/code&gt; modifier and the volatile modifier in the assembly is&lt;br&gt;
-essential. &lt;code&gt;+r&lt;/code&gt; means the &lt;code&gt;datum&lt;/code&gt; is both read from and write to by the&lt;br&gt;
-assembly, so compiler can not optimized it out. &lt;code&gt;volatile&lt;/code&gt; stops the compiler&lt;br&gt;
-from removing the empty assembly. If you try &lt;code&gt;=r&lt;/code&gt; instead of &lt;code&gt;+r&lt;/code&gt;, gcc will&lt;br&gt;
+The &lt;code&gt;+r&lt;/code&gt; modifier and the volatile modifier in the assembly is
+essential. &lt;code&gt;+r&lt;/code&gt; means the &lt;code&gt;datum&lt;/code&gt; is both read from and write to by the
+assembly, so compiler can not optimized it out. &lt;code&gt;volatile&lt;/code&gt; stops the compiler
+from removing the empty assembly. If you try &lt;code&gt;=r&lt;/code&gt; instead of &lt;code&gt;+r&lt;/code&gt;, gcc will
 optimize it away but icc will keep it.
 &lt;/td&gt;
 &lt;/tr&gt;
@@ -192,34 +187,39 @@ optimize it away but icc will keep it.
 &lt;h2 id=&quot;compiler-specific-pragma&quot;&gt;Compiler specific pragma&lt;/h2&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Compilers provides ways to control their optimizer. gcc provides &lt;code&gt;pragma GCC&lt;/code&gt;&lt;br&gt;
-as a way to control temporarily the compiler behavior. By using &lt;code&gt;pragma GCC&lt;br&gt;
-optimize(&quot;O0&quot;)&lt;/code&gt;, the optimization level can be set to zero, which means&lt;br&gt;
-absolutely no optimize for gcc.&lt;/p&gt;
+&lt;p&gt;Compilers provides ways to control their optimizer. gcc provides &lt;code&gt;pragma GCC&lt;/code&gt; as a way to control temporarily the compiler behavior. By using &lt;code&gt;pragma GCC optimize(&quot;O0&quot;)&lt;/code&gt;, the optimization level can be set to zero, which means absolutely no optimize for gcc.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;For example:&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;CodeRay highlight&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;preprocessor&quot;&gt;#pragma&lt;/span&gt; GCC push_options
-&lt;span class=&quot;preprocessor&quot;&gt;#pragma&lt;/span&gt; GCC optimize(&lt;span class=&quot;string&quot;&gt;&lt;span class=&quot;delimiter&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;content&quot;&gt;O0&lt;/span&gt;&lt;span class=&quot;delimiter&quot;&gt;&amp;quot;&lt;/span&gt;&lt;/span&gt;)
-&lt;span class=&quot;directive&quot;&gt;void&lt;/span&gt; doTest() {
-    &lt;span class=&quot;predefined-type&quot;&gt;int&lt;/span&gt; a;
-    a = &lt;span class=&quot;integer&quot;&gt;15&lt;/span&gt;;
-    a += &lt;span class=&quot;integer&quot;&gt;1&lt;/span&gt;;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span style=&quot;color: #BC7A00&quot;&gt;#pragma GCC push_options&lt;/span&gt;
+&lt;span style=&quot;color: #BC7A00&quot;&gt;#pragma GCC optimize(&amp;quot;O0&amp;quot;)&lt;/span&gt;
+&lt;span style=&quot;color: #B00040&quot;&gt;void&lt;/span&gt; &lt;span style=&quot;color: #0000FF&quot;&gt;doTest&lt;/span&gt;() {
+    &lt;span style=&quot;color: #B00040&quot;&gt;int&lt;/span&gt; a;  &lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;(1)&lt;/b&gt;
+    a &lt;span style=&quot;color: #666666&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color: #666666&quot;&gt;15&lt;/span&gt;;
+    a &lt;span style=&quot;color: #666666&quot;&gt;+=&lt;/span&gt; &lt;span style=&quot;color: #666666&quot;&gt;1&lt;/span&gt;;
 }
-&lt;span class=&quot;preprocessor&quot;&gt;#pragma&lt;/span&gt; GCC pop_options&lt;/code&gt;&lt;/pre&gt;
+&lt;span style=&quot;color: #BC7A00&quot;&gt;#pragma GCC pop_options&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;colist arabic&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;1&lt;/b&gt;&lt;/td&gt;
+&lt;td&gt;This is a callout.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;&lt;code&gt;g++ -std=c++98 -O2&lt;/code&gt; compiles it straight forwardly down to&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;CodeRay highlight&quot;&gt;&lt;code data-lang=&quot;asm&quot;&gt;movl   $0xf,-0x4(%rsp)
-addl   $0x1,-0x4(%rsp)
-retq&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;asm&quot;&gt;&lt;span style=&quot;color: #0000FF&quot;&gt;movl&lt;/span&gt;   &lt;span style=&quot;color: #008000; font-weight: bold&quot;&gt;$&lt;/span&gt;&lt;span style=&quot;color: #666666&quot;&gt;0xf&lt;/span&gt;,&lt;span style=&quot;color: #666666&quot;&gt;-0x4&lt;/span&gt;(&lt;span style=&quot;color: #666666&quot;&gt;%&lt;/span&gt;&lt;span style=&quot;color: #008000&quot;&gt;rsp&lt;/span&gt;)
+&lt;span style=&quot;color: #0000FF&quot;&gt;addl&lt;/span&gt;   &lt;span style=&quot;color: #008000; font-weight: bold&quot;&gt;$&lt;/span&gt;&lt;span style=&quot;color: #666666&quot;&gt;0x1&lt;/span&gt;,&lt;span style=&quot;color: #666666&quot;&gt;-0x4&lt;/span&gt;(&lt;span style=&quot;color: #666666&quot;&gt;%&lt;/span&gt;&lt;span style=&quot;color: #008000&quot;&gt;rsp&lt;/span&gt;)
+&lt;span style=&quot;color: #0000FF&quot;&gt;retq&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
@@ -227,17 +227,17 @@ retq&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;CodeRay highlight&quot;&gt;&lt;code data-lang=&quot;asm&quot;&gt;sub    $0x10,%rsp
-movl   $0xf,-0x10(%rbp)
-mov    $0x1,%eax
-add    -0x10(%rbp),%eax
-mov    %eax,-0x10(%rbp)
-leaveq
-retq&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;asm&quot;&gt;&lt;span style=&quot;color: #0000FF&quot;&gt;sub&lt;/span&gt;    &lt;span style=&quot;color: #008000; font-weight: bold&quot;&gt;$&lt;/span&gt;&lt;span style=&quot;color: #666666&quot;&gt;0x10&lt;/span&gt;,&lt;span style=&quot;color: #666666&quot;&gt;%&lt;/span&gt;&lt;span style=&quot;color: #008000&quot;&gt;rsp&lt;/span&gt;
+&lt;span style=&quot;color: #0000FF&quot;&gt;movl&lt;/span&gt;   &lt;span style=&quot;color: #008000; font-weight: bold&quot;&gt;$&lt;/span&gt;&lt;span style=&quot;color: #666666&quot;&gt;0xf&lt;/span&gt;,&lt;span style=&quot;color: #666666&quot;&gt;-0x10&lt;/span&gt;(&lt;span style=&quot;color: #666666&quot;&gt;%&lt;/span&gt;&lt;span style=&quot;color: #008000&quot;&gt;rbp&lt;/span&gt;)
+&lt;span style=&quot;color: #0000FF&quot;&gt;mov&lt;/span&gt;    &lt;span style=&quot;color: #008000; font-weight: bold&quot;&gt;$&lt;/span&gt;&lt;span style=&quot;color: #666666&quot;&gt;0x1&lt;/span&gt;,&lt;span style=&quot;color: #666666&quot;&gt;%&lt;/span&gt;&lt;span style=&quot;color: #008000&quot;&gt;eax&lt;/span&gt;
+&lt;span style=&quot;color: #0000FF&quot;&gt;add&lt;/span&gt;    &lt;span style=&quot;color: #666666&quot;&gt;-0x10&lt;/span&gt;(&lt;span style=&quot;color: #666666&quot;&gt;%&lt;/span&gt;&lt;span style=&quot;color: #008000&quot;&gt;rbp&lt;/span&gt;),&lt;span style=&quot;color: #666666&quot;&gt;%&lt;/span&gt;&lt;span style=&quot;color: #008000&quot;&gt;eax&lt;/span&gt;
+&lt;span style=&quot;color: #0000FF&quot;&gt;mov&lt;/span&gt;    &lt;span style=&quot;color: #666666&quot;&gt;%&lt;/span&gt;&lt;span style=&quot;color: #008000&quot;&gt;eax&lt;/span&gt;,&lt;span style=&quot;color: #666666&quot;&gt;-0x10&lt;/span&gt;(&lt;span style=&quot;color: #666666&quot;&gt;%&lt;/span&gt;&lt;span style=&quot;color: #008000&quot;&gt;rbp&lt;/span&gt;)
+&lt;span style=&quot;color: #0000FF&quot;&gt;leaveq&lt;/span&gt;
+&lt;span style=&quot;color: #0000FF&quot;&gt;retq&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Although icc does a strange transformation to the code, it leaves the code any&lt;br&gt;
+&lt;p&gt;Although icc does a strange transformation to the code, it leaves the code any
 way.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;admonitionblock note&quot;&gt;
@@ -247,7 +247,7 @@ way.&lt;/p&gt;
 &lt;i class=&quot;fa icon-note&quot; title=&quot;Note&quot;&gt;&lt;/i&gt;
 &lt;/td&gt;
 &lt;td class=&quot;content&quot;&gt;
-The above pragma can be replaced by function attribute&lt;br&gt;
+The above pragma can be replaced by function attribute
 &lt;code&gt;__attribute__((optimize(&quot;O0&quot;)))&lt;/code&gt;
 &lt;/td&gt;
 &lt;/tr&gt;
