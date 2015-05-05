@@ -32,7 +32,7 @@ git config user.email "zyangmath@gmail.com"
 git config user.name "Yang Zhang"
 git add -A .
 git commit -a -m "Travis #$TRAVIS_BUILD_NUMBER"
-git push ${url} master:master
+git push origin master:master
 
 exit 0
 
