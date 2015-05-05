@@ -5,11 +5,6 @@ author: ProgramFan
 categories: [Asciidoc, PDF, FOP, Asciidoctor]
 ---
 
-// Yang Zhang <zyangmath@gmail.com>
-// v0.1, 2015-04-25, Initial version
-// :icon: font
-// :source-highlighter: pygments
-
 Asciidoctor does well in translating asciidoc documents to html5, docbook and etc. Chinese documents also looks great in html5 and docbook. But sometimes we need to use PDF to share with others. Unfortunately, this is not easy for Chinese documents. This document shares my experience converting Chinese asciidoc documents into pdfs.
 
 == Overview of approaches to convert asciidoc to PDFs
@@ -23,6 +18,10 @@ http://github.com/asciidoctor/asciidoctor-pdf[asciidoctor-pdf] is an alpha-state
 While asciidoctor is nimble, it does not support CJK/multilingual documents.The output of asciidoctor-pdf is quite similar to that of asciidoctor to html5 backends, with coderay or pygments code highlights and similar fonts as the html5 backends. It's worth trying for english documents.
 +
 At the time of writing, asciidoctor-pdf does not support fontawesome icon font. So the callouts and admotions are simple charactors.
++
+++++
+<!-- more -->
+++++
 
 2. asciidoctor-latex
 +

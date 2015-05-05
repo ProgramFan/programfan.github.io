@@ -1,7 +1,7 @@
 markdown: kramdown
 highlighter: pygments
-#permalink: /posts/:year/:month/:day/:title/
-excerpt_separator: ""
+permalink: /post/:year/:month/:day/:title/
+excerpt_separator: "<!-- more -->"
 
 repository: https://github.com/ProgramFan
 
@@ -16,7 +16,7 @@ asciidoctor:
   attributes:
     - hardbreaks!
     - source-highlighter=pygments
-    - pygments-css=style
+    - pygments-css=pygments
     - icons=font
 asciidoc: asciidoctor
 asciidoc_ext: adoc, asciidoc
@@ -24,3 +24,4 @@ asciidoc_ext: adoc, asciidoc
 # Paginate
 paginate: 2
 paginate_path: "/posts/page:num/"
+

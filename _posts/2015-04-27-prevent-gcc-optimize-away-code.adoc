@@ -28,6 +28,10 @@ load and store of a variable. Most compilers tend to do no optimizations at
 all (even for proven dead code). So the `volatile` technique becomes the top 1
 used. 
 
+++++
+<!-- more -->
+++++
+
 For example:
 
 [source, cpp]

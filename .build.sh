@@ -21,6 +21,7 @@ url=https://${GH_TOKEN}@github.com/Programfan/programfan.github.io.git
 git clone ${url} -b master ../programfan.github.io.master
 
 # copy generated HTML site to `master' branch
+git rm -rf ../programfan.github.io.master/*
 cp -rf _site/* ../programfan.github.io.master
 
 # commit and push generated content to `master' branch
