@@ -1,6 +1,6 @@
 markdown: kramdown
 highlighter: pygments
-permalink: /blog/:year/:month/:day/:title/
+#permalink: /posts/:year/:month/:day/:title/
 excerpt_separator: ""
 
 repository: https://github.com/ProgramFan
@@ -21,3 +21,6 @@ asciidoctor:
 asciidoc: asciidoctor
 asciidoc_ext: adoc, asciidoc
 
+# Paginate
+paginate: 2
+paginate_path: "/posts/page:num/"

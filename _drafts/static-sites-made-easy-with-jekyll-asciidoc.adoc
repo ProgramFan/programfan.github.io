@@ -1,0 +1,7 @@
+---
+layout: news_item
+title: Static Sites Made Easy with Jekyll and Asciidoctor
+catogeries: [Jekyll, Asciidoctor, Asciidoc, Blog]
+---
+
+http://jekyllrb.org[Jekyll] is a versatile system for static content generation. It is used widely for website generation and is the backbones of http://pages.github.com[Github Pages]. 
