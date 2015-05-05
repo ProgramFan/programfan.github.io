@@ -1,0 +1,30 @@
+---
+layout: news_item
+title: Fix Argument Error with lvalue In Boost.Python
+author: ProgramFan
+categories: [Boost, Python, C++]
+---
+
+// Yang Zhang <yang_zhang@iapcm.ac.cn>
+
+== The problem
+
+http://www.boost.org[Boost.Python] is often used to interface pass:[c++] classes to python. It's easy to use, handles pass:[c++] string and containers automatically and non-intrusive.
+
+http://github.com/Vallioc/YouCompleteMe[YouCompleteMe] uses Boost.Python to export its pass:[c++] classes to python so users can use them in their `ycm_extra_conf.py` file. Recently, I encountered the following strange problem when using `CompilationDatabase.GetCompilationFlagsForFile`:
+
+[source, bash]
+----
+ArgumentError: Python argument types in^@
+CompilationDatabase.GetCompilationInfoForFile(CompilationDatabase, unicode)^@
+did not match pass:[c++] signature:^@
+GetCompilationInfoForFile(YouCompleteMe::CompilationDatabase {lvalue},
+std::string)^@
+----
+
+== The solution
+
+It's strange that the pass:[c++] interface uses lvalue for the object for the first sign. But after digging into the problem, I find that every part of the `ycm_extra_conf.py` works as expected, except that the filename is a reference file chosen randomly from the `compilation_commands.json`. Then it turns out that python load json strings as `unicode` objects but the pass:[c++] part only accepts `std::string`, which is the real difference in the interface. after manually converting the json string to python string with `str`, the error disappeared.
+
+So it seems that Boost.Python handles lvalue well, but has problems with unicode objects and `std::string`. Try to use always python string instead of unicode in Boost.Python interfaced pass:[c++] classes. 
+

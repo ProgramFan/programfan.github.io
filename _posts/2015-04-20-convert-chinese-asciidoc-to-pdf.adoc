@@ -1,0 +1,255 @@
+---
+layout: news_item
+title: Convert Chinese Asciidoc Documents to PDF
+author: ProgramFan
+categories: [Asciidoc, PDF, FOP, Asciidoctor]
+---
+
+// Yang Zhang <zyangmath@gmail.com>
+// v0.1, 2015-04-25, Initial version
+// :icon: font
+// :source-highlighter: pygments
+
+Asciidoctor does well in translating asciidoc documents to html5, docbook and etc. Chinese documents also looks great in html5 and docbook. But sometimes we need to use PDF to share with others. Unfortunately, this is not easy for Chinese documents. This document shares my experience converting Chinese asciidoc documents into pdfs.
+
+== Overview of approaches to convert asciidoc to PDFs
+
+There are currently 3 ways to convert asciidoc documents to PDF:
+
+1. asciidoctor-pdf
++
+http://github.com/asciidoctor/asciidoctor-pdf[asciidoctor-pdf] is an alpha-state software in ruby to convert asciidoc documents directly into pdf, without any other tools.
++
+While asciidoctor is nimble, it does not support CJK/multilingual documents.The output of asciidoctor-pdf is quite similar to that of asciidoctor to html5 backends, with coderay or pygments code highlights and similar fonts as the html5 backends. It's worth trying for english documents.
++
+At the time of writing, asciidoctor-pdf does not support fontawesome icon font. So the callouts and admotions are simple charactors.
+
+2. asciidoctor-latex
++
+http://github.com/asciidoctor/asciidoctor-latex[asciidoctor-latex] is a beta-state software in ruby to add latex support for asciidoctor. It can also convert asciidoc documents directly into latex.
++
+With asciidoctor-latex, we can translate first asciidoc documents into latex and use latex/xelatex to produce pdf output. This makes it possible to modify the contents before final production and use ctex/xeCJK for Chinese documents.
++
+The drawback of this approach is that it does not support the beautiful  asciidoctor themes.
+
+3. asciidoctor-fopub
++
+http://github.com/asciidoctor/asciidoctor-fopub[asciidoctor-fopub] is an fop based approach to produce pdf output for asciidoc docuemnts. It makes use of the docbook backend of asciidoc to produce docbook and uses Apache FOP to produce final pdf documents.
++
+Currently asciidoctor-fopub produces the best pdf outputs. It supports the original asciidoctor theme, using SVG images for callouts and admotions. Code highlights are supported through xlsthl. It produces nice looking pdfs for English documents out of the box.
++
+Apache FOP supports Chinese pdf outputs using any fonts. But it needs configurations. After proper configurations, it produces relatively good looking pdf docuemnts for Chinese asciidoc documents.
+
+For the above ways, asciidoctor-fopub is the most mature and so is choosen as my defaults. It's worth watching asciidoctor-pdf, which produces the best results but there are still a lot to be done in it to support CJK documents.
+
+== Install the software
+
+Install asciidoctor-fopub is easy, you can use either the gem install approach or the github download approach.
+
+Gem install:: `gem install --pre --user-install asciidoctor-fopub`
+GitHub download:: `git clone https://github.com/asciidoctor/asciidoctor-fopub`
+
+Following either approach, you can find `fopub` in either `~/bin` or `asciidoctor-fopub`. It is the single command for docbook to pdf generation.
+
+Note you shall have java (at least 1.7.0) pre installed on your system. Fedora 21 has it default installed.
+
+== Convert asciidoc to PDF
+
+After successfully installing asciidoctor-fopub, one can use the following commands to convert asciidoc document into PDFs:
+
+[source, bash]
+----
+asciidoctor -b docbook EXAMPLE.adoc  # <1>
+fopub EXAMPLE.xml # <2>
+----
+<1> Convert asciidoctor documents into docbook format with asciidoctor
+<2> Generate PDFs using fopub command from asciidoctor-fopub
+
+fopub downloads proper versions of fop, docbook-xls and other components for the first run and maintains its internal copy of these software. So for the first time, it needs network connections to function.
+
+If properly configured, the above commands produces nice looking PDFs for Chinese docuemnts out of the box.
+
+== Configure asciidoctor-fopub
+
+Basicly, there are three steps to configure asciidoctor fopub for proper Chinese PDF production. It mainly follows the FOP font generation and configuration.
+
+=== Generate font metrics
+
+The first step for asciidoctor-fopub Chinese PDF configuration is to generate font metrics for fonts to use.
+
+FOP comes with its own format of font metrics and every font to use shall be generated metric files first and registered to FOP. To generate the metric, use the following commands:
+
+[source, bash]
+----
+java -cp $fop_libs_dir:$fop_libs_dir/* \     # <1>
+    org.apache.fop.fonts.apps.TTFReader -q \ # <2>
+    $fontfile $metricfile                    # <3>
+----
+<1> `fop_libs_dir` shall be where the `fop.jar` resides
+<2> Invoke the TTFReader from fop
+<3> Generate `metricfile` for ttf font `fontfile`
+
+Then put the generated metric file into a single location. I prefer `~/.local/share/fop/fonts`.
+
+=== Register font to asciidoctor-fopub
+
+After above procedure, one shall create the following registeration in FOP configuration file. For the above gem installed version, the configuration file resides in `~/.gem/ruby/gems/asciidoctor-fopub-0.0.1/build/fopub/docbook-xsl/fop-config.xml`. Put the following into `<render mime='application/pdf'>` section:
+
+[source, xml]
+----
+<font metrics-url="$fop_fonts_dir/$metricfile"   // <1>
+     embed-url="$fonefile" kerning="yes">        // <2>
+     <font-triplet name="$FontName" style="normal" weight="normal" /> // <3>
+</font>
+----
+<1> Where you put the metric file, better use absolute path
+<2> Where is the font file, absolute path to the file
+<3> Font name, name of the font, choose as you like
+
+=== Configure asciidoctor-fopub to use registered font
+
+Now we are almost ready. The last step is to configure fopub to use the registered fonts. Assuming we have registered font with name 'SimSun', we the change the file `~/.gem/ruby/gems/asciidoctor-fopub-0.0.1/build/fopub/docbook-xsl/fo-pdf.xsl` to use it:
+
+[source, xml]
+----
+<xsl:template name="pickfont-sans">
+  <xsl:text>Arial,sans-serif,SimSun</xsl:text>   // <1>
+</xsl:template>
+----
+<1> Append our new fonts for use.
+
+You have to change all corresponding font pickers in the above file. Consult the file for what to change.
+
+== Appendix: Batch font generator
+
+The following batch font generator is downloaded from internet, included here for convinience.
+
+[source, bash]
+----
+#!/bin/bash
+# ttf2fop - Prepare TrueType fonts for use with Apache FOP
+# Copyright (C) 2011 Damien Goutte-Gattat
+# 
+# Copying and distribution of this file, with or without modification,
+# are permitted in any medium without royalty provided the copyright
+# notice and this notice are preserved.
+
+set -e
+
+program_name=${0##*/}
+fop_libs_dir=/usr/share/java
+fop_fonts_dir=$HOME/.local/share/fop/fonts
+
+die()
+{
+    echo "$program_name: $@" >&2
+    exit 1
+}
+
+show_usage()
+{
+    cat <<EOH
+Usage: $program_name [options] TTF_FILE...
+Generate a FOP metrics file for each TTF file given on the
+command line. If no file is given, read TTF filenames from
+standard input.
+
+Options:
+  -h, --help                Show this help message.
+  -v, --version             Show the version message.
+
+  -l, --fop-libs PATH       Specify the location of FOP
+                            Jar files (default: $fop_libs_dir).
+  -d, --fonts-dir PATH      Specify the directory where the
+                            metrics file should be stored
+                            (default: $fop_fonts_dir).
+EOH
+}
+
+process_ttf_file()
+{
+    fontfile=$1
+    [ -f "$fontfile" ] || return
+
+    fontname=$(basename $fontfile .ttf)
+    fontbasename=$(echo $fontname | cut -d- -f1)
+    fontstylespec=$(echo $fontname | cut -d- -f2)
+
+    case "$fontstylespec" in
+    Italic|Oblique)
+        fontstyle=italic
+        fontweight=normal
+        filequalifier=italic
+        ;;
+    Bold)
+        fontstyle=normal
+        fontweight=bold
+        filequalifier=bold
+        ;;
+
+    BoldItalic|BoldOblique)
+        fontstyle=italic
+        fontweight=bold
+        filequalifier=bold-italic
+        ;;
+
+    *)
+        fontstyle=normal
+        fontweight=normal
+        filequalifier=regular
+        ;;
+    esac
+
+    java -cp $fop_libs_dir:$fop_libs_dir/* \
+      org.apache.fop.fonts.apps.TTFReader -q \
+      $fontfile -ttcname SimSun $fontbasename-$filequalifier.xml
+    cat <<EOF
+    <font metrics-url="$fop_fonts_dir/$fontbasename-$filequalifier.xml"
+        embed-url="$fontfile"
+        kerning="yes">
+        <font-triplet name="$fontbasename" style="$fontstyle" weight="$fontweight" />
+    </font>
+EOF
+}
+
+while true ; do
+    case "$1" in
+    -h|--help)
+        show_usage
+        exit 0
+        ;;
+
+    -v|--version)
+        sed -n '2,/^$/ s/^# //p' $0
+        exit 0
+        ;;
+
+    -l|--fop-libs)
+        [ -n "$2" ] || die "missing argument for option --fop-libs"
+        fop_libs_dir=$2
+        shift 2
+        ;;
+
+    -d|--fonts-dir)
+        [ -n "$2" ] || die "missing argument for option --fonts-dir"
+        fop_fonts_dir=$2
+        shift 2
+        ;;
+
+    *)
+        break
+        ;;
+    esac
+done
+
+echo "<?xml version=\"1.0\"?>"
+echo "<fonts>"
+
+if [ -z "$*" ]; then
+    cat | while read f ; do process_ttf_file $f ; done
+else
+    for f in "$@" ; do process_ttf_file $f ; done
+fi
+
+echo "</fonts>"
+----

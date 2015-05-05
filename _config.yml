@@ -1,10 +1,9 @@
 markdown: kramdown
 highlighter: pygments
-permalink: /news/:year/:month/:day/:title/
+permalink: /blog/:year/:month/:day/:title/
 excerpt_separator: ""
 
-repository: https://github.com/jekyll/jekyll
-help_url: https://github.com/jekyll/jekyll-help
+repository: https://github.com/ProgramFan
 
 collections:
   docs:

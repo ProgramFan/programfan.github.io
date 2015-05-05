@@ -3,7 +3,7 @@ layout: news_item
 title: "Prevent GCC from optimizing away a snippet of code"
 date: "2015-01-20 19:23:12 -0800"
 author: ProgramFan
-categories: [C++, GCC]
+categories: [C++, GCC, Featured]
 ---
 
 // = Prevent GCC from optimizing away a snippet of code
