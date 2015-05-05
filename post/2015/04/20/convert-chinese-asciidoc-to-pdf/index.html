@@ -1,0 +1,570 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <title>Convert Chinese Asciidoc Documents to PDF</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="generator" content="Jekyll v2.5.3">
+  <link rel="alternate" type="application/rss+xml" title="Jekyll • Simple, blog-aware, static sites - Feed" href="/feed.xml">
+  <link rel="alternate" type="application/atom+xml" title="Recent commits to Jekyll’s master branch" href="https://github.com/ProgramFan/commits/master.atom">
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic,900">
+  <link rel="stylesheet" href="/css/screen.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <!--[if lt IE 9]>
+  <script src="/js/html5shiv.min.js"></script>
+  <script src="/js/respond.min.js"></script>
+  <![endif]-->
+</head>
+
+
+<body class="wrap">
+  <header role="banner">
+  <nav class="mobile-nav show-on-mobiles">
+    <ul>
+  <li class="">
+    <a href="/">Home</a>
+  </li>
+  <li class="">
+    <a href="/docs/home/">Doc<span class="show-on-mobiles">s</span><span class="hide-on-mobiles">umentation</span></a>
+  </li>
+  <li class="current">
+    <a href="/posts/">Posts</a>
+  </li>
+  <li>
+    <a href="https://github.com/ProgramFan"><span class="hide-on-mobiles">View on </span>GitHub</a>
+  </li>
+</ul>
+
+  </nav>
+  <div class="grid">
+    <div class="unit one-third center-on-mobiles">
+      <h1>
+        <a href="/">
+          <span class="sr-only">Jekyll</span>
+          <img src="/img/logo-2x.png" width="249" height="115" alt="Jekyll Logo">
+        </a>
+      </h1>
+    </div>
+    <nav class="main-nav unit two-thirds hide-on-mobiles">
+      <ul>
+  <li class="">
+    <a href="/">Home</a>
+  </li>
+  <li class="">
+    <a href="/docs/home/">Doc<span class="show-on-mobiles">s</span><span class="hide-on-mobiles">umentation</span></a>
+  </li>
+  <li class="current">
+    <a href="/posts/">Posts</a>
+  </li>
+  <li>
+    <a href="https://github.com/ProgramFan"><span class="hide-on-mobiles">View on </span>GitHub</a>
+  </li>
+</ul>
+
+    </nav>
+  </div>
+</header>
+
+
+    <section class="news">
+    <div class="grid">
+
+      <div class="docs-nav-mobile unit whole show-on-mobiles">
+  <select onchange="if (this.value) window.location.href=this.value">
+    <option value="">Navigate the blog…</option>
+    <option value="/news/">Home</option>
+    <optgroup label="v1.x">
+      
+      <option value="/post/2015/05/05/using-rvm-to-isolate-rubygems-on-fedora-21/">Using RVM to Isolate RubyGems on Fedora 21</option>
+      
+      <option value="/post/2015/05/01/fix-boost-python-argument-error-lvalue/">Fix Argument Error with lvalue In Boost.Python</option>
+      
+      <option value="/post/2015/04/20/convert-chinese-asciidoc-to-pdf/">Convert Chinese Asciidoc Documents to PDF</option>
+      
+      <option value="/post/2015/01/20/prevent-gcc-optimize-away-code/">Prevent GCC from optimizing away a snippet of code</option>
+      
+    </optgroup>
+  </select>
+</div>
+
+
+      <div class="unit four-fifths">
+        <article>
+  <h2>
+    Convert Chinese Asciidoc Documents to PDF
+    <a href="/post/2015/04/20/convert-chinese-asciidoc-to-pdf/" class="permalink" title="Permalink">∞</a>
+  </h2>
+  <span class="post-category">
+    <span class="label">
+      asciidoc, pdf, fop, and asciidoctor
+    </span>
+  </span>
+  <div class="post-meta">
+    <span class="post-date">
+      20 Apr 2015
+    </span>
+    <a href="https://github.com/ProgramFan" class="post-author">
+      <!-- <img src="https://github.com/ProgramFan.png" class="avatar" alt="ProgramFan avatar" width="24" height="24"> -->
+      ProgramFan
+    </a>
+  </div>
+  <div class="post-content">
+    <div class="paragraph">
+<p>Asciidoctor does well in translating asciidoc documents to html5, docbook and etc. Chinese documents also looks great in html5 and docbook. But sometimes we need to use PDF to share with others. Unfortunately, this is not easy for Chinese documents. This document shares my experience converting Chinese asciidoc documents into pdfs.</p>
+</div>
+<div class="sect1">
+<h2 id="overview-of-approaches-to-convert-asciidoc-to-pdfs">Overview of approaches to convert asciidoc to PDFs</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>There are currently 3 ways to convert asciidoc documents to PDF:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>asciidoctor-pdf</p>
+<div class="paragraph">
+<p><a href="http://github.com/asciidoctor/asciidoctor-pdf">asciidoctor-pdf</a> is an alpha-state software in ruby to convert asciidoc documents directly into pdf, without any other tools.</p>
+</div>
+<div class="paragraph">
+<p>While asciidoctor is nimble, it does not support CJK/multilingual documents.The output of asciidoctor-pdf is quite similar to that of asciidoctor to html5 backends, with coderay or pygments code highlights and similar fonts as the html5 backends. It&#8217;s worth trying for english documents.</p>
+</div>
+<div class="paragraph">
+<p>At the time of writing, asciidoctor-pdf does not support fontawesome icon font. So the callouts and admotions are simple charactors.</p>
+</div>
+<!-- more -->
+</li>
+<li>
+<p>asciidoctor-latex</p>
+<div class="paragraph">
+<p><a href="http://github.com/asciidoctor/asciidoctor-latex">asciidoctor-latex</a> is a beta-state software in ruby to add latex support for asciidoctor. It can also convert asciidoc documents directly into latex.</p>
+</div>
+<div class="paragraph">
+<p>With asciidoctor-latex, we can translate first asciidoc documents into latex and use latex/xelatex to produce pdf output. This makes it possible to modify the contents before final production and use ctex/xeCJK for Chinese documents.</p>
+</div>
+<div class="paragraph">
+<p>The drawback of this approach is that it does not support the beautiful  asciidoctor themes.</p>
+</div>
+</li>
+<li>
+<p>asciidoctor-fopub</p>
+<div class="paragraph">
+<p><a href="http://github.com/asciidoctor/asciidoctor-fopub">asciidoctor-fopub</a> is an fop based approach to produce pdf output for asciidoc docuemnts. It makes use of the docbook backend of asciidoc to produce docbook and uses Apache FOP to produce final pdf documents.</p>
+</div>
+<div class="paragraph">
+<p>Currently asciidoctor-fopub produces the best pdf outputs. It supports the original asciidoctor theme, using SVG images for callouts and admotions. Code highlights are supported through xlsthl. It produces nice looking pdfs for English documents out of the box.</p>
+</div>
+<div class="paragraph">
+<p>Apache FOP supports Chinese pdf outputs using any fonts. But it needs configurations. After proper configurations, it produces relatively good looking pdf docuemnts for Chinese asciidoc documents.</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>For the above ways, asciidoctor-fopub is the most mature and so is choosen as my defaults. It&#8217;s worth watching asciidoctor-pdf, which produces the best results but there are still a lot to be done in it to support CJK documents.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="install-the-software">Install the software</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Install asciidoctor-fopub is easy, you can use either the gem install approach or the github download approach.</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Gem install</dt>
+<dd>
+<p><code>gem install --pre --user-install asciidoctor-fopub</code></p>
+</dd>
+<dt class="hdlist1">GitHub download</dt>
+<dd>
+<p><code>git clone <a href="https://github.com/asciidoctor/asciidoctor-fopub" class="bare">https://github.com/asciidoctor/asciidoctor-fopub</a></code></p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>Following either approach, you can find <code>fopub</code> in either <code>~/bin</code> or <code>asciidoctor-fopub</code>. It is the single command for docbook to pdf generation.</p>
+</div>
+<div class="paragraph">
+<p>Note you shall have java (at least 1.7.0) pre installed on your system. Fedora 21 has it default installed.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="convert-asciidoc-to-pdf">Convert asciidoc to PDF</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>After successfully installing asciidoctor-fopub, one can use the following commands to convert asciidoc document into PDFs:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash">asciidoctor -b docbook EXAMPLE.adoc  <i class="conum" data-value="1"></i><b>(1)</b>
+fopub EXAMPLE.xml <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Convert asciidoctor documents into docbook format with asciidoctor</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Generate PDFs using fopub command from asciidoctor-fopub</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>fopub downloads proper versions of fop, docbook-xls and other components for the first run and maintains its internal copy of these software. So for the first time, it needs network connections to function.</p>
+</div>
+<div class="paragraph">
+<p>If properly configured, the above commands produces nice looking PDFs for Chinese docuemnts out of the box.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="configure-asciidoctor-fopub">Configure asciidoctor-fopub</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Basicly, there are three steps to configure asciidoctor fopub for proper Chinese PDF production. It mainly follows the FOP font generation and configuration.</p>
+</div>
+<div class="sect2">
+<h3 id="generate-font-metrics">Generate font metrics</h3>
+<div class="paragraph">
+<p>The first step for asciidoctor-fopub Chinese PDF configuration is to generate font metrics for fonts to use.</p>
+</div>
+<div class="paragraph">
+<p>FOP comes with its own format of font metrics and every font to use shall be generated metric files first and registered to FOP. To generate the metric, use the following commands:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash">java -cp <span style="color: #19177C">$fop_libs_dir</span>:<span style="color: #19177C">$fop_libs_dir</span>/* <span style="color: #BB6622; font-weight: bold">\ </span>    <i class="conum" data-value="1"></i><b>(1)</b>
+    org.apache.fop.fonts.apps.TTFReader -q <span style="color: #BB6622; font-weight: bold">\ </span><i class="conum" data-value="2"></i><b>(2)</b>
+    <span style="color: #19177C">$fontfile</span> <span style="color: #19177C">$metricfile</span> <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><code>fop_libs_dir</code> shall be where the <code>fop.jar</code> resides</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Invoke the TTFReader from fop</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Generate <code>metricfile</code> for ttf font <code>fontfile</code></td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Then put the generated metric file into a single location. I prefer <code>~/.local/share/fop/fonts</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="register-font-to-asciidoctor-fopub">Register font to asciidoctor-fopub</h3>
+<div class="paragraph">
+<p>After above procedure, one shall create the following registeration in FOP configuration file. For the above gem installed version, the configuration file resides in <code>~/.gem/ruby/gems/asciidoctor-fopub-0.0.1/build/fopub/docbook-xsl/fop-config.xml</code>. Put the following into <code>&lt;render mime='application/pdf'&gt;</code> section:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;font</span> <span style="color: #7D9029">metrics-url=</span><span style="color: #BA2121">&quot;$fop_fonts_dir/$metricfile&quot;</span>   <i class="conum" data-value="1"></i><b>(1)</b>
+     <span style="color: #7D9029">embed-url=</span><span style="color: #BA2121">&quot;$fonefile&quot;</span> <span style="color: #7D9029">kerning=</span><span style="color: #BA2121">&quot;yes&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>        <i class="conum" data-value="2"></i><b>(2)</b>
+     <span style="color: #008000; font-weight: bold">&lt;font-triplet</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;$FontName&quot;</span> <span style="color: #7D9029">style=</span><span style="color: #BA2121">&quot;normal&quot;</span> <span style="color: #7D9029">weight=</span><span style="color: #BA2121">&quot;normal&quot;</span> <span style="color: #008000; font-weight: bold">/&gt;</span> <i class="conum" data-value="3"></i><b>(3)</b>
+<span style="color: #008000; font-weight: bold">&lt;/font&gt;</span></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Where you put the metric file, better use absolute path</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Where is the font file, absolute path to the file</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Font name, name of the font, choose as you like</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="configure-asciidoctor-fopub-to-use-registered-font">Configure asciidoctor-fopub to use registered font</h3>
+<div class="paragraph">
+<p>Now we are almost ready. The last step is to configure fopub to use the registered fonts. Assuming we have registered font with name 'SimSun', we the change the file <code>~/.gem/ruby/gems/asciidoctor-fopub-0.0.1/build/fopub/docbook-xsl/fo-pdf.xsl</code> to use it:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;xsl:template</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;pickfont-sans&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;xsl:text&gt;</span>Arial,sans-serif,SimSun<span style="color: #008000; font-weight: bold">&lt;/xsl:text&gt;</span>   <i class="conum" data-value="1"></i><b>(1)</b>
+<span style="color: #008000; font-weight: bold">&lt;/xsl:template&gt;</span></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Append our new fonts for use.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>You have to change all corresponding font pickers in the above file. Consult the file for what to change.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="appendix-batch-font-generator">Appendix: Batch font generator</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The following batch font generator is downloaded from internet, included here for convinience.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash"><span style="color: #408080; font-style: italic">#!/bin/bash</span>
+<span style="color: #408080; font-style: italic"># ttf2fop - Prepare TrueType fonts for use with Apache FOP</span>
+<span style="color: #408080; font-style: italic"># Copyright (C) 2011 Damien Goutte-Gattat</span>
+<span style="color: #408080; font-style: italic">#</span>
+<span style="color: #408080; font-style: italic"># Copying and distribution of this file, with or without modification,</span>
+<span style="color: #408080; font-style: italic"># are permitted in any medium without royalty provided the copyright</span>
+<span style="color: #408080; font-style: italic"># notice and this notice are preserved.</span>
+
+<span style="color: #008000">set</span> -e
+
+<span style="color: #19177C">program_name</span><span style="color: #666666">=</span><span style="color: #008000; font-weight: bold">${</span><span style="color: #19177C">0</span>##*/<span style="color: #008000; font-weight: bold">}</span>
+<span style="color: #19177C">fop_libs_dir</span><span style="color: #666666">=</span>/usr/share/java
+<span style="color: #19177C">fop_fonts_dir</span><span style="color: #666666">=</span><span style="color: #19177C">$HOME</span>/.local/share/fop/fonts
+
+die<span style="color: #666666">()</span>
+<span style="color: #666666">{</span>
+    <span style="color: #008000">echo</span> <span style="color: #BA2121">&quot;$program_name: $@&quot;</span> &gt;&amp;2
+    <span style="color: #008000">exit </span>1
+<span style="color: #666666">}</span>
+
+show_usage<span style="color: #666666">()</span>
+<span style="color: #666666">{</span>
+    cat <span style="color: #BA2121">&lt;&lt;EOH</span>
+<span style="color: #BA2121">Usage: $program_name [options] TTF_FILE...</span>
+<span style="color: #BA2121">Generate a FOP metrics file for each TTF file given on the</span>
+<span style="color: #BA2121">command line. If no file is given, read TTF filenames from</span>
+<span style="color: #BA2121">standard input.</span>
+
+<span style="color: #BA2121">Options:</span>
+<span style="color: #BA2121">  -h, --help                Show this help message.</span>
+<span style="color: #BA2121">  -v, --version             Show the version message.</span>
+
+<span style="color: #BA2121">  -l, --fop-libs PATH       Specify the location of FOP</span>
+<span style="color: #BA2121">                            Jar files (default: $fop_libs_dir).</span>
+<span style="color: #BA2121">  -d, --fonts-dir PATH      Specify the directory where the</span>
+<span style="color: #BA2121">                            metrics file should be stored</span>
+<span style="color: #BA2121">                            (default: $fop_fonts_dir).</span>
+<span style="color: #BA2121">EOH</span>
+<span style="color: #666666">}</span>
+
+process_ttf_file<span style="color: #666666">()</span>
+<span style="color: #666666">{</span>
+    <span style="color: #19177C">fontfile</span><span style="color: #666666">=</span><span style="color: #19177C">$1</span>
+    <span style="color: #666666">[</span> -f <span style="color: #BA2121">&quot;$fontfile&quot;</span> <span style="color: #666666">]</span> <span style="color: #666666">||</span> <span style="color: #008000; font-weight: bold">return</span>
+
+    <span style="color: #19177C">fontname</span><span style="color: #666666">=</span><span style="color: #008000; font-weight: bold">$(</span>basename <span style="color: #19177C">$fontfile</span> .ttf<span style="color: #008000; font-weight: bold">)</span>
+    <span style="color: #19177C">fontbasename</span><span style="color: #666666">=</span><span style="color: #008000; font-weight: bold">$(</span><span style="color: #008000">echo</span> <span style="color: #19177C">$fontname</span> | cut -d- -f1<span style="color: #008000; font-weight: bold">)</span>
+    <span style="color: #19177C">fontstylespec</span><span style="color: #666666">=</span><span style="color: #008000; font-weight: bold">$(</span><span style="color: #008000">echo</span> <span style="color: #19177C">$fontname</span> | cut -d- -f2<span style="color: #008000; font-weight: bold">)</span>
+
+    <span style="color: #008000; font-weight: bold">case</span> <span style="color: #BA2121">&quot;$fontstylespec&quot;</span> in
+    Italic|Oblique<span style="color: #666666">)</span>
+        <span style="color: #19177C">fontstyle</span><span style="color: #666666">=</span>italic
+        <span style="color: #19177C">fontweight</span><span style="color: #666666">=</span>normal
+        <span style="color: #19177C">filequalifier</span><span style="color: #666666">=</span>italic
+        ;;
+    Bold<span style="color: #666666">)</span>
+        <span style="color: #19177C">fontstyle</span><span style="color: #666666">=</span>normal
+        <span style="color: #19177C">fontweight</span><span style="color: #666666">=</span>bold
+        <span style="color: #19177C">filequalifier</span><span style="color: #666666">=</span>bold
+        ;;
+
+    BoldItalic|BoldOblique<span style="color: #666666">)</span>
+        <span style="color: #19177C">fontstyle</span><span style="color: #666666">=</span>italic
+        <span style="color: #19177C">fontweight</span><span style="color: #666666">=</span>bold
+        <span style="color: #19177C">filequalifier</span><span style="color: #666666">=</span>bold-italic
+        ;;
+
+    *<span style="color: #666666">)</span>
+        <span style="color: #19177C">fontstyle</span><span style="color: #666666">=</span>normal
+        <span style="color: #19177C">fontweight</span><span style="color: #666666">=</span>normal
+        <span style="color: #19177C">filequalifier</span><span style="color: #666666">=</span>regular
+        ;;
+    <span style="color: #008000; font-weight: bold">esac</span>
+
+    java -cp <span style="color: #19177C">$fop_libs_dir</span>:<span style="color: #19177C">$fop_libs_dir</span>/* <span style="color: #BB6622; font-weight: bold">\</span>
+      org.apache.fop.fonts.apps.TTFReader -q <span style="color: #BB6622; font-weight: bold">\</span>
+      <span style="color: #19177C">$fontfile</span> -ttcname SimSun <span style="color: #19177C">$fontbasename</span>-<span style="color: #19177C">$filequalifier</span>.xml
+    cat <span style="color: #BA2121">&lt;&lt;EOF</span>
+<span style="color: #BA2121">    &lt;font metrics-url=&quot;$fop_fonts_dir/$fontbasename-$filequalifier.xml&quot;</span>
+<span style="color: #BA2121">        embed-url=&quot;$fontfile&quot;</span>
+<span style="color: #BA2121">        kerning=&quot;yes&quot;&gt;</span>
+<span style="color: #BA2121">        &lt;font-triplet name=&quot;$fontbasename&quot; style=&quot;$fontstyle&quot; weight=&quot;$fontweight&quot; /&gt;</span>
+<span style="color: #BA2121">    &lt;/font&gt;</span>
+<span style="color: #BA2121">EOF</span>
+<span style="color: #666666">}</span>
+
+<span style="color: #008000; font-weight: bold">while</span> <span style="color: #008000">true</span> ; <span style="color: #008000; font-weight: bold">do</span>
+    <span style="color: #008000; font-weight: bold">case</span> <span style="color: #BA2121">&quot;$1&quot;</span> in
+    -h|--help<span style="color: #666666">)</span>
+        show_usage
+        <span style="color: #008000">exit </span>0
+        ;;
+
+    -v|--version<span style="color: #666666">)</span>
+        sed -n <span style="color: #BA2121">&#39;2,/^$/ s/^# //p&#39;</span> <span style="color: #19177C">$0</span>
+        <span style="color: #008000">exit </span>0
+        ;;
+
+    -l|--fop-libs<span style="color: #666666">)</span>
+        <span style="color: #666666">[</span> -n <span style="color: #BA2121">&quot;$2&quot;</span> <span style="color: #666666">]</span> <span style="color: #666666">||</span> die <span style="color: #BA2121">&quot;missing argument for option --fop-libs&quot;</span>
+        <span style="color: #19177C">fop_libs_dir</span><span style="color: #666666">=</span><span style="color: #19177C">$2</span>
+        <span style="color: #008000">shift </span>2
+        ;;
+
+    -d|--fonts-dir<span style="color: #666666">)</span>
+        <span style="color: #666666">[</span> -n <span style="color: #BA2121">&quot;$2&quot;</span> <span style="color: #666666">]</span> <span style="color: #666666">||</span> die <span style="color: #BA2121">&quot;missing argument for option --fonts-dir&quot;</span>
+        <span style="color: #19177C">fop_fonts_dir</span><span style="color: #666666">=</span><span style="color: #19177C">$2</span>
+        <span style="color: #008000">shift </span>2
+        ;;
+
+    *<span style="color: #666666">)</span>
+        <span style="color: #008000">break</span>
+        ;;
+    <span style="color: #008000; font-weight: bold">esac</span>
+<span style="color: #008000; font-weight: bold">done</span>
+
+<span style="color: #008000">echo</span> <span style="color: #BA2121">&quot;&lt;?xml version=\&quot;1.0\&quot;?&gt;&quot;</span>
+<span style="color: #008000">echo</span> <span style="color: #BA2121">&quot;&lt;fonts&gt;&quot;</span>
+
+<span style="color: #008000; font-weight: bold">if</span> <span style="color: #666666">[</span> -z <span style="color: #BA2121">&quot;$*&quot;</span> <span style="color: #666666">]</span>; <span style="color: #008000; font-weight: bold">then</span>
+    cat | <span style="color: #008000; font-weight: bold">while</span> <span style="color: #008000">read </span>f ; <span style="color: #008000; font-weight: bold">do</span> process_ttf_file <span style="color: #19177C">$f</span> ; <span style="color: #008000; font-weight: bold">done</span>
+<span style="color: #008000; font-weight: bold">else</span>
+    <span style="color: #008000; font-weight: bold">for</span> f in <span style="color: #BA2121">&quot;$@&quot;</span> ; <span style="color: #008000; font-weight: bold">do</span> process_ttf_file <span style="color: #19177C">$f</span> ; <span style="color: #008000; font-weight: bold">done</span>
+<span style="color: #008000; font-weight: bold">fi</span>
+
+<span style="color: #008000">echo</span> <span style="color: #BA2121">&quot;&lt;/fonts&gt;&quot;</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+  </div>
+</article>
+
+      </div>
+
+      <div class="unit one-fifth hide-on-mobiles">
+  <aside>
+    <h4>Featured</h4>
+    <ul>
+        
+        
+        <li class="">
+          <a href="/post/2015/05/05/using-rvm-to-isolate-rubygems-on-fedora-21/">Using RVM to Isolate RubyGems on Fedora 21</a>
+        </li>
+        
+        
+        
+        
+        
+        
+        
+        <li class="">
+          <a href="/post/2015/01/20/prevent-gcc-optimize-away-code/">Prevent GCC from optimizing away a snippet of code</a>
+        </li>
+        
+        
+    </ul>
+    <h4>Other Posts</h4>
+    <ul>
+        
+        
+        
+        
+        <li class="">
+          <a href="/post/2015/05/01/fix-boost-python-argument-error-lvalue/">Fix Argument Error with lvalue In Boost.Python</a>
+        </li>
+        
+        
+        
+        <li class="current">
+          <a href="/post/2015/04/20/convert-chinese-asciidoc-to-pdf/">Convert Chinese Asciidoc Documents to PDF</a>
+        </li>
+        
+        
+        
+        
+    </ul>
+  </aside>
+</div>
+
+
+      <div class="clear"></div>
+
+    </div>
+  </section>
+
+
+  <footer role="contentinfo">
+  <div class="grid">
+    <div class="unit one-third center-on-mobiles">
+      <p>The contents of this website are &copy;&nbsp;
+      2015 by Yang Zhang under the terms of the MIT License.</p>
+    </div>
+    <div class="unit two-thirds align-right center-on-mobiles">
+      <p>
+        Proudly hosted by
+        <a href="https://github.com">
+          <img src="/img/footer-logo.png" width="100" height="30" alt="GitHub • Social coding">
+        </a>
+      </p>
+    </div>
+  </div>
+</footer>
+
+  <script>
+  var anchorForId = function (id) {
+    var anchor = document.createElement("a");
+    anchor.className = "header-link";
+    anchor.href      = "#" + id;
+    anchor.innerHTML = "<span class=\"sr-only\">Permalink</span><i class=\"fa fa-link\"></i>";
+    anchor.title = "Permalink";
+    return anchor;
+  };
+
+  var linkifyAnchors = function (level, containingElement) {
+    var headers = containingElement.getElementsByTagName("h" + level);
+    for (var h = 0; h < headers.length; h++) {
+      var header = headers[h];
+
+      if (typeof header.id !== "undefined" && header.id !== "") {
+        header.appendChild(anchorForId(header.id));
+      }
+    }
+  };
+
+  document.onreadystatechange = function () {
+    if (this.readyState === "complete") {
+      var contentBlock = document.getElementsByClassName("docs")[0] || document.getElementsByClassName("news")[0];
+      if (!contentBlock) {
+        return;
+      }
+      for (var level = 1; level <= 6; level++) {
+        linkifyAnchors(level, contentBlock);
+      }
+    }
+  };
+</script>
+
+
+</body>
+</html>

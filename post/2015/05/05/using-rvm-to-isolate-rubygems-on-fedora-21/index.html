@@ -1,0 +1,378 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <title>Using RVM to Isolate RubyGems on Fedora 21</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="generator" content="Jekyll v2.5.3">
+  <link rel="alternate" type="application/rss+xml" title="Jekyll • Simple, blog-aware, static sites - Feed" href="/feed.xml">
+  <link rel="alternate" type="application/atom+xml" title="Recent commits to Jekyll’s master branch" href="https://github.com/ProgramFan/commits/master.atom">
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic,900">
+  <link rel="stylesheet" href="/css/screen.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <!--[if lt IE 9]>
+  <script src="/js/html5shiv.min.js"></script>
+  <script src="/js/respond.min.js"></script>
+  <![endif]-->
+</head>
+
+
+<body class="wrap">
+  <header role="banner">
+  <nav class="mobile-nav show-on-mobiles">
+    <ul>
+  <li class="">
+    <a href="/">Home</a>
+  </li>
+  <li class="">
+    <a href="/docs/home/">Doc<span class="show-on-mobiles">s</span><span class="hide-on-mobiles">umentation</span></a>
+  </li>
+  <li class="current">
+    <a href="/posts/">Posts</a>
+  </li>
+  <li>
+    <a href="https://github.com/ProgramFan"><span class="hide-on-mobiles">View on </span>GitHub</a>
+  </li>
+</ul>
+
+  </nav>
+  <div class="grid">
+    <div class="unit one-third center-on-mobiles">
+      <h1>
+        <a href="/">
+          <span class="sr-only">Jekyll</span>
+          <img src="/img/logo-2x.png" width="249" height="115" alt="Jekyll Logo">
+        </a>
+      </h1>
+    </div>
+    <nav class="main-nav unit two-thirds hide-on-mobiles">
+      <ul>
+  <li class="">
+    <a href="/">Home</a>
+  </li>
+  <li class="">
+    <a href="/docs/home/">Doc<span class="show-on-mobiles">s</span><span class="hide-on-mobiles">umentation</span></a>
+  </li>
+  <li class="current">
+    <a href="/posts/">Posts</a>
+  </li>
+  <li>
+    <a href="https://github.com/ProgramFan"><span class="hide-on-mobiles">View on </span>GitHub</a>
+  </li>
+</ul>
+
+    </nav>
+  </div>
+</header>
+
+
+    <section class="news">
+    <div class="grid">
+
+      <div class="docs-nav-mobile unit whole show-on-mobiles">
+  <select onchange="if (this.value) window.location.href=this.value">
+    <option value="">Navigate the blog…</option>
+    <option value="/news/">Home</option>
+    <optgroup label="v1.x">
+      
+      <option value="/post/2015/05/05/using-rvm-to-isolate-rubygems-on-fedora-21/">Using RVM to Isolate RubyGems on Fedora 21</option>
+      
+      <option value="/post/2015/05/01/fix-boost-python-argument-error-lvalue/">Fix Argument Error with lvalue In Boost.Python</option>
+      
+      <option value="/post/2015/04/20/convert-chinese-asciidoc-to-pdf/">Convert Chinese Asciidoc Documents to PDF</option>
+      
+      <option value="/post/2015/01/20/prevent-gcc-optimize-away-code/">Prevent GCC from optimizing away a snippet of code</option>
+      
+    </optgroup>
+  </select>
+</div>
+
+
+      <div class="unit four-fifths">
+        <article>
+  <h2>
+    Using RVM to Isolate RubyGems on Fedora 21
+    <a href="/post/2015/05/05/using-rvm-to-isolate-rubygems-on-fedora-21/" class="permalink" title="Permalink">∞</a>
+  </h2>
+  <span class="post-category">
+    <span class="label">
+      rvm, rubygems, and featured
+    </span>
+  </span>
+  <div class="post-meta">
+    <span class="post-date">
+      05 May 2015
+    </span>
+    <a href="https://github.com/ProgramFan" class="post-author">
+      <!-- <img src="https://github.com/ProgramFan.png" class="avatar" alt="ProgramFan avatar" width="24" height="24"> -->
+      ProgramFan
+    </a>
+  </div>
+  <div class="post-content">
+    <div class="paragraph">
+<p>Ruby comes with a rich set of packages, which is named by the community as 'Ruby Gems'. Ruby gems are quite alike python packages. They both have dependencies, they rely on specific interpreter versions, they are both managed by centralized repositories <span class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnote_1" title="View footnote.">1</a>]</span>.</p>
+</div>
+<div class="paragraph">
+<p>Just like Python, Fedora 21 comes with several Ruby gems as packages in official repository (they are named 'rubygem-xxx'). But gems in the official repo can be outdated, some gems are missing and there are still other problems which makes the official rubygem package inadequate. The users have to manually install gems, which causes several problems, to name a few:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Gems interfere with system packages.</p>
+</li>
+<li>
+<p>Some user installed gems does not work properly with system installed gems.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+For example, user install jekyll does not work with system rubygem-json, which stops it from working.
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>The ideal way to solve the above problem is to setup isolated (possible non-root) ruby environment for specificed purpose. For example, if one managed to setup seperate ruby interpreter and gems for jekyll, problem 2 does not even exists. <a href="https://rvm.io">RVM</a> comes right to the problem.</p>
+</div>
+<!-- more -->
+<div class="sect1">
+<h2 id="introduction-of-rvm">Introduction of RVM</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>RVM is the asyncornous for "Ruby Version Manager". It installs and manages several ruby versions as well as gems seperately in a non-root manner and make switching between them super easy. More information is to be found in <a href="http://rvm.io" class="bare">http://rvm.io</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="using-rvm-to-manage-jekyll-gems">Using RVM to manage jekyll gems</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>We will use the power of RVM to manage a seperate set of gems for jekyll and jekyll-asciidoc, which is used to generate this blog. We will install RVM as a normal user in the 'stand alone' mode, install jekyll related gems as a seperate gemset, and enable the gemset only when in the project repository. The installed gems then live in their own isolated world and other parts in the system is untouched.</p>
+</div>
+<div class="sect2">
+<h3 id="install-rvm">Install RVM</h3>
+<div class="paragraph">
+<p>Install RVM is straight forward. just go to <a href="http://rvm.io" class="bare">http://rvm.io</a> for instructions. For those in a hurry, here comes the commands:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash">curl -sSL https://get.rvm.io | bash -s --no-dotfiles</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>After that, RVM will be installed in <code>$HOME/.rvm</code> and one shall configure the system to setup RVM paths by adding the following to <code>.bashrc</code> and alike:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash"><span style="color: #008000">source</span> <span style="color: #19177C">$HOME</span>/.rvm/scripts/rvm</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="using-rvm-gemset">Using RVM gemset</h3>
+<div class="paragraph">
+<p>Now we create a seperate <code>gemset</code> for our jekyll related gems. Gemset is introduced by RVM to manage different gem configurations. They live in there own directories and rely on specific ruby interpreter.</p>
+</div>
+<div class="paragraph">
+<p>We would like to use the latest stable ruby for our jekyll (ruby 2.2 at the time of writting). Here comes the steps:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Install ruby 2.2 by RVM.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash">rvm install ruby-2.2</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create and switch to specific gemset.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash">rvm use ruby-2.2.2
+rvm gemset create jekyll
+rvm getset use jekyll</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Install ruby gems as usual.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash">gem install jekyll jekyll-asciidoc rake-jekyll</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If one want to use bundle to install a set of gems, one shall <code>gem install bundle</code> first. If this is skipped and the system environment comes with preinstalled bundle, the system will hang up as bundle spawns lots and lots of ruby-mris. I don&#8217;t know why.
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="use-specific-gemset-only-in-jekyll-blog-directory">Use specific gemset only in jekyll blog directory</h3>
+<div class="paragraph">
+<p>Now we have new ruby-2.2.2 intepreter (the preinstalled on Fedora 21 is ruby-2.1.6) and a set of jekyll related gems. We want to restrict them to my jekyll based blog. This is done by defaulting to system ruby and using RVM <code>.rvmrc</code> automatically switch to jekyll and ruby-2.2.2 when in blog directory.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Make RVM use system ruby by default</p>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash">rvm use system --default</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Enabling gemset in blog root directory. Assuming blog in <code>$HOME/blog</code>, create <code>.rvmrc</code> or <code>.ruby-version</code>, add the following content:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash">ruby-2.2.2@jekyll</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="enjoy-rvm">Enjoy RVM</h3>
+<div class="paragraph">
+<p>After the above steps, we are using system ruby and gems when in other directories and use ruby-2.2.2 and jekyll gemset in our blog. Life is so amazing from now on. One can install multiple versions and/or multiple gemsets using the above approach, and even better, use <code>rvm use xxx</code> to switch between them on the fly.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<hr>
+<div class="footnote" id="_footnote_1">
+<a href="#_footnoteref_1">1</a> Python have PyPI, ruby have RubyGems
+</div>
+</div>
+  </div>
+</article>
+
+      </div>
+
+      <div class="unit one-fifth hide-on-mobiles">
+  <aside>
+    <h4>Featured</h4>
+    <ul>
+        
+        
+        <li class="current">
+          <a href="/post/2015/05/05/using-rvm-to-isolate-rubygems-on-fedora-21/">Using RVM to Isolate RubyGems on Fedora 21</a>
+        </li>
+        
+        
+        
+        
+        
+        
+        
+        <li class="">
+          <a href="/post/2015/01/20/prevent-gcc-optimize-away-code/">Prevent GCC from optimizing away a snippet of code</a>
+        </li>
+        
+        
+    </ul>
+    <h4>Other Posts</h4>
+    <ul>
+        
+        
+        
+        
+        <li class="">
+          <a href="/post/2015/05/01/fix-boost-python-argument-error-lvalue/">Fix Argument Error with lvalue In Boost.Python</a>
+        </li>
+        
+        
+        
+        <li class="">
+          <a href="/post/2015/04/20/convert-chinese-asciidoc-to-pdf/">Convert Chinese Asciidoc Documents to PDF</a>
+        </li>
+        
+        
+        
+        
+    </ul>
+  </aside>
+</div>
+
+
+      <div class="clear"></div>
+
+    </div>
+  </section>
+
+
+  <footer role="contentinfo">
+  <div class="grid">
+    <div class="unit one-third center-on-mobiles">
+      <p>The contents of this website are &copy;&nbsp;
+      2015 by Yang Zhang under the terms of the MIT License.</p>
+    </div>
+    <div class="unit two-thirds align-right center-on-mobiles">
+      <p>
+        Proudly hosted by
+        <a href="https://github.com">
+          <img src="/img/footer-logo.png" width="100" height="30" alt="GitHub • Social coding">
+        </a>
+      </p>
+    </div>
+  </div>
+</footer>
+
+  <script>
+  var anchorForId = function (id) {
+    var anchor = document.createElement("a");
+    anchor.className = "header-link";
+    anchor.href      = "#" + id;
+    anchor.innerHTML = "<span class=\"sr-only\">Permalink</span><i class=\"fa fa-link\"></i>";
+    anchor.title = "Permalink";
+    return anchor;
+  };
+
+  var linkifyAnchors = function (level, containingElement) {
+    var headers = containingElement.getElementsByTagName("h" + level);
+    for (var h = 0; h < headers.length; h++) {
+      var header = headers[h];
+
+      if (typeof header.id !== "undefined" && header.id !== "") {
+        header.appendChild(anchorForId(header.id));
+      }
+    }
+  };
+
+  document.onreadystatechange = function () {
+    if (this.readyState === "complete") {
+      var contentBlock = document.getElementsByClassName("docs")[0] || document.getElementsByClassName("news")[0];
+      if (!contentBlock) {
+        return;
+      }
+      for (var level = 1; level <= 6; level++) {
+        linkifyAnchors(level, contentBlock);
+      }
+    }
+  };
+</script>
+
+
+</body>
+</html>

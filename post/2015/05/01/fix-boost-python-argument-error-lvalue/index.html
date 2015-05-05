@@ -1,0 +1,254 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <title>Fix Argument Error with lvalue In Boost.Python</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="generator" content="Jekyll v2.5.3">
+  <link rel="alternate" type="application/rss+xml" title="Jekyll • Simple, blog-aware, static sites - Feed" href="/feed.xml">
+  <link rel="alternate" type="application/atom+xml" title="Recent commits to Jekyll’s master branch" href="https://github.com/ProgramFan/commits/master.atom">
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic,900">
+  <link rel="stylesheet" href="/css/screen.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <!--[if lt IE 9]>
+  <script src="/js/html5shiv.min.js"></script>
+  <script src="/js/respond.min.js"></script>
+  <![endif]-->
+</head>
+
+
+<body class="wrap">
+  <header role="banner">
+  <nav class="mobile-nav show-on-mobiles">
+    <ul>
+  <li class="">
+    <a href="/">Home</a>
+  </li>
+  <li class="">
+    <a href="/docs/home/">Doc<span class="show-on-mobiles">s</span><span class="hide-on-mobiles">umentation</span></a>
+  </li>
+  <li class="current">
+    <a href="/posts/">Posts</a>
+  </li>
+  <li>
+    <a href="https://github.com/ProgramFan"><span class="hide-on-mobiles">View on </span>GitHub</a>
+  </li>
+</ul>
+
+  </nav>
+  <div class="grid">
+    <div class="unit one-third center-on-mobiles">
+      <h1>
+        <a href="/">
+          <span class="sr-only">Jekyll</span>
+          <img src="/img/logo-2x.png" width="249" height="115" alt="Jekyll Logo">
+        </a>
+      </h1>
+    </div>
+    <nav class="main-nav unit two-thirds hide-on-mobiles">
+      <ul>
+  <li class="">
+    <a href="/">Home</a>
+  </li>
+  <li class="">
+    <a href="/docs/home/">Doc<span class="show-on-mobiles">s</span><span class="hide-on-mobiles">umentation</span></a>
+  </li>
+  <li class="current">
+    <a href="/posts/">Posts</a>
+  </li>
+  <li>
+    <a href="https://github.com/ProgramFan"><span class="hide-on-mobiles">View on </span>GitHub</a>
+  </li>
+</ul>
+
+    </nav>
+  </div>
+</header>
+
+
+    <section class="news">
+    <div class="grid">
+
+      <div class="docs-nav-mobile unit whole show-on-mobiles">
+  <select onchange="if (this.value) window.location.href=this.value">
+    <option value="">Navigate the blog…</option>
+    <option value="/news/">Home</option>
+    <optgroup label="v1.x">
+      
+      <option value="/post/2015/05/05/using-rvm-to-isolate-rubygems-on-fedora-21/">Using RVM to Isolate RubyGems on Fedora 21</option>
+      
+      <option value="/post/2015/05/01/fix-boost-python-argument-error-lvalue/">Fix Argument Error with lvalue In Boost.Python</option>
+      
+      <option value="/post/2015/04/20/convert-chinese-asciidoc-to-pdf/">Convert Chinese Asciidoc Documents to PDF</option>
+      
+      <option value="/post/2015/01/20/prevent-gcc-optimize-away-code/">Prevent GCC from optimizing away a snippet of code</option>
+      
+    </optgroup>
+  </select>
+</div>
+
+
+      <div class="unit four-fifths">
+        <article>
+  <h2>
+    Fix Argument Error with lvalue In Boost.Python
+    <a href="/post/2015/05/01/fix-boost-python-argument-error-lvalue/" class="permalink" title="Permalink">∞</a>
+  </h2>
+  <span class="post-category">
+    <span class="label">
+      boost, python, and c++
+    </span>
+  </span>
+  <div class="post-meta">
+    <span class="post-date">
+      01 May 2015
+    </span>
+    <a href="https://github.com/ProgramFan" class="post-author">
+      <!-- <img src="https://github.com/ProgramFan.png" class="avatar" alt="ProgramFan avatar" width="24" height="24"> -->
+      ProgramFan
+    </a>
+  </div>
+  <div class="post-content">
+    <div class="sect1">
+<h2 id="the-problem">The problem</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="http://www.boost.org">Boost.Python</a> is often used to interface c++ classes to python. It&#8217;s easy to use, handles c++ string and containers automatically and non-intrusive.</p>
+</div>
+<div class="paragraph">
+<p><a href="http://github.com/Vallioc/YouCompleteMe">YouCompleteMe</a> uses Boost.Python to export its c++ classes to python so users can use them in their <code>ycm_extra_conf.py</code> file. Recently, I encountered the following strange problem when using <code>CompilationDatabase.GetCompilationFlagsForFile</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash">ArgumentError: Python argument types in^@
+CompilationDatabase.GetCompilationInfoForFile<span style="color: #666666">(</span>CompilationDatabase, unicode<span style="color: #666666">)</span>^@
+did not match pass:<span style="color: #666666">[</span>c++<span style="color: #666666">]</span> signature:^@
+GetCompilationInfoForFile<span style="color: #666666">(</span>YouCompleteMe::CompilationDatabase <span style="color: #666666">{</span>lvalue<span style="color: #666666">}</span>,
+std::string<span style="color: #666666">)</span>^@</code></pre>
+</div>
+</div>
+<!-- more -->
+</div>
+</div>
+<div class="sect1">
+<h2 id="the-solution">The solution</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>It&#8217;s strange that the c++ interface uses lvalue for the object for the first sign. But after digging into the problem, I find that every part of the <code>ycm_extra_conf.py</code> works as expected, except that the filename is a reference file chosen randomly from the <code>compilation_commands.json</code>. Then it turns out that python load json strings as <code>unicode</code> objects but the c++ part only accepts <code>std::string</code>, which is the real difference in the interface. after manually converting the json string to python string with <code>str</code>, the error disappeared.</p>
+</div>
+<div class="paragraph">
+<p>So it seems that Boost.Python handles lvalue well, but has problems with unicode objects and <code>std::string</code>. Try to use always python string instead of unicode in Boost.Python interfaced c++ classes.</p>
+</div>
+</div>
+</div>
+  </div>
+</article>
+
+      </div>
+
+      <div class="unit one-fifth hide-on-mobiles">
+  <aside>
+    <h4>Featured</h4>
+    <ul>
+        
+        
+        <li class="">
+          <a href="/post/2015/05/05/using-rvm-to-isolate-rubygems-on-fedora-21/">Using RVM to Isolate RubyGems on Fedora 21</a>
+        </li>
+        
+        
+        
+        
+        
+        
+        
+        <li class="">
+          <a href="/post/2015/01/20/prevent-gcc-optimize-away-code/">Prevent GCC from optimizing away a snippet of code</a>
+        </li>
+        
+        
+    </ul>
+    <h4>Other Posts</h4>
+    <ul>
+        
+        
+        
+        
+        <li class="current">
+          <a href="/post/2015/05/01/fix-boost-python-argument-error-lvalue/">Fix Argument Error with lvalue In Boost.Python</a>
+        </li>
+        
+        
+        
+        <li class="">
+          <a href="/post/2015/04/20/convert-chinese-asciidoc-to-pdf/">Convert Chinese Asciidoc Documents to PDF</a>
+        </li>
+        
+        
+        
+        
+    </ul>
+  </aside>
+</div>
+
+
+      <div class="clear"></div>
+
+    </div>
+  </section>
+
+
+  <footer role="contentinfo">
+  <div class="grid">
+    <div class="unit one-third center-on-mobiles">
+      <p>The contents of this website are &copy;&nbsp;
+      2015 by Yang Zhang under the terms of the MIT License.</p>
+    </div>
+    <div class="unit two-thirds align-right center-on-mobiles">
+      <p>
+        Proudly hosted by
+        <a href="https://github.com">
+          <img src="/img/footer-logo.png" width="100" height="30" alt="GitHub • Social coding">
+        </a>
+      </p>
+    </div>
+  </div>
+</footer>
+
+  <script>
+  var anchorForId = function (id) {
+    var anchor = document.createElement("a");
+    anchor.className = "header-link";
+    anchor.href      = "#" + id;
+    anchor.innerHTML = "<span class=\"sr-only\">Permalink</span><i class=\"fa fa-link\"></i>";
+    anchor.title = "Permalink";
+    return anchor;
+  };
+
+  var linkifyAnchors = function (level, containingElement) {
+    var headers = containingElement.getElementsByTagName("h" + level);
+    for (var h = 0; h < headers.length; h++) {
+      var header = headers[h];
+
+      if (typeof header.id !== "undefined" && header.id !== "") {
+        header.appendChild(anchorForId(header.id));
+      }
+    }
+  };
+
+  document.onreadystatechange = function () {
+    if (this.readyState === "complete") {
+      var contentBlock = document.getElementsByClassName("docs")[0] || document.getElementsByClassName("news")[0];
+      if (!contentBlock) {
+        return;
+      }
+      for (var level = 1; level <= 6; level++) {
+        linkifyAnchors(level, contentBlock);
+      }
+    }
+  };
+</script>
+
+
+</body>
+</html>
