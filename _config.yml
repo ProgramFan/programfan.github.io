@@ -4,6 +4,8 @@ permalink: /post/:year/:month/:day/:title/
 excerpt_separator: "<!-- more -->"
 
 repository: https://github.com/ProgramFan
+google_analytics_id: UA-62602586-1 
+
 
 collections:
   docs:
