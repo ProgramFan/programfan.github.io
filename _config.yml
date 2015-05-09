@@ -1,15 +1,17 @@
 markdown: kramdown
 highlighter: pygments
-permalink: /post/:year/:month/:day/:title/
+permalink: /contents/:year/:month/:day/:title/
 excerpt_separator: "<!-- more -->"
+title: "ProgramFan's Writing Space"
+#host: "http://programfan.github.io"
 
 repository: https://github.com/ProgramFan
 google_analytics_id: UA-62602586-1 
 
 
-collections:
-  docs:
-    output: true
+# collections:
+#   docs:
+#     output: true
 
 # jekyll-asciidoc configurations
 gems:

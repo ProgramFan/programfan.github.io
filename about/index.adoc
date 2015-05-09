@@ -1,0 +1,8 @@
+---
+layout: page
+title: ProgramFan's Writing Space - About Me
+---
+
+This is a work in progress. I usually write about some Linux/vim/python/c++ tips here.
+
+I am also writing in more detail about my workspace configuration on http://gitbook.com.
