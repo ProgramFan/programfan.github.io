@@ -2,7 +2,7 @@
 <html lang="en-US">
 <head>
   <meta charset="UTF-8">
-  <title>ProgramFan's Writing Space - Blog</title>
+  <title>Using RVM to Isolate RubyGems on Fedora 21</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="generator" content="Jekyll v2.5.3">
   <link rel="alternate" type="application/rss+xml"
@@ -91,13 +91,10 @@
 
 
       <div class="unit four-fifths">
-        <!-- Pagination pages -->
-
-  <article>
+        <article>
   <h2>
-    <a href="/contents/2015/05/05/using-rvm-to-isolate-rubygems-on-fedora-21/">
-      Using RVM to Isolate RubyGems on Fedora 21
-    </a>
+    Using RVM to Isolate RubyGems on Fedora 21
+    <a href="/contents/2015/05/05/using-rvm-to-isolate-rubygems-on-fedora-21/" class="permalink" title="Permalink">∞</a>
   </h2>
   <span class="post-category">
     <span class="label">
@@ -144,91 +141,133 @@ For example, user install jekyll does not work with system rubygem-json, which s
 <div class="paragraph">
 <p>The ideal way to solve the above problem is to setup isolated (possible non-root) ruby environment for specificed purpose. For example, if one managed to setup seperate ruby interpreter and gems for jekyll, problem 2 does not even exists. <a href="https://rvm.io">RVM</a> comes right to the problem.</p>
 </div>
-
+<!-- more -->
+<div class="sect1">
+<h2 id="introduction-of-rvm">Introduction of RVM</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>RVM is the asyncornous for "Ruby Version Manager". It installs and manages several ruby versions as well as gems seperately in a non-root manner and make switching between them super easy. More information is to be found in <a href="http://rvm.io" class="bare">http://rvm.io</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="using-rvm-to-manage-jekyll-gems">Using RVM to manage jekyll gems</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>We will use the power of RVM to manage a seperate set of gems for jekyll and jekyll-asciidoc, which is used to generate this blog. We will install RVM as a normal user in the 'stand alone' mode, install jekyll related gems as a seperate gemset, and enable the gemset only when in the project repository. The installed gems then live in their own isolated world and other parts in the system is untouched.</p>
+</div>
+<div class="sect2">
+<h3 id="install-rvm">Install RVM</h3>
+<div class="paragraph">
+<p>Install RVM is straight forward. just go to <a href="http://rvm.io" class="bare">http://rvm.io</a> for instructions. For those in a hurry, here comes the commands:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">curl -sSL https://get.rvm.io | bash -s --no-dotfiles</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>After that, RVM will be installed in <code>$HOME/.rvm</code> and one shall configure the system to setup RVM paths by adding the following to <code>.bashrc</code> and alike:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">source $HOME/.rvm/scripts/rvm</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="using-rvm-gemset">Using RVM gemset</h3>
+<div class="paragraph">
+<p>Now we create a seperate <code>gemset</code> for our jekyll related gems. Gemset is introduced by RVM to manage different gem configurations. They live in there own directories and rely on specific ruby interpreter.</p>
+</div>
+<div class="paragraph">
+<p>We would like to use the latest stable ruby for our jekyll (ruby 2.2 at the time of writting). Here comes the steps:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Install ruby 2.2 by RVM.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">rvm install ruby-2.2</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create and switch to specific gemset.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">rvm use ruby-2.2.2
+rvm gemset create jekyll
+rvm getset use jekyll</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Install ruby gems as usual.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">gem install jekyll jekyll-asciidoc rake-jekyll</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If one want to use bundle to install a set of gems, one shall <code>gem install bundle</code> first. If this is skipped and the system environment comes with preinstalled bundle, the system will hang up as bundle spawns lots and lots of ruby-mris. I don&#8217;t know why.
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="use-specific-gemset-only-in-jekyll-blog-directory">Use specific gemset only in jekyll blog directory</h3>
+<div class="paragraph">
+<p>Now we have new ruby-2.2.2 intepreter (the preinstalled on Fedora 21 is ruby-2.1.6) and a set of jekyll related gems. We want to restrict them to my jekyll based blog. This is done by defaulting to system ruby and using RVM <code>.rvmrc</code> automatically switch to jekyll and ruby-2.2.2 when in blog directory.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Make RVM use system ruby by default</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">rvm use system --default</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Enabling gemset in blog root directory. Assuming blog in <code>$HOME/blog</code>, create <code>.rvmrc</code> or <code>.ruby-version</code>, add the following content:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">ruby-2.2.2@jekyll</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="enjoy-rvm">Enjoy RVM</h3>
+<div class="paragraph">
+<p>After the above steps, we are using system ruby and gems when in other directories and use ruby-2.2.2 and jekyll gemset in our blog. Life is so amazing from now on. One can install multiple versions and/or multiple gemsets using the above approach, and even better, use <code>rvm use xxx</code> to switch between them on the fly.</p>
+</div>
+</div>
+</div>
+</div>
 <div id="footnotes">
 <hr>
 <div class="footnote" id="_footnote_1">
 <a href="#_footnoteref_1">1</a> Python have PyPI, ruby have RubyGems
 </div>
 </div>
-    <br/>
-    <div class="post-more">
-      <a href="/contents/2015/05/05/using-rvm-to-isolate-rubygems-on-fedora-21/"> --> READ THE REST OF THIS POST</a>
-    </div>
   </div>
 </article>
-
-
-  <article>
-  <h2>
-    <a href="/contents/2015/05/01/fix-boost-python-argument-error-lvalue/">
-      Fix Argument Error with lvalue In Boost.Python
-    </a>
-  </h2>
-  <span class="post-category">
-    <span class="label">
-      boost, python, and c++
-    </span>
-  </span>
-  <div class="post-meta">
-    <span class="post-date">
-      01 May 2015
-    </span>
-    <a href="https://github.com/ProgramFan" class="post-author">
-      ProgramFan
-    </a>
-  </div>
-  <div class="post-content">
-    <div class="sect1">
-<h2 id="the-problem">The problem</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p><a href="http://www.boost.org">Boost.Python</a> is often used to interface c++ classes to python. It&#8217;s easy to use, handles c++ string and containers automatically and non-intrusive.</p>
-</div>
-<div class="paragraph">
-<p><a href="http://github.com/Vallioc/YouCompleteMe">YouCompleteMe</a> uses Boost.Python to export its c++ classes to python so users can use them in their <code>ycm_extra_conf.py</code> file. Recently, I encountered the following strange problem when using <code>CompilationDatabase.GetCompilationFlagsForFile</code>:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">ArgumentError: Python argument types in^@
-CompilationDatabase.GetCompilationInfoForFile(CompilationDatabase, unicode)^@
-did not match pass:[c++] signature:^@
-GetCompilationInfoForFile(YouCompleteMe::CompilationDatabase {lvalue},
-std::string)^@</code></pre>
-</div>
-</div>
-
-</div>
-</div>
-    <br/>
-    <div class="post-more">
-      <a href="/contents/2015/05/01/fix-boost-python-argument-error-lvalue/"> --> READ THE REST OF THIS POST</a>
-    </div>
-  </div>
-</article>
-
-
-
-<!-- Pagination links -->
-<div class="section-nav">
-  <div class="left align-right">
-    
-      <span class="prev disabled">Newer</span>
-    
-  </div>
-  <!--
-  <div class="center align-center">
-    Page: 1 of 2
-  </div>
-  -->
-  <div class="right align-left">
-    
-      <a href="/posts/page2/" class="next">Older</a>
-    
-  </div>
-</div>
-<div class="clear"></div>
-
 
       </div>
 
@@ -238,7 +277,7 @@ std::string)^@</code></pre>
     <ul>
         
         
-        <li class="">
+        <li class="current">
           <a href="/contents/2015/05/05/using-rvm-to-isolate-rubygems-on-fedora-21/">Using RVM to Isolate RubyGems on Fedora 21</a>
         </li>
         

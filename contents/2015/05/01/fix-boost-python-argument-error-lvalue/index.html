@@ -2,7 +2,7 @@
 <html lang="en-US">
 <head>
   <meta charset="UTF-8">
-  <title>ProgramFan's Writing Space - Blog</title>
+  <title>Fix Argument Error with lvalue In Boost.Python</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="generator" content="Jekyll v2.5.3">
   <link rel="alternate" type="application/rss+xml"
@@ -91,137 +91,59 @@
 
 
       <div class="unit four-fifths">
-        <!-- Pagination pages -->
-
-  <article>
+        <article>
   <h2>
-    <a href="/contents/2015/04/27/prevent-gcc-optimize-away-code/">
-      Prevent GCC from optimizing away a snippet of code
-    </a>
+    Fix Argument Error with lvalue In Boost.Python
+    <a href="/contents/2015/05/01/fix-boost-python-argument-error-lvalue/" class="permalink" title="Permalink">∞</a>
   </h2>
   <span class="post-category">
     <span class="label">
-      c++, gcc, and featured
+      boost, python, and c++
     </span>
   </span>
   <div class="post-meta">
     <span class="post-date">
-      27 Apr 2015
+      01 May 2015
     </span>
     <a href="https://github.com/ProgramFan" class="post-author">
       ProgramFan
     </a>
   </div>
   <div class="post-content">
-    <div class="paragraph">
-<p>Nowadays compilers are extremely capable of elimiting 'dead' code. But in
-benchmarking we need some seemingly 'useless' code to do the work we want. For
-example, to do computation in registers in order to measure instruction
-latency and throughput. In these cases, we need a mechanism to temporarily
-disable optimization.</p>
-</div>
-<div class="paragraph">
-<p>This document keep an up-to-date collections of techniques to temporarily
-disable compiler optimizations. These techniques are tested on a recent gcc or
-icc compiler.</p>
-</div>
-<div class="sect1">
-<h2 id="using-volatile">Using volatile</h2>
+    <div class="sect1">
+<h2 id="the-problem">The problem</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>volatile</code> makes compilers be extremely careful (or conservative) on memory
-load and store of a variable. Most compilers tend to do no optimizations at
-all (even for proven dead code). So the <code>volatile</code> technique becomes the top 1
-used.</p>
+<p><a href="http://www.boost.org">Boost.Python</a> is often used to interface c++ classes to python. It&#8217;s easy to use, handles c++ string and containers automatically and non-intrusive.</p>
 </div>
-
+<div class="paragraph">
+<p><a href="http://github.com/Vallioc/YouCompleteMe">YouCompleteMe</a> uses Boost.Python to export its c++ classes to python so users can use them in their <code>ycm_extra_conf.py</code> file. Recently, I encountered the following strange problem when using <code>CompilationDatabase.GetCompilationFlagsForFile</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">ArgumentError: Python argument types in^@
+CompilationDatabase.GetCompilationInfoForFile(CompilationDatabase, unicode)^@
+did not match pass:[c++] signature:^@
+GetCompilationInfoForFile(YouCompleteMe::CompilationDatabase {lvalue},
+std::string)^@</code></pre>
 </div>
 </div>
-    <br/>
-    <div class="post-more">
-      <a href="/contents/2015/04/27/prevent-gcc-optimize-away-code/"> --> READ THE REST OF THIS POST</a>
-    </div>
-  </div>
-</article>
-
-
-  <article>
-  <h2>
-    <a href="/contents/2015/04/20/convert-chinese-asciidoc-to-pdf/">
-      Convert Chinese Asciidoc Documents to PDF
-    </a>
-  </h2>
-  <span class="post-category">
-    <span class="label">
-      asciidoc, pdf, fop, and asciidoctor
-    </span>
-  </span>
-  <div class="post-meta">
-    <span class="post-date">
-      20 Apr 2015
-    </span>
-    <a href="https://github.com/ProgramFan" class="post-author">
-      ProgramFan
-    </a>
-  </div>
-  <div class="post-content">
-    <div class="paragraph">
-<p>Asciidoctor does well in translating asciidoc documents to html5, docbook and etc. Chinese documents also looks great in html5 and docbook. But sometimes we need to use PDF to share with others. Unfortunately, this is not easy for Chinese documents. This document shares my experience converting Chinese asciidoc documents into pdfs.</p>
+<!-- more -->
+</div>
 </div>
 <div class="sect1">
-<h2 id="overview-of-approaches-to-convert-asciidoc-to-pdfs">Overview of approaches to convert asciidoc to PDFs</h2>
+<h2 id="the-solution">The solution</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>There are currently 3 ways to convert asciidoc documents to PDF:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>asciidoctor-pdf</p>
-<div class="paragraph">
-<p><a href="http://github.com/asciidoctor/asciidoctor-pdf">asciidoctor-pdf</a> is an alpha-state software in ruby to convert asciidoc documents directly into pdf, without any other tools.</p>
+<p>It&#8217;s strange that the c++ interface uses lvalue for the object for the first sign. But after digging into the problem, I find that every part of the <code>ycm_extra_conf.py</code> works as expected, except that the filename is a reference file chosen randomly from the <code>compilation_commands.json</code>. Then it turns out that python load json strings as <code>unicode</code> objects but the c++ part only accepts <code>std::string</code>, which is the real difference in the interface. after manually converting the json string to python string with <code>str</code>, the error disappeared.</p>
 </div>
 <div class="paragraph">
-<p>While asciidoctor is nimble, it does not support CJK/multilingual documents.The output of asciidoctor-pdf is quite similar to that of asciidoctor to html5 backends, with coderay or pygments code highlights and similar fonts as the html5 backends. It&#8217;s worth trying for english documents.</p>
-</div>
-<div class="paragraph">
-<p>At the time of writing, asciidoctor-pdf does not support fontawesome icon font. So the callouts and admotions are simple charactors.</p>
-</div>
-
-</li>
-</ol>
+<p>So it seems that Boost.Python handles lvalue well, but has problems with unicode objects and <code>std::string</code>. Try to use always python string instead of unicode in Boost.Python interfaced c++ classes.</p>
 </div>
 </div>
 </div>
-    <br/>
-    <div class="post-more">
-      <a href="/contents/2015/04/20/convert-chinese-asciidoc-to-pdf/"> --> READ THE REST OF THIS POST</a>
-    </div>
   </div>
 </article>
-
-
-
-<!-- Pagination links -->
-<div class="section-nav">
-  <div class="left align-right">
-    
-      <a href="/index.html" class="prev">Newer</a>
-    
-  </div>
-  <!--
-  <div class="center align-center">
-    Page: 2 of 2
-  </div>
-  -->
-  <div class="right align-left">
-    
-      <span class="next disabled">Older</span>
-    
-  </div>
-</div>
-<div class="clear"></div>
-
 
       </div>
 
@@ -253,7 +175,7 @@ used.</p>
         
         
         
-        <li class="">
+        <li class="current">
           <a href="/contents/2015/05/01/fix-boost-python-argument-error-lvalue/">Fix Argument Error with lvalue In Boost.Python</a>
         </li>
         

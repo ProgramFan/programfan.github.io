@@ -26,7 +26,7 @@
   <li class="">
     <a href="/">Home</a>
   </li>
-  <li class="">
+  <li class="current">
     <a href="/blog/">Blog</a>
   </li>
   <li class="">
@@ -52,7 +52,7 @@
   <li class="">
     <a href="/">Home</a>
   </li>
-  <li class="">
+  <li class="current">
     <a href="/blog/">Blog</a>
   </li>
   <li class="">
@@ -93,125 +93,17 @@
       <div class="unit four-fifths">
         <!-- Pagination pages -->
 
-  <article>
-  <h2>
-    <a href="/contents/2015/04/27/prevent-gcc-optimize-away-code/">
-      Prevent GCC from optimizing away a snippet of code
-    </a>
-  </h2>
-  <span class="post-category">
-    <span class="label">
-      c++, gcc, and featured
-    </span>
-  </span>
-  <div class="post-meta">
-    <span class="post-date">
-      27 Apr 2015
-    </span>
-    <a href="https://github.com/ProgramFan" class="post-author">
-      ProgramFan
-    </a>
-  </div>
-  <div class="post-content">
-    <div class="paragraph">
-<p>Nowadays compilers are extremely capable of elimiting 'dead' code. But in
-benchmarking we need some seemingly 'useless' code to do the work we want. For
-example, to do computation in registers in order to measure instruction
-latency and throughput. In these cases, we need a mechanism to temporarily
-disable optimization.</p>
-</div>
-<div class="paragraph">
-<p>This document keep an up-to-date collections of techniques to temporarily
-disable compiler optimizations. These techniques are tested on a recent gcc or
-icc compiler.</p>
-</div>
-<div class="sect1">
-<h2 id="using-volatile">Using volatile</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p><code>volatile</code> makes compilers be extremely careful (or conservative) on memory
-load and store of a variable. Most compilers tend to do no optimizations at
-all (even for proven dead code). So the <code>volatile</code> technique becomes the top 1
-used.</p>
-</div>
-
-</div>
-</div>
-    <br/>
-    <div class="post-more">
-      <a href="/contents/2015/04/27/prevent-gcc-optimize-away-code/"> --> READ THE REST OF THIS POST</a>
-    </div>
-  </div>
-</article>
-
-
-  <article>
-  <h2>
-    <a href="/contents/2015/04/20/convert-chinese-asciidoc-to-pdf/">
-      Convert Chinese Asciidoc Documents to PDF
-    </a>
-  </h2>
-  <span class="post-category">
-    <span class="label">
-      asciidoc, pdf, fop, and asciidoctor
-    </span>
-  </span>
-  <div class="post-meta">
-    <span class="post-date">
-      20 Apr 2015
-    </span>
-    <a href="https://github.com/ProgramFan" class="post-author">
-      ProgramFan
-    </a>
-  </div>
-  <div class="post-content">
-    <div class="paragraph">
-<p>Asciidoctor does well in translating asciidoc documents to html5, docbook and etc. Chinese documents also looks great in html5 and docbook. But sometimes we need to use PDF to share with others. Unfortunately, this is not easy for Chinese documents. This document shares my experience converting Chinese asciidoc documents into pdfs.</p>
-</div>
-<div class="sect1">
-<h2 id="overview-of-approaches-to-convert-asciidoc-to-pdfs">Overview of approaches to convert asciidoc to PDFs</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>There are currently 3 ways to convert asciidoc documents to PDF:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>asciidoctor-pdf</p>
-<div class="paragraph">
-<p><a href="http://github.com/asciidoctor/asciidoctor-pdf">asciidoctor-pdf</a> is an alpha-state software in ruby to convert asciidoc documents directly into pdf, without any other tools.</p>
-</div>
-<div class="paragraph">
-<p>While asciidoctor is nimble, it does not support CJK/multilingual documents.The output of asciidoctor-pdf is quite similar to that of asciidoctor to html5 backends, with coderay or pygments code highlights and similar fonts as the html5 backends. It&#8217;s worth trying for english documents.</p>
-</div>
-<div class="paragraph">
-<p>At the time of writing, asciidoctor-pdf does not support fontawesome icon font. So the callouts and admotions are simple charactors.</p>
-</div>
-
-</li>
-</ol>
-</div>
-</div>
-</div>
-    <br/>
-    <div class="post-more">
-      <a href="/contents/2015/04/20/convert-chinese-asciidoc-to-pdf/"> --> READ THE REST OF THIS POST</a>
-    </div>
-  </div>
-</article>
-
-
 
 <!-- Pagination links -->
 <div class="section-nav">
   <div class="left align-right">
     
-      <a href="/index.html" class="prev">Newer</a>
+      <span class="prev disabled">Newer</span>
     
   </div>
   <!--
   <div class="center align-center">
-    Page: 2 of 2
+    Page:  of 
   </div>
   -->
   <div class="right align-left">

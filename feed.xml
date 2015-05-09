@@ -8,26 +8,26 @@
   xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
   >
   <channel>
-    <title xml:lang="en">Jekyll • Simple, blog-aware, static sites</title>
-    <atom:link type="application/atom+xml" href="http://jekyllrb.com/feed.xml" rel="self"/>
-    <link>http://jekyllrb.com/</link>
-    <pubDate>Sat, 09 May 2015 09:51:28 +0000</pubDate>
-    <lastBuildDate>Sat, 09 May 2015 09:51:28 +0000</lastBuildDate>
+    <title xml:lang="en">ProgramFan's Writing Space</title>
+    <atom:link type="application/atom+xml" href="127.0.0.1/feed.xml" rel="self"/>
+    <link>127.0.0.1 </link>
+    <pubDate>Sat, 09 May 2015 16:30:35 +0000</pubDate>
+    <lastBuildDate>Sat, 09 May 2015 16:30:35 +0000</lastBuildDate>
     <language>en-US</language>
     <generator>Jekyll v2.5.3</generator>
-    <description>Transform your plain text into static websites and blogs.</description>
+    <description></description>
     <image>
       <description>Transform your plain text into static websites and blogs.</description>
-      <url>http://jekyllrb.com/img/logo-rss.png</url>
-      <title>Jekyll • Simple, blog-aware, static sites</title>
-      <link>http://jekyllrb.com/</link>
+      <url>127.0.0.1/img/logo-rss.png</url>
+      <title>ProgramFan's Writing Space</title>
+      <link>127.0.0.1</link>
       <width>144</width>
       <height>73</height>
     </image>
     
     <item>
       <title>Using RVM to Isolate RubyGems on Fedora 21</title>
-      <link>http://jekyllrb.com/post/2015/05/05/using-rvm-to-isolate-rubygems-on-fedora-21/</link>
+      <link>127.0.0.1/contents/2015/05/05/using-rvm-to-isolate-rubygems-on-fedora-21/</link>
       <pubDate>Tue, 05 May 2015 00:00:00 +0000</pubDate>
       <dc:creator>ProgramFan</dc:creator>
       
@@ -38,7 +38,7 @@
       
       <category>featured</category>
       
-      <guid isPermaLink="true">http://jekyllrb.com/post/2015/05/05/using-rvm-to-isolate-rubygems-on-fedora-21/</guid>
+      <guid isPermaLink="true">127.0.0.1/contents/2015/05/05/using-rvm-to-isolate-rubygems-on-fedora-21/</guid>
       <description>&lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Ruby comes with a rich set of packages, which is named by the community as &#39;Ruby Gems&#39;. Ruby gems are quite alike python packages. They both have dependencies, they rely on specific interpreter versions, they are both managed by centralized repositories &lt;span class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_1&quot; class=&quot;footnote&quot; href=&quot;#_footnote_1&quot; title=&quot;View footnote.&quot;&gt;1&lt;/a&gt;]&lt;/span&gt;.&lt;/p&gt;
 &lt;/div&gt;
@@ -199,7 +199,7 @@ If one want to use bundle to install a set of gems, one shall &lt;code&gt;gem in
     
     <item>
       <title>Fix Argument Error with lvalue In Boost.Python</title>
-      <link>http://jekyllrb.com/post/2015/05/01/fix-boost-python-argument-error-lvalue/</link>
+      <link>127.0.0.1/contents/2015/05/01/fix-boost-python-argument-error-lvalue/</link>
       <pubDate>Fri, 01 May 2015 00:00:00 +0000</pubDate>
       <dc:creator>ProgramFan</dc:creator>
       
@@ -210,7 +210,7 @@ If one want to use bundle to install a set of gems, one shall &lt;code&gt;gem in
       
       <category>c++</category>
       
-      <guid isPermaLink="true">http://jekyllrb.com/post/2015/05/01/fix-boost-python-argument-error-lvalue/</guid>
+      <guid isPermaLink="true">127.0.0.1/contents/2015/05/01/fix-boost-python-argument-error-lvalue/</guid>
       <description>&lt;div class=&quot;sect1&quot;&gt;
 &lt;h2 id=&quot;the-problem&quot;&gt;The problem&lt;/h2&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
@@ -247,7 +247,7 @@ std::string)^@&lt;/code&gt;&lt;/pre&gt;
     
     <item>
       <title>Prevent GCC from optimizing away a snippet of code</title>
-      <link>http://jekyllrb.com/post/2015/04/27/prevent-gcc-optimize-away-code/</link>
+      <link>127.0.0.1/contents/2015/04/27/prevent-gcc-optimize-away-code/</link>
       <pubDate>Mon, 27 Apr 2015 00:00:00 +0000</pubDate>
       <dc:creator>ProgramFan</dc:creator>
       
@@ -258,7 +258,7 @@ std::string)^@&lt;/code&gt;&lt;/pre&gt;
       
       <category>featured</category>
       
-      <guid isPermaLink="true">http://jekyllrb.com/post/2015/04/27/prevent-gcc-optimize-away-code/</guid>
+      <guid isPermaLink="true">127.0.0.1/contents/2015/04/27/prevent-gcc-optimize-away-code/</guid>
       <description>&lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Nowadays compilers are extremely capable of elimiting &#39;dead&#39; code. But in
 benchmarking we need some seemingly &#39;useless&#39; code to do the work we want. For
@@ -462,7 +462,7 @@ The above pragma can be replaced by function attribute
     
     <item>
       <title>Convert Chinese Asciidoc Documents to PDF</title>
-      <link>http://jekyllrb.com/post/2015/04/20/convert-chinese-asciidoc-to-pdf/</link>
+      <link>127.0.0.1/contents/2015/04/20/convert-chinese-asciidoc-to-pdf/</link>
       <pubDate>Mon, 20 Apr 2015 00:00:00 +0000</pubDate>
       <dc:creator>ProgramFan</dc:creator>
       
@@ -475,7 +475,7 @@ The above pragma can be replaced by function attribute
       
       <category>asciidoctor</category>
       
-      <guid isPermaLink="true">http://jekyllrb.com/post/2015/04/20/convert-chinese-asciidoc-to-pdf/</guid>
+      <guid isPermaLink="true">127.0.0.1/contents/2015/04/20/convert-chinese-asciidoc-to-pdf/</guid>
       <description>&lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Asciidoctor does well in translating asciidoc documents to html5, docbook and etc. Chinese documents also looks great in html5 and docbook. But sometimes we need to use PDF to share with others. Unfortunately, this is not easy for Chinese documents. This document shares my experience converting Chinese asciidoc documents into pdfs.&lt;/p&gt;
 &lt;/div&gt;

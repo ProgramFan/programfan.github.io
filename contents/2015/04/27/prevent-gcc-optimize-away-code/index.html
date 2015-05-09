@@ -2,7 +2,7 @@
 <html lang="en-US">
 <head>
   <meta charset="UTF-8">
-  <title>ProgramFan's Writing Space - Blog</title>
+  <title>Prevent GCC from optimizing away a snippet of code</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="generator" content="Jekyll v2.5.3">
   <link rel="alternate" type="application/rss+xml"
@@ -91,13 +91,10 @@
 
 
       <div class="unit four-fifths">
-        <!-- Pagination pages -->
-
-  <article>
+        <article>
   <h2>
-    <a href="/contents/2015/04/27/prevent-gcc-optimize-away-code/">
-      Prevent GCC from optimizing away a snippet of code
-    </a>
+    Prevent GCC from optimizing away a snippet of code
+    <a href="/contents/2015/04/27/prevent-gcc-optimize-away-code/" class="permalink" title="Permalink">∞</a>
   </h2>
   <span class="post-category">
     <span class="label">
@@ -134,94 +131,186 @@ load and store of a variable. Most compilers tend to do no optimizations at
 all (even for proven dead code). So the <code>volatile</code> technique becomes the top 1
 used.</p>
 </div>
-
+<!-- more -->
+<div class="paragraph">
+<p>For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-cpp" data-lang="cpp">void doTest() {
+    volatile int a = 0;
+    a += 1;
+}</code></pre>
 </div>
 </div>
-    <br/>
-    <div class="post-more">
-      <a href="/contents/2015/04/27/prevent-gcc-optimize-away-code/"> --> READ THE REST OF THIS POST</a>
-    </div>
-  </div>
-</article>
-
-
-  <article>
-  <h2>
-    <a href="/contents/2015/04/20/convert-chinese-asciidoc-to-pdf/">
-      Convert Chinese Asciidoc Documents to PDF
-    </a>
-  </h2>
-  <span class="post-category">
-    <span class="label">
-      asciidoc, pdf, fop, and asciidoctor
-    </span>
-  </span>
-  <div class="post-meta">
-    <span class="post-date">
-      20 Apr 2015
-    </span>
-    <a href="https://github.com/ProgramFan" class="post-author">
-      ProgramFan
-    </a>
-  </div>
-  <div class="post-content">
-    <div class="paragraph">
-<p>Asciidoctor does well in translating asciidoc documents to html5, docbook and etc. Chinese documents also looks great in html5 and docbook. But sometimes we need to use PDF to share with others. Unfortunately, this is not easy for Chinese documents. This document shares my experience converting Chinese asciidoc documents into pdfs.</p>
+<div class="paragraph">
+<p><code>g++ -std=c++98 -O2</code> compiles the above code down to</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-asm" data-lang="asm">movl   $0x0,-0x4(%rsp)
+mov    -0x4(%rsp),%eax
+add    $0x1,%eax
+mov    %eax,-0x4(%rsp)
+retq</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>icpc -std=c++98 -O2</code> compiles it down to</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-asm" data-lang="asm">movl   $0x0,-0x8(%rsp)
+incl   -0x8(%rsp)
+retq</code></pre>
+</div>
+</div>
+</div>
 </div>
 <div class="sect1">
-<h2 id="overview-of-approaches-to-convert-asciidoc-to-pdfs">Overview of approaches to convert asciidoc to PDFs</h2>
+<h2 id="empty-assembly">Empty assembly</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>There are currently 3 ways to convert asciidoc documents to PDF:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>asciidoctor-pdf</p>
-<div class="paragraph">
-<p><a href="http://github.com/asciidoctor/asciidoctor-pdf">asciidoctor-pdf</a> is an alpha-state software in ruby to convert asciidoc documents directly into pdf, without any other tools.</p>
+<p>Another current weakness of compilers is that they are careful with inline
+assembly. Some version of gcc and icc tends to leave inline assembly touched
+variable intact. This becomes the second technique to prevent optimizations.</p>
 </div>
 <div class="paragraph">
-<p>While asciidoctor is nimble, it does not support CJK/multilingual documents.The output of asciidoctor-pdf is quite similar to that of asciidoctor to html5 backends, with coderay or pygments code highlights and similar fonts as the html5 backends. It&#8217;s worth trying for english documents.</p>
+<p>For example, Facebook&#8217;s <a href="http://github.com/facebook/folly">Folly</a> library uses
+the following <code>doNotOptimizeAway</code> function to prevent optimizing an
+expression:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-cpp" data-lang="cpp">template &lt;typename T&gt; inline doNotOptimizeAway(T&amp;&amp; datum) {
+    asm volatile ("" : "+r" datum);
+}
+void doTest() {
+    int a;
+    doNotOptimizeAway(a = 0);
+    doNotOptimizeAway(a += 16);
+}</code></pre>
+</div>
 </div>
 <div class="paragraph">
-<p>At the time of writing, asciidoctor-pdf does not support fontawesome icon font. So the callouts and admotions are simple charactors.</p>
+<p><code>icpc -std=c++11 -O2</code> compiles the above down to</p>
 </div>
-
-</li>
-</ol>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-asm" data-lang="asm">movl   $0x0,-0x8(%rsp)
+mov    -0x8(%rsp),%eax
+mov    %eax,-0x8(%rsp)
+addl   $0x10,-0x8(%rsp)
+mov    -0x8(%rsp),%edx
+mov    %edx,-0x8(%rsp)
+incl   -0x8(%rsp)
+mov    -0x8(%rsp),%ecx
+mov    %ecx,-0x8(%rsp)
+retq</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>g++ -std=c++11 -O2</code> compiles straightly down to</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-asm" data-lang="asm">xor    %eax,%eax
+add    $0x10,%eax
+retq</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The <code>+r</code> modifier and the volatile modifier in the assembly is
+essential. <code>+r</code> means the <code>datum</code> is both read from and write to by the
+assembly, so compiler can not optimized it out. <code>volatile</code> stops the compiler
+from removing the empty assembly. If you try <code>=r</code> instead of <code>+r</code>, gcc will
+optimize it away but icc will keep it.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
-    <br/>
-    <div class="post-more">
-      <a href="/contents/2015/04/20/convert-chinese-asciidoc-to-pdf/"> --> READ THE REST OF THIS POST</a>
-    </div>
+<div class="sect1">
+<h2 id="compiler-specific-pragma">Compiler specific pragma</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Compilers provides ways to control their optimizer. gcc provides <code>pragma GCC</code> as a way to control temporarily the compiler behavior. By using <code>pragma GCC optimize("O0")</code>, the optimization level can be set to zero, which means absolutely no optimize for gcc.</p>
+</div>
+<div class="paragraph">
+<p>For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-cpp" data-lang="cpp">#pragma GCC push_options
+#pragma GCC optimize("O0")
+void doTest() {
+    int a;  <i class="conum" data-value="1"></i><b>(1)</b>
+    a = 15;
+    a += 1;
+}
+#pragma GCC pop_options</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>This is a callout.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><code>g++ -std=c++98 -O2</code> compiles it straight forwardly down to</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-asm" data-lang="asm">movl   $0xf,-0x4(%rsp)
+addl   $0x1,-0x4(%rsp)
+retq</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>icpc -std=c++98 -O2</code> compiles it down to</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-asm" data-lang="asm">sub    $0x10,%rsp
+movl   $0xf,-0x10(%rbp)
+mov    $0x1,%eax
+add    -0x10(%rbp),%eax
+mov    %eax,-0x10(%rbp)
+leaveq
+retq</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Although icc does a strange transformation to the code, it leaves the code any
+way.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The above pragma can be replaced by function attribute
+<code>__attribute__((optimize("O0")))</code>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
   </div>
 </article>
-
-
-
-<!-- Pagination links -->
-<div class="section-nav">
-  <div class="left align-right">
-    
-      <a href="/index.html" class="prev">Newer</a>
-    
-  </div>
-  <!--
-  <div class="center align-center">
-    Page: 2 of 2
-  </div>
-  -->
-  <div class="right align-left">
-    
-      <span class="next disabled">Older</span>
-    
-  </div>
-</div>
-<div class="clear"></div>
-
 
       </div>
 
@@ -239,7 +328,7 @@ used.</p>
         
         
         
-        <li class="">
+        <li class="current">
           <a href="/contents/2015/04/27/prevent-gcc-optimize-away-code/">Prevent GCC from optimizing away a snippet of code</a>
         </li>
         
