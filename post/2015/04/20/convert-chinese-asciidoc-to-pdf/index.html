@@ -5,10 +5,11 @@
   <title>Convert Chinese Asciidoc Documents to PDF</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="generator" content="Jekyll v2.5.3">
-  <link rel="alternate" type="application/rss+xml" title="Jekyll • Simple, blog-aware, static sites - Feed" href="/feed.xml">
-  <link rel="alternate" type="application/atom+xml" title="Recent commits to Jekyll’s master branch" href="https://github.com/ProgramFan/commits/master.atom">
+  <link rel="alternate" type="application/rss+xml" 
+  title="ProgramFan • Research, Learning, Thinking and Growing up - Feed" href="/feed.xml">
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic,900">
   <link rel="stylesheet" href="/css/screen.css">
+  <link rel="stylesheet" href="/css/prism.css">
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <!--[if lt IE 9]>
   <script src="/js/html5shiv.min.js"></script>
@@ -18,6 +19,7 @@
 
 
 <body class="wrap">
+  <script src="/js/prism.min.js"></script>
   <header role="banner">
   <nav class="mobile-nav show-on-mobiles">
     <ul>
@@ -40,7 +42,7 @@
     <div class="unit one-third center-on-mobiles">
       <h1>
         <a href="/">
-          <span class="sr-only">Jekyll</span>
+          <span class="sr-only">ProgramFan's Writing Space</span>
           <img src="/img/logo-2x.png" width="249" height="115" alt="Jekyll Logo">
         </a>
       </h1>
@@ -79,9 +81,9 @@
       
       <option value="/post/2015/05/01/fix-boost-python-argument-error-lvalue/">Fix Argument Error with lvalue In Boost.Python</option>
       
-      <option value="/post/2015/04/20/convert-chinese-asciidoc-to-pdf/">Convert Chinese Asciidoc Documents to PDF</option>
+      <option value="/post/2015/04/27/prevent-gcc-optimize-away-code/">Prevent GCC from optimizing away a snippet of code</option>
       
-      <option value="/post/2015/01/20/prevent-gcc-optimize-away-code/">Prevent GCC from optimizing away a snippet of code</option>
+      <option value="/post/2015/04/20/convert-chinese-asciidoc-to-pdf/">Convert Chinese Asciidoc Documents to PDF</option>
       
     </optgroup>
   </select>
@@ -104,7 +106,6 @@
       20 Apr 2015
     </span>
     <a href="https://github.com/ProgramFan" class="post-author">
-      <!-- <img src="https://github.com/ProgramFan.png" class="avatar" alt="ProgramFan avatar" width="24" height="24"> -->
       ProgramFan
     </a>
   </div>
@@ -198,7 +199,7 @@
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="bash">asciidoctor -b docbook EXAMPLE.adoc  <i class="conum" data-value="1"></i><b>(1)</b>
+<pre class="highlight"><code class="language-bash" data-lang="bash">asciidoctor -b docbook EXAMPLE.adoc  <i class="conum" data-value="1"></i><b>(1)</b>
 fopub EXAMPLE.xml <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
 </div>
 </div>
@@ -238,9 +239,9 @@ fopub EXAMPLE.xml <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="bash">java -cp <span style="color: #19177C">$fop_libs_dir</span>:<span style="color: #19177C">$fop_libs_dir</span>/* <span style="color: #BB6622; font-weight: bold">\ </span>    <i class="conum" data-value="1"></i><b>(1)</b>
-    org.apache.fop.fonts.apps.TTFReader -q <span style="color: #BB6622; font-weight: bold">\ </span><i class="conum" data-value="2"></i><b>(2)</b>
-    <span style="color: #19177C">$fontfile</span> <span style="color: #19177C">$metricfile</span> <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">java -cp $fop_libs_dir:$fop_libs_dir/* \     <i class="conum" data-value="1"></i><b>(1)</b>
+    org.apache.fop.fonts.apps.TTFReader -q \ <i class="conum" data-value="2"></i><b>(2)</b>
+    $fontfile $metricfile                    <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -270,10 +271,10 @@ fopub EXAMPLE.xml <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;font</span> <span style="color: #7D9029">metrics-url=</span><span style="color: #BA2121">&quot;$fop_fonts_dir/$metricfile&quot;</span>   <i class="conum" data-value="1"></i><b>(1)</b>
-     <span style="color: #7D9029">embed-url=</span><span style="color: #BA2121">&quot;$fonefile&quot;</span> <span style="color: #7D9029">kerning=</span><span style="color: #BA2121">&quot;yes&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>        <i class="conum" data-value="2"></i><b>(2)</b>
-     <span style="color: #008000; font-weight: bold">&lt;font-triplet</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;$FontName&quot;</span> <span style="color: #7D9029">style=</span><span style="color: #BA2121">&quot;normal&quot;</span> <span style="color: #7D9029">weight=</span><span style="color: #BA2121">&quot;normal&quot;</span> <span style="color: #008000; font-weight: bold">/&gt;</span> <i class="conum" data-value="3"></i><b>(3)</b>
-<span style="color: #008000; font-weight: bold">&lt;/font&gt;</span></code></pre>
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;font metrics-url="$fop_fonts_dir/$metricfile"   <i class="conum" data-value="1"></i><b>(1)</b>
+     embed-url="$fonefile" kerning="yes"&gt;        <i class="conum" data-value="2"></i><b>(2)</b>
+     &lt;font-triplet name="$FontName" style="normal" weight="normal" /&gt; <i class="conum" data-value="3"></i><b>(3)</b>
+&lt;/font&gt;</code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -300,9 +301,9 @@ fopub EXAMPLE.xml <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;xsl:template</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;pickfont-sans&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
-  <span style="color: #008000; font-weight: bold">&lt;xsl:text&gt;</span>Arial,sans-serif,SimSun<span style="color: #008000; font-weight: bold">&lt;/xsl:text&gt;</span>   <i class="conum" data-value="1"></i><b>(1)</b>
-<span style="color: #008000; font-weight: bold">&lt;/xsl:template&gt;</span></code></pre>
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;xsl:template name="pickfont-sans"&gt;
+  &lt;xsl:text&gt;Arial,sans-serif,SimSun&lt;/xsl:text&gt;   <i class="conum" data-value="1"></i><b>(1)</b>
+&lt;/xsl:template&gt;</code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -327,132 +328,132 @@ fopub EXAMPLE.xml <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="bash"><span style="color: #408080; font-style: italic">#!/bin/bash</span>
-<span style="color: #408080; font-style: italic"># ttf2fop - Prepare TrueType fonts for use with Apache FOP</span>
-<span style="color: #408080; font-style: italic"># Copyright (C) 2011 Damien Goutte-Gattat</span>
-<span style="color: #408080; font-style: italic">#</span>
-<span style="color: #408080; font-style: italic"># Copying and distribution of this file, with or without modification,</span>
-<span style="color: #408080; font-style: italic"># are permitted in any medium without royalty provided the copyright</span>
-<span style="color: #408080; font-style: italic"># notice and this notice are preserved.</span>
+<pre class="highlight"><code class="language-bash" data-lang="bash">#!/bin/bash
+# ttf2fop - Prepare TrueType fonts for use with Apache FOP
+# Copyright (C) 2011 Damien Goutte-Gattat
+#
+# Copying and distribution of this file, with or without modification,
+# are permitted in any medium without royalty provided the copyright
+# notice and this notice are preserved.
 
-<span style="color: #008000">set</span> -e
+set -e
 
-<span style="color: #19177C">program_name</span><span style="color: #666666">=</span><span style="color: #008000; font-weight: bold">${</span><span style="color: #19177C">0</span>##*/<span style="color: #008000; font-weight: bold">}</span>
-<span style="color: #19177C">fop_libs_dir</span><span style="color: #666666">=</span>/usr/share/java
-<span style="color: #19177C">fop_fonts_dir</span><span style="color: #666666">=</span><span style="color: #19177C">$HOME</span>/.local/share/fop/fonts
+program_name=${0##*/}
+fop_libs_dir=/usr/share/java
+fop_fonts_dir=$HOME/.local/share/fop/fonts
 
-die<span style="color: #666666">()</span>
-<span style="color: #666666">{</span>
-    <span style="color: #008000">echo</span> <span style="color: #BA2121">&quot;$program_name: $@&quot;</span> &gt;&amp;2
-    <span style="color: #008000">exit </span>1
-<span style="color: #666666">}</span>
+die()
+{
+    echo "$program_name: $@" &gt;&amp;2
+    exit 1
+}
 
-show_usage<span style="color: #666666">()</span>
-<span style="color: #666666">{</span>
-    cat <span style="color: #BA2121">&lt;&lt;EOH</span>
-<span style="color: #BA2121">Usage: $program_name [options] TTF_FILE...</span>
-<span style="color: #BA2121">Generate a FOP metrics file for each TTF file given on the</span>
-<span style="color: #BA2121">command line. If no file is given, read TTF filenames from</span>
-<span style="color: #BA2121">standard input.</span>
+show_usage()
+{
+    cat &lt;&lt;EOH
+Usage: $program_name [options] TTF_FILE...
+Generate a FOP metrics file for each TTF file given on the
+command line. If no file is given, read TTF filenames from
+standard input.
 
-<span style="color: #BA2121">Options:</span>
-<span style="color: #BA2121">  -h, --help                Show this help message.</span>
-<span style="color: #BA2121">  -v, --version             Show the version message.</span>
+Options:
+  -h, --help                Show this help message.
+  -v, --version             Show the version message.
 
-<span style="color: #BA2121">  -l, --fop-libs PATH       Specify the location of FOP</span>
-<span style="color: #BA2121">                            Jar files (default: $fop_libs_dir).</span>
-<span style="color: #BA2121">  -d, --fonts-dir PATH      Specify the directory where the</span>
-<span style="color: #BA2121">                            metrics file should be stored</span>
-<span style="color: #BA2121">                            (default: $fop_fonts_dir).</span>
-<span style="color: #BA2121">EOH</span>
-<span style="color: #666666">}</span>
+  -l, --fop-libs PATH       Specify the location of FOP
+                            Jar files (default: $fop_libs_dir).
+  -d, --fonts-dir PATH      Specify the directory where the
+                            metrics file should be stored
+                            (default: $fop_fonts_dir).
+EOH
+}
 
-process_ttf_file<span style="color: #666666">()</span>
-<span style="color: #666666">{</span>
-    <span style="color: #19177C">fontfile</span><span style="color: #666666">=</span><span style="color: #19177C">$1</span>
-    <span style="color: #666666">[</span> -f <span style="color: #BA2121">&quot;$fontfile&quot;</span> <span style="color: #666666">]</span> <span style="color: #666666">||</span> <span style="color: #008000; font-weight: bold">return</span>
+process_ttf_file()
+{
+    fontfile=$1
+    [ -f "$fontfile" ] || return
 
-    <span style="color: #19177C">fontname</span><span style="color: #666666">=</span><span style="color: #008000; font-weight: bold">$(</span>basename <span style="color: #19177C">$fontfile</span> .ttf<span style="color: #008000; font-weight: bold">)</span>
-    <span style="color: #19177C">fontbasename</span><span style="color: #666666">=</span><span style="color: #008000; font-weight: bold">$(</span><span style="color: #008000">echo</span> <span style="color: #19177C">$fontname</span> | cut -d- -f1<span style="color: #008000; font-weight: bold">)</span>
-    <span style="color: #19177C">fontstylespec</span><span style="color: #666666">=</span><span style="color: #008000; font-weight: bold">$(</span><span style="color: #008000">echo</span> <span style="color: #19177C">$fontname</span> | cut -d- -f2<span style="color: #008000; font-weight: bold">)</span>
+    fontname=$(basename $fontfile .ttf)
+    fontbasename=$(echo $fontname | cut -d- -f1)
+    fontstylespec=$(echo $fontname | cut -d- -f2)
 
-    <span style="color: #008000; font-weight: bold">case</span> <span style="color: #BA2121">&quot;$fontstylespec&quot;</span> in
-    Italic|Oblique<span style="color: #666666">)</span>
-        <span style="color: #19177C">fontstyle</span><span style="color: #666666">=</span>italic
-        <span style="color: #19177C">fontweight</span><span style="color: #666666">=</span>normal
-        <span style="color: #19177C">filequalifier</span><span style="color: #666666">=</span>italic
+    case "$fontstylespec" in
+    Italic|Oblique)
+        fontstyle=italic
+        fontweight=normal
+        filequalifier=italic
         ;;
-    Bold<span style="color: #666666">)</span>
-        <span style="color: #19177C">fontstyle</span><span style="color: #666666">=</span>normal
-        <span style="color: #19177C">fontweight</span><span style="color: #666666">=</span>bold
-        <span style="color: #19177C">filequalifier</span><span style="color: #666666">=</span>bold
-        ;;
-
-    BoldItalic|BoldOblique<span style="color: #666666">)</span>
-        <span style="color: #19177C">fontstyle</span><span style="color: #666666">=</span>italic
-        <span style="color: #19177C">fontweight</span><span style="color: #666666">=</span>bold
-        <span style="color: #19177C">filequalifier</span><span style="color: #666666">=</span>bold-italic
+    Bold)
+        fontstyle=normal
+        fontweight=bold
+        filequalifier=bold
         ;;
 
-    *<span style="color: #666666">)</span>
-        <span style="color: #19177C">fontstyle</span><span style="color: #666666">=</span>normal
-        <span style="color: #19177C">fontweight</span><span style="color: #666666">=</span>normal
-        <span style="color: #19177C">filequalifier</span><span style="color: #666666">=</span>regular
+    BoldItalic|BoldOblique)
+        fontstyle=italic
+        fontweight=bold
+        filequalifier=bold-italic
         ;;
-    <span style="color: #008000; font-weight: bold">esac</span>
 
-    java -cp <span style="color: #19177C">$fop_libs_dir</span>:<span style="color: #19177C">$fop_libs_dir</span>/* <span style="color: #BB6622; font-weight: bold">\</span>
-      org.apache.fop.fonts.apps.TTFReader -q <span style="color: #BB6622; font-weight: bold">\</span>
-      <span style="color: #19177C">$fontfile</span> -ttcname SimSun <span style="color: #19177C">$fontbasename</span>-<span style="color: #19177C">$filequalifier</span>.xml
-    cat <span style="color: #BA2121">&lt;&lt;EOF</span>
-<span style="color: #BA2121">    &lt;font metrics-url=&quot;$fop_fonts_dir/$fontbasename-$filequalifier.xml&quot;</span>
-<span style="color: #BA2121">        embed-url=&quot;$fontfile&quot;</span>
-<span style="color: #BA2121">        kerning=&quot;yes&quot;&gt;</span>
-<span style="color: #BA2121">        &lt;font-triplet name=&quot;$fontbasename&quot; style=&quot;$fontstyle&quot; weight=&quot;$fontweight&quot; /&gt;</span>
-<span style="color: #BA2121">    &lt;/font&gt;</span>
-<span style="color: #BA2121">EOF</span>
-<span style="color: #666666">}</span>
+    *)
+        fontstyle=normal
+        fontweight=normal
+        filequalifier=regular
+        ;;
+    esac
 
-<span style="color: #008000; font-weight: bold">while</span> <span style="color: #008000">true</span> ; <span style="color: #008000; font-weight: bold">do</span>
-    <span style="color: #008000; font-weight: bold">case</span> <span style="color: #BA2121">&quot;$1&quot;</span> in
-    -h|--help<span style="color: #666666">)</span>
+    java -cp $fop_libs_dir:$fop_libs_dir/* \
+      org.apache.fop.fonts.apps.TTFReader -q \
+      $fontfile -ttcname SimSun $fontbasename-$filequalifier.xml
+    cat &lt;&lt;EOF
+    &lt;font metrics-url="$fop_fonts_dir/$fontbasename-$filequalifier.xml"
+        embed-url="$fontfile"
+        kerning="yes"&gt;
+        &lt;font-triplet name="$fontbasename" style="$fontstyle" weight="$fontweight" /&gt;
+    &lt;/font&gt;
+EOF
+}
+
+while true ; do
+    case "$1" in
+    -h|--help)
         show_usage
-        <span style="color: #008000">exit </span>0
+        exit 0
         ;;
 
-    -v|--version<span style="color: #666666">)</span>
-        sed -n <span style="color: #BA2121">&#39;2,/^$/ s/^# //p&#39;</span> <span style="color: #19177C">$0</span>
-        <span style="color: #008000">exit </span>0
+    -v|--version)
+        sed -n '2,/^$/ s/^# //p' $0
+        exit 0
         ;;
 
-    -l|--fop-libs<span style="color: #666666">)</span>
-        <span style="color: #666666">[</span> -n <span style="color: #BA2121">&quot;$2&quot;</span> <span style="color: #666666">]</span> <span style="color: #666666">||</span> die <span style="color: #BA2121">&quot;missing argument for option --fop-libs&quot;</span>
-        <span style="color: #19177C">fop_libs_dir</span><span style="color: #666666">=</span><span style="color: #19177C">$2</span>
-        <span style="color: #008000">shift </span>2
+    -l|--fop-libs)
+        [ -n "$2" ] || die "missing argument for option --fop-libs"
+        fop_libs_dir=$2
+        shift 2
         ;;
 
-    -d|--fonts-dir<span style="color: #666666">)</span>
-        <span style="color: #666666">[</span> -n <span style="color: #BA2121">&quot;$2&quot;</span> <span style="color: #666666">]</span> <span style="color: #666666">||</span> die <span style="color: #BA2121">&quot;missing argument for option --fonts-dir&quot;</span>
-        <span style="color: #19177C">fop_fonts_dir</span><span style="color: #666666">=</span><span style="color: #19177C">$2</span>
-        <span style="color: #008000">shift </span>2
+    -d|--fonts-dir)
+        [ -n "$2" ] || die "missing argument for option --fonts-dir"
+        fop_fonts_dir=$2
+        shift 2
         ;;
 
-    *<span style="color: #666666">)</span>
-        <span style="color: #008000">break</span>
+    *)
+        break
         ;;
-    <span style="color: #008000; font-weight: bold">esac</span>
-<span style="color: #008000; font-weight: bold">done</span>
+    esac
+done
 
-<span style="color: #008000">echo</span> <span style="color: #BA2121">&quot;&lt;?xml version=\&quot;1.0\&quot;?&gt;&quot;</span>
-<span style="color: #008000">echo</span> <span style="color: #BA2121">&quot;&lt;fonts&gt;&quot;</span>
+echo "&lt;?xml version=\"1.0\"?&gt;"
+echo "&lt;fonts&gt;"
 
-<span style="color: #008000; font-weight: bold">if</span> <span style="color: #666666">[</span> -z <span style="color: #BA2121">&quot;$*&quot;</span> <span style="color: #666666">]</span>; <span style="color: #008000; font-weight: bold">then</span>
-    cat | <span style="color: #008000; font-weight: bold">while</span> <span style="color: #008000">read </span>f ; <span style="color: #008000; font-weight: bold">do</span> process_ttf_file <span style="color: #19177C">$f</span> ; <span style="color: #008000; font-weight: bold">done</span>
-<span style="color: #008000; font-weight: bold">else</span>
-    <span style="color: #008000; font-weight: bold">for</span> f in <span style="color: #BA2121">&quot;$@&quot;</span> ; <span style="color: #008000; font-weight: bold">do</span> process_ttf_file <span style="color: #19177C">$f</span> ; <span style="color: #008000; font-weight: bold">done</span>
-<span style="color: #008000; font-weight: bold">fi</span>
+if [ -z "$*" ]; then
+    cat | while read f ; do process_ttf_file $f ; done
+else
+    for f in "$@" ; do process_ttf_file $f ; done
+fi
 
-<span style="color: #008000">echo</span> <span style="color: #BA2121">&quot;&lt;/fonts&gt;&quot;</span></code></pre>
+echo "&lt;/fonts&gt;"</code></pre>
 </div>
 </div>
 </div>
@@ -476,11 +477,11 @@ process_ttf_file<span style="color: #666666">()</span>
         
         
         
-        
-        
         <li class="">
-          <a href="/post/2015/01/20/prevent-gcc-optimize-away-code/">Prevent GCC from optimizing away a snippet of code</a>
+          <a href="/post/2015/04/27/prevent-gcc-optimize-away-code/">Prevent GCC from optimizing away a snippet of code</a>
         </li>
+        
+        
         
         
     </ul>
@@ -496,11 +497,11 @@ process_ttf_file<span style="color: #666666">()</span>
         
         
         
+        
+        
         <li class="current">
           <a href="/post/2015/04/20/convert-chinese-asciidoc-to-pdf/">Convert Chinese Asciidoc Documents to PDF</a>
         </li>
-        
-        
         
         
     </ul>

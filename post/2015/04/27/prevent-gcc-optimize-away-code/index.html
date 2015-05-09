@@ -5,10 +5,11 @@
   <title>Prevent GCC from optimizing away a snippet of code</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="generator" content="Jekyll v2.5.3">
-  <link rel="alternate" type="application/rss+xml" title="Jekyll • Simple, blog-aware, static sites - Feed" href="/feed.xml">
-  <link rel="alternate" type="application/atom+xml" title="Recent commits to Jekyll’s master branch" href="https://github.com/ProgramFan/commits/master.atom">
+  <link rel="alternate" type="application/rss+xml" 
+  title="ProgramFan • Research, Learning, Thinking and Growing up - Feed" href="/feed.xml">
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic,900">
   <link rel="stylesheet" href="/css/screen.css">
+  <link rel="stylesheet" href="/css/prism.css">
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <!--[if lt IE 9]>
   <script src="/js/html5shiv.min.js"></script>
@@ -18,6 +19,7 @@
 
 
 <body class="wrap">
+  <script src="/js/prism.min.js"></script>
   <header role="banner">
   <nav class="mobile-nav show-on-mobiles">
     <ul>
@@ -40,7 +42,7 @@
     <div class="unit one-third center-on-mobiles">
       <h1>
         <a href="/">
-          <span class="sr-only">Jekyll</span>
+          <span class="sr-only">ProgramFan's Writing Space</span>
           <img src="/img/logo-2x.png" width="249" height="115" alt="Jekyll Logo">
         </a>
       </h1>
@@ -79,9 +81,9 @@
       
       <option value="/post/2015/05/01/fix-boost-python-argument-error-lvalue/">Fix Argument Error with lvalue In Boost.Python</option>
       
-      <option value="/post/2015/04/20/convert-chinese-asciidoc-to-pdf/">Convert Chinese Asciidoc Documents to PDF</option>
+      <option value="/post/2015/04/27/prevent-gcc-optimize-away-code/">Prevent GCC from optimizing away a snippet of code</option>
       
-      <option value="/post/2015/01/20/prevent-gcc-optimize-away-code/">Prevent GCC from optimizing away a snippet of code</option>
+      <option value="/post/2015/04/20/convert-chinese-asciidoc-to-pdf/">Convert Chinese Asciidoc Documents to PDF</option>
       
     </optgroup>
   </select>
@@ -92,7 +94,7 @@
         <article>
   <h2>
     Prevent GCC from optimizing away a snippet of code
-    <a href="/post/2015/01/20/prevent-gcc-optimize-away-code/" class="permalink" title="Permalink">∞</a>
+    <a href="/post/2015/04/27/prevent-gcc-optimize-away-code/" class="permalink" title="Permalink">∞</a>
   </h2>
   <span class="post-category">
     <span class="label">
@@ -101,10 +103,9 @@
   </span>
   <div class="post-meta">
     <span class="post-date">
-      20 Jan 2015
+      27 Apr 2015
     </span>
     <a href="https://github.com/ProgramFan" class="post-author">
-      <!-- <img src="https://github.com/ProgramFan.png" class="avatar" alt="ProgramFan avatar" width="24" height="24"> -->
       ProgramFan
     </a>
   </div>
@@ -136,9 +137,9 @@ used.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="cpp"><span style="color: #B00040">void</span> <span style="color: #0000FF">doTest</span>() {
-    <span style="color: #008000; font-weight: bold">volatile</span> <span style="color: #B00040">int</span> a <span style="color: #666666">=</span> <span style="color: #666666">0</span>;
-    a <span style="color: #666666">+=</span> <span style="color: #666666">1</span>;
+<pre class="highlight"><code class="language-cpp" data-lang="cpp">void doTest() {
+    volatile int a = 0;
+    a += 1;
 }</code></pre>
 </div>
 </div>
@@ -147,26 +148,21 @@ used.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="asm"><span style="color: #0000FF">movl</span>   <span style="color: #008000; font-weight: bold">$</span><span style="color: #666666">0x0</span>,<span style="color: #666666">-0x4</span>(<span style="color: #666666">%</span><span style="color: #008000">rsp</span>)
-<span style="color: #0000FF">mov</span>    <span style="color: #666666">-0x4</span>(<span style="color: #666666">%</span><span style="color: #008000">rsp</span>),<span style="color: #666666">%</span><span style="color: #008000">eax</span>
-<span style="color: #0000FF">add</span>    <span style="color: #008000; font-weight: bold">$</span><span style="color: #666666">0x1</span>,<span style="color: #666666">%</span><span style="color: #008000">eax</span>
-<span style="color: #0000FF">mov</span>    <span style="color: #666666">%</span><span style="color: #008000">eax</span>,<span style="color: #666666">-0x4</span>(<span style="color: #666666">%</span><span style="color: #008000">rsp</span>)
-<span style="color: #0000FF">retq</span></code></pre>
+<pre class="highlight"><code class="language-asm" data-lang="asm">movl   $0x0,-0x4(%rsp)
+mov    -0x4(%rsp),%eax
+add    $0x1,%eax
+mov    %eax,-0x4(%rsp)
+retq</code></pre>
 </div>
 </div>
-<div class="highlight"><pre><code class="language-asm" data-lang="asm"><span class="nf">movl</span>   <span class="no">$0x0</span><span class="p">,-</span><span class="mi">0x4</span><span class="p">(</span><span class="nv">%rsp</span><span class="p">)</span>
-<span class="nf">mov</span>    <span class="p">-</span><span class="mi">0x4</span><span class="p">(</span><span class="nv">%rsp</span><span class="p">),</span><span class="nv">%eax</span>
-<span class="nf">add</span>    <span class="no">$0x1</span><span class="p">,</span><span class="nv">%eax</span>
-<span class="nf">mov</span>    <span class="nv">%eax</span><span class="p">,-</span><span class="mi">0x4</span><span class="p">(</span><span class="nv">%rsp</span><span class="p">)</span>
-<span class="nf">retq</span></code></pre></div>
 <div class="paragraph">
 <p><code>icpc -std=c++98 -O2</code> compiles it down to</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="asm"><span style="color: #0000FF">movl</span>   <span style="color: #008000; font-weight: bold">$</span><span style="color: #666666">0x0</span>,<span style="color: #666666">-0x8</span>(<span style="color: #666666">%</span><span style="color: #008000">rsp</span>)
-<span style="color: #0000FF">incl</span>   <span style="color: #666666">-0x8</span>(<span style="color: #666666">%</span><span style="color: #008000">rsp</span>)
-<span style="color: #0000FF">retq</span></code></pre>
+<pre class="highlight"><code class="language-asm" data-lang="asm">movl   $0x0,-0x8(%rsp)
+incl   -0x8(%rsp)
+retq</code></pre>
 </div>
 </div>
 </div>
@@ -186,13 +182,13 @@ expression:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="cpp"><span style="color: #008000; font-weight: bold">template</span> <span style="color: #666666">&lt;</span><span style="color: #008000; font-weight: bold">typename</span> T<span style="color: #666666">&gt;</span> <span style="color: #008000; font-weight: bold">inline</span> doNotOptimizeAway(T<span style="color: #666666">&amp;&amp;</span> datum) {
-    <span style="color: #008000; font-weight: bold">asm</span> <span style="color: #008000; font-weight: bold">volatile</span> (<span style="color: #BA2121">&quot;&quot;</span> <span style="color: #666666">:</span> <span style="color: #BA2121">&quot;+r&quot;</span> datum);
+<pre class="highlight"><code class="language-cpp" data-lang="cpp">template &lt;typename T&gt; inline doNotOptimizeAway(T&amp;&amp; datum) {
+    asm volatile ("" : "+r" datum);
 }
-<span style="color: #B00040">void</span> doTest() {
-    <span style="color: #B00040">int</span> a;
-    doNotOptimizeAway(a <span style="color: #666666">=</span> <span style="color: #666666">0</span>);
-    doNotOptimizeAway(a <span style="color: #666666">+=</span> <span style="color: #666666">16</span>);
+void doTest() {
+    int a;
+    doNotOptimizeAway(a = 0);
+    doNotOptimizeAway(a += 16);
 }</code></pre>
 </div>
 </div>
@@ -201,16 +197,16 @@ expression:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="asm"><span style="color: #0000FF">movl</span>   <span style="color: #008000; font-weight: bold">$</span><span style="color: #666666">0x0</span>,<span style="color: #666666">-0x8</span>(<span style="color: #666666">%</span><span style="color: #008000">rsp</span>)
-<span style="color: #0000FF">mov</span>    <span style="color: #666666">-0x8</span>(<span style="color: #666666">%</span><span style="color: #008000">rsp</span>),<span style="color: #666666">%</span><span style="color: #008000">eax</span>
-<span style="color: #0000FF">mov</span>    <span style="color: #666666">%</span><span style="color: #008000">eax</span>,<span style="color: #666666">-0x8</span>(<span style="color: #666666">%</span><span style="color: #008000">rsp</span>)
-<span style="color: #0000FF">addl</span>   <span style="color: #008000; font-weight: bold">$</span><span style="color: #666666">0x10</span>,<span style="color: #666666">-0x8</span>(<span style="color: #666666">%</span><span style="color: #008000">rsp</span>)
-<span style="color: #0000FF">mov</span>    <span style="color: #666666">-0x8</span>(<span style="color: #666666">%</span><span style="color: #008000">rsp</span>),<span style="color: #666666">%</span><span style="color: #008000">edx</span>
-<span style="color: #0000FF">mov</span>    <span style="color: #666666">%</span><span style="color: #008000">edx</span>,<span style="color: #666666">-0x8</span>(<span style="color: #666666">%</span><span style="color: #008000">rsp</span>)
-<span style="color: #0000FF">incl</span>   <span style="color: #666666">-0x8</span>(<span style="color: #666666">%</span><span style="color: #008000">rsp</span>)
-<span style="color: #0000FF">mov</span>    <span style="color: #666666">-0x8</span>(<span style="color: #666666">%</span><span style="color: #008000">rsp</span>),<span style="color: #666666">%</span><span style="color: #008000">ecx</span>
-<span style="color: #0000FF">mov</span>    <span style="color: #666666">%</span><span style="color: #008000">ecx</span>,<span style="color: #666666">-0x8</span>(<span style="color: #666666">%</span><span style="color: #008000">rsp</span>)
-<span style="color: #0000FF">retq</span></code></pre>
+<pre class="highlight"><code class="language-asm" data-lang="asm">movl   $0x0,-0x8(%rsp)
+mov    -0x8(%rsp),%eax
+mov    %eax,-0x8(%rsp)
+addl   $0x10,-0x8(%rsp)
+mov    -0x8(%rsp),%edx
+mov    %edx,-0x8(%rsp)
+incl   -0x8(%rsp)
+mov    -0x8(%rsp),%ecx
+mov    %ecx,-0x8(%rsp)
+retq</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -218,9 +214,9 @@ expression:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="asm"><span style="color: #0000FF">xor</span>    <span style="color: #666666">%</span><span style="color: #008000">eax</span>,<span style="color: #666666">%</span><span style="color: #008000">eax</span>
-<span style="color: #0000FF">add</span>    <span style="color: #008000; font-weight: bold">$</span><span style="color: #666666">0x10</span>,<span style="color: #666666">%</span><span style="color: #008000">eax</span>
-<span style="color: #0000FF">retq</span></code></pre>
+<pre class="highlight"><code class="language-asm" data-lang="asm">xor    %eax,%eax
+add    $0x10,%eax
+retq</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -252,14 +248,14 @@ optimize it away but icc will keep it.
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="cpp"><span style="color: #BC7A00">#pragma GCC push_options</span>
-<span style="color: #BC7A00">#pragma GCC optimize(&quot;O0&quot;)</span>
-<span style="color: #B00040">void</span> <span style="color: #0000FF">doTest</span>() {
-    <span style="color: #B00040">int</span> a;  <i class="conum" data-value="1"></i><b>(1)</b>
-    a <span style="color: #666666">=</span> <span style="color: #666666">15</span>;
-    a <span style="color: #666666">+=</span> <span style="color: #666666">1</span>;
+<pre class="highlight"><code class="language-cpp" data-lang="cpp">#pragma GCC push_options
+#pragma GCC optimize("O0")
+void doTest() {
+    int a;  <i class="conum" data-value="1"></i><b>(1)</b>
+    a = 15;
+    a += 1;
 }
-<span style="color: #BC7A00">#pragma GCC pop_options</span></code></pre>
+#pragma GCC pop_options</code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -275,9 +271,9 @@ optimize it away but icc will keep it.
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="asm"><span style="color: #0000FF">movl</span>   <span style="color: #008000; font-weight: bold">$</span><span style="color: #666666">0xf</span>,<span style="color: #666666">-0x4</span>(<span style="color: #666666">%</span><span style="color: #008000">rsp</span>)
-<span style="color: #0000FF">addl</span>   <span style="color: #008000; font-weight: bold">$</span><span style="color: #666666">0x1</span>,<span style="color: #666666">-0x4</span>(<span style="color: #666666">%</span><span style="color: #008000">rsp</span>)
-<span style="color: #0000FF">retq</span></code></pre>
+<pre class="highlight"><code class="language-asm" data-lang="asm">movl   $0xf,-0x4(%rsp)
+addl   $0x1,-0x4(%rsp)
+retq</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -285,13 +281,13 @@ optimize it away but icc will keep it.
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="asm"><span style="color: #0000FF">sub</span>    <span style="color: #008000; font-weight: bold">$</span><span style="color: #666666">0x10</span>,<span style="color: #666666">%</span><span style="color: #008000">rsp</span>
-<span style="color: #0000FF">movl</span>   <span style="color: #008000; font-weight: bold">$</span><span style="color: #666666">0xf</span>,<span style="color: #666666">-0x10</span>(<span style="color: #666666">%</span><span style="color: #008000">rbp</span>)
-<span style="color: #0000FF">mov</span>    <span style="color: #008000; font-weight: bold">$</span><span style="color: #666666">0x1</span>,<span style="color: #666666">%</span><span style="color: #008000">eax</span>
-<span style="color: #0000FF">add</span>    <span style="color: #666666">-0x10</span>(<span style="color: #666666">%</span><span style="color: #008000">rbp</span>),<span style="color: #666666">%</span><span style="color: #008000">eax</span>
-<span style="color: #0000FF">mov</span>    <span style="color: #666666">%</span><span style="color: #008000">eax</span>,<span style="color: #666666">-0x10</span>(<span style="color: #666666">%</span><span style="color: #008000">rbp</span>)
-<span style="color: #0000FF">leaveq</span>
-<span style="color: #0000FF">retq</span></code></pre>
+<pre class="highlight"><code class="language-asm" data-lang="asm">sub    $0x10,%rsp
+movl   $0xf,-0x10(%rbp)
+mov    $0x1,%eax
+add    -0x10(%rbp),%eax
+mov    %eax,-0x10(%rbp)
+leaveq
+retq</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -332,11 +328,11 @@ The above pragma can be replaced by function attribute
         
         
         
-        
-        
         <li class="current">
-          <a href="/post/2015/01/20/prevent-gcc-optimize-away-code/">Prevent GCC from optimizing away a snippet of code</a>
+          <a href="/post/2015/04/27/prevent-gcc-optimize-away-code/">Prevent GCC from optimizing away a snippet of code</a>
         </li>
+        
+        
         
         
     </ul>
@@ -352,11 +348,11 @@ The above pragma can be replaced by function attribute
         
         
         
+        
+        
         <li class="">
           <a href="/post/2015/04/20/convert-chinese-asciidoc-to-pdf/">Convert Chinese Asciidoc Documents to PDF</a>
         </li>
-        
-        
         
         
     </ul>
