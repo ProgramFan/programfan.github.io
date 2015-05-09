@@ -17,8 +17,8 @@ gems:
 asciidoctor:
   attributes:
     - hardbreaks!
-    - source-highlighter=pygments
-    - pygments-css=pygments
+    - stylesheet!
+    - source-highlighter!
     - icons=font
 asciidoc: asciidoctor
 asciidoc_ext: adoc, asciidoc

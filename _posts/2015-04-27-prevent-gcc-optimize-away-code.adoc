@@ -1,7 +1,6 @@
 ---
 layout: news_item
 title: "Prevent GCC from optimizing away a snippet of code"
-date: "2015-01-20 19:23:12 -0800"
 author: ProgramFan
 categories: [C++, GCC, Featured]
 ---
@@ -52,16 +51,6 @@ add    $0x1,%eax
 mov    %eax,-0x4(%rsp)
 retq   
 ----
-
-++++
-{% highlight asm %}
-movl   $0x0,-0x4(%rsp)
-mov    -0x4(%rsp),%eax
-add    $0x1,%eax
-mov    %eax,-0x4(%rsp)
-retq   
-{% endhighlight %}
-++++
 
 `icpc -std=c++98 -O2` compiles it down to
 
