@@ -9,18 +9,18 @@
   >
   <channel>
     <title xml:lang="en">ProgramFan's Writing Space</title>
-    <atom:link type="application/atom+xml" href="127.0.0.1/feed.xml" rel="self"/>
-    <link>127.0.0.1 </link>
-    <pubDate>Sun, 10 May 2015 03:28:30 +0000</pubDate>
-    <lastBuildDate>Sun, 10 May 2015 03:28:30 +0000</lastBuildDate>
+    <atom:link type="application/atom+xml" href="http://programfan.github.io/feed.xml" rel="self"/>
+    <link>http://programfan.github.io </link>
+    <pubDate>Sun, 10 May 2015 15:42:56 +0000</pubDate>
+    <lastBuildDate>Sun, 10 May 2015 15:42:56 +0000</lastBuildDate>
     <language>en-US</language>
     <generator>Jekyll v2.5.3</generator>
     <description></description>
     <image>
       <description>Transform your plain text into static websites and blogs.</description>
-      <url>127.0.0.1/img/logo-rss.png</url>
+      <url>http://programfan.github.io/img/logo-rss.png</url>
       <title>ProgramFan's Writing Space</title>
-      <link>127.0.0.1</link>
+      <link>http://programfan.github.io</link>
       <width>144</width>
       <height>73</height>
     </image>
@@ -38,7 +38,7 @@
       
       <category>featured</category>
       
-      <guid isPermaLink="true">127.0.0.1/contents/2015/05/05/using-rvm-to-isolate-rubygems-on-fedora-21/</guid>
+      <guid isPermaLink="true">http://programfan.github.io/contents/2015/05/05/using-rvm-to-isolate-rubygems-on-fedora-21/</guid>
       <description>&lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Ruby comes with a rich set of packages, which is named by the community as &#39;Ruby Gems&#39;. Ruby gems are quite alike python packages. They both have dependencies, they rely on specific interpreter versions, they are both managed by centralized repositories &lt;span class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_1&quot; class=&quot;footnote&quot; href=&quot;#_footnote_1&quot; title=&quot;View footnote.&quot;&gt;1&lt;/a&gt;]&lt;/span&gt;.&lt;/p&gt;
 &lt;/div&gt;
@@ -210,7 +210,7 @@ If one want to use bundle to install a set of gems, one shall &lt;code&gt;gem in
       
       <category>c++</category>
       
-      <guid isPermaLink="true">127.0.0.1/contents/2015/05/01/fix-boost-python-argument-error-lvalue/</guid>
+      <guid isPermaLink="true">http://programfan.github.io/contents/2015/05/01/fix-boost-python-argument-error-lvalue/</guid>
       <description>&lt;div class=&quot;sect1&quot;&gt;
 &lt;h2 id=&quot;the-problem&quot;&gt;The problem&lt;/h2&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
@@ -258,7 +258,7 @@ std::string)^@&lt;/code&gt;&lt;/pre&gt;
       
       <category>featured</category>
       
-      <guid isPermaLink="true">127.0.0.1/contents/2015/04/27/prevent-gcc-optimize-away-code/</guid>
+      <guid isPermaLink="true">http://programfan.github.io/contents/2015/04/27/prevent-gcc-optimize-away-code/</guid>
       <description>&lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Nowadays compilers are extremely capable of elimiting &#39;dead&#39; code. But in
 benchmarking we need some seemingly &#39;useless&#39; code to do the work we want. For
@@ -475,7 +475,7 @@ The above pragma can be replaced by function attribute
       
       <category>asciidoctor</category>
       
-      <guid isPermaLink="true">127.0.0.1/contents/2015/04/20/convert-chinese-asciidoc-to-pdf/</guid>
+      <guid isPermaLink="true">http://programfan.github.io/contents/2015/04/20/convert-chinese-asciidoc-to-pdf/</guid>
       <description>&lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Asciidoctor does well in translating asciidoc documents to html5, docbook and etc. Chinese documents also looks great in html5 and docbook. But sometimes we need to use PDF to share with others. Unfortunately, this is not easy for Chinese documents. This document shares my experience converting Chinese asciidoc documents into pdfs.&lt;/p&gt;
 &lt;/div&gt;
