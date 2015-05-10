@@ -1,5 +1,7 @@
 markdown: kramdown
-highlighter: pygments
+kramdown:
+  input: GFM
+
 permalink: /contents/:year/:month/:day/:title/
 excerpt_separator: "<!-- more -->"
 title: "ProgramFan's Writing Space"
@@ -27,5 +29,5 @@ asciidoc_ext: adoc, asciidoc
 
 # Paginate
 paginate: 2
-paginate_path: "/posts/page:num/"
+paginate_path: "/blog/page:num/"
 
