@@ -1,0 +1,20 @@
+---
+layout: page
+title: ProgramFan's Writing Space
+---
+
+This is a work in progress. I usually write about some Linux/vim/python/c++ tips here.
+
+== Blog
+
+I blog about my experiences on using Linux system daily. Here comes the recommanded posts: 
+
+{% for post in site.posts %}
+{% if post.categories contains 'featured' %}
+ - link:++{{post.url}}++[{{ post.title }}]
+{% endif %}
+{% endfor %}
+
+== LaTeX support through KaTeX
+
+LaTeX is supported well through http://khan.github.io/KaTeX[KaTeX]. For example, `$ a^2 + b^2 = c^2 $` is rendered as $ a^2 + b^2 = c^2 $, and `\[ a^2 + b^2 = c^2 \]` is rendered as \[ a^2 + b^2 = c^2 \].

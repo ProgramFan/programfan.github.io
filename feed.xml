@@ -12,9 +12,9 @@ permalink: /feed.xml
   xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
   >
   <channel>
-    <title xml:lang="en">{{ site.title }}</title>
-    <atom:link type="application/atom+xml" href="{{ site.host }}/feed.xml" rel="self"/>
-    <link>{{ site.host }} </link>
+    <title xml:lang="en">{{ site.site_title }}</title>
+    <atom:link type="application/atom+xml" href="{{ site.site_url }}/feed.xml" rel="self"/>
+    <link>{{ site.site_url }} </link>
     <pubDate>{{ site.time | date_to_rfc822 }}</pubDate>
     <lastBuildDate>{{ site.time | date_to_rfc822 }}</lastBuildDate>
     <language>en-US</language>
@@ -22,9 +22,9 @@ permalink: /feed.xml
     <description>{{ site.description }}</description>
     <image>
       <description>Transform your plain text into static websites and blogs.</description>
-      <url>{{ site.host}}/img/logo-rss.png</url>
-      <title>{{ site.title }}</title>
-      <link>{{ site.host }}</link>
+      <url>{{ site.site_url }}/img/logo-rss.png</url>
+      <title>{{ site.site_title }}</title>
+      <link>{{ site.site_url }}</link>
       <width>144</width>
       <height>73</height>
     </image>
@@ -40,7 +40,7 @@ permalink: /feed.xml
       {% for cat in post.categories %}
       <category>{{ cat | xml_escape }}</category>
       {% endfor %}
-      <guid isPermaLink="true">{{ site.host }}{{ post.url }}</guid>
+      <guid isPermaLink="true">{{ site.site_url }}{{ post.url }}</guid>
       <description>{{ post.content | xml_escape }}</description>
     </item>
     {% endfor %}

@@ -1,33 +1,39 @@
-markdown: kramdown
-kramdown:
-  input: GFM
+# Configuration for programfan.github.io
+#
 
-permalink: /contents/:year/:month/:day/:title/
-excerpt_separator: "<!-- more -->"
-title: "ProgramFan's Writing Space"
-#host: "http://programfan.github.io"
-
-repository: https://github.com/ProgramFan
-google_analytics_id: UA-62602586-1 
-
-
-# collections:
-#   docs:
-#     output: true
-
-# jekyll-asciidoc configurations
+# Extra GEMs config
 gems:
   - jekyll-asciidoc
+#  - jekyll-scholar
+
+# Markdown engine config
+# math_engin set to null to let katex parse math
+markdown: kramdown
+markdown_ext: md, markdown, mkd
+kramdown:
+  input: GFM
+  hard_wrap: false
+  math_engine: null
+
+# Asciidoc engine config
+asciidoc: asciidoctor
+asciidoc_ext: adoc, asciidoc
 asciidoctor:
   attributes:
     - hardbreaks!
     - stylesheet!
     - source-highlighter!
     - icons=font
-asciidoc: asciidoctor
-asciidoc_ext: adoc, asciidoc
 
-# Paginate
+# Jekyll generator config
+permalink: /contents/:year/:month/:day/:title/
+excerpt_separator: "<!-- more -->"
 paginate: 2
 paginate_path: "/blog/page:num/"
+
+# Extra site global variable used by templates
+site_title: "ProgramFan's Writing Space"
+site_url: "http://programfan.github.io"
+repository: https://github.com/ProgramFan
+google_analytics_id: UA-62602586-1 
 

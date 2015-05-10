@@ -6,3 +6,12 @@ title: ProgramFan's Writing Space - About Me
 This is a work in progress. I usually write about some Linux/vim/python/c++ tips here.
 
 I am also writing in more detail about my workspace configuration on http://gitbook.com.
+
+// == LaTeX support in asciidoctor
+
+// asciidoctor-latex support two types of latex, let's see what it is. First is inline $ a^2 + b^2 = c^2 $. The second is not displayed, such as:
+
+// \[
+// a^2 + b^2 = c^2
+// \]
+

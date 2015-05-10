@@ -1306,11 +1306,11 @@ Prism.languages.yaml = {
 };
 ;
 
+Prism.languages.asm = Prism.languages.extend("nasm", {})
 Prism.languages.json = Prism.languages.extend("yaml", {})
 Prism.languages.html = Prism.languages.extend("markup", {})
 Prism.languages.xml = Prism.languages.extend("markup", {})
 Prism.languages.svg = Prism.languages.extend("markup", {})
-Prism.languages.asm = Prism.languages.extend("nasm", {})
 
 (function(){
 
