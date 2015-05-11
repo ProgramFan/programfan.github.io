@@ -95,4 +95,3 @@ ruby-2.2.2@jekyll
 
 After the above steps, we are using system ruby and gems when in other directories and use ruby-2.2.2 and jekyll gemset in our blog. Life is so amazing from now on. One can install multiple versions and/or multiple gemsets using the above approach, and even better, use `rvm use xxx` to switch between them on the fly.
 
-
