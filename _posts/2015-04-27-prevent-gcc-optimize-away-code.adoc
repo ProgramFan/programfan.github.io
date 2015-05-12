@@ -125,13 +125,12 @@ For example:
 #pragma GCC push_options
 #pragma GCC optimize("O0")
 void doTest() {
-    int a;  // <1>
+    int a;
     a = 15;
     a += 1;
 }
 #pragma GCC pop_options
 ----
-<1> This is a callout.
 
 `pass:[g++ -std=c++98 -O2]` compiles it straight forwardly down to
 
