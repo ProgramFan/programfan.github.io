@@ -9,8 +9,8 @@
         title="ProgramFan • Research, Learning, Thinking and Growing up - Feed" href="/feed.xml">
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic,900">
   <link rel="stylesheet" href="/css/screen.css">
-  <link rel="stylesheet" href="/css/prism.css">
-  <script src="/js/prism.min.js" type="text/javascript"></script>
+  <!-- <link rel="stylesheet" href="/css/prism.css"> -->
+  <!-- <script src="/js/prism.min.js" type="text/javascript"></script> -->
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <!--[if lt IE 9]>
   <script src="/js/html5shiv.min.js"></script>
@@ -140,10 +140,10 @@ used.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-cpp" data-lang="cpp">void doTest() {
-    volatile int a = 0;
-    a += 1;
-}</code></pre>
+<pre class="pygments highlight"><code data-lang="cpp"><span class="tok-kt">void</span> <span class="tok-nf">doTest</span><span class="tok-p">()</span> <span class="tok-p">{</span>
+    <span class="tok-k">volatile</span> <span class="tok-kt">int</span> <span class="tok-n">a</span> <span class="tok-o">=</span> <span class="tok-mi">0</span><span class="tok-p">;</span>
+    <span class="tok-n">a</span> <span class="tok-o">+=</span> <span class="tok-mi">1</span><span class="tok-p">;</span>
+<span class="tok-p">}</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -151,11 +151,11 @@ used.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-asm" data-lang="asm">movl   $0x0,-0x4(%rsp)
-mov    -0x4(%rsp),%eax
-add    $0x1,%eax
-mov    %eax,-0x4(%rsp)
-retq</code></pre>
+<pre class="pygments highlight"><code data-lang="asm"><span class="tok-nf">movl</span>   <span class="tok-kc">$</span><span class="tok-mh">0x0</span><span class="tok-p">,</span><span class="tok-o">-</span><span class="tok-mh">0x4</span><span class="tok-p">(</span><span class="tok-o">%</span><span class="tok-nb">rsp</span><span class="tok-p">)</span>
+<span class="tok-nf">mov</span>    <span class="tok-o">-</span><span class="tok-mh">0x4</span><span class="tok-p">(</span><span class="tok-o">%</span><span class="tok-nb">rsp</span><span class="tok-p">),</span><span class="tok-o">%</span><span class="tok-nb">eax</span>
+<span class="tok-nf">add</span>    <span class="tok-kc">$</span><span class="tok-mh">0x1</span><span class="tok-p">,</span><span class="tok-o">%</span><span class="tok-nb">eax</span>
+<span class="tok-nf">mov</span>    <span class="tok-o">%</span><span class="tok-nb">eax</span><span class="tok-p">,</span><span class="tok-o">-</span><span class="tok-mh">0x4</span><span class="tok-p">(</span><span class="tok-o">%</span><span class="tok-nb">rsp</span><span class="tok-p">)</span>
+<span class="tok-nf">retq</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -163,9 +163,9 @@ retq</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-asm" data-lang="asm">movl   $0x0,-0x8(%rsp)
-incl   -0x8(%rsp)
-retq</code></pre>
+<pre class="pygments highlight"><code data-lang="asm"><span class="tok-nf">movl</span>   <span class="tok-kc">$</span><span class="tok-mh">0x0</span><span class="tok-p">,</span><span class="tok-o">-</span><span class="tok-mh">0x8</span><span class="tok-p">(</span><span class="tok-o">%</span><span class="tok-nb">rsp</span><span class="tok-p">)</span>
+<span class="tok-nf">incl</span>   <span class="tok-o">-</span><span class="tok-mh">0x8</span><span class="tok-p">(</span><span class="tok-o">%</span><span class="tok-nb">rsp</span><span class="tok-p">)</span>
+<span class="tok-nf">retq</span></code></pre>
 </div>
 </div>
 </div>
@@ -185,14 +185,14 @@ expression:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-cpp" data-lang="cpp">template &lt;typename T&gt; inline doNotOptimizeAway(T&amp;&amp; datum) {
-    asm volatile ("" : "+r" datum);
-}
-void doTest() {
-    int a;
-    doNotOptimizeAway(a = 0);
-    doNotOptimizeAway(a += 16);
-}</code></pre>
+<pre class="pygments highlight"><code data-lang="cpp"><span class="tok-k">template</span> <span class="tok-o">&lt;</span><span class="tok-k">typename</span> <span class="tok-n">T</span><span class="tok-o">&gt;</span> <span class="tok-kr">inline</span> <span class="tok-n">doNotOptimizeAway</span><span class="tok-p">(</span><span class="tok-n">T</span><span class="tok-o">&amp;&amp;</span> <span class="tok-n">datum</span><span class="tok-p">)</span> <span class="tok-p">{</span>
+    <span class="tok-k">asm</span> <span class="tok-k">volatile</span> <span class="tok-p">(</span><span class="tok-s">&quot;&quot;</span> <span class="tok-o">:</span> <span class="tok-s">&quot;+r&quot;</span> <span class="tok-n">datum</span><span class="tok-p">);</span>
+<span class="tok-p">}</span>
+<span class="tok-kt">void</span> <span class="tok-n">doTest</span><span class="tok-p">()</span> <span class="tok-p">{</span>
+    <span class="tok-kt">int</span> <span class="tok-n">a</span><span class="tok-p">;</span>
+    <span class="tok-n">doNotOptimizeAway</span><span class="tok-p">(</span><span class="tok-n">a</span> <span class="tok-o">=</span> <span class="tok-mi">0</span><span class="tok-p">);</span>
+    <span class="tok-n">doNotOptimizeAway</span><span class="tok-p">(</span><span class="tok-n">a</span> <span class="tok-o">+=</span> <span class="tok-mi">16</span><span class="tok-p">);</span>
+<span class="tok-p">}</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -200,16 +200,16 @@ void doTest() {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-asm" data-lang="asm">movl   $0x0,-0x8(%rsp)
-mov    -0x8(%rsp),%eax
-mov    %eax,-0x8(%rsp)
-addl   $0x10,-0x8(%rsp)
-mov    -0x8(%rsp),%edx
-mov    %edx,-0x8(%rsp)
-incl   -0x8(%rsp)
-mov    -0x8(%rsp),%ecx
-mov    %ecx,-0x8(%rsp)
-retq</code></pre>
+<pre class="pygments highlight"><code data-lang="asm"><span class="tok-nf">movl</span>   <span class="tok-kc">$</span><span class="tok-mh">0x0</span><span class="tok-p">,</span><span class="tok-o">-</span><span class="tok-mh">0x8</span><span class="tok-p">(</span><span class="tok-o">%</span><span class="tok-nb">rsp</span><span class="tok-p">)</span>
+<span class="tok-nf">mov</span>    <span class="tok-o">-</span><span class="tok-mh">0x8</span><span class="tok-p">(</span><span class="tok-o">%</span><span class="tok-nb">rsp</span><span class="tok-p">),</span><span class="tok-o">%</span><span class="tok-nb">eax</span>
+<span class="tok-nf">mov</span>    <span class="tok-o">%</span><span class="tok-nb">eax</span><span class="tok-p">,</span><span class="tok-o">-</span><span class="tok-mh">0x8</span><span class="tok-p">(</span><span class="tok-o">%</span><span class="tok-nb">rsp</span><span class="tok-p">)</span>
+<span class="tok-nf">addl</span>   <span class="tok-kc">$</span><span class="tok-mh">0x10</span><span class="tok-p">,</span><span class="tok-o">-</span><span class="tok-mh">0x8</span><span class="tok-p">(</span><span class="tok-o">%</span><span class="tok-nb">rsp</span><span class="tok-p">)</span>
+<span class="tok-nf">mov</span>    <span class="tok-o">-</span><span class="tok-mh">0x8</span><span class="tok-p">(</span><span class="tok-o">%</span><span class="tok-nb">rsp</span><span class="tok-p">),</span><span class="tok-o">%</span><span class="tok-nb">edx</span>
+<span class="tok-nf">mov</span>    <span class="tok-o">%</span><span class="tok-nb">edx</span><span class="tok-p">,</span><span class="tok-o">-</span><span class="tok-mh">0x8</span><span class="tok-p">(</span><span class="tok-o">%</span><span class="tok-nb">rsp</span><span class="tok-p">)</span>
+<span class="tok-nf">incl</span>   <span class="tok-o">-</span><span class="tok-mh">0x8</span><span class="tok-p">(</span><span class="tok-o">%</span><span class="tok-nb">rsp</span><span class="tok-p">)</span>
+<span class="tok-nf">mov</span>    <span class="tok-o">-</span><span class="tok-mh">0x8</span><span class="tok-p">(</span><span class="tok-o">%</span><span class="tok-nb">rsp</span><span class="tok-p">),</span><span class="tok-o">%</span><span class="tok-nb">ecx</span>
+<span class="tok-nf">mov</span>    <span class="tok-o">%</span><span class="tok-nb">ecx</span><span class="tok-p">,</span><span class="tok-o">-</span><span class="tok-mh">0x8</span><span class="tok-p">(</span><span class="tok-o">%</span><span class="tok-nb">rsp</span><span class="tok-p">)</span>
+<span class="tok-nf">retq</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -217,9 +217,9 @@ retq</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-asm" data-lang="asm">xor    %eax,%eax
-add    $0x10,%eax
-retq</code></pre>
+<pre class="pygments highlight"><code data-lang="asm"><span class="tok-nf">xor</span>    <span class="tok-o">%</span><span class="tok-nb">eax</span><span class="tok-p">,</span><span class="tok-o">%</span><span class="tok-nb">eax</span>
+<span class="tok-nf">add</span>    <span class="tok-kc">$</span><span class="tok-mh">0x10</span><span class="tok-p">,</span><span class="tok-o">%</span><span class="tok-nb">eax</span>
+<span class="tok-nf">retq</span></code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -251,14 +251,14 @@ optimize it away but icc will keep it.
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-cpp" data-lang="cpp">#pragma GCC push_options
-#pragma GCC optimize("O0")
-void doTest() {
-    int a;
-    a = 15;
-    a += 1;
-}
-#pragma GCC pop_options</code></pre>
+<pre class="pygments highlight"><code data-lang="cpp"><span class="tok-cp">#pragma GCC push_options</span>
+<span class="tok-cp">#pragma GCC optimize(&quot;O0&quot;)</span>
+<span class="tok-kt">void</span> <span class="tok-nf">doTest</span><span class="tok-p">()</span> <span class="tok-p">{</span>
+    <span class="tok-kt">int</span> <span class="tok-n">a</span><span class="tok-p">;</span>
+    <span class="tok-n">a</span> <span class="tok-o">=</span> <span class="tok-mi">15</span><span class="tok-p">;</span>
+    <span class="tok-n">a</span> <span class="tok-o">+=</span> <span class="tok-mi">1</span><span class="tok-p">;</span>
+<span class="tok-p">}</span>
+<span class="tok-cp">#pragma GCC pop_options</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -266,9 +266,9 @@ void doTest() {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-asm" data-lang="asm">movl   $0xf,-0x4(%rsp)
-addl   $0x1,-0x4(%rsp)
-retq</code></pre>
+<pre class="pygments highlight"><code data-lang="asm"><span class="tok-nf">movl</span>   <span class="tok-kc">$</span><span class="tok-mh">0xf</span><span class="tok-p">,</span><span class="tok-o">-</span><span class="tok-mh">0x4</span><span class="tok-p">(</span><span class="tok-o">%</span><span class="tok-nb">rsp</span><span class="tok-p">)</span>
+<span class="tok-nf">addl</span>   <span class="tok-kc">$</span><span class="tok-mh">0x1</span><span class="tok-p">,</span><span class="tok-o">-</span><span class="tok-mh">0x4</span><span class="tok-p">(</span><span class="tok-o">%</span><span class="tok-nb">rsp</span><span class="tok-p">)</span>
+<span class="tok-nf">retq</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -276,13 +276,13 @@ retq</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-asm" data-lang="asm">sub    $0x10,%rsp
-movl   $0xf,-0x10(%rbp)
-mov    $0x1,%eax
-add    -0x10(%rbp),%eax
-mov    %eax,-0x10(%rbp)
-leaveq
-retq</code></pre>
+<pre class="pygments highlight"><code data-lang="asm"><span class="tok-nf">sub</span>    <span class="tok-kc">$</span><span class="tok-mh">0x10</span><span class="tok-p">,</span><span class="tok-o">%</span><span class="tok-nb">rsp</span>
+<span class="tok-nf">movl</span>   <span class="tok-kc">$</span><span class="tok-mh">0xf</span><span class="tok-p">,</span><span class="tok-o">-</span><span class="tok-mh">0x10</span><span class="tok-p">(</span><span class="tok-o">%</span><span class="tok-nb">rbp</span><span class="tok-p">)</span>
+<span class="tok-nf">mov</span>    <span class="tok-kc">$</span><span class="tok-mh">0x1</span><span class="tok-p">,</span><span class="tok-o">%</span><span class="tok-nb">eax</span>
+<span class="tok-nf">add</span>    <span class="tok-o">-</span><span class="tok-mh">0x10</span><span class="tok-p">(</span><span class="tok-o">%</span><span class="tok-nb">rbp</span><span class="tok-p">),</span><span class="tok-o">%</span><span class="tok-nb">eax</span>
+<span class="tok-nf">mov</span>    <span class="tok-o">%</span><span class="tok-nb">eax</span><span class="tok-p">,</span><span class="tok-o">-</span><span class="tok-mh">0x10</span><span class="tok-p">(</span><span class="tok-o">%</span><span class="tok-nb">rbp</span><span class="tok-p">)</span>
+<span class="tok-nf">leaveq</span>
+<span class="tok-nf">retq</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
