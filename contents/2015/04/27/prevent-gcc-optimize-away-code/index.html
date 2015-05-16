@@ -33,7 +33,7 @@
     <a href="/blog/">Blog</a>
   </li>
   <li class="">
-    <a href="/about/">About Me</a>
+    <a href="/about/">About</a>
   </li>
   <li>
     <a href="https://github.com/ProgramFan">View on GitHub</a>
@@ -59,7 +59,7 @@
     <a href="/blog/">Blog</a>
   </li>
   <li class="">
-    <a href="/about/">About Me</a>
+    <a href="/about/">About</a>
   </li>
   <li>
     <a href="https://github.com/ProgramFan">View on GitHub</a>
@@ -254,20 +254,12 @@ optimize it away but icc will keep it.
 <pre class="highlight"><code class="language-cpp" data-lang="cpp">#pragma GCC push_options
 #pragma GCC optimize("O0")
 void doTest() {
-    int a;  <i class="conum" data-value="1"></i><b>(1)</b>
+    int a;
     a = 15;
     a += 1;
 }
 #pragma GCC pop_options</code></pre>
 </div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>This is a callout.</td>
-</tr>
-</table>
 </div>
 <div class="paragraph">
 <p><code>g++ -std=c++98 -O2</code> compiles it straight forwardly down to</p>

@@ -11,8 +11,8 @@
     <title xml:lang="en">ProgramFan's Writing Space</title>
     <atom:link type="application/atom+xml" href="http://programfan.github.io/feed.xml" rel="self"/>
     <link>http://programfan.github.io </link>
-    <pubDate>Sun, 10 May 2015 15:42:56 +0000</pubDate>
-    <lastBuildDate>Sun, 10 May 2015 15:42:56 +0000</lastBuildDate>
+    <pubDate>Sat, 16 May 2015 04:14:32 +0000</pubDate>
+    <lastBuildDate>Sat, 16 May 2015 04:14:32 +0000</lastBuildDate>
     <language>en-US</language>
     <generator>Jekyll v2.5.3</generator>
     <description></description>
@@ -400,20 +400,12 @@ optimize it away but icc will keep it.
 &lt;pre class=&quot;highlight&quot;&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;#pragma GCC push_options
 #pragma GCC optimize(&quot;O0&quot;)
 void doTest() {
-    int a;  &lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;(1)&lt;/b&gt;
+    int a;
     a = 15;
     a += 1;
 }
 #pragma GCC pop_options&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;colist arabic&quot;&gt;
-&lt;table&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;1&lt;/b&gt;&lt;/td&gt;
-&lt;td&gt;This is a callout.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;&lt;code&gt;g++ -std=c++98 -O2&lt;/code&gt; compiles it straight forwardly down to&lt;/p&gt;
