@@ -22,8 +22,9 @@ asciidoctor:
   attributes:
     - hardbreaks!
     - stylesheet!
-    - source-highlighter!
     - icons=font
+    - source-highlighter=pygments
+    - pygment-css=class
 
 # Jekyll generator config
 permalink: /contents/:year/:month/:day/:title/
