@@ -4,4 +4,20 @@ title: Static Sites Made Easy with Jekyll and Asciidoctor
 catogeries: [Jekyll, Asciidoctor, Asciidoc, Blog]
 ---
 
-http://jekyllrb.org[Jekyll] is a versatile system for static content generation. It is used widely for website generation and is the backbones of http://pages.github.com[Github Pages]. 
+http://jekyllrb.org[Jekyll] is a versatile system for static content generation. It is used widely for website generation and is the backbones of http://pages.github.com[Github Pages]. Jekyll supports markdown as the writting format by default and other formats such as asciidoc are supported via plugins. Since I use asciidoc and <<asciidoctor>>
+
+```
+
+1. link:++http://github.com/asciidoctor/jekyll-asciidoctor-quickstart++
+2. link:http://github.com/asciidoctor/jekyll-asciidoctor
+3. prism
+4. katex
+5. jekyllrb.com
+6. font-awesome
+7. pygments-css
+
+
+== More information
+
+1. css
+2. html
