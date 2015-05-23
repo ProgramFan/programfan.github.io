@@ -1,0 +1,30 @@
+= Design By Contract
+
+"Design by contract" is a widely used technique in object oriented software design, often refered to as "Dependency Invertion Principle". In this design, higher level software layer does not depend on lower level software layer to implement its functionality. Instead, it defines a "service interface", which is implemented by possibly lower layer (eventually can be implemented by any agent), and rely solely on the service interface to implement its functionality.
+
+"Design by contract" can be a powerful tool where software modules are decoupled with the help of module defined "service interface", i.e., the contract. This makes the aformentioned module independently testable and reusable. This can possibly solve the dependency problem in naive hierarchy software design where higher level layer rely on lower level layer to implement its functionality.
+
+To futhur explore the power of "design by contract", I add an extra contraint upon it, which I call "service contract". A software module not only specifies its requirements using "service interface", but also specifies its functinality using "service contract". To be simple, a software module has at least two distinct contracts, one for its service requirements, the other for its provided service.
+
+The above concept is not new. Acutally the android system makes heavy use of it. In android system, every component specifies its required feature to work in a standard configuration file as well as the priviligies. It also implements some interface (the intent) so other component can make use of. The android system core implements a set of standard intents and any software can implement and publish its own intents (as well as any of the standard intents). When a component requests an intent, users will be notified to choose between alternative implementations. This makes the android system extremely flexable, as any component can be improved and replaced, without changeing the correctness of the system. In fact, the prosperous of android ecosystem benifits directly from this design (see the vender custimizations, third party message, phone app, etc.).
+
+The JASMIN framework begins with supporting fast parallel software development on structured grid. It grows with time when more and more different computing patterns are integrated. It inherates AMR ability from SAMARI, add BMR support, CLONE and FEDERATION support, as well as scatter variables over time. The initial software architecture is based on a hierarchical decomposition of functinality. With a huge set of functionality as it is today, it's extremely difficult to even modify any of the features to accomondate new needs. This problem is not specific to JASMIN frameware and is very common in large scale software in general.
+
+The problem lays in the fact that no software design can be robust enough to futhre changes. It's simply impossible. However, software architecture problems shall be solved, at least consider the forseeable future change. This is where the design patterns kicks in and be powerful. However, design patterns are only useful if the underlying problem evolves in the predefined way. It's useful for a medium size of code where concepts are well defined and understood. It *is not born for radical changes*. So on top of design patterns, there shall be a strategy to incoperate dramatic future changes into the software architecture.
+
+The proposed bicontract design may solve the above problem. We decompose the software into well defined modules, and modules can be futher divided into submodules and ultimately into classes. Any of these software entity can incoperate the bicontract design. Usually the module level is enough, some times one may use the submodule level. Inside the module, the design patterns can still be useful. This two-level approach can then attack foreseeable change by design patterns, and attack dramatic change by upgrading possible a small set of the modules to provide new functinalities, or implemnt new modules to fill the concept gap. The new modules can makes use of the services provided by old modules, thus maximizes the code reuse.
+
+Let take an example from clone computing in JASMIN. Conceptually, clone computing is a two level parallel computing strategy, where a number of identically shaped independent dataset are being processed, each dataset can use the same parallel decomposition to futhre parallelize its computation. JASMIN uses the ClonePatchLevel concept to encapsulate the dataset, it's not necessary. Clone computing is independent of mesh, it can be applied to structured, unstructured, combinatorial geometry, meshless and other methods. It only rely on underlying dataset definition to carry on its computations and describe communications. So we can defined the following service contacts:
+
+1. independent dataset
+2. dataset decomposition method
+3. dataset reduce and bcast operations
+
+It provides the following service:
+
+1. dataset partition
+2. inter-dataset communication
+3. pulse comm-comp pipeline
+
+By using the contract, we can implement a domain-agonistic clone computing module, with all the functinalities of the current clone computing. Now to apply the algorithm to structured grid, we just implement the dataset and reduce/bcast method and everything just works. Things are similar to unstructured grid as well as meshless methods. The code of clone module remains untouched.
+
