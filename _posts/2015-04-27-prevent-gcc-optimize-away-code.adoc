@@ -25,7 +25,7 @@ icc compiler.
 `volatile` makes compilers be extremely careful (or conservative) on memory
 load and store of a variable. Most compilers tend to do no optimizations at
 all (even for proven dead code). So the `volatile` technique becomes the top 1
-used. 
+used.
 
 ++++
 <!-- more -->
@@ -41,7 +41,7 @@ void doTest() {
 }
 ----
 
-`pass:[g++ -std=c++98 -O2]` compiles the above code down to 
+`pass:[g++ -std=c++98 -O2]` compiles the above code down to
 
 [source, asm]
 ----
@@ -49,7 +49,7 @@ movl   $0x0,-0x4(%rsp)
 mov    -0x4(%rsp),%eax
 add    $0x1,%eax
 mov    %eax,-0x4(%rsp)
-retq   
+retq
 ----
 
 `icpc -std=c++98 -O2` compiles it down to
@@ -58,7 +58,7 @@ retq
 ----
 movl   $0x0,-0x8(%rsp)
 incl   -0x8(%rsp)
-retq   
+retq
 ----
 
 == Empty assembly
@@ -96,7 +96,7 @@ mov    %edx,-0x8(%rsp)
 incl   -0x8(%rsp)
 mov    -0x8(%rsp),%ecx
 mov    %ecx,-0x8(%rsp)
-retq   
+retq
 ----
 
 `pass:[g++ -std=c++11 -O2]` compiles straightly down to
@@ -105,7 +105,7 @@ retq
 ----
 xor    %eax,%eax
 add    $0x10,%eax
-retq   
+retq
 ----
 
 NOTE: The `+r` modifier and the volatile modifier in the assembly is
@@ -138,7 +138,7 @@ void doTest() {
 ----
 movl   $0xf,-0x4(%rsp)
 addl   $0x1,-0x4(%rsp)
-retq   
+retq
 ----
 
 `icpc -std=c++98 -O2` compiles it down to
@@ -150,8 +150,8 @@ movl   $0xf,-0x10(%rbp)
 mov    $0x1,%eax
 add    -0x10(%rbp),%eax
 mov    %eax,-0x10(%rbp)
-leaveq 
-retq   
+leaveq
+retq
 ----
 
 Although icc does a strange transformation to the code, it leaves the code any
@@ -159,4 +159,3 @@ way.
 
 NOTE: The above pragma can be replaced by function attribute
 `pass:[__attribute__((optimize("O0")))]`
-
