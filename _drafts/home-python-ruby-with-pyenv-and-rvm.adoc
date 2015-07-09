@@ -1,0 +1,45 @@
+--
+--
+
+== Introduction
+
+I'm a heavy user of ipython and asciidoctor. IPython is built on python and requires several python packages to work properly. Asciidoctor is built on ruby and also requires several ruby gems. Although Fedora system has ipython and asciidoctor in the main repository, they are something lagging behind the development version. For example, IPython in Fedora 22 is still 2.4.2 while the new stable version is 3.2.0 with a lot new features worth using (Terminal session in the browser). Upgrading the bundled package is impossible. On the other hand, I can not install/upgrade system software on restricted systems such as our development platforms. So I need a way to manage and update my own set of python and ruby packages, preferably without persistant network connections.
+
+I then came accrous RVM, the Ruby Version Manager. RVM is a set of shell scripts to manage several versions of ruby in user's home directory, and protects the home-brew ruby and gems from the system's default ruby and gems. This makes RVM a perfect ruby version manager, and a perfect ruby environment manager with gem (the ruby package manager). 
+
+The same goody exists for python, it is the http://github.com/yyuu/pyenv[PyENV]. It does the same to python as RVM to ruby. It's written in shell scripts instead of python. Together with pip (the python package manager), pyenv fits perfectly into the need of home-brew python environment manager.
+
+The other problem remains is that there are often no Internet access in restricted environments, rendering pip and gem useless. Luckly, pip and gem supports local install. We can download the source packages or gems on Internet enabled machines and use local install to install them without internet connection. Both PIP and RubyGem support dependency resolution when downloading packages. This solves all problems.
+
+One question may arise is that why not using python distributions such as Anaconda. The reason is simple. Anaconda does not upgrade frequently (although usually more up-to-date than system bundled version), and it bundled very low version of system libs, makeing itself slower than native version. On the other hand, almost all python packages are available via PiPY but only a small portion is in Anaconda.
+
+== How to do it
+
+=== RVM and Gems
+
+1. Install RVM
+2. Install Ruby without Internet using RVM
+3. Install gems without Internet using gem
+
+=== PyENV and pip
+
+1. Install PyEnv
+
+2. Install Python without Internet using PyEnv
++
+[source, bash]
+----
+wget -o ~/.pyenv/cache/Python-2.7.10.tar.gz XXXX
+pyenv install 2.7.10
+----
+
+3. Install python packages without Internet using pip
++
+[source, bash]
+----
+pip install --download DIR -r requirements.txt              <1>
+pip install --no-index --find-links=DIR -r requirements.txt <2>
+----
+<1> Download packages to DIR
+<2> Install packages from DIR without Internet
+
