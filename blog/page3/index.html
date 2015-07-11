@@ -80,6 +80,8 @@
     <option value="/news/">Home</option>
     <optgroup label="v1.x">
       
+      <option value="/contents/2015/07/11/config-cjk-for-asciidoctor-fopub/">Config CJK fonts for Asciidoctor-fopub</option>
+      
       <option value="/contents/2015/06/23/asciidoc-pdf-cjk-status/">Asciidoctor-pdf CJK support status</option>
       
       <option value="/contents/2015/05/05/using-rvm-to-isolate-rubygems-on-fedora-21/">Using RVM to Isolate RubyGems on Fedora 21</option>
@@ -97,6 +99,59 @@
 
       <div class="unit four-fifths">
         <!-- Pagination pages -->
+
+  <article>
+  <h2>
+    <a href="/contents/2015/04/27/prevent-gcc-optimize-away-code/">
+      Prevent GCC from optimizing away a snippet of code
+    </a>
+  </h2>
+  <span class="post-category">
+    <span class="label">
+      c++, gcc, and featured
+    </span>
+  </span>
+  <div class="post-meta">
+    <span class="post-date">
+      27 Apr 2015
+    </span>
+    <a href="https://github.com/ProgramFan" class="post-author">
+      ProgramFan
+    </a>
+  </div>
+  <div class="post-content">
+    <div class="paragraph">
+<p>Nowadays compilers are extremely capable of elimiting 'dead' code. But in
+benchmarking we need some seemingly 'useless' code to do the work we want. For
+example, to do computation in registers in order to measure instruction
+latency and throughput. In these cases, we need a mechanism to temporarily
+disable optimization.</p>
+</div>
+<div class="paragraph">
+<p>This document keep an up-to-date collections of techniques to temporarily
+disable compiler optimizations. These techniques are tested on a recent gcc or
+icc compiler.</p>
+</div>
+<div class="sect1">
+<h2 id="using-volatile">Using volatile</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><code>volatile</code> makes compilers be extremely careful (or conservative) on memory
+load and store of a variable. Most compilers tend to do no optimizations at
+all (even for proven dead code). So the <code>volatile</code> technique becomes the top 1
+used.</p>
+</div>
+
+</div>
+</div>
+    <br/>
+    <div class="post-more">
+      <a href="/contents/2015/04/27/prevent-gcc-optimize-away-code/"> <i class="fa fa-link"></i> &nbsp; Read the rest
+          of this post </b></a>
+    </div>
+  </div>
+</article>
+
 
   <article>
   <h2>
@@ -187,6 +242,8 @@
         
         
         
+        
+        
         <li class="">
           <a href="/contents/2015/05/05/using-rvm-to-isolate-rubygems-on-fedora-21/">Using RVM to Isolate RubyGems on Fedora 21</a>
         </li>
@@ -205,6 +262,12 @@
     </ul>
     <h4>Other Posts</h4>
     <ul>
+        
+        
+        <li class="">
+          <a href="/contents/2015/07/11/config-cjk-for-asciidoctor-fopub/">Config CJK fonts for Asciidoctor-fopub</a>
+        </li>
+        
         
         
         <li class="">
