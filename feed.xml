@@ -11,8 +11,8 @@
     <title xml:lang="en">ProgramFan's Writing Space</title>
     <atom:link type="application/atom+xml" href="http://programfan.github.io/feed.xml" rel="self"/>
     <link>http://programfan.github.io </link>
-    <pubDate>Sat, 11 Jul 2015 03:07:10 +0000</pubDate>
-    <lastBuildDate>Sat, 11 Jul 2015 03:07:10 +0000</lastBuildDate>
+    <pubDate>Sat, 25 Jul 2015 14:58:52 +0000</pubDate>
+    <lastBuildDate>Sat, 25 Jul 2015 14:58:52 +0000</lastBuildDate>
     <language>en-US</language>
     <generator>Jekyll v2.5.3</generator>
     <description></description>
@@ -24,6 +24,109 @@
       <width>144</width>
       <height>73</height>
     </image>
+    
+    <item>
+      <title>Home-brew python and ruby with PyENV and RVM</title>
+      <link>127.0.0.1/contents/2015/07/25/home-python-ruby-with-pyenv-and-rvm/</link>
+      <pubDate>Sat, 25 Jul 2015 00:00:00 +0000</pubDate>
+      <dc:creator>ProgramFan</dc:creator>
+      
+      
+      <category>ruby</category>
+      
+      <category>python</category>
+      
+      <category>rvm</category>
+      
+      <category>pyenv</category>
+      
+      <category>pip</category>
+      
+      <category>gem</category>
+      
+      <guid isPermaLink="true">http://programfan.github.io/contents/2015/07/25/home-python-ruby-with-pyenv-and-rvm/</guid>
+      <description>&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;I&amp;#8217;m a heavy user of ipython and asciidoctor. IPython is built on python and requires several python packages to work properly. Asciidoctor is built on ruby and also requires several ruby gems. Although Fedora system has ipython and asciidoctor in the main repository, they are something lagging behind the development version. For example, IPython in Fedora 22 is still 2.4.2 while the new stable version is 3.2.0 with a lot new features worth using (Terminal session in the browser). Upgrading the bundled package is impossible. On the other hand, I can not install/upgrade system software on restricted systems such as our development platforms. So I need a way to manage and update my own set of python and ruby packages, preferably without persistant network connections.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;I then came accrous RVM, the Ruby Version Manager. RVM is a set of shell scripts to manage several versions of ruby in user&amp;#8217;s home directory, and protects the home-brew ruby and gems from the system&amp;#8217;s default ruby and gems. This makes RVM a perfect ruby version manager, and a perfect ruby environment manager with gem (the ruby package manager).&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The same goody exists for python, it is the &lt;a href=&quot;http://github.com/yyuu/pyenv&quot;&gt;PyENV&lt;/a&gt;. It does the same to python as RVM to ruby. It&amp;#8217;s written in shell scripts instead of python. Together with pip (the python package manager), pyenv fits perfectly into the need of home-brew python environment manager.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The other problem remains is that there are often no Internet access in restricted environments, rendering pip and gem useless. Luckly, pip and gem supports local install. We can download the source packages or gems on Internet enabled machines and use local install to install them without internet connection. Both PIP and RubyGem support dependency resolution when downloading packages. This solves all problems.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;One question may arise is that why not using python distributions such as Anaconda. The reason is simple. Anaconda does not upgrade frequently (although usually more up-to-date than system bundled version), and it bundled very low version of system libs, makeing itself slower than native version. On the other hand, almost all python packages are available via PiPY but only a small portion is in Anaconda.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;how-to-do-it&quot;&gt;How to do it&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;rvm-and-gems&quot;&gt;RVM and Gems&lt;/h3&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;Install RVM&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Install Ruby without Internet using RVM&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Install gems without Internet using gem&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;pyenv-and-pip&quot;&gt;PyENV and pip&lt;/h3&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;Install PyEnv&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Install Python without Internet using PyEnv&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;wget -o ~/.pyenv/cache/Python-2.7.10.tar.gz XXXX
+pyenv install 2.7.10&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Install python packages without Internet using pip&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;pip install --download DIR --no-binary -r requirements.txt  &lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;(1)&lt;/b&gt;
+pip install --no-index --find-links&lt;span class=&quot;tok-o&quot;&gt;=&lt;/span&gt;DIR -r requirements.txt &lt;i class=&quot;conum&quot; data-value=&quot;2&quot;&gt;&lt;/i&gt;&lt;b&gt;(2)&lt;/b&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;colist arabic&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;1&lt;/b&gt;&lt;/td&gt;
+&lt;td&gt;Download packages to DIR&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;i class=&quot;conum&quot; data-value=&quot;2&quot;&gt;&lt;/i&gt;&lt;b&gt;2&lt;/b&gt;&lt;/td&gt;
+&lt;td&gt;Install packages from DIR without Internet&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description>
+    </item>
     
     <item>
       <title>Config CJK fonts for Asciidoctor-fopub</title>

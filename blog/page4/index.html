@@ -2,7 +2,7 @@
 <html lang="en-US">
 <head>
   <meta charset="UTF-8">
-  <title>Config CJK fonts for Asciidoctor-fopub</title>
+  <title>ProgramFan's Writing Space - Blog</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="generator" content="Jekyll v2.5.3">
   <link rel="alternate" type="application/rss+xml"
@@ -100,19 +100,22 @@
 
 
       <div class="unit four-fifths">
-        <article>
+        <!-- Pagination pages -->
+
+  <article>
   <h2>
-    Config CJK fonts for Asciidoctor-fopub
-    <a href="/contents/2015/07/11/config-cjk-for-asciidoctor-fopub/" class="permalink" title="Permalink">∞</a>
+    <a href="/contents/2015/04/20/convert-chinese-asciidoc-to-pdf/">
+      Convert Chinese Asciidoc Documents to PDF
+    </a>
   </h2>
   <span class="post-category">
     <span class="label">
-      asciidoc, fopub, cjk, and docbook
+      asciidoc, pdf, fop, and asciidoctor
     </span>
   </span>
   <div class="post-meta">
     <span class="post-date">
-      11 Jul 2015
+      20 Apr 2015
     </span>
     <a href="https://github.com/ProgramFan" class="post-author">
       ProgramFan
@@ -120,168 +123,63 @@
   </div>
   <div class="post-content">
     <div class="paragraph">
-<p>I blogged on asciidoctor-fopub <a href="/contents/2015/04/20/convert-chinese-asciidoc-to-pdf/">previously</a>. The fonts are configured by generating XML description file. Recently I find from Apache FOP document that fop supports automatically registering fonts and discourage the use of XML description files. It shall make config custom fonts for Apache FOP less pain. So I blog it here.</p>
+<p>Asciidoctor does well in translating asciidoc documents to html5, docbook and etc. Chinese documents also looks great in html5 and docbook. But sometimes we need to use PDF to share with others. Unfortunately, this is not easy for Chinese documents. This document shares my experience converting Chinese asciidoc documents into pdfs.</p>
 </div>
 <div class="sect1">
-<h2 id="the-easiest-approach">The easiest approach</h2>
+<h2 id="overview-of-approaches-to-convert-asciidoc-to-pdfs">Overview of approaches to convert asciidoc to PDFs</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Newer versions of FOP support block registration as well as automatically register system fonts. To use this approach, following the steps:</p>
+<p>There are currently 3 ways to convert asciidoc documents to PDF:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Add font registration directives in <code>fop-config.xml</code>:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="xml"><span class="tok-nt">&lt;fonts&gt;</span>
-  <span class="tok-nt">&lt;directory&gt;</span>/usr/share/fonts/dejavu<span class="tok-nt">&lt;/directory&gt;</span> <i class="conum" data-value="1"></i><b>(1)</b>
-  <span class="tok-nt">&lt;auto-detect/&gt;</span> <i class="conum" data-value="2"></i><b>(2)</b>
-<span class="tok-nt">&lt;/fonts&gt;</span></code></pre>
+<p>asciidoctor-pdf</p>
+<div class="paragraph">
+<p><a href="http://github.com/asciidoctor/asciidoctor-pdf">asciidoctor-pdf</a> is an alpha-state software in ruby to convert asciidoc documents directly into pdf, without any other tools.</p>
 </div>
+<div class="paragraph">
+<p>While asciidoctor is nimble, it does not support CJK/multilingual documents.The output of asciidoctor-pdf is quite similar to that of asciidoctor to html5 backends, with coderay or pygments code highlights and similar fonts as the html5 backends. It&#8217;s worth trying for english documents.</p>
 </div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Add a directory of fonts, set <code>recursive="true"</code> to recursively scan the directory.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Automatically register system fonts installed.</td>
-</tr>
-</table>
+<div class="paragraph">
+<p>At the time of writing, asciidoctor-pdf does not support fontawesome icon font. So the callouts and admotions are simple charactors.</p>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-If the same font is find by <code>auto-detect</code> and <code>directory</code>, the latter takes precedence.
-</td>
-</tr>
-</table>
-</div>
-</li>
-<li>
-<p>Reference font by regular name in <code>fo-pdf.xsl</code>:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="xml"><span class="tok-nt">&lt;xsl:template</span> <span class="tok-na">name=</span><span class="tok-s">&quot;pickfont-sans&quot;</span><span class="tok-nt">&gt;</span>
-  <span class="tok-nt">&lt;xsl:text&gt;</span>DejaVu Sans, Source Han Sans CN, sans-serif<span class="tok-nt">&lt;/xsl:text&gt;</span>
-<span class="tok-nt">&lt;/xsl:template&gt;</span></code></pre>
-</div>
-</div>
+
 </li>
 </ol>
 </div>
 </div>
 </div>
-<div class="sect1">
-<h2 id="the-self-contained-approach">The self-contained approach</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>One can customize the font name and its bold/italic variants by configuring directly the <code>font</code> tag like the original XML description file approach. But at this time, the XML description files are no longer needed. Using this approach, we can select different font for italic/bold/bolditalic variants of a single fontname, which is highly demanded for Chinese document. Here is how:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Put the fonts in a directory, say <code>$FONT_DIR</code></p>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="xml"><span class="tok-nt">&lt;font-base&gt;</span>$FONT_DIR<span class="tok-nt">&lt;/font-base&gt;</span>   <i class="conum" data-value="1"></i><b>(1)</b>
-  <span class="tok-nt">&lt;fonts&gt;</span>
-    <span class="tok-nt">&lt;font</span> <span class="tok-na">embed-url=</span><span class="tok-s">&quot;SourceHanSansSC.ttf&quot;</span> <span class="tok-na">kerning=</span><span class="tok-s">&quot;yes&quot;</span><span class="tok-nt">&gt;</span>    <i class="conum" data-value="2"></i><b>(2)</b>
-    <span class="tok-nt">&lt;font-triplet</span> <span class="tok-na">name=</span><span class="tok-s">&quot;SourceHanSansSC&quot;</span>
-                  <span class="tok-na">style=</span><span class="tok-s">&quot;normal&quot;</span> <span class="tok-na">weight=</span><span class="tok-s">&quot;normal&quot;</span> <span class="tok-nt">/&gt;</span>         <i class="conum" data-value="3"></i><b>(3)</b>
-  <span class="tok-nt">&lt;/font&gt;</span>
-<span class="tok-nt">&lt;/fonts&gt;</span></code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Set the base directory so we can use relative path for <code>embed-url</code>.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Reference the font file using relative path.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>Set the font triplet and choose a cool name.</td>
-</tr>
-</table>
-</div>
-</li>
-<li>
-<p>Reference the font using <code>SourceHanSansSC</code> in <code>fo-pdf.xsl</code>.</p>
-</li>
-</ol>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="bundle-fonts-with-asciidoctor-fopub-gem">Appendix A: Bundle fonts with asciidoctor-fopub gem</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>In Asciidoctor-fopub, one can do futhur by bundling fonts with the gem. The approach is a direct extension of <a href="#the-self-contained-approach">self-contained approach above</a>. Here are the steps:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Put fonts in <code>$REPO/src/dist/docbook-xsl/fonts</code>.</p>
-</li>
-<li>
-<p>Configure <code>fop-config.xml</code> and <code>fo-pdf.xsl</code> using the above approach, but set <code>font-base</code> to <code>@FONT-BASE@</code>.</p>
-</li>
-<li>
-<p>Add the following lines to <code>$REPO/fopub</code> shell script:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="bash"><span class="tok-c"># Modify fop-config.xml to fix bundled font-path</span>
-<span class="tok-nv">FOP_CONFIG_XML</span><span class="tok-o">=</span><span class="tok-s2">&quot;$DOCBOOK_XSL_ABS_DIR/fop-config.xml&quot;</span>
-<span class="tok-nv">BUNDLED_FONTS_DIR</span><span class="tok-o">=</span><span class="tok-s2">&quot;$DOCBOOK_XSL_ABS_DIR/fonts&quot;</span>
-<span class="tok-k">if</span> <span class="tok-o">[</span> -f <span class="tok-s2">&quot;$FOP_CONFIG_XML&quot;</span> <span class="tok-o">]</span><span class="tok-p">;</span> <span class="tok-k">then</span>
-  sed -i <span class="tok-s2">&quot;s|@FONT-BASE@|$BUNDLED_FONTS_DIR|g&quot;</span> <span class="tok-s2">&quot;$FOP_CONFIG_XML&quot;</span>
-<span class="tok-k">fi</span></code></pre>
-</div>
-</div>
-</li>
-</ol>
-</div>
-</div>
-</div>
+    <br/>
+    <div class="post-more">
+      <a href="/contents/2015/04/20/convert-chinese-asciidoc-to-pdf/"> <i class="fa fa-link"></i> &nbsp; Read the rest
+          of this post </b></a>
+    </div>
   </div>
-  
-  <div class="post-comments" id="disqus_thread"></div>
-  <script type="text/javascript">
-  /* * * CONFIGURATION VARIABLES * * */
-  var disqus_shortname = 'progfan-write-space';
-  var disqus_title = 'Config CJK fonts for Asciidoctor-fopub';
-  var disqus_url = 'http://programfan.github.io/contents/2015/07/11/config-cjk-for-asciidoctor-fopub/';
-
-  /* * * DON'T EDIT BELOW THIS LINE * * */
-  (function() {
-   var dsq = document.createElement('script');
-   dsq.type = 'text/javascript'; dsq.async = true;
-   dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-   (document.getElementsByTagName('head')[0] ||
-    document.getElementsByTagName('body')[0]).appendChild(dsq);
-   })();
-  </script>
-  <noscript>
-    Please enable JavaScript to view the
-    <a href="https://disqus.com/?ref_noscript" rel="nofollow">
-      comments powered by Disqus.
-    </a>
-  </noscript>
-
- 
 </article>
+
+
+
+<!-- Pagination links -->
+<div class="section-nav">
+  <div class="left align-right">
+    
+      <a href="/blog/page3/" class="prev">Newer</a>
+    
+  </div>
+  <!--
+  <div class="center align-center">
+    Page: 4 of 4
+  </div>
+  -->
+  <div class="right align-left">
+    
+      <span class="next disabled">Older</span>
+    
+  </div>
+</div>
+<div class="clear"></div>
+
 
       </div>
 
@@ -323,7 +221,7 @@ If the same font is find by <code>auto-detect</code> and <code>directory</code>,
         
         
         
-        <li class="current">
+        <li class="">
           <a href="/contents/2015/07/11/config-cjk-for-asciidoctor-fopub/">Config CJK fonts for Asciidoctor-fopub</a>
         </li>
         

@@ -2,7 +2,7 @@
 <html lang="en-US">
 <head>
   <meta charset="UTF-8">
-  <title>Config CJK fonts for Asciidoctor-fopub</title>
+  <title>Home-brew python and ruby with PyENV and RVM</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="generator" content="Jekyll v2.5.3">
   <link rel="alternate" type="application/rss+xml"
@@ -102,156 +102,101 @@
       <div class="unit four-fifths">
         <article>
   <h2>
-    Config CJK fonts for Asciidoctor-fopub
-    <a href="/contents/2015/07/11/config-cjk-for-asciidoctor-fopub/" class="permalink" title="Permalink">∞</a>
+    Home-brew python and ruby with PyENV and RVM
+    <a href="/contents/2015/07/25/home-python-ruby-with-pyenv-and-rvm/" class="permalink" title="Permalink">∞</a>
   </h2>
   <span class="post-category">
     <span class="label">
-      asciidoc, fopub, cjk, and docbook
+      ruby, python, rvm, pyenv, pip, and gem
     </span>
   </span>
   <div class="post-meta">
     <span class="post-date">
-      11 Jul 2015
+      25 Jul 2015
     </span>
     <a href="https://github.com/ProgramFan" class="post-author">
       ProgramFan
     </a>
   </div>
   <div class="post-content">
-    <div class="paragraph">
-<p>I blogged on asciidoctor-fopub <a href="/contents/2015/04/20/convert-chinese-asciidoc-to-pdf/">previously</a>. The fonts are configured by generating XML description file. Recently I find from Apache FOP document that fop supports automatically registering fonts and discourage the use of XML description files. It shall make config custom fonts for Apache FOP less pain. So I blog it here.</p>
-</div>
-<div class="sect1">
-<h2 id="the-easiest-approach">The easiest approach</h2>
+    <div class="sect1">
+<h2 id="introduction">Introduction</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Newer versions of FOP support block registration as well as automatically register system fonts. To use this approach, following the steps:</p>
+<p>I&#8217;m a heavy user of ipython and asciidoctor. IPython is built on python and requires several python packages to work properly. Asciidoctor is built on ruby and also requires several ruby gems. Although Fedora system has ipython and asciidoctor in the main repository, they are something lagging behind the development version. For example, IPython in Fedora 22 is still 2.4.2 while the new stable version is 3.2.0 with a lot new features worth using (Terminal session in the browser). Upgrading the bundled package is impossible. On the other hand, I can not install/upgrade system software on restricted systems such as our development platforms. So I need a way to manage and update my own set of python and ruby packages, preferably without persistant network connections.</p>
 </div>
+<div class="paragraph">
+<p>I then came accrous RVM, the Ruby Version Manager. RVM is a set of shell scripts to manage several versions of ruby in user&#8217;s home directory, and protects the home-brew ruby and gems from the system&#8217;s default ruby and gems. This makes RVM a perfect ruby version manager, and a perfect ruby environment manager with gem (the ruby package manager).</p>
+</div>
+<div class="paragraph">
+<p>The same goody exists for python, it is the <a href="http://github.com/yyuu/pyenv">PyENV</a>. It does the same to python as RVM to ruby. It&#8217;s written in shell scripts instead of python. Together with pip (the python package manager), pyenv fits perfectly into the need of home-brew python environment manager.</p>
+</div>
+<div class="paragraph">
+<p>The other problem remains is that there are often no Internet access in restricted environments, rendering pip and gem useless. Luckly, pip and gem supports local install. We can download the source packages or gems on Internet enabled machines and use local install to install them without internet connection. Both PIP and RubyGem support dependency resolution when downloading packages. This solves all problems.</p>
+</div>
+<div class="paragraph">
+<p>One question may arise is that why not using python distributions such as Anaconda. The reason is simple. Anaconda does not upgrade frequently (although usually more up-to-date than system bundled version), and it bundled very low version of system libs, makeing itself slower than native version. On the other hand, almost all python packages are available via PiPY but only a small portion is in Anaconda.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="how-to-do-it">How to do it</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="rvm-and-gems">RVM and Gems</h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Add font registration directives in <code>fop-config.xml</code>:</p>
+<p>Install RVM</p>
+</li>
+<li>
+<p>Install Ruby without Internet using RVM</p>
+</li>
+<li>
+<p>Install gems without Internet using gem</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="pyenv-and-pip">PyENV and pip</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Install PyEnv</p>
+</li>
+<li>
+<p>Install Python without Internet using PyEnv</p>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="xml"><span class="tok-nt">&lt;fonts&gt;</span>
-  <span class="tok-nt">&lt;directory&gt;</span>/usr/share/fonts/dejavu<span class="tok-nt">&lt;/directory&gt;</span> <i class="conum" data-value="1"></i><b>(1)</b>
-  <span class="tok-nt">&lt;auto-detect/&gt;</span> <i class="conum" data-value="2"></i><b>(2)</b>
-<span class="tok-nt">&lt;/fonts&gt;</span></code></pre>
+<pre class="pygments highlight"><code data-lang="bash">wget -o ~/.pyenv/cache/Python-2.7.10.tar.gz XXXX
+pyenv install 2.7.10</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Install python packages without Internet using pip</p>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash">pip install --download DIR --no-binary -r requirements.txt  <i class="conum" data-value="1"></i><b>(1)</b>
+pip install --no-index --find-links<span class="tok-o">=</span>DIR -r requirements.txt <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Add a directory of fonts, set <code>recursive="true"</code> to recursively scan the directory.</td>
+<td>Download packages to DIR</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Automatically register system fonts installed.</td>
-</tr>
-</table>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-If the same font is find by <code>auto-detect</code> and <code>directory</code>, the latter takes precedence.
-</td>
+<td>Install packages from DIR without Internet</td>
 </tr>
 </table>
 </div>
 </li>
-<li>
-<p>Reference font by regular name in <code>fo-pdf.xsl</code>:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="xml"><span class="tok-nt">&lt;xsl:template</span> <span class="tok-na">name=</span><span class="tok-s">&quot;pickfont-sans&quot;</span><span class="tok-nt">&gt;</span>
-  <span class="tok-nt">&lt;xsl:text&gt;</span>DejaVu Sans, Source Han Sans CN, sans-serif<span class="tok-nt">&lt;/xsl:text&gt;</span>
-<span class="tok-nt">&lt;/xsl:template&gt;</span></code></pre>
-</div>
-</div>
-</li>
 </ol>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="the-self-contained-approach">The self-contained approach</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>One can customize the font name and its bold/italic variants by configuring directly the <code>font</code> tag like the original XML description file approach. But at this time, the XML description files are no longer needed. Using this approach, we can select different font for italic/bold/bolditalic variants of a single fontname, which is highly demanded for Chinese document. Here is how:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Put the fonts in a directory, say <code>$FONT_DIR</code></p>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="xml"><span class="tok-nt">&lt;font-base&gt;</span>$FONT_DIR<span class="tok-nt">&lt;/font-base&gt;</span>   <i class="conum" data-value="1"></i><b>(1)</b>
-  <span class="tok-nt">&lt;fonts&gt;</span>
-    <span class="tok-nt">&lt;font</span> <span class="tok-na">embed-url=</span><span class="tok-s">&quot;SourceHanSansSC.ttf&quot;</span> <span class="tok-na">kerning=</span><span class="tok-s">&quot;yes&quot;</span><span class="tok-nt">&gt;</span>    <i class="conum" data-value="2"></i><b>(2)</b>
-    <span class="tok-nt">&lt;font-triplet</span> <span class="tok-na">name=</span><span class="tok-s">&quot;SourceHanSansSC&quot;</span>
-                  <span class="tok-na">style=</span><span class="tok-s">&quot;normal&quot;</span> <span class="tok-na">weight=</span><span class="tok-s">&quot;normal&quot;</span> <span class="tok-nt">/&gt;</span>         <i class="conum" data-value="3"></i><b>(3)</b>
-  <span class="tok-nt">&lt;/font&gt;</span>
-<span class="tok-nt">&lt;/fonts&gt;</span></code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Set the base directory so we can use relative path for <code>embed-url</code>.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Reference the font file using relative path.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>Set the font triplet and choose a cool name.</td>
-</tr>
-</table>
-</div>
-</li>
-<li>
-<p>Reference the font using <code>SourceHanSansSC</code> in <code>fo-pdf.xsl</code>.</p>
-</li>
-</ol>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="bundle-fonts-with-asciidoctor-fopub-gem">Appendix A: Bundle fonts with asciidoctor-fopub gem</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>In Asciidoctor-fopub, one can do futhur by bundling fonts with the gem. The approach is a direct extension of <a href="#the-self-contained-approach">self-contained approach above</a>. Here are the steps:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Put fonts in <code>$REPO/src/dist/docbook-xsl/fonts</code>.</p>
-</li>
-<li>
-<p>Configure <code>fop-config.xml</code> and <code>fo-pdf.xsl</code> using the above approach, but set <code>font-base</code> to <code>@FONT-BASE@</code>.</p>
-</li>
-<li>
-<p>Add the following lines to <code>$REPO/fopub</code> shell script:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="bash"><span class="tok-c"># Modify fop-config.xml to fix bundled font-path</span>
-<span class="tok-nv">FOP_CONFIG_XML</span><span class="tok-o">=</span><span class="tok-s2">&quot;$DOCBOOK_XSL_ABS_DIR/fop-config.xml&quot;</span>
-<span class="tok-nv">BUNDLED_FONTS_DIR</span><span class="tok-o">=</span><span class="tok-s2">&quot;$DOCBOOK_XSL_ABS_DIR/fonts&quot;</span>
-<span class="tok-k">if</span> <span class="tok-o">[</span> -f <span class="tok-s2">&quot;$FOP_CONFIG_XML&quot;</span> <span class="tok-o">]</span><span class="tok-p">;</span> <span class="tok-k">then</span>
-  sed -i <span class="tok-s2">&quot;s|@FONT-BASE@|$BUNDLED_FONTS_DIR|g&quot;</span> <span class="tok-s2">&quot;$FOP_CONFIG_XML&quot;</span>
-<span class="tok-k">fi</span></code></pre>
-</div>
-</div>
-</li>
-</ol>
 </div>
 </div>
 </div>
@@ -261,8 +206,8 @@ If the same font is find by <code>auto-detect</code> and <code>directory</code>,
   <script type="text/javascript">
   /* * * CONFIGURATION VARIABLES * * */
   var disqus_shortname = 'progfan-write-space';
-  var disqus_title = 'Config CJK fonts for Asciidoctor-fopub';
-  var disqus_url = 'http://programfan.github.io/contents/2015/07/11/config-cjk-for-asciidoctor-fopub/';
+  var disqus_title = 'Home-brew python and ruby with PyENV and RVM';
+  var disqus_url = 'http://programfan.github.io/contents/2015/07/25/home-python-ruby-with-pyenv-and-rvm/';
 
   /* * * DON'T EDIT BELOW THIS LINE * * */
   (function() {
@@ -317,13 +262,13 @@ If the same font is find by <code>auto-detect</code> and <code>directory</code>,
     <ul>
         
         
-        <li class="">
+        <li class="current">
           <a href="/contents/2015/07/25/home-python-ruby-with-pyenv-and-rvm/">Home-brew python and ruby with PyENV and RVM</a>
         </li>
         
         
         
-        <li class="current">
+        <li class="">
           <a href="/contents/2015/07/11/config-cjk-for-asciidoctor-fopub/">Config CJK fonts for Asciidoctor-fopub</a>
         </li>
         
