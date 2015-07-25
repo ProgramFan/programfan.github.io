@@ -1,5 +1,9 @@
---
---
+---
+layout: news_item
+title: Home-brew python and ruby with PyENV and RVM
+author: ProgramFan
+categories: [Ruby, Python, RVM, PyENV, pip, gem]
+---
 
 == Introduction
 
@@ -37,7 +41,7 @@ pyenv install 2.7.10
 +
 [source, bash]
 ----
-pip install --download DIR -r requirements.txt              <1>
+pip install --download DIR --no-binary -r requirements.txt  <1>
 pip install --no-index --find-links=DIR -r requirements.txt <2>
 ----
 <1> Download packages to DIR
