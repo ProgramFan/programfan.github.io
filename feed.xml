@@ -11,8 +11,8 @@
     <title xml:lang="en">ProgramFan's Writing Space</title>
     <atom:link type="application/atom+xml" href="http://programfan.github.io/feed.xml" rel="self"/>
     <link>http://programfan.github.io </link>
-    <pubDate>Sat, 25 Jul 2015 14:58:52 +0000</pubDate>
-    <lastBuildDate>Sat, 25 Jul 2015 14:58:52 +0000</lastBuildDate>
+    <pubDate>Sun, 20 Sep 2015 07:55:57 +0000</pubDate>
+    <lastBuildDate>Sun, 20 Sep 2015 07:55:57 +0000</lastBuildDate>
     <language>en-US</language>
     <generator>Jekyll v2.5.3</generator>
     <description></description>
@@ -24,6 +24,81 @@
       <width>144</width>
       <height>73</height>
     </image>
+    
+    <item>
+      <title>User-local python packages install with pip</title>
+      <link>127.0.0.1/contents/2015/09/20/user-local-python-pkg-install-with-pip/</link>
+      <pubDate>Sun, 20 Sep 2015 00:00:00 +0000</pubDate>
+      <dc:creator></dc:creator>
+      
+      
+      <guid isPermaLink="true">http://programfan.github.io/contents/2015/09/20/user-local-python-pkg-install-with-pip/</guid>
+      <description>&lt;h1&gt;User-local python packages install with pip&lt;/h1&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;motivation&quot;&gt;Motivation&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;PyENV has done a fairly good job in managing user-local python versions, as well as per-version pip packages. However, some packages such as PyQt5 need deep system integration and can not be installed using pip. This makes packages such as jupyter-qtconsole upset. The use of shims in PyENV also forces any provided command to be started with a shell script (so a shell process). This makes packages such as python-powerline much slower.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;To solve the above problems, I choose to go back to the standard python user-local install process and choose pip user install. pip user install relys on system python to work correctly, and integrates tightly with system packages. That is to say, if one install PyQt5 using system package manager, he/she can use it in a user-local toyplot package, avoiding install PyQt5 manually (since not possible with pip). Moreover, binaries provided by packages are directly avaliable to the system, which greatly improves the speed of packages such as python-powerline &lt;span class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_1&quot; class=&quot;footnote&quot; href=&quot;#_footnote_1&quot; title=&quot;View footnote.&quot;&gt;1&lt;/a&gt;]&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;instructions&quot;&gt;Instructions&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;pip user install is good. Then how we do it? It&amp;#8217;s as easy as following the listed steps:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;Choose the user install location, say &lt;code&gt;$MYINSTALL&lt;/code&gt;. By default, it&amp;#8217;s
+&lt;code&gt;$HOME/.local&lt;/code&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Install packages we want using the following command:&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;tok-nv&quot;&gt;PYTHONUSERBASE&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;tok-nv&quot;&gt;$MYINSTALL&lt;/span&gt; pip install --user --upgrade &amp;lt;PACKAGES&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Setup python path and binary path&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre&gt;export PYTHONPATH=$MYINSTALL:$PYTHONPATH
+export PATH=$MYINSTALL/bin:$PATH&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Enjoy.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;integrate-with-system-packages&quot;&gt;Integrate with system packages&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;If you install packages such as numpy, scipy and matplotlib with system package manager, and then install packages such as toyplot or jupyter, you may find that numpy, scipy will not be upgraded since the requirements of toyplot is already meet. This is the power of local install, which integrates well with existing packages.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;But if you do want a more recent version that system provided, you can append &lt;code&gt;--upgrade&lt;/code&gt; to &lt;code&gt;pip install&lt;/code&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&quot;footnotes&quot;&gt;
+&lt;hr&gt;
+&lt;div class=&quot;footnote&quot; id=&quot;_footnote_1&quot;&gt;
+&lt;a href=&quot;#_footnoteref_1&quot;&gt;1&lt;/a&gt; python-powerline uses a binary powerline-client to accelerate shell prompt rendering, which is much more responsive than shell scripts. The latter causes visiable lag even on recent ivebridge CPUs.
+&lt;/div&gt;
+&lt;/div&gt;</description>
+    </item>
     
     <item>
       <title>Home-brew python and ruby with PyENV and RVM</title>

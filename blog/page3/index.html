@@ -80,6 +80,8 @@
     <option value="/news/">Home</option>
     <optgroup label="v1.x">
       
+      <option value="/contents/2015/09/20/user-local-python-pkg-install-with-pip/">User-local python packages install with pip</option>
+      
       <option value="/contents/2015/07/25/home-python-ruby-with-pyenv-and-rvm/">Home-brew python and ruby with PyENV and RVM</option>
       
       <option value="/contents/2015/07/11/config-cjk-for-asciidoctor-fopub/">Config CJK fonts for Asciidoctor-fopub</option>
@@ -101,6 +103,73 @@
 
       <div class="unit four-fifths">
         <!-- Pagination pages -->
+
+  <article>
+  <h2>
+    <a href="/contents/2015/05/05/using-rvm-to-isolate-rubygems-on-fedora-21/">
+      Using RVM to Isolate RubyGems on Fedora 21
+    </a>
+  </h2>
+  <span class="post-category">
+    <span class="label">
+      rvm, rubygems, and featured
+    </span>
+  </span>
+  <div class="post-meta">
+    <span class="post-date">
+      05 May 2015
+    </span>
+    <a href="https://github.com/ProgramFan" class="post-author">
+      ProgramFan
+    </a>
+  </div>
+  <div class="post-content">
+    <div class="paragraph">
+<p>Ruby comes with a rich set of packages, which is named by the community as 'Ruby Gems'. Ruby gems are quite alike python packages. They both have dependencies, they rely on specific interpreter versions, they are both managed by centralized repositories <span class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnote_1" title="View footnote.">1</a>]</span>.</p>
+</div>
+<div class="paragraph">
+<p>Just like Python, Fedora 21 comes with several Ruby gems as packages in official repository (they are named 'rubygem-xxx'). But gems in the official repo can be outdated, some gems are missing and there are still other problems which makes the official rubygem package inadequate. The users have to manually install gems, which causes several problems, to name a few:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Gems interfere with system packages.</p>
+</li>
+<li>
+<p>Some user installed gems does not work properly with system installed gems.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+For example, user install jekyll does not work with system rubygem-json, which stops it from working.
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>The ideal way to solve the above problem is to setup isolated (possible non-root) ruby environment for specificed purpose. For example, if one managed to setup seperate ruby interpreter and gems for jekyll, problem 2 does not even exists. <a href="https://rvm.io">RVM</a> comes right to the problem.</p>
+</div>
+
+<div id="footnotes">
+<hr>
+<div class="footnote" id="_footnote_1">
+<a href="#_footnoteref_1">1</a> Python have PyPI, ruby have RubyGems
+</div>
+</div>
+    <br/>
+    <div class="post-more">
+      <a href="/contents/2015/05/05/using-rvm-to-isolate-rubygems-on-fedora-21/"> <i class="fa fa-link"></i> &nbsp; Read the rest
+          of this post </b></a>
+    </div>
+  </div>
+</article>
+
 
   <article>
   <h2>
@@ -152,59 +221,6 @@ std::string<span class="tok-o">)</span>^@</code></pre>
 </article>
 
 
-  <article>
-  <h2>
-    <a href="/contents/2015/04/27/prevent-gcc-optimize-away-code/">
-      Prevent GCC from optimizing away a snippet of code
-    </a>
-  </h2>
-  <span class="post-category">
-    <span class="label">
-      c++, gcc, and featured
-    </span>
-  </span>
-  <div class="post-meta">
-    <span class="post-date">
-      27 Apr 2015
-    </span>
-    <a href="https://github.com/ProgramFan" class="post-author">
-      ProgramFan
-    </a>
-  </div>
-  <div class="post-content">
-    <div class="paragraph">
-<p>Nowadays compilers are extremely capable of elimiting 'dead' code. But in
-benchmarking we need some seemingly 'useless' code to do the work we want. For
-example, to do computation in registers in order to measure instruction
-latency and throughput. In these cases, we need a mechanism to temporarily
-disable optimization.</p>
-</div>
-<div class="paragraph">
-<p>This document keep an up-to-date collections of techniques to temporarily
-disable compiler optimizations. These techniques are tested on a recent gcc or
-icc compiler.</p>
-</div>
-<div class="sect1">
-<h2 id="using-volatile">Using volatile</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p><code>volatile</code> makes compilers be extremely careful (or conservative) on memory
-load and store of a variable. Most compilers tend to do no optimizations at
-all (even for proven dead code). So the <code>volatile</code> technique becomes the top 1
-used.</p>
-</div>
-
-</div>
-</div>
-    <br/>
-    <div class="post-more">
-      <a href="/contents/2015/04/27/prevent-gcc-optimize-away-code/"> <i class="fa fa-link"></i> &nbsp; Read the rest
-          of this post </b></a>
-    </div>
-  </div>
-</article>
-
-
 
 <!-- Pagination links -->
 <div class="section-nav">
@@ -241,6 +257,8 @@ used.</p>
         
         
         
+        
+        
         <li class="">
           <a href="/contents/2015/05/05/using-rvm-to-isolate-rubygems-on-fedora-21/">Using RVM to Isolate RubyGems on Fedora 21</a>
         </li>
@@ -259,6 +277,12 @@ used.</p>
     </ul>
     <h4>Other Posts</h4>
     <ul>
+        
+        
+        <li class="">
+          <a href="/contents/2015/09/20/user-local-python-pkg-install-with-pip/">User-local python packages install with pip</a>
+        </li>
+        
         
         
         <li class="">
