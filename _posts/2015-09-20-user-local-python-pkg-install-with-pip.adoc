@@ -27,6 +27,7 @@ PYTHONUSERBASE=$MYINSTALL pip install --user --upgrade <PACKAGES>
 
 3. Setup python path and binary path
 +
+[source, bash]
 ----
 export PYTHONPATH=$MYINSTALL:$PYTHONPATH
 export PATH=$MYINSTALL/bin:$PATH
