@@ -11,8 +11,8 @@
     <title xml:lang="en">ProgramFan's Writing Space</title>
     <atom:link type="application/atom+xml" href="http://programfan.github.io/feed.xml" rel="self"/>
     <link>http://programfan.github.io </link>
-    <pubDate>Sun, 20 Sep 2015 07:55:57 +0000</pubDate>
-    <lastBuildDate>Sun, 20 Sep 2015 07:55:57 +0000</lastBuildDate>
+    <pubDate>Sun, 20 Sep 2015 08:05:50 +0000</pubDate>
+    <lastBuildDate>Sun, 20 Sep 2015 08:05:50 +0000</lastBuildDate>
     <language>en-US</language>
     <generator>Jekyll v2.5.3</generator>
     <description></description>
@@ -26,15 +26,20 @@
     </image>
     
     <item>
-      <title>User-local python packages install with pip</title>
+      <title>User-local python package install with pip</title>
       <link>127.0.0.1/contents/2015/09/20/user-local-python-pkg-install-with-pip/</link>
       <pubDate>Sun, 20 Sep 2015 00:00:00 +0000</pubDate>
-      <dc:creator></dc:creator>
+      <dc:creator>ProgramFan</dc:creator>
       
+      
+      <category>python</category>
+      
+      <category>pip</category>
+      
+      <category>featured</category>
       
       <guid isPermaLink="true">http://programfan.github.io/contents/2015/09/20/user-local-python-pkg-install-with-pip/</guid>
-      <description>&lt;h1&gt;User-local python packages install with pip&lt;/h1&gt;
-&lt;div class=&quot;sect1&quot;&gt;
+      <description>&lt;div class=&quot;sect1&quot;&gt;
 &lt;h2 id=&quot;motivation&quot;&gt;Motivation&lt;/h2&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
