@@ -11,8 +11,8 @@
     <title xml:lang="en">ProgramFan's Writing Space</title>
     <atom:link type="application/atom+xml" href="http://programfan.github.io/feed.xml" rel="self"/>
     <link>http://programfan.github.io </link>
-    <pubDate>Sun, 20 Sep 2015 08:05:50 +0000</pubDate>
-    <lastBuildDate>Sun, 20 Sep 2015 08:05:50 +0000</lastBuildDate>
+    <pubDate>Sun, 20 Sep 2015 08:22:25 +0000</pubDate>
+    <lastBuildDate>Sun, 20 Sep 2015 08:22:25 +0000</lastBuildDate>
     <language>en-US</language>
     <generator>Jekyll v2.5.3</generator>
     <description></description>
@@ -74,8 +74,8 @@
 &lt;p&gt;Setup python path and binary path&lt;/p&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre&gt;export PYTHONPATH=$MYINSTALL:$PYTHONPATH
-export PATH=$MYINSTALL/bin:$PATH&lt;/pre&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;tok-nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;tok-nv&quot;&gt;PYTHONPATH&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;tok-nv&quot;&gt;$MYINSTALL&lt;/span&gt;:&lt;span class=&quot;tok-nv&quot;&gt;$PYTHONPATH&lt;/span&gt;
+&lt;span class=&quot;tok-nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;tok-nv&quot;&gt;PATH&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;tok-nv&quot;&gt;$MYINSTALL&lt;/span&gt;/bin:&lt;span class=&quot;tok-nv&quot;&gt;$PATH&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/li&gt;
