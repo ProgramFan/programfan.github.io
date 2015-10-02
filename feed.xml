@@ -11,8 +11,8 @@
     <title xml:lang="en">ProgramFan's Writing Space</title>
     <atom:link type="application/atom+xml" href="http://programfan.github.io/feed.xml" rel="self"/>
     <link>http://programfan.github.io </link>
-    <pubDate>Sun, 20 Sep 2015 08:57:02 +0000</pubDate>
-    <lastBuildDate>Sun, 20 Sep 2015 08:57:02 +0000</lastBuildDate>
+    <pubDate>Fri, 02 Oct 2015 02:59:12 +0000</pubDate>
+    <lastBuildDate>Fri, 02 Oct 2015 02:59:12 +0000</lastBuildDate>
     <language>en-US</language>
     <generator>Jekyll v2.5.3</generator>
     <description></description>
@@ -24,6 +24,149 @@
       <width>144</width>
       <height>73</height>
     </image>
+    
+    <item>
+      <title>Deploy python working environments with pip under restricted connections</title>
+      <link>127.0.0.1/contents/2015/10/02/deploy-python-working-environments-using-pip/</link>
+      <pubDate>Fri, 02 Oct 2015 00:00:00 +0000</pubDate>
+      <dc:creator>ProgramFan</dc:creator>
+      
+      
+      <category>python</category>
+      
+      <category>pip</category>
+      
+      <category>working env</category>
+      
+      <category>featured</category>
+      
+      <guid isPermaLink="true">http://programfan.github.io/contents/2015/10/02/deploy-python-working-environments-using-pip/</guid>
+      <description>&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;background&quot;&gt;Background&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;One can often use pre-built python distributions to setup python working
+environments, for example &lt;a href=&quot;http://www.continuum.io&quot;&gt;Anaconda&lt;/a&gt;,
+&lt;a href=&quot;https://store.enthought.com&quot;&gt;Enthought Canopy&lt;/a&gt;. But these distributions has the
+following common problems, which reduces their usefulness:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;It&amp;#8217;s hard to upgrade packages without internet connections. It&amp;#8217;s also hard
+to install packages not contained in the distribution.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;It does not play well with existing packages on the target systems. For
+example, Anaconda bundles mpich, which conflict with system MPIs.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;These distributions has poor performances. Since they are built on
+relatively old platforms and possibly with no optimizations, they are
+often slower than native python. For example, I found anaconda python on a
+RHEL 6.3 system very slow to start.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;For me, it&amp;#8217;s essential to deploy my python working environments with the
+following considerations:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;Easy to install/upgrade packages on demand, under restricted connections.
+Some systems I work with does not have internet connections.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;It shall integrate well with existing python packages. Some packages such
+as PyQt5 requires deep system integration so I would better install them
+with system package manager.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Good performance. The distributed packages shall run fast and be
+responsive on the target platform.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;the-key-ideas&quot;&gt;The key ideas&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;The first is pip user install&lt;/strong&gt;. With &lt;code&gt;pip&lt;/code&gt;, we have the most complete
+python package collection. Almost all packages are available in PyPI, and we
+can always make home-brew python packages pip-compatible. &lt;code&gt;pip&lt;/code&gt; is a standard
+python module since python 2.7.6 and is easy to install for prior python
+versions. So &lt;code&gt;pip&lt;/code&gt; serves as a built-in package manager. &lt;code&gt;pip&lt;/code&gt; supports
+installing packages in the users directory and plays well with existing
+packages. For example, &lt;code&gt;pip install&lt;/code&gt; will skip a package if already available
+and capable. &lt;code&gt;pip&lt;/code&gt; user install adds paths to standard python module paths,
+instead of overwriting them.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;The second is python requirement file&lt;/strong&gt;. &lt;code&gt;pip&lt;/code&gt; supports install packages and
+its dependencies from a &lt;em&gt;requirement file&lt;/em&gt;. That is, you list packages you
+want, &lt;code&gt;pip&lt;/code&gt; automatically solves the dependency, grabs proper packages and
+install them. It makes both install and upgrade a piece of cake.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;The last is python wheels&lt;/strong&gt;. Python wheels is simply pre-built python
+packages. The real power with python wheels is that you can build your own
+wheel for packages in a requirement list, together with all dependencies.
+After that, you can install directly from wheels without the need of a network
+connection.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;in-practice&quot;&gt;In practice&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;With the above three key ideas, I develop the following method to solve the
+&lt;em&gt;python working environment distribution&lt;/em&gt; problem:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;Set up a base CPython version. One can choose to rely on system python, or
+compile their own CPython.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Maintain a &lt;em&gt;requirement file&lt;/em&gt;. Only list packages you need in the
+requirements. You can also specify version constraints.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Build wheels for distribution.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;pip install --user --upgrade wheel
+pip wheel -r requirements.txt&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Distributing wheels and install packages from wheels.&lt;/p&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;pip install --user --upgrade -r requirements.txt --no-index -f &lt;span class=&quot;tok-k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;tok-nv&quot;&gt;WHEELSDIR&lt;/span&gt;&lt;span class=&quot;tok-k&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Enjoy.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The above method is used to distribute my python working environments in 4
+different platforms: two Fedora 22 workstations, one RHEL 6.3 system and one
+RHEL 5.4 system. It works.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description>
+    </item>
     
     <item>
       <title>User-local python package install with pip</title>

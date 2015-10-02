@@ -2,7 +2,7 @@
 <html lang="en-US">
 <head>
   <meta charset="UTF-8">
-  <title>Home-brew python and ruby with PyENV and RVM</title>
+  <title>Deploy python working environments with pip under restricted connections</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="generator" content="Jekyll v2.5.3">
   <link rel="alternate" type="application/rss+xml"
@@ -108,17 +108,17 @@
       <div class="unit four-fifths">
         <article>
   <h2>
-    Home-brew python and ruby with PyENV and RVM
-    <a href="/contents/2015/07/25/home-python-ruby-with-pyenv-and-rvm/" class="permalink" title="Permalink">∞</a>
+    Deploy python working environments with pip under restricted connections
+    <a href="/contents/2015/10/02/deploy-python-working-environments-using-pip/" class="permalink" title="Permalink">∞</a>
   </h2>
   <span class="post-category">
     <span class="label">
-      ruby, python, rvm, pyenv, pip, and gem
+      python, pip, working env, and featured
     </span>
   </span>
   <div class="post-meta">
     <span class="post-date">
-      25 Jul 2015
+      02 Oct 2015
     </span>
     <a href="https://github.com/ProgramFan" class="post-author">
       ProgramFan
@@ -126,83 +126,127 @@
   </div>
   <div class="post-content">
     <div class="sect1">
-<h2 id="introduction">Introduction</h2>
+<h2 id="background">Background</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>I&#8217;m a heavy user of ipython and asciidoctor. IPython is built on python and requires several python packages to work properly. Asciidoctor is built on ruby and also requires several ruby gems. Although Fedora system has ipython and asciidoctor in the main repository, they are something lagging behind the development version. For example, IPython in Fedora 22 is still 2.4.2 while the new stable version is 3.2.0 with a lot new features worth using (Terminal session in the browser). Upgrading the bundled package is impossible. On the other hand, I can not install/upgrade system software on restricted systems such as our development platforms. So I need a way to manage and update my own set of python and ruby packages, preferably without persistant network connections.</p>
+<p>One can often use pre-built python distributions to setup python working
+environments, for example <a href="http://www.continuum.io">Anaconda</a>,
+<a href="https://store.enthought.com">Enthought Canopy</a>. But these distributions has the
+following common problems, which reduces their usefulness:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>It&#8217;s hard to upgrade packages without internet connections. It&#8217;s also hard
+to install packages not contained in the distribution.</p>
+</li>
+<li>
+<p>It does not play well with existing packages on the target systems. For
+example, Anaconda bundles mpich, which conflict with system MPIs.</p>
+</li>
+<li>
+<p>These distributions has poor performances. Since they are built on
+relatively old platforms and possibly with no optimizations, they are
+often slower than native python. For example, I found anaconda python on a
+RHEL 6.3 system very slow to start.</p>
+</li>
+</ol>
 </div>
 <div class="paragraph">
-<p>I then came accrous RVM, the Ruby Version Manager. RVM is a set of shell scripts to manage several versions of ruby in user&#8217;s home directory, and protects the home-brew ruby and gems from the system&#8217;s default ruby and gems. This makes RVM a perfect ruby version manager, and a perfect ruby environment manager with gem (the ruby package manager).</p>
+<p>For me, it&#8217;s essential to deploy my python working environments with the
+following considerations:</p>
 </div>
-<div class="paragraph">
-<p>The same goody exists for python, it is the <a href="http://github.com/yyuu/pyenv">PyENV</a>. It does the same to python as RVM to ruby. It&#8217;s written in shell scripts instead of python. Together with pip (the python package manager), pyenv fits perfectly into the need of home-brew python environment manager.</p>
-</div>
-<div class="paragraph">
-<p>The other problem remains is that there are often no Internet access in restricted environments, rendering pip and gem useless. Luckly, pip and gem supports local install. We can download the source packages or gems on Internet enabled machines and use local install to install them without internet connection. Both PIP and RubyGem support dependency resolution when downloading packages. This solves all problems.</p>
-</div>
-<div class="paragraph">
-<p>One question may arise is that why not using python distributions such as Anaconda. The reason is simple. Anaconda does not upgrade frequently (although usually more up-to-date than system bundled version), and it bundled very low version of system libs, makeing itself slower than native version. On the other hand, almost all python packages are available via PiPY but only a small portion is in Anaconda.</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Easy to install/upgrade packages on demand, under restricted connections.
+Some systems I work with does not have internet connections.</p>
+</li>
+<li>
+<p>It shall integrate well with existing python packages. Some packages such
+as PyQt5 requires deep system integration so I would better install them
+with system package manager.</p>
+</li>
+<li>
+<p>Good performance. The distributed packages shall run fast and be
+responsive on the target platform.</p>
+</li>
+</ol>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="how-to-do-it">How to do it</h2>
+<h2 id="the-key-ideas">The key ideas</h2>
 <div class="sectionbody">
-<div class="sect2">
-<h3 id="rvm-and-gems">RVM and Gems</h3>
+<div class="paragraph">
+<p><strong>The first is pip user install</strong>. With <code>pip</code>, we have the most complete
+python package collection. Almost all packages are available in PyPI, and we
+can always make home-brew python packages pip-compatible. <code>pip</code> is a standard
+python module since python 2.7.6 and is easy to install for prior python
+versions. So <code>pip</code> serves as a built-in package manager. <code>pip</code> supports
+installing packages in the users directory and plays well with existing
+packages. For example, <code>pip install</code> will skip a package if already available
+and capable. <code>pip</code> user install adds paths to standard python module paths,
+instead of overwriting them.</p>
+</div>
+<div class="paragraph">
+<p><strong>The second is python requirement file</strong>. <code>pip</code> supports install packages and
+its dependencies from a <em>requirement file</em>. That is, you list packages you
+want, <code>pip</code> automatically solves the dependency, grabs proper packages and
+install them. It makes both install and upgrade a piece of cake.</p>
+</div>
+<div class="paragraph">
+<p><strong>The last is python wheels</strong>. Python wheels is simply pre-built python
+packages. The real power with python wheels is that you can build your own
+wheel for packages in a requirement list, together with all dependencies.
+After that, you can install directly from wheels without the need of a network
+connection.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="in-practice">In practice</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>With the above three key ideas, I develop the following method to solve the
+<em>python working environment distribution</em> problem:</p>
+</div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Install RVM</p>
+<p>Set up a base CPython version. One can choose to rely on system python, or
+compile their own CPython.</p>
 </li>
 <li>
-<p>Install Ruby without Internet using RVM</p>
+<p>Maintain a <em>requirement file</em>. Only list packages you need in the
+requirements. You can also specify version constraints.</p>
 </li>
 <li>
-<p>Install gems without Internet using gem</p>
+<p>Build wheels for distribution.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash">pip install --user --upgrade wheel
+pip wheel -r requirements.txt</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Distributing wheels and install packages from wheels.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash">pip install --user --upgrade -r requirements.txt --no-index -f <span class="tok-k">${</span><span class="tok-nv">WHEELSDIR</span><span class="tok-k">}</span></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Enjoy.</p>
 </li>
 </ol>
 </div>
-</div>
-<div class="sect2">
-<h3 id="pyenv-and-pip">PyENV and pip</h3>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Install PyEnv</p>
-</li>
-<li>
-<p>Install Python without Internet using PyEnv</p>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="bash">wget -o ~/.pyenv/cache/Python-2.7.10.tar.gz XXXX
-pyenv install 2.7.10</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Install python packages without Internet using pip</p>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="bash">pip install --download DIR --no-binary -r requirements.txt  <i class="conum" data-value="1"></i><b>(1)</b>
-pip install --no-index --find-links<span class="tok-o">=</span>DIR -r requirements.txt <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Download packages to DIR</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Install packages from DIR without Internet</td>
-</tr>
-</table>
-</div>
-</li>
-</ol>
-</div>
+<div class="paragraph">
+<p>The above method is used to distribute my python working environments in 4
+different platforms: two Fedora 22 workstations, one RHEL 6.3 system and one
+RHEL 5.4 system. It works.</p>
 </div>
 </div>
 </div>
@@ -212,8 +256,8 @@ pip install --no-index --find-links<span class="tok-o">=</span>DIR -r requiremen
   <script type="text/javascript">
   /* * * CONFIGURATION VARIABLES * * */
   var disqus_shortname = 'progfan-write-space';
-  var disqus_title = 'Home-brew python and ruby with PyENV and RVM';
-  var disqus_url = 'http://programfan.github.io/contents/2015/07/25/home-python-ruby-with-pyenv-and-rvm/';
+  var disqus_title = 'Deploy python working environments with pip under restricted connections';
+  var disqus_url = 'http://programfan.github.io/contents/2015/10/02/deploy-python-working-environments-using-pip/';
 
   /* * * DON'T EDIT BELOW THIS LINE * * */
   (function() {
@@ -242,7 +286,7 @@ pip install --no-index --find-links<span class="tok-o">=</span>DIR -r requiremen
     <ul>
         
         
-        <li class="">
+        <li class="current">
           <a href="/contents/2015/10/02/deploy-python-working-environments-using-pip/">Deploy python working environments with pip under restricted connections</a>
         </li>
         
@@ -292,7 +336,7 @@ pip install --no-index --find-links<span class="tok-o">=</span>DIR -r requiremen
         
         
         
-        <li class="current">
+        <li class="">
           <a href="/contents/2015/07/25/home-python-ruby-with-pyenv-and-rvm/">Home-brew python and ruby with PyENV and RVM</a>
         </li>
         
