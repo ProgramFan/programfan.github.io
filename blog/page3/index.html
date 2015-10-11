@@ -80,6 +80,8 @@
     <option value="/news/">Home</option>
     <optgroup label="v1.x">
       
+      <option value="/contents/2015/10/11/poorman-solution-to-usbstick-encryption/">Poorman's Usbstick Encryption</option>
+      
       <option value="/contents/2015/10/02/deploy-python-working-environments-using-pip/">Deploy python working environments with pip under restricted connections</option>
       
       <option value="/contents/2015/09/20/user-local-python-pkg-install-with-pip/">User-local python package install with pip</option>
@@ -110,6 +112,56 @@
 
   <article>
   <h2>
+    <a href="/contents/2015/07/25/home-python-ruby-with-pyenv-and-rvm/">
+      Home-brew python and ruby with PyENV and RVM
+    </a>
+  </h2>
+  <span class="post-category">
+    <span class="label">
+      ruby, python, rvm, pyenv, pip, and gem
+    </span>
+  </span>
+  <div class="post-meta">
+    <span class="post-date">
+      25 Jul 2015
+    </span>
+    <a href="https://github.com/ProgramFan" class="post-author">
+      ProgramFan
+    </a>
+  </div>
+  <div class="post-content">
+    <div class="sect1">
+<h2 id="introduction">Introduction</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>I&#8217;m a heavy user of ipython and asciidoctor. IPython is built on python and requires several python packages to work properly. Asciidoctor is built on ruby and also requires several ruby gems. Although Fedora system has ipython and asciidoctor in the main repository, they are something lagging behind the development version. For example, IPython in Fedora 22 is still 2.4.2 while the new stable version is 3.2.0 with a lot new features worth using (Terminal session in the browser). Upgrading the bundled package is impossible. On the other hand, I can not install/upgrade system software on restricted systems such as our development platforms. So I need a way to manage and update my own set of python and ruby packages, preferably without persistant network connections.</p>
+</div>
+<div class="paragraph">
+<p>I then came accrous RVM, the Ruby Version Manager. RVM is a set of shell scripts to manage several versions of ruby in user&#8217;s home directory, and protects the home-brew ruby and gems from the system&#8217;s default ruby and gems. This makes RVM a perfect ruby version manager, and a perfect ruby environment manager with gem (the ruby package manager).</p>
+</div>
+<div class="paragraph">
+<p>The same goody exists for python, it is the <a href="http://github.com/yyuu/pyenv">PyENV</a>. It does the same to python as RVM to ruby. It&#8217;s written in shell scripts instead of python. Together with pip (the python package manager), pyenv fits perfectly into the need of home-brew python environment manager.</p>
+</div>
+<div class="paragraph">
+<p>The other problem remains is that there are often no Internet access in restricted environments, rendering pip and gem useless. Luckly, pip and gem supports local install. We can download the source packages or gems on Internet enabled machines and use local install to install them without internet connection. Both PIP and RubyGem support dependency resolution when downloading packages. This solves all problems.</p>
+</div>
+<div class="paragraph">
+<p>One question may arise is that why not using python distributions such as Anaconda. The reason is simple. Anaconda does not upgrade frequently (although usually more up-to-date than system bundled version), and it bundled very low version of system libs, makeing itself slower than native version. On the other hand, almost all python packages are available via PiPY but only a small portion is in Anaconda.</p>
+</div>
+
+</div>
+</div>
+    <br/>
+    <div class="post-more">
+      <a href="/contents/2015/07/25/home-python-ruby-with-pyenv-and-rvm/"> <i class="fa fa-link"></i> &nbsp; Read the rest
+          of this post </b></a>
+    </div>
+  </div>
+</article>
+
+
+  <article>
+  <h2>
     <a href="/contents/2015/07/11/config-cjk-for-asciidoctor-fopub/">
       Config CJK fonts for Asciidoctor-fopub
     </a>
@@ -131,319 +183,10 @@
     <div class="paragraph">
 <p>I blogged on asciidoctor-fopub <a href="/contents/2015/04/20/convert-chinese-asciidoc-to-pdf/">previously</a>. The fonts are configured by generating XML description file. Recently I find from Apache FOP document that fop supports automatically registering fonts and discourage the use of XML description files. It shall make config custom fonts for Apache FOP less pain. So I blog it here.</p>
 </div>
-<div class="sect1">
-<h2 id="the-easiest-approach">The easiest approach</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Newer versions of FOP support block registration as well as automatically register system fonts. To use this approach, following the steps:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Add font registration directives in <code>fop-config.xml</code>:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="xml"><span class="tok-nt">&lt;fonts&gt;</span>
-  <span class="tok-nt">&lt;directory&gt;</span>/usr/share/fonts/dejavu<span class="tok-nt">&lt;/directory&gt;</span> <i class="conum" data-value="1"></i><b>(1)</b>
-  <span class="tok-nt">&lt;auto-detect/&gt;</span> <i class="conum" data-value="2"></i><b>(2)</b>
-<span class="tok-nt">&lt;/fonts&gt;</span></code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Add a directory of fonts, set <code>recursive="true"</code> to recursively scan the directory.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Automatically register system fonts installed.</td>
-</tr>
-</table>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-If the same font is find by <code>auto-detect</code> and <code>directory</code>, the latter takes precedence.
-</td>
-</tr>
-</table>
-</div>
-</li>
-<li>
-<p>Reference font by regular name in <code>fo-pdf.xsl</code>:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="xml"><span class="tok-nt">&lt;xsl:template</span> <span class="tok-na">name=</span><span class="tok-s">&quot;pickfont-sans&quot;</span><span class="tok-nt">&gt;</span>
-  <span class="tok-nt">&lt;xsl:text&gt;</span>DejaVu Sans, Source Han Sans CN, sans-serif<span class="tok-nt">&lt;/xsl:text&gt;</span>
-<span class="tok-nt">&lt;/xsl:template&gt;</span></code></pre>
-</div>
-</div>
-</li>
-</ol>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="the-self-contained-approach">The self-contained approach</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>One can customize the font name and its bold/italic variants by configuring directly the <code>font</code> tag like the original XML description file approach. But at this time, the XML description files are no longer needed. Using this approach, we can select different font for italic/bold/bolditalic variants of a single fontname, which is highly demanded for Chinese document. Here is how:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Put the fonts in a directory, say <code>$FONT_DIR</code></p>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="xml"><span class="tok-nt">&lt;font-base&gt;</span>$FONT_DIR<span class="tok-nt">&lt;/font-base&gt;</span>   <i class="conum" data-value="1"></i><b>(1)</b>
-  <span class="tok-nt">&lt;fonts&gt;</span>
-    <span class="tok-nt">&lt;font</span> <span class="tok-na">embed-url=</span><span class="tok-s">&quot;SourceHanSansSC.ttf&quot;</span> <span class="tok-na">kerning=</span><span class="tok-s">&quot;yes&quot;</span><span class="tok-nt">&gt;</span>    <i class="conum" data-value="2"></i><b>(2)</b>
-    <span class="tok-nt">&lt;font-triplet</span> <span class="tok-na">name=</span><span class="tok-s">&quot;SourceHanSansSC&quot;</span>
-                  <span class="tok-na">style=</span><span class="tok-s">&quot;normal&quot;</span> <span class="tok-na">weight=</span><span class="tok-s">&quot;normal&quot;</span> <span class="tok-nt">/&gt;</span>         <i class="conum" data-value="3"></i><b>(3)</b>
-  <span class="tok-nt">&lt;/font&gt;</span>
-<span class="tok-nt">&lt;/fonts&gt;</span></code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Set the base directory so we can use relative path for <code>embed-url</code>.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Reference the font file using relative path.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>Set the font triplet and choose a cool name.</td>
-</tr>
-</table>
-</div>
-</li>
-<li>
-<p>Reference the font using <code>SourceHanSansSC</code> in <code>fo-pdf.xsl</code>.</p>
-</li>
-</ol>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="bundle-fonts-with-asciidoctor-fopub-gem">Appendix A: Bundle fonts with asciidoctor-fopub gem</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>In Asciidoctor-fopub, one can do futhur by bundling fonts with the gem. The approach is a direct extension of <a href="#the-self-contained-approach">self-contained approach above</a>. Here are the steps:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Put fonts in <code>$REPO/src/dist/docbook-xsl/fonts</code>.</p>
-</li>
-<li>
-<p>Configure <code>fop-config.xml</code> and <code>fo-pdf.xsl</code> using the above approach, but set <code>font-base</code> to <code>@FONT-BASE@</code>.</p>
-</li>
-<li>
-<p>Add the following lines to <code>$REPO/fopub</code> shell script:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="bash"><span class="tok-c"># Modify fop-config.xml to fix bundled font-path</span>
-<span class="tok-nv">FOP_CONFIG_XML</span><span class="tok-o">=</span><span class="tok-s2">&quot;$DOCBOOK_XSL_ABS_DIR/fop-config.xml&quot;</span>
-<span class="tok-nv">BUNDLED_FONTS_DIR</span><span class="tok-o">=</span><span class="tok-s2">&quot;$DOCBOOK_XSL_ABS_DIR/fonts&quot;</span>
-<span class="tok-k">if</span> <span class="tok-o">[</span> -f <span class="tok-s2">&quot;$FOP_CONFIG_XML&quot;</span> <span class="tok-o">]</span><span class="tok-p">;</span> <span class="tok-k">then</span>
-  sed -i <span class="tok-s2">&quot;s|@FONT-BASE@|$BUNDLED_FONTS_DIR|g&quot;</span> <span class="tok-s2">&quot;$FOP_CONFIG_XML&quot;</span>
-<span class="tok-k">fi</span></code></pre>
-</div>
-</div>
-</li>
-</ol>
-</div>
-</div>
-</div>
+
     <br/>
     <div class="post-more">
       <a href="/contents/2015/07/11/config-cjk-for-asciidoctor-fopub/"> <i class="fa fa-link"></i> &nbsp; Read the rest
-          of this post </b></a>
-    </div>
-  </div>
-</article>
-
-
-  <article>
-  <h2>
-    <a href="/contents/2015/06/23/asciidoc-pdf-cjk-status/">
-      Asciidoctor-pdf CJK support status
-    </a>
-  </h2>
-  <span class="post-category">
-    <span class="label">
-      asciidoc and cjk
-    </span>
-  </span>
-  <div class="post-meta">
-    <span class="post-date">
-      23 Jun 2015
-    </span>
-    <a href="https://github.com/ProgramFan" class="post-author">
-      ProgramFan
-    </a>
-  </div>
-  <div class="post-content">
-    <div class="paragraph">
-<p><a href="http://github.com/asciidoctor/asciidoctor-pdf">Asciidoc-pdf</a> is a fast evoluving project. CJK support was still on the wish list when I blog about it last time. But at the day of writing, it&#8217;s CJK support is in somewhat usable state and there are a lot of other progresses (see its milestone on GitHub). More specifically, asciidoctor is able to process CJK documents and produce CJK enabled PDFs with the help of a custom theme, although the line wrap breaks currently (a fix has already been proposed). Here is my experiences.</p>
-</div>
-<div class="sect1">
-<h2 id="the-technology">The technology</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Prawn (the underlying layout engine of asciidoc-pdf) provides the ability to use custom TTF font for texts. This enables the display of any language texts (even right-to-left languages) as long as a correct font file is provided. asciidoctor-pdf exports this functionality by providing a font configuration section in the theme and an option to use custom themes. So using CJK charactors in asciidoctor will just work with the right font configuration.</p>
-</div>
-<div class="paragraph">
-<p>Prawn also supports justified line wrap at word boundaries as well as unicode zero width spaces. This enables custom line wrap rules. One can insert ZWSPs to distinguish CJK words so it can wrap correctly. This is confirmed by one asciidoctor-pdf collaborator but not yet merged into asciidoc-pdf. If this is merged, asciidoctor-pdf then has basic CJK supports, which satisfies at least my own needs.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="the-configuration">The configuration</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Here is an example to use Adobe source han sans font to produce Chinese enabled PDF via asciidoctor-pdf. I list them in steps.</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Download a TTF version of source han sans font. Prawn only supports ttf fonts, no OTF, no OTCs.</p>
-</li>
-<li>
-<p>Copy <code>asciidoctor-pdf/data</code> into another directory, and put source han sans in <code>data/fonts</code>. In my case, I put 'SourceHanSansSC-Normal.ttf' and 'SourceHanSansSC-Bold.ttf' inside. The directory looks like:</p>
-<div class="listingblock">
-<div class="content">
-<pre>data
-├── fonts
-│   ├── mplus1mn-bold-ascii.ttf
-│   ├── mplus1mn-bolditalic-ascii.ttf
-│   ├── mplus1mn-italic-ascii.ttf
-│   ├── mplus1mn-regular-ascii-conums.ttf
-│   ├── mplus1p-regular-multilingual.ttf
-│   ├── notoserif-bolditalic-latin.ttf
-│   ├── notoserif-bold-latin.ttf
-│   ├── notoserif-italic-latin.ttf
-│   ├── notoserif-regular-latin.ttf
-│   ├── SourceHanSansSC-Bold.ttf
-│   └── SourceHanSansSC-Normal.ttf
-└── themes
-    └── cn-theme.yml</pre>
-</div>
-</div>
-</li>
-<li>
-<p>Enable custome fonts in cn-theme.yml:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="yaml"><span class="tok-l-Scalar-Plain">font</span><span class="tok-p-Indicator">:</span>
-  <span class="tok-l-Scalar-Plain">catalog</span><span class="tok-p-Indicator">:</span>
-    <span class="tok-l-Scalar-Plain">NotoSerif</span><span class="tok-p-Indicator">:</span>
-      <span class="tok-l-Scalar-Plain">normal</span><span class="tok-p-Indicator">:</span> <span class="tok-l-Scalar-Plain">notoserif-regular-latin.ttf</span>
-      <span class="tok-l-Scalar-Plain">bold</span><span class="tok-p-Indicator">:</span> <span class="tok-l-Scalar-Plain">notoserif-bold-latin.ttf</span>
-      <span class="tok-l-Scalar-Plain">italic</span><span class="tok-p-Indicator">:</span> <span class="tok-l-Scalar-Plain">notoserif-italic-latin.ttf</span>
-      <span class="tok-l-Scalar-Plain">bold_italic</span><span class="tok-p-Indicator">:</span> <span class="tok-l-Scalar-Plain">notoserif-bolditalic-latin.ttf</span>
-    <span class="tok-l-Scalar-Plain">Mplus1mn</span><span class="tok-p-Indicator">:</span>
-      <span class="tok-l-Scalar-Plain">normal</span><span class="tok-p-Indicator">:</span> <span class="tok-l-Scalar-Plain">mplus1mn-regular-ascii-conums.ttf</span>
-      <span class="tok-l-Scalar-Plain">bold</span><span class="tok-p-Indicator">:</span> <span class="tok-l-Scalar-Plain">mplus1mn-bold-ascii.ttf</span>
-      <span class="tok-l-Scalar-Plain">italic</span><span class="tok-p-Indicator">:</span> <span class="tok-l-Scalar-Plain">mplus1mn-italic-ascii.ttf</span>
-      <span class="tok-l-Scalar-Plain">bold_italic</span><span class="tok-p-Indicator">:</span> <span class="tok-l-Scalar-Plain">mplus1mn-bolditalic-ascii.ttf</span>
-    <span class="tok-l-Scalar-Plain">Mplus1pMultilingual</span><span class="tok-p-Indicator">:</span>
-      <span class="tok-l-Scalar-Plain">normal</span><span class="tok-p-Indicator">:</span> <span class="tok-l-Scalar-Plain">mplus1p-regular-multilingual.ttf</span>
-      <span class="tok-l-Scalar-Plain">bold</span><span class="tok-p-Indicator">:</span> <span class="tok-l-Scalar-Plain">mplus1p-regular-multilingual.ttf</span>
-      <span class="tok-l-Scalar-Plain">italic</span><span class="tok-p-Indicator">:</span> <span class="tok-l-Scalar-Plain">mplus1p-regular-multilingual.ttf</span>
-      <span class="tok-l-Scalar-Plain">bold_italic</span><span class="tok-p-Indicator">:</span> <span class="tok-l-Scalar-Plain">mplus1p-regular-multilingual.ttf</span>
-    <span class="tok-l-Scalar-Plain">SourceHanSansSC</span><span class="tok-p-Indicator">:</span>  <i class="conum" data-value="1"></i><b>(1)</b>
-      <span class="tok-l-Scalar-Plain">normal</span><span class="tok-p-Indicator">:</span> <span class="tok-l-Scalar-Plain">SourceHanSansSC-Normal.ttf</span>
-      <span class="tok-l-Scalar-Plain">bold</span><span class="tok-p-Indicator">:</span> <span class="tok-l-Scalar-Plain">SourceHanSansSC-Bold.ttf</span>
-      <span class="tok-l-Scalar-Plain">italic</span><span class="tok-p-Indicator">:</span> <span class="tok-l-Scalar-Plain">SourceHanSansSC-Normal.ttf</span>
-      <span class="tok-l-Scalar-Plain">bold_italic</span><span class="tok-p-Indicator">:</span> <span class="tok-l-Scalar-Plain">SourceHanSansSC-Normal.ttf</span>
-  <span class="tok-l-Scalar-Plain">fallbacks</span><span class="tok-p-Indicator">:</span>
-    <span class="tok-p-Indicator">-</span> <span class="tok-l-Scalar-Plain">SourceHanSansSC</span> <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Define SourceHanSansSC font</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Use SourceHanSansSC as fallback fonts so only Chinese content uses it.</td>
-</tr>
-</table>
-</div>
-</li>
-<li>
-<p>Make pdf documents with the custom theme</p>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="bash">asciidoctor-pdf -a pdf-style<span class="tok-o">=</span>data/themes/cn-theme.yml -a pdf-fontsdir<span class="tok-o">=</span>data/fonts example.adoc</code></pre>
-</div>
-</div>
-</li>
-</ol>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="an-example">An example</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>The original documents:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="asciidoc">= 中文文档示例
-XX, zyangmath@gmail.com
-v0.1
-:source-highlighter: pygments
-
-== 引言
-
-测试中文和English混合编排。这是中文。This is English. 什么都没有。 *黑体*. _斜体_.
-测试中文和English混合编排。这是中文。This is English. 什么都没有。 *黑体*. _斜体_.
-测试中文和English混合编排。这是中文。This is English. 什么都没有。 *黑体*. _斜体_.
-测试中文和English混合编排。这是中文。This is English. 什么都没有。 *黑体*. _斜体_.
-测试中文和English混合编排。这是中文。This is English. 什么都没有。 *黑体*. _斜体_.
-测试中文和English混合编排。这是中文。This is English. 什么都没有。 *黑体*. _斜体_.
-测试中文和English混合编排。这是中文。This is English. 什么都没有。 *黑体*. _斜体_.
-测试中文和English混合编排。这是中文。This is English. 什么都没有。 *黑体*. _斜体_.
-
-[source, cpp]
-----
-// 简单的测试粒子
-#include &lt;iostream&gt;
-
-int main(int argc, char** argv) {
-  return 0; <i class="conum" data-value="1"></i><b>(1)</b>
-}
-----
-&lt;1&gt; 返回0</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>What it looks like:</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="/img/example-pdf.png" alt="example pdf">
-</div>
-</div>
-</div>
-</div>
-    <br/>
-    <div class="post-more">
-      <a href="/contents/2015/06/23/asciidoc-pdf-cjk-status/"> <i class="fa fa-link"></i> &nbsp; Read the rest
           of this post </b></a>
     </div>
   </div>
@@ -460,7 +203,7 @@ int main(int argc, char** argv) {
   </div>
   <!--
   <div class="center align-center">
-    Page: 3 of 5
+    Page: 3 of 6
   </div>
   -->
   <div class="right align-left">
@@ -478,6 +221,12 @@ int main(int argc, char** argv) {
   <aside>
     <h4>Featured</h4>
     <ul>
+        
+        
+        <li class="">
+          <a href="/contents/2015/10/11/poorman-solution-to-usbstick-encryption/">Poorman's Usbstick Encryption</a>
+        </li>
+        
         
         
         <li class="">
@@ -518,6 +267,8 @@ int main(int argc, char** argv) {
     </ul>
     <h4>Other Posts</h4>
     <ul>
+        
+        
         
         
         

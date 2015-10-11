@@ -80,6 +80,8 @@
     <option value="/news/">Home</option>
     <optgroup label="v1.x">
       
+      <option value="/contents/2015/10/11/poorman-solution-to-usbstick-encryption/">Poorman's Usbstick Encryption</option>
+      
       <option value="/contents/2015/10/02/deploy-python-working-environments-using-pip/">Deploy python working environments with pip under restricted connections</option>
       
       <option value="/contents/2015/09/20/user-local-python-pkg-install-with-pip/">User-local python package install with pip</option>
@@ -107,6 +109,39 @@
 
       <div class="unit four-fifths">
         <!-- Pagination pages -->
+
+  <article>
+  <h2>
+    <a href="/contents/2015/10/11/poorman-solution-to-usbstick-encryption/">
+      Poorman's Usbstick Encryption
+    </a>
+  </h2>
+  <span class="post-category">
+    <span class="label">
+      linux, encryption, usbstick, and featured
+    </span>
+  </span>
+  <div class="post-meta">
+    <span class="post-date">
+      11 Oct 2015
+    </span>
+    <a href="https://github.com/ProgramFan" class="post-author">
+      ProgramFan
+    </a>
+  </div>
+  <div class="post-content">
+    <div class="paragraph">
+<p>Recently I need to setup an encrypted usbstick to carry some files. The first and best approach is of course hardware-encrypted usbsticks. However, they are not cheep at all. And they support only digital passphrases. Some encrypted usbsticks needs special software to operate, thus does not work with Linux system. Luckily enough, I found LUKS and managed to setup an encrypted usbstick, which also works on Windows.</p>
+</div>
+
+    <br/>
+    <div class="post-more">
+      <a href="/contents/2015/10/11/poorman-solution-to-usbstick-encryption/"> <i class="fa fa-link"></i> &nbsp; Read the rest
+          of this post </b></a>
+    </div>
+  </div>
+</article>
+
 
   <article>
   <h2>
@@ -176,179 +211,12 @@ responsive on the target platform.</p>
 </li>
 </ol>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="the-key-ideas">The key ideas</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p><strong>The first is pip user install</strong>. With <code>pip</code>, we have the most complete
-python package collection. Almost all packages are available in PyPI, and we
-can always make home-brew python packages pip-compatible. <code>pip</code> is a standard
-python module since python 2.7.6 and is easy to install for prior python
-versions. So <code>pip</code> serves as a built-in package manager. <code>pip</code> supports
-installing packages in the users directory and plays well with existing
-packages. For example, <code>pip install</code> will skip a package if already available
-and capable. <code>pip</code> user install adds paths to standard python module paths,
-instead of overwriting them.</p>
-</div>
-<div class="paragraph">
-<p><strong>The second is python requirement file</strong>. <code>pip</code> supports install packages and
-its dependencies from a <em>requirement file</em>. That is, you list packages you
-want, <code>pip</code> automatically solves the dependency, grabs proper packages and
-install them. It makes both install and upgrade a piece of cake.</p>
-</div>
-<div class="paragraph">
-<p><strong>The last is python wheels</strong>. Python wheels is simply pre-built python
-packages. The real power with python wheels is that you can build your own
-wheel for packages in a requirement list, together with all dependencies.
-After that, you can install directly from wheels without the need of a network
-connection.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="in-practice">In practice</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>With the above three key ideas, I develop the following method to solve the
-<em>python working environment distribution</em> problem:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Set up a base CPython version. One can choose to rely on system python, or
-compile their own CPython.</p>
-</li>
-<li>
-<p>Maintain a <em>requirement file</em>. Only list packages you need in the
-requirements. You can also specify version constraints.</p>
-</li>
-<li>
-<p>Build wheels for distribution.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="bash">pip install --user --upgrade wheel
-pip wheel -r requirements.txt</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Distributing wheels and install packages from wheels.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="bash">pip install --user --upgrade -r requirements.txt --no-index -f <span class="tok-k">${</span><span class="tok-nv">WHEELSDIR</span><span class="tok-k">}</span></code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Enjoy.</p>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>The above method is used to distribute my python working environments in 4
-different platforms: two Fedora 22 workstations, one RHEL 6.3 system and one
-RHEL 5.4 system. It works.</p>
-</div>
+
 </div>
 </div>
     <br/>
     <div class="post-more">
       <a href="/contents/2015/10/02/deploy-python-working-environments-using-pip/"> <i class="fa fa-link"></i> &nbsp; Read the rest
-          of this post </b></a>
-    </div>
-  </div>
-</article>
-
-
-  <article>
-  <h2>
-    <a href="/contents/2015/09/20/user-local-python-pkg-install-with-pip/">
-      User-local python package install with pip
-    </a>
-  </h2>
-  <span class="post-category">
-    <span class="label">
-      python, pip, and featured
-    </span>
-  </span>
-  <div class="post-meta">
-    <span class="post-date">
-      20 Sep 2015
-    </span>
-    <a href="https://github.com/ProgramFan" class="post-author">
-      ProgramFan
-    </a>
-  </div>
-  <div class="post-content">
-    <div class="sect1">
-<h2 id="motivation">Motivation</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>PyENV has done a fairly good job in managing user-local python versions, as well as per-version pip packages. However, some packages such as PyQt5 need deep system integration and can not be installed using pip. This makes packages such as jupyter-qtconsole upset. The use of shims in PyENV also forces any provided command to be started with a shell script (so a shell process). This makes packages such as python-powerline much slower.</p>
-</div>
-<div class="paragraph">
-<p>To solve the above problems, I choose to go back to the standard python user-local install process and choose pip user install. pip user install relys on system python to work correctly, and integrates tightly with system packages. That is to say, if one install PyQt5 using system package manager, he/she can use it in a user-local toyplot package, avoiding install PyQt5 manually (since not possible with pip). Moreover, binaries provided by packages are directly avaliable to the system, which greatly improves the speed of packages such as python-powerline <span class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnote_1" title="View footnote.">1</a>]</span></p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="instructions">Instructions</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>pip user install is good. Then how we do it? It&#8217;s as easy as following the listed steps:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Choose the user install location, say <code>$MYINSTALL</code>. By default, it&#8217;s
-<code>$HOME/.local</code>.</p>
-</li>
-<li>
-<p>Install packages we want using the following command:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="bash"><span class="tok-nv">PYTHONUSERBASE</span><span class="tok-o">=</span><span class="tok-nv">$MYINSTALL</span> pip install --user --upgrade &lt;PACKAGES&gt;</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Setup python path and binary path</p>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="bash"><span class="tok-nb">export </span><span class="tok-nv">PYTHONPATH</span><span class="tok-o">=</span><span class="tok-nv">$MYINSTALL</span>:<span class="tok-nv">$PYTHONPATH</span>
-<span class="tok-nb">export </span><span class="tok-nv">PATH</span><span class="tok-o">=</span><span class="tok-nv">$MYINSTALL</span>/bin:<span class="tok-nv">$PATH</span></code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Enjoy.</p>
-</li>
-</ol>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="integrate-with-system-packages">Integrate with system packages</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>If you install packages such as numpy, scipy and matplotlib with system package manager, and then install packages such as toyplot or jupyter, you may find that numpy, scipy will not be upgraded since the requirements of toyplot is already meet. This is the power of local install, which integrates well with existing packages.</p>
-</div>
-<div class="paragraph">
-<p>But if you do want a more recent version that system provided, you can append <code>--upgrade</code> to <code>pip install</code>.</p>
-</div>
-</div>
-</div>
-<div id="footnotes">
-<hr>
-<div class="footnote" id="_footnote_1">
-<a href="#_footnoteref_1">1</a> python-powerline uses a binary powerline-client to accelerate shell prompt rendering, which is much more responsive than shell scripts. The latter causes visiable lag even on recent ivebridge CPUs.
-</div>
-</div>
-    <br/>
-    <div class="post-more">
-      <a href="/contents/2015/09/20/user-local-python-pkg-install-with-pip/"> <i class="fa fa-link"></i> &nbsp; Read the rest
           of this post </b></a>
     </div>
   </div>
@@ -365,7 +233,7 @@ RHEL 5.4 system. It works.</p>
   </div>
   <!--
   <div class="center align-center">
-    Page: 1 of 5
+    Page: 1 of 6
   </div>
   -->
   <div class="right align-left">
@@ -383,6 +251,12 @@ RHEL 5.4 system. It works.</p>
   <aside>
     <h4>Featured</h4>
     <ul>
+        
+        
+        <li class="">
+          <a href="/contents/2015/10/11/poorman-solution-to-usbstick-encryption/">Poorman's Usbstick Encryption</a>
+        </li>
+        
         
         
         <li class="">
@@ -423,6 +297,8 @@ RHEL 5.4 system. It works.</p>
     </ul>
     <h4>Other Posts</h4>
     <ul>
+        
+        
         
         
         

@@ -2,7 +2,7 @@ GEM
   remote: https://rubygems.org/
   specs:
     asciidoctor (1.5.2)
-    bibtex-ruby (4.0.14)
+    bibtex-ruby (4.0.15)
       latex-decode (~> 0.0)
     blankslate (2.1.2.4)
     citeproc (1.0.2)
@@ -78,7 +78,7 @@ GEM
       ffi (>= 0.5.0)
     redcarpet (3.3.3)
     safe_yaml (1.0.4)
-    sass (3.4.18)
+    sass (3.4.19)
     toml (0.1.2)
       parslet (~> 1.5.0)
     unicode (0.4.4.2)
