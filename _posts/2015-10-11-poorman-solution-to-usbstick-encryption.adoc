@@ -1,0 +1,26 @@
+---
+layout: news_item
+title: Poorman's Usbstick Encryption
+author: ProgramFan
+categories: [Linux, Encryption, Usbstick, Featured]
+---
+
+Recently I need to setup an encrypted usbstick to carry some files. The first and best approach is of course hardware-encrypted usbsticks. However, they are not cheep at all. And they support only digital passphrases. Some encrypted usbsticks needs special software to operate, thus does not work with Linux system. Luckily enough, I found LUKS and managed to setup an encrypted usbstick, which also works on Windows.
+
+++++
+<!-- more -->
+++++
+
+LUKS is an standard to store encrypted information on disks. Although originally developed on Linux platforms, LUKS is well supported on Windows systems via LibreCrypt project. Fedora (at least 22) comes with LUKS support by default. So its is a perfect fit for my needs.
+
+The step is fairly easy if you use graphical tools.
+
+1. Open Gnome Disks.
+2. Delete all partitions on the target usbstick.
+3. Create partitions as you want on the usbstick, DO NOT format them.
+4. Format target partition as "LUKS + Ext4" via the gear menu.
+5. You can see two partitions on the same storage after step 4. Now reformat the 'Ext4' partition to any format you want (but without 'LUKS').
+6. Enjoy.
+
+You can always download LibreCryptExplorer and store it in a plain partition on the usbstick, so you can open your contents on windows systems without administrator privilage.
+

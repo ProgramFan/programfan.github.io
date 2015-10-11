@@ -7,6 +7,10 @@ categories: [asciidoc, fopub, cjk, docbook]
 
 I blogged on asciidoctor-fopub link:/contents/2015/04/20/convert-chinese-asciidoc-to-pdf/[previously]. The fonts are configured by generating XML description file. Recently I find from Apache FOP document that fop supports automatically registering fonts and discourage the use of XML description files. It shall make config custom fonts for Apache FOP less pain. So I blog it here.
 
+++++
+<!-- more -->
+++++
+
 == The easiest approach
 
 Newer versions of FOP support block registration as well as automatically register system fonts. To use this approach, following the steps:

@@ -36,6 +36,10 @@ following considerations:
  3. Good performance. The distributed packages shall run fast and be
     responsive on the target platform.
 
+++++
+<!-- more -->
+++++
+
 == The key ideas
 
 *The first is pip user install*. With `pip`, we have the most complete
