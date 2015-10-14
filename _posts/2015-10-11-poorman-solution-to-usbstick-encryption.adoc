@@ -24,3 +24,12 @@ The step is fairly easy if you use graphical tools.
 
 You can always download LibreCryptExplorer and store it in a plain partition on the usbstick, so you can open your contents on windows systems without administrator privilage.
 
+== Appendix I: Problems with two partitions in a usbstick
+
+It seems that Windows XP/7 (i686) only recognize the first partition on a multi-partition usbstick. For example, I have /dev/sdc1 and /dev/sdc2 on my usbstics, I can only see /dev/sdc1 on Windows 7. AFAK, there is no way to mount the missing /dev/sdc2, regardless of the partition format.
+
+This can create the following problem: One use /dev/sdc1 as the LUKS encrypted storage, and use /dev/sdc2 as open-visit parittion. Then on Windows XP/7, only the encrypted storage is mounted and Windows asks for parititon formatting.
+
+The above problem can be work-around by swapping the role of the two partitions, so one can still visit contents in the open-visit storage. But one can not visit the encrypted storage on Windows any more, since the partition is no longer mountable.
+
+I will search for a better solution if I have time.
