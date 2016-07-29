@@ -1,14 +1,7 @@
----
-layout: news_item
-title: "Prevent GCC from optimizing away a snippet of code"
-author: ProgramFan
-categories: [C++, GCC, Featured]
----
-
-// = Prevent GCC from optimizing away a snippet of code
-// Yang Zhang <zyangmath@gmail.com>
-// :source-highlighter: coderay
-// :icons: font
+= Prevent GCC from optimizing away a snippet of code
+ProgramFan <zyangmath@gmail.com>
+:page-layout: news_item
+:page-categories: [C++, GCC, Featured]
 
 Nowadays compilers are extremely capable of elimiting 'dead' code. But in
 benchmarking we need some seemingly 'useless' code to do the work we want. For

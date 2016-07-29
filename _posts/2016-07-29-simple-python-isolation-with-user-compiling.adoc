@@ -1,9 +1,7 @@
----
-layout: news_item
-title: Simple Python Isolation with User Compiling
-author: ProgramFan
-categories: [Python, Env, Featured]
----
+= Simple Python Isolation with User Compiling
+ProgramFan <zyangmath.gmail.com>
+:page-layout: news_item
+:page-categories: [Python, Env, Featured]
 
 == Background
 

@@ -11,13 +11,13 @@ I blog about my experiences on using Linux system daily. Here comes the recomman
 
 * Featured
 {% for post in site.posts %}
-{% if post.categories contains 'featured' %}
+{% if post.categories contains 'Featured' %}
 ** link:++{{post.url}}++[{{ post.title }}]
 {% endif %}
 {% endfor %}
 * Other
 {% for post in site.posts %}
-{% unless post.categories contains 'featured' %}
+{% unless post.categories contains 'Featured' %}
 ** link:++{{post.url}}++[{{ post.title }}]
 {% endunless %}
 {% endfor %}
