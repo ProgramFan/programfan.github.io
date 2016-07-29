@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>Poorman's Usbstick Encryption</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="generator" content="Jekyll v2.5.3">
+  <meta name="generator" content="Jekyll v3.2.0">
   <link rel="alternate" type="application/rss+xml"
         title="ProgramFan • Research, Learning, Thinking and Growing up - Feed" href="/feed.xml">
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic,900">
@@ -80,6 +80,8 @@
     <option value="/news/">Home</option>
     <optgroup label="v1.x">
       
+      <option value="/contents/2016/07/29/simple-python-isolation-with-user-compiling/">Simple Python Isolation with User Compiling</option>
+      
       <option value="/contents/2015/10/11/poorman-solution-to-usbstick-encryption/">Poorman's Usbstick Encryption</option>
       
       <option value="/contents/2015/10/02/deploy-python-working-environments-using-pip/">Deploy python working environments with pip under restricted connections</option>
@@ -115,7 +117,7 @@
   </h2>
   <span class="post-category">
     <span class="label">
-      linux, encryption, usbstick, and featured
+      Linux, Encryption, Usbstick, and Featured
     </span>
   </span>
   <div class="post-meta">
@@ -162,6 +164,23 @@
 <div class="paragraph">
 <p>You can always download LibreCryptExplorer and store it in a plain partition on the usbstick, so you can open your contents on windows systems without administrator privilage.</p>
 </div>
+<div class="sect1">
+<h2 id="appendix-i-problems-with-two-partitions-in-a-usbstick">Appendix I: Problems with two partitions in a usbstick</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>It seems that Windows XP/7 (i686) only recognize the first partition on a multi-partition usbstick. For example, I have /dev/sdc1 and /dev/sdc2 on my usbstics, I can only see /dev/sdc1 on Windows 7. AFAK, there is no way to mount the missing /dev/sdc2, regardless of the partition format.</p>
+</div>
+<div class="paragraph">
+<p>This can create the following problem: One use /dev/sdc1 as the LUKS encrypted storage, and use /dev/sdc2 as open-visit parittion. Then on Windows XP/7, only the encrypted storage is mounted and Windows asks for parititon formatting.</p>
+</div>
+<div class="paragraph">
+<p>The above problem can be work-around by swapping the role of the two partitions, so one can still visit contents in the open-visit storage. But one can not visit the encrypted storage on Windows any more, since the partition is no longer mountable.</p>
+</div>
+<div class="paragraph">
+<p>I will search for a better solution if I have time.</p>
+</div>
+</div>
+</div>
   </div>
   
   <div class="post-comments" id="disqus_thread"></div>
@@ -198,6 +217,40 @@
     <ul>
         
         
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    </ul>
+    <h4>Other Posts</h4>
+    <ul>
+        
+        
+        <li class="">
+          <a href="/contents/2016/07/29/simple-python-isolation-with-user-compiling/">Simple Python Isolation with User Compiling</a>
+        </li>
+        
+        
+        
         <li class="current">
           <a href="/contents/2015/10/11/poorman-solution-to-usbstick-encryption/">Poorman's Usbstick Encryption</a>
         </li>
@@ -213,40 +266,6 @@
         <li class="">
           <a href="/contents/2015/09/20/user-local-python-pkg-install-with-pip/">User-local python package install with pip</a>
         </li>
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        <li class="">
-          <a href="/contents/2015/05/05/using-rvm-to-isolate-rubygems-on-fedora-21/">Using RVM to Isolate RubyGems on Fedora 21</a>
-        </li>
-        
-        
-        
-        
-        
-        <li class="">
-          <a href="/contents/2015/04/27/prevent-gcc-optimize-away-code/">Prevent GCC from optimizing away a snippet of code</a>
-        </li>
-        
-        
-        
-        
-    </ul>
-    <h4>Other Posts</h4>
-    <ul>
-        
-        
-        
-        
-        
         
         
         
@@ -274,6 +293,10 @@
         
         
         
+        <li class="">
+          <a href="/contents/2015/05/05/using-rvm-to-isolate-rubygems-on-fedora-21/">Using RVM to Isolate RubyGems on Fedora 21</a>
+        </li>
+        
         
         
         <li class="">
@@ -281,6 +304,10 @@
         </li>
         
         
+        
+        <li class="">
+          <a href="/contents/2015/04/27/prevent-gcc-optimize-away-code/">Prevent GCC from optimizing away a snippet of code</a>
+        </li>
         
         
         
@@ -304,7 +331,7 @@
   <div class="grid">
     <div class="unit one-third center-on-mobiles">
       <p>The contents of this website are &copy;&nbsp;
-      2015 by Yang Zhang under the terms of the MIT License.</p>
+      2016 by Yang Zhang under the terms of the MIT License.</p>
     </div>
     <div class="unit two-thirds align-right center-on-mobiles">
       <p>

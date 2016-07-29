@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>ProgramFan's Writing Space - Blog</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="generator" content="Jekyll v2.5.3">
+  <meta name="generator" content="Jekyll v3.2.0">
   <link rel="alternate" type="application/rss+xml"
         title="ProgramFan • Research, Learning, Thinking and Growing up - Feed" href="/feed.xml">
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic,900">
@@ -80,6 +80,8 @@
     <option value="/news/">Home</option>
     <optgroup label="v1.x">
       
+      <option value="/contents/2016/07/29/simple-python-isolation-with-user-compiling/">Simple Python Isolation with User Compiling</option>
+      
       <option value="/contents/2015/10/11/poorman-solution-to-usbstick-encryption/">Poorman's Usbstick Encryption</option>
       
       <option value="/contents/2015/10/02/deploy-python-working-environments-using-pip/">Deploy python working environments with pip under restricted connections</option>
@@ -112,13 +114,110 @@
 
   <article>
   <h2>
+    <a href="/contents/2016/07/29/simple-python-isolation-with-user-compiling/">
+      Simple Python Isolation with User Compiling
+    </a>
+  </h2>
+  <span class="post-category">
+    <span class="label">
+      Python, Env, and Featured
+    </span>
+  </span>
+  <div class="post-meta">
+    <span class="post-date">
+      29 Jul 2016
+    </span>
+    <a href="https://github.com/ProgramFan" class="post-author">
+      ProgramFan
+    </a>
+  </div>
+  <div class="post-content">
+    <div class="sect1">
+<h2 id="background">Background</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>I would like to have a working python environment with python 2.7.12 and a
+series of packages. It shall be efficient, and yet easy to setup. The anaconda
+distribution almost satisfies my needs, except that it&#8217;s unreasonably slow to
+load, due to its bundle of system libs. There are also python version managers
+such as pyenv and pythonz. The drawback of pyenv is the shims, which are
+scripts to launch binaries such as python2 and pip. shims make powerline
+client slow, which is undesirable. As to pythonz, it only handles multiple
+versions of python, no other infrastructure is provided.</p>
+</div>
+<div class="paragraph">
+<p>After some experimentation, I found that just compile python from source and
+install it into customized location works just fine. There are some caveats,
+so I record it here.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="compile-python">Compile Python</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Compile python is easy, just be sure to install bundled pip.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash">tar -zxvf Python-2.7.12.tgz
+<span class="tok-nb">cd </span>Python-2.7.12
+./configure --prefix<span class="tok-o">=</span><span class="tok-nv">$LOCATION</span> --with-ensurepip<span class="tok-o">=</span>install
+make
+make install</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>After that, you can find python under <code>$LOCATION</code>. <code>$LOCATION/bin/python -m
+site</code> will show site-packages under <code>$LOCATION/lib/python2.7/site-packages</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="install-packages-using-pip">Install Packages using Pip</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>We would expect <code>pip install XXX</code> to install packages into site-packages. But
+this does not work in practice. Even with bundled pip, it often installs
+packages into system&#8217;s site-packages. To install to the correct location, we
+have to use <code>python -m pip</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash"><span class="tok-nb">export </span><span class="tok-nv">PATH</span><span class="tok-o">=</span><span class="tok-nv">$LOCATION</span>/bin:<span class="tok-nv">$PATH</span>
+python -m pip install XXX</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="move-installation-around">Move Installation Around</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>I have not yet tested it, but I expect it would be just copy <code>$LOCATION</code> to a
+new location and set <code>PYTHONPATH</code> and <code>PATH</code> to correct values in new
+location. I will try it.</p>
+</div>
+</div>
+</div>
+    <br/>
+    <div class="post-more">
+      <a href="/contents/2016/07/29/simple-python-isolation-with-user-compiling/"> <i class="fa fa-link"></i> &nbsp; Read the rest
+          of this post </b></a>
+    </div>
+  </div>
+</article>
+
+
+  <article>
+  <h2>
     <a href="/contents/2015/10/11/poorman-solution-to-usbstick-encryption/">
       Poorman's Usbstick Encryption
     </a>
   </h2>
   <span class="post-category">
     <span class="label">
-      linux, encryption, usbstick, and featured
+      Linux, Encryption, Usbstick, and Featured
     </span>
   </span>
   <div class="post-meta">
@@ -137,86 +236,6 @@
     <br/>
     <div class="post-more">
       <a href="/contents/2015/10/11/poorman-solution-to-usbstick-encryption/"> <i class="fa fa-link"></i> &nbsp; Read the rest
-          of this post </b></a>
-    </div>
-  </div>
-</article>
-
-
-  <article>
-  <h2>
-    <a href="/contents/2015/10/02/deploy-python-working-environments-using-pip/">
-      Deploy python working environments with pip under restricted connections
-    </a>
-  </h2>
-  <span class="post-category">
-    <span class="label">
-      python, pip, working env, and featured
-    </span>
-  </span>
-  <div class="post-meta">
-    <span class="post-date">
-      02 Oct 2015
-    </span>
-    <a href="https://github.com/ProgramFan" class="post-author">
-      ProgramFan
-    </a>
-  </div>
-  <div class="post-content">
-    <div class="sect1">
-<h2 id="background">Background</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>One can often use pre-built python distributions to setup python working
-environments, for example <a href="http://www.continuum.io">Anaconda</a>,
-<a href="https://store.enthought.com">Enthought Canopy</a>. But these distributions has the
-following common problems, which reduces their usefulness:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>It&#8217;s hard to upgrade packages without internet connections. It&#8217;s also hard
-to install packages not contained in the distribution.</p>
-</li>
-<li>
-<p>It does not play well with existing packages on the target systems. For
-example, Anaconda bundles mpich, which conflict with system MPIs.</p>
-</li>
-<li>
-<p>These distributions has poor performances. Since they are built on
-relatively old platforms and possibly with no optimizations, they are
-often slower than native python. For example, I found anaconda python on a
-RHEL 6.3 system very slow to start.</p>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>For me, it&#8217;s essential to deploy my python working environments with the
-following considerations:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Easy to install/upgrade packages on demand, under restricted connections.
-Some systems I work with does not have internet connections.</p>
-</li>
-<li>
-<p>It shall integrate well with existing python packages. Some packages such
-as PyQt5 requires deep system integration so I would better install them
-with system package manager.</p>
-</li>
-<li>
-<p>Good performance. The distributed packages shall run fast and be
-responsive on the target platform.</p>
-</li>
-</ol>
-</div>
-
-</div>
-</div>
-    <br/>
-    <div class="post-more">
-      <a href="/contents/2015/10/02/deploy-python-working-environments-using-pip/"> <i class="fa fa-link"></i> &nbsp; Read the rest
           of this post </b></a>
     </div>
   </div>
@@ -253,6 +272,40 @@ responsive on the target platform.</p>
     <ul>
         
         
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    </ul>
+    <h4>Other Posts</h4>
+    <ul>
+        
+        
+        <li class="">
+          <a href="/contents/2016/07/29/simple-python-isolation-with-user-compiling/">Simple Python Isolation with User Compiling</a>
+        </li>
+        
+        
+        
         <li class="">
           <a href="/contents/2015/10/11/poorman-solution-to-usbstick-encryption/">Poorman's Usbstick Encryption</a>
         </li>
@@ -268,40 +321,6 @@ responsive on the target platform.</p>
         <li class="">
           <a href="/contents/2015/09/20/user-local-python-pkg-install-with-pip/">User-local python package install with pip</a>
         </li>
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        <li class="">
-          <a href="/contents/2015/05/05/using-rvm-to-isolate-rubygems-on-fedora-21/">Using RVM to Isolate RubyGems on Fedora 21</a>
-        </li>
-        
-        
-        
-        
-        
-        <li class="">
-          <a href="/contents/2015/04/27/prevent-gcc-optimize-away-code/">Prevent GCC from optimizing away a snippet of code</a>
-        </li>
-        
-        
-        
-        
-    </ul>
-    <h4>Other Posts</h4>
-    <ul>
-        
-        
-        
-        
-        
         
         
         
@@ -329,6 +348,10 @@ responsive on the target platform.</p>
         
         
         
+        <li class="">
+          <a href="/contents/2015/05/05/using-rvm-to-isolate-rubygems-on-fedora-21/">Using RVM to Isolate RubyGems on Fedora 21</a>
+        </li>
+        
         
         
         <li class="">
@@ -336,6 +359,10 @@ responsive on the target platform.</p>
         </li>
         
         
+        
+        <li class="">
+          <a href="/contents/2015/04/27/prevent-gcc-optimize-away-code/">Prevent GCC from optimizing away a snippet of code</a>
+        </li>
         
         
         
@@ -359,7 +386,7 @@ responsive on the target platform.</p>
   <div class="grid">
     <div class="unit one-third center-on-mobiles">
       <p>The contents of this website are &copy;&nbsp;
-      2015 by Yang Zhang under the terms of the MIT License.</p>
+      2016 by Yang Zhang under the terms of the MIT License.</p>
     </div>
     <div class="unit two-thirds align-right center-on-mobiles">
       <p>

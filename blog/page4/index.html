@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>ProgramFan's Writing Space - Blog</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="generator" content="Jekyll v2.5.3">
+  <meta name="generator" content="Jekyll v3.2.0">
   <link rel="alternate" type="application/rss+xml"
         title="ProgramFan • Research, Learning, Thinking and Growing up - Feed" href="/feed.xml">
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic,900">
@@ -80,6 +80,8 @@
     <option value="/news/">Home</option>
     <optgroup label="v1.x">
       
+      <option value="/contents/2016/07/29/simple-python-isolation-with-user-compiling/">Simple Python Isolation with User Compiling</option>
+      
       <option value="/contents/2015/10/11/poorman-solution-to-usbstick-encryption/">Poorman's Usbstick Encryption</option>
       
       <option value="/contents/2015/10/02/deploy-python-working-environments-using-pip/">Deploy python working environments with pip under restricted connections</option>
@@ -112,6 +114,39 @@
 
   <article>
   <h2>
+    <a href="/contents/2015/07/11/config-cjk-for-asciidoctor-fopub/">
+      Config CJK fonts for Asciidoctor-fopub
+    </a>
+  </h2>
+  <span class="post-category">
+    <span class="label">
+      asciidoc, fopub, cjk, and docbook
+    </span>
+  </span>
+  <div class="post-meta">
+    <span class="post-date">
+      11 Jul 2015
+    </span>
+    <a href="https://github.com/ProgramFan" class="post-author">
+      ProgramFan
+    </a>
+  </div>
+  <div class="post-content">
+    <div class="paragraph">
+<p>I blogged on asciidoctor-fopub <a href="/contents/2015/04/20/convert-chinese-asciidoc-to-pdf/">previously</a>. The fonts are configured by generating XML description file. Recently I find from Apache FOP document that fop supports automatically registering fonts and discourage the use of XML description files. It shall make config custom fonts for Apache FOP less pain. So I blog it here.</p>
+</div>
+
+    <br/>
+    <div class="post-more">
+      <a href="/contents/2015/07/11/config-cjk-for-asciidoctor-fopub/"> <i class="fa fa-link"></i> &nbsp; Read the rest
+          of this post </b></a>
+    </div>
+  </div>
+</article>
+
+
+  <article>
+  <h2>
     <a href="/contents/2015/06/23/asciidoc-pdf-cjk-status/">
       Asciidoctor-pdf CJK support status
     </a>
@@ -137,73 +172,6 @@
     <br/>
     <div class="post-more">
       <a href="/contents/2015/06/23/asciidoc-pdf-cjk-status/"> <i class="fa fa-link"></i> &nbsp; Read the rest
-          of this post </b></a>
-    </div>
-  </div>
-</article>
-
-
-  <article>
-  <h2>
-    <a href="/contents/2015/05/05/using-rvm-to-isolate-rubygems-on-fedora-21/">
-      Using RVM to Isolate RubyGems on Fedora 21
-    </a>
-  </h2>
-  <span class="post-category">
-    <span class="label">
-      rvm, rubygems, and featured
-    </span>
-  </span>
-  <div class="post-meta">
-    <span class="post-date">
-      05 May 2015
-    </span>
-    <a href="https://github.com/ProgramFan" class="post-author">
-      ProgramFan
-    </a>
-  </div>
-  <div class="post-content">
-    <div class="paragraph">
-<p>Ruby comes with a rich set of packages, which is named by the community as 'Ruby Gems'. Ruby gems are quite alike python packages. They both have dependencies, they rely on specific interpreter versions, they are both managed by centralized repositories <span class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnote_1" title="View footnote.">1</a>]</span>.</p>
-</div>
-<div class="paragraph">
-<p>Just like Python, Fedora 21 comes with several Ruby gems as packages in official repository (they are named 'rubygem-xxx'). But gems in the official repo can be outdated, some gems are missing and there are still other problems which makes the official rubygem package inadequate. The users have to manually install gems, which causes several problems, to name a few:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Gems interfere with system packages.</p>
-</li>
-<li>
-<p>Some user installed gems does not work properly with system installed gems.</p>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-For example, user install jekyll does not work with system rubygem-json, which stops it from working.
-</td>
-</tr>
-</table>
-</div>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>The ideal way to solve the above problem is to setup isolated (possible non-root) ruby environment for specificed purpose. For example, if one managed to setup seperate ruby interpreter and gems for jekyll, problem 2 does not even exists. <a href="https://rvm.io">RVM</a> comes right to the problem.</p>
-</div>
-
-<div id="footnotes">
-<hr>
-<div class="footnote" id="_footnote_1">
-<a href="#_footnoteref_1">1</a> Python have PyPI, ruby have RubyGems
-</div>
-</div>
-    <br/>
-    <div class="post-more">
-      <a href="/contents/2015/05/05/using-rvm-to-isolate-rubygems-on-fedora-21/"> <i class="fa fa-link"></i> &nbsp; Read the rest
           of this post </b></a>
     </div>
   </div>
@@ -240,6 +208,40 @@ For example, user install jekyll does not work with system rubygem-json, which s
     <ul>
         
         
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    </ul>
+    <h4>Other Posts</h4>
+    <ul>
+        
+        
+        <li class="">
+          <a href="/contents/2016/07/29/simple-python-isolation-with-user-compiling/">Simple Python Isolation with User Compiling</a>
+        </li>
+        
+        
+        
         <li class="">
           <a href="/contents/2015/10/11/poorman-solution-to-usbstick-encryption/">Poorman's Usbstick Encryption</a>
         </li>
@@ -255,40 +257,6 @@ For example, user install jekyll does not work with system rubygem-json, which s
         <li class="">
           <a href="/contents/2015/09/20/user-local-python-pkg-install-with-pip/">User-local python package install with pip</a>
         </li>
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        <li class="">
-          <a href="/contents/2015/05/05/using-rvm-to-isolate-rubygems-on-fedora-21/">Using RVM to Isolate RubyGems on Fedora 21</a>
-        </li>
-        
-        
-        
-        
-        
-        <li class="">
-          <a href="/contents/2015/04/27/prevent-gcc-optimize-away-code/">Prevent GCC from optimizing away a snippet of code</a>
-        </li>
-        
-        
-        
-        
-    </ul>
-    <h4>Other Posts</h4>
-    <ul>
-        
-        
-        
-        
-        
         
         
         
@@ -316,6 +284,10 @@ For example, user install jekyll does not work with system rubygem-json, which s
         
         
         
+        <li class="">
+          <a href="/contents/2015/05/05/using-rvm-to-isolate-rubygems-on-fedora-21/">Using RVM to Isolate RubyGems on Fedora 21</a>
+        </li>
+        
         
         
         <li class="">
@@ -323,6 +295,10 @@ For example, user install jekyll does not work with system rubygem-json, which s
         </li>
         
         
+        
+        <li class="">
+          <a href="/contents/2015/04/27/prevent-gcc-optimize-away-code/">Prevent GCC from optimizing away a snippet of code</a>
+        </li>
         
         
         
@@ -346,7 +322,7 @@ For example, user install jekyll does not work with system rubygem-json, which s
   <div class="grid">
     <div class="unit one-third center-on-mobiles">
       <p>The contents of this website are &copy;&nbsp;
-      2015 by Yang Zhang under the terms of the MIT License.</p>
+      2016 by Yang Zhang under the terms of the MIT License.</p>
     </div>
     <div class="unit two-thirds align-right center-on-mobiles">
       <p>

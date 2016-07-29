@@ -11,10 +11,10 @@
     <title xml:lang="en">ProgramFan's Writing Space</title>
     <atom:link type="application/atom+xml" href="http://programfan.github.io/feed.xml" rel="self"/>
     <link>http://programfan.github.io </link>
-    <pubDate>Sun, 11 Oct 2015 07:58:23 +0000</pubDate>
-    <lastBuildDate>Sun, 11 Oct 2015 07:58:23 +0000</lastBuildDate>
+    <pubDate>Fri, 29 Jul 2016 03:45:34 +0000</pubDate>
+    <lastBuildDate>Fri, 29 Jul 2016 03:45:34 +0000</lastBuildDate>
     <language>en-US</language>
-    <generator>Jekyll v2.5.3</generator>
+    <generator>Jekyll v3.2.0</generator>
     <description></description>
     <image>
       <description>Transform your plain text into static websites and blogs.</description>
@@ -26,19 +26,103 @@
     </image>
     
     <item>
-      <title>Poorman&#39;s Usbstick Encryption</title>
+      <title>Simple Python Isolation with User Compiling</title>
+      <link>127.0.0.1/contents/2016/07/29/simple-python-isolation-with-user-compiling/</link>
+      <pubDate>Fri, 29 Jul 2016 00:00:00 +0000</pubDate>
+      <dc:creator>ProgramFan</dc:creator>
+      
+      
+      <category>Python</category>
+      
+      <category>Env</category>
+      
+      <category>Featured</category>
+      
+      <guid isPermaLink="true">http://programfan.github.io/contents/2016/07/29/simple-python-isolation-with-user-compiling/</guid>
+      <description>&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;background&quot;&gt;Background&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;I would like to have a working python environment with python 2.7.12 and a
+series of packages. It shall be efficient, and yet easy to setup. The anaconda
+distribution almost satisfies my needs, except that it&amp;#8217;s unreasonably slow to
+load, due to its bundle of system libs. There are also python version managers
+such as pyenv and pythonz. The drawback of pyenv is the shims, which are
+scripts to launch binaries such as python2 and pip. shims make powerline
+client slow, which is undesirable. As to pythonz, it only handles multiple
+versions of python, no other infrastructure is provided.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;After some experimentation, I found that just compile python from source and
+install it into customized location works just fine. There are some caveats,
+so I record it here.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;compile-python&quot;&gt;Compile Python&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Compile python is easy, just be sure to install bundled pip.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;tar -zxvf Python-2.7.12.tgz
+&lt;span class=&quot;tok-nb&quot;&gt;cd &lt;/span&gt;Python-2.7.12
+./configure --prefix&lt;span class=&quot;tok-o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;tok-nv&quot;&gt;$LOCATION&lt;/span&gt; --with-ensurepip&lt;span class=&quot;tok-o&quot;&gt;=&lt;/span&gt;install
+make
+make install&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;After that, you can find python under &lt;code&gt;$LOCATION&lt;/code&gt;. &lt;code&gt;$LOCATION/bin/python -m
+site&lt;/code&gt; will show site-packages under &lt;code&gt;$LOCATION/lib/python2.7/site-packages&lt;/code&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;install-packages-using-pip&quot;&gt;Install Packages using Pip&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;We would expect &lt;code&gt;pip install XXX&lt;/code&gt; to install packages into site-packages. But
+this does not work in practice. Even with bundled pip, it often installs
+packages into system&amp;#8217;s site-packages. To install to the correct location, we
+have to use &lt;code&gt;python -m pip&lt;/code&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;tok-nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;tok-nv&quot;&gt;PATH&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;tok-nv&quot;&gt;$LOCATION&lt;/span&gt;/bin:&lt;span class=&quot;tok-nv&quot;&gt;$PATH&lt;/span&gt;
+python -m pip install XXX&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;move-installation-around&quot;&gt;Move Installation Around&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;I have not yet tested it, but I expect it would be just copy &lt;code&gt;$LOCATION&lt;/code&gt; to a
+new location and set &lt;code&gt;PYTHONPATH&lt;/code&gt; and &lt;code&gt;PATH&lt;/code&gt; to correct values in new
+location. I will try it.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>Poorman's Usbstick Encryption</title>
       <link>127.0.0.1/contents/2015/10/11/poorman-solution-to-usbstick-encryption/</link>
       <pubDate>Sun, 11 Oct 2015 00:00:00 +0000</pubDate>
       <dc:creator>ProgramFan</dc:creator>
       
       
-      <category>linux</category>
+      <category>Linux</category>
       
-      <category>encryption</category>
+      <category>Encryption</category>
       
-      <category>usbstick</category>
+      <category>Usbstick</category>
       
-      <category>featured</category>
+      <category>Featured</category>
       
       <guid isPermaLink="true">http://programfan.github.io/contents/2015/10/11/poorman-solution-to-usbstick-encryption/</guid>
       <description>&lt;div class=&quot;paragraph&quot;&gt;
@@ -66,7 +150,7 @@
 &lt;p&gt;Format target partition as &quot;LUKS + Ext4&quot; via the gear menu.&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;You can see two partitions on the same storage after step 4. Now reformat the &#39;Ext4&#39; partition to any format you want (but without &#39;LUKS&#39;).&lt;/p&gt;
+&lt;p&gt;You can see two partitions on the same storage after step 4. Now reformat the 'Ext4' partition to any format you want (but without 'LUKS').&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Enjoy.&lt;/p&gt;
@@ -75,6 +159,23 @@
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;You can always download LibreCryptExplorer and store it in a plain partition on the usbstick, so you can open your contents on windows systems without administrator privilage.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;appendix-i-problems-with-two-partitions-in-a-usbstick&quot;&gt;Appendix I: Problems with two partitions in a usbstick&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;It seems that Windows XP/7 (i686) only recognize the first partition on a multi-partition usbstick. For example, I have /dev/sdc1 and /dev/sdc2 on my usbstics, I can only see /dev/sdc1 on Windows 7. AFAK, there is no way to mount the missing /dev/sdc2, regardless of the partition format.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This can create the following problem: One use /dev/sdc1 as the LUKS encrypted storage, and use /dev/sdc2 as open-visit parittion. Then on Windows XP/7, only the encrypted storage is mounted and Windows asks for parititon formatting.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The above problem can be work-around by swapping the role of the two partitions, so one can still visit contents in the open-visit storage. But one can not visit the encrypted storage on Windows any more, since the partition is no longer mountable.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;I will search for a better solution if I have time.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
 &lt;/div&gt;</description>
     </item>
     
@@ -85,13 +186,13 @@
       <dc:creator>ProgramFan</dc:creator>
       
       
-      <category>python</category>
+      <category>Python</category>
       
-      <category>pip</category>
+      <category>PIP</category>
       
-      <category>working env</category>
+      <category>Working Env</category>
       
-      <category>featured</category>
+      <category>Featured</category>
       
       <guid isPermaLink="true">http://programfan.github.io/contents/2015/10/02/deploy-python-working-environments-using-pip/</guid>
       <description>&lt;div class=&quot;sect1&quot;&gt;
@@ -229,11 +330,11 @@ RHEL 5.4 system. It works.&lt;/p&gt;
       <dc:creator>ProgramFan</dc:creator>
       
       
-      <category>python</category>
+      <category>Python</category>
       
-      <category>pip</category>
+      <category>PIP</category>
       
-      <category>featured</category>
+      <category>Featured</category>
       
       <guid isPermaLink="true">http://programfan.github.io/contents/2015/09/20/user-local-python-pkg-install-with-pip/</guid>
       <description>&lt;div class=&quot;sect1&quot;&gt;
@@ -243,7 +344,7 @@ RHEL 5.4 system. It works.&lt;/p&gt;
 &lt;p&gt;PyENV has done a fairly good job in managing user-local python versions, as well as per-version pip packages. However, some packages such as PyQt5 need deep system integration and can not be installed using pip. This makes packages such as jupyter-qtconsole upset. The use of shims in PyENV also forces any provided command to be started with a shell script (so a shell process). This makes packages such as python-powerline much slower.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;To solve the above problems, I choose to go back to the standard python user-local install process and choose pip user install. pip user install relys on system python to work correctly, and integrates tightly with system packages. That is to say, if one install PyQt5 using system package manager, he/she can use it in a user-local toyplot package, avoiding install PyQt5 manually (since not possible with pip). Moreover, binaries provided by packages are directly avaliable to the system, which greatly improves the speed of packages such as python-powerline &lt;span class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_1&quot; class=&quot;footnote&quot; href=&quot;#_footnote_1&quot; title=&quot;View footnote.&quot;&gt;1&lt;/a&gt;]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;To solve the above problems, I choose to go back to the standard python user-local install process and choose pip user install. pip user install relys on system python to work correctly, and integrates tightly with system packages. That is to say, if one install PyQt5 using system package manager, he/she can use it in a user-local toyplot package, avoiding install PyQt5 manually (since not possible with pip). Moreover, binaries provided by packages are directly avaliable to the system, which greatly improves the speed of packages such as python-powerline &lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_1&quot; class=&quot;footnote&quot; href=&quot;#_footnote_1&quot; title=&quot;View footnote.&quot;&gt;1&lt;/a&gt;]&lt;/sup&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;!-- more --&gt;
 &lt;/div&gt;
@@ -298,7 +399,7 @@ RHEL 5.4 system. It works.&lt;/p&gt;
 &lt;div id=&quot;footnotes&quot;&gt;
 &lt;hr&gt;
 &lt;div class=&quot;footnote&quot; id=&quot;_footnote_1&quot;&gt;
-&lt;a href=&quot;#_footnoteref_1&quot;&gt;1&lt;/a&gt; python-powerline uses a binary powerline-client to accelerate shell prompt rendering, which is much more responsive than shell scripts. The latter causes visiable lag even on recent ivebridge CPUs.
+&lt;a href=&quot;#_footnoteref_1&quot;&gt;1&lt;/a&gt;. python-powerline uses a binary powerline-client to accelerate shell prompt rendering, which is much more responsive than shell scripts. The latter causes visiable lag even on recent ivebridge CPUs.
 &lt;/div&gt;
 &lt;/div&gt;</description>
     </item>
@@ -310,11 +411,11 @@ RHEL 5.4 system. It works.&lt;/p&gt;
       <dc:creator>ProgramFan</dc:creator>
       
       
-      <category>performance tuning</category>
+      <category>Performance Tuning</category>
       
-      <category>mpi</category>
+      <category>MPI</category>
       
-      <category>vtune</category>
+      <category>VTune</category>
       
       <guid isPermaLink="true">http://programfan.github.io/contents/2015/09/05/analyse-mpi-applications-with-intel-vtune-inspector/</guid>
       <description>&lt;div class=&quot;sect1&quot;&gt;
@@ -648,13 +749,13 @@ applications: Intel MPI Library and OpenMP at
       <dc:creator>ProgramFan</dc:creator>
       
       
-      <category>ruby</category>
+      <category>Ruby</category>
       
-      <category>python</category>
+      <category>Python</category>
       
-      <category>rvm</category>
+      <category>RVM</category>
       
-      <category>pyenv</category>
+      <category>PyENV</category>
       
       <category>pip</category>
       
@@ -939,7 +1040,7 @@ If the same font is find by &lt;code&gt;auto-detect&lt;/code&gt; and &lt;code&gt
 &lt;p&gt;Download a TTF version of source han sans font. Prawn only supports ttf fonts, no OTF, no OTCs.&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;Copy &lt;code&gt;asciidoctor-pdf/data&lt;/code&gt; into another directory, and put source han sans in &lt;code&gt;data/fonts&lt;/code&gt;. In my case, I put &#39;SourceHanSansSC-Normal.ttf&#39; and &#39;SourceHanSansSC-Bold.ttf&#39; inside. The directory looks like:&lt;/p&gt;
+&lt;p&gt;Copy &lt;code&gt;asciidoctor-pdf/data&lt;/code&gt; into another directory, and put source han sans in &lt;code&gt;data/fonts&lt;/code&gt;. In my case, I put 'SourceHanSansSC-Normal.ttf' and 'SourceHanSansSC-Bold.ttf' inside. The directory looks like:&lt;/p&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
 &lt;pre&gt;data
@@ -1070,18 +1171,18 @@ int main(int argc, char** argv) {
       <dc:creator>ProgramFan</dc:creator>
       
       
-      <category>rvm</category>
+      <category>RVM</category>
       
-      <category>rubygems</category>
+      <category>RubyGems</category>
       
-      <category>featured</category>
+      <category>Featured</category>
       
       <guid isPermaLink="true">http://programfan.github.io/contents/2015/05/05/using-rvm-to-isolate-rubygems-on-fedora-21/</guid>
       <description>&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Ruby comes with a rich set of packages, which is named by the community as &#39;Ruby Gems&#39;. Ruby gems are quite alike python packages. They both have dependencies, they rely on specific interpreter versions, they are both managed by centralized repositories &lt;span class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_1&quot; class=&quot;footnote&quot; href=&quot;#_footnote_1&quot; title=&quot;View footnote.&quot;&gt;1&lt;/a&gt;]&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;Ruby comes with a rich set of packages, which is named by the community as 'Ruby Gems'. Ruby gems are quite alike python packages. They both have dependencies, they rely on specific interpreter versions, they are both managed by centralized repositories &lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_1&quot; class=&quot;footnote&quot; href=&quot;#_footnote_1&quot; title=&quot;View footnote.&quot;&gt;1&lt;/a&gt;]&lt;/sup&gt;.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Just like Python, Fedora 21 comes with several Ruby gems as packages in official repository (they are named &#39;rubygem-xxx&#39;). But gems in the official repo can be outdated, some gems are missing and there are still other problems which makes the official rubygem package inadequate. The users have to manually install gems, which causes several problems, to name a few:&lt;/p&gt;
+&lt;p&gt;Just like Python, Fedora 21 comes with several Ruby gems as packages in official repository (they are named 'rubygem-xxx'). But gems in the official repo can be outdated, some gems are missing and there are still other problems which makes the official rubygem package inadequate. The users have to manually install gems, which causes several problems, to name a few:&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;olist arabic&quot;&gt;
 &lt;ol class=&quot;arabic&quot;&gt;
@@ -1121,7 +1222,7 @@ For example, user install jekyll does not work with system rubygem-json, which s
 &lt;h2 id=&quot;using-rvm-to-manage-jekyll-gems&quot;&gt;Using RVM to manage jekyll gems&lt;/h2&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;We will use the power of RVM to manage a seperate set of gems for jekyll and jekyll-asciidoc, which is used to generate this blog. We will install RVM as a normal user in the &#39;stand alone&#39; mode, install jekyll related gems as a seperate gemset, and enable the gemset only when in the project repository. The installed gems then live in their own isolated world and other parts in the system is untouched.&lt;/p&gt;
+&lt;p&gt;We will use the power of RVM to manage a seperate set of gems for jekyll and jekyll-asciidoc, which is used to generate this blog. We will install RVM as a normal user in the 'stand alone' mode, install jekyll related gems as a seperate gemset, and enable the gemset only when in the project repository. The installed gems then live in their own isolated world and other parts in the system is untouched.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;sect2&quot;&gt;
 &lt;h3 id=&quot;install-rvm&quot;&gt;Install RVM&lt;/h3&gt;
@@ -1230,7 +1331,7 @@ If one want to use bundle to install a set of gems, one shall &lt;code&gt;gem in
 &lt;div id=&quot;footnotes&quot;&gt;
 &lt;hr&gt;
 &lt;div class=&quot;footnote&quot; id=&quot;_footnote_1&quot;&gt;
-&lt;a href=&quot;#_footnoteref_1&quot;&gt;1&lt;/a&gt; Python have PyPI, ruby have RubyGems
+&lt;a href=&quot;#_footnoteref_1&quot;&gt;1&lt;/a&gt;. Python have PyPI, ruby have RubyGems
 &lt;/div&gt;
 &lt;/div&gt;</description>
     </item>
@@ -1242,11 +1343,11 @@ If one want to use bundle to install a set of gems, one shall &lt;code&gt;gem in
       <dc:creator>ProgramFan</dc:creator>
       
       
-      <category>boost</category>
+      <category>Boost</category>
       
-      <category>python</category>
+      <category>Python</category>
       
-      <category>c++</category>
+      <category>C++</category>
       
       <guid isPermaLink="true">http://programfan.github.io/contents/2015/05/01/fix-boost-python-argument-error-lvalue/</guid>
       <description>&lt;div class=&quot;sect1&quot;&gt;
@@ -1290,16 +1391,16 @@ std::string&lt;span class=&quot;tok-o&quot;&gt;)&lt;/span&gt;^@&lt;/code&gt;&lt;
       <dc:creator>ProgramFan</dc:creator>
       
       
-      <category>c++</category>
+      <category>C++</category>
       
-      <category>gcc</category>
+      <category>GCC</category>
       
-      <category>featured</category>
+      <category>Featured</category>
       
       <guid isPermaLink="true">http://programfan.github.io/contents/2015/04/27/prevent-gcc-optimize-away-code/</guid>
       <description>&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Nowadays compilers are extremely capable of elimiting &#39;dead&#39; code. But in
-benchmarking we need some seemingly &#39;useless&#39; code to do the work we want. For
+&lt;p&gt;Nowadays compilers are extremely capable of elimiting 'dead' code. But in
+benchmarking we need some seemingly 'useless' code to do the work we want. For
 example, to do computation in registers in order to measure instruction
 latency and throughput. In these cases, we need a mechanism to temporarily
 disable optimization.&lt;/p&gt;
@@ -1497,13 +1598,13 @@ The above pragma can be replaced by function attribute
       <dc:creator>ProgramFan</dc:creator>
       
       
-      <category>asciidoc</category>
+      <category>Asciidoc</category>
       
-      <category>pdf</category>
+      <category>PDF</category>
       
-      <category>fop</category>
+      <category>FOP</category>
       
-      <category>asciidoctor</category>
+      <category>Asciidoctor</category>
       
       <guid isPermaLink="true">http://programfan.github.io/contents/2015/04/20/convert-chinese-asciidoc-to-pdf/</guid>
       <description>&lt;div class=&quot;paragraph&quot;&gt;
@@ -1663,7 +1764,7 @@ fopub EXAMPLE.xml &lt;i class=&quot;conum&quot; data-value=&quot;2&quot;&gt;&lt;
 &lt;div class=&quot;sect2&quot;&gt;
 &lt;h3 id=&quot;register-font-to-asciidoctor-fopub&quot;&gt;Register font to asciidoctor-fopub&lt;/h3&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;After above procedure, one shall create the following registeration in FOP configuration file. For the above gem installed version, the configuration file resides in &lt;code&gt;~/.gem/ruby/gems/asciidoctor-fopub-0.0.1/build/fopub/docbook-xsl/fop-config.xml&lt;/code&gt;. Put the following into &lt;code&gt;&amp;lt;render mime=&#39;application/pdf&#39;&amp;gt;&lt;/code&gt; section:&lt;/p&gt;
+&lt;p&gt;After above procedure, one shall create the following registeration in FOP configuration file. For the above gem installed version, the configuration file resides in &lt;code&gt;~/.gem/ruby/gems/asciidoctor-fopub-0.0.1/build/fopub/docbook-xsl/fop-config.xml&lt;/code&gt;. Put the following into &lt;code&gt;&amp;lt;render mime='application/pdf'&amp;gt;&lt;/code&gt; section:&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
@@ -1693,7 +1794,7 @@ fopub EXAMPLE.xml &lt;i class=&quot;conum&quot; data-value=&quot;2&quot;&gt;&lt;
 &lt;div class=&quot;sect2&quot;&gt;
 &lt;h3 id=&quot;configure-asciidoctor-fopub-to-use-registered-font&quot;&gt;Configure asciidoctor-fopub to use registered font&lt;/h3&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Now we are almost ready. The last step is to configure fopub to use the registered fonts. Assuming we have registered font with name &#39;SimSun&#39;, we the change the file &lt;code&gt;~/.gem/ruby/gems/asciidoctor-fopub-0.0.1/build/fopub/docbook-xsl/fo-pdf.xsl&lt;/code&gt; to use it:&lt;/p&gt;
+&lt;p&gt;Now we are almost ready. The last step is to configure fopub to use the registered fonts. Assuming we have registered font with name 'SimSun', we the change the file &lt;code&gt;~/.gem/ruby/gems/asciidoctor-fopub-0.0.1/build/fopub/docbook-xsl/fo-pdf.xsl&lt;/code&gt; to use it:&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;

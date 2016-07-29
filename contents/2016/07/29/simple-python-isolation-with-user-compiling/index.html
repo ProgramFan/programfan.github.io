@@ -2,7 +2,7 @@
 <html lang="en-US">
 <head>
   <meta charset="UTF-8">
-  <title>Home-brew python and ruby with PyENV and RVM</title>
+  <title>Simple Python Isolation with User Compiling</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="generator" content="Jekyll v3.2.0">
   <link rel="alternate" type="application/rss+xml"
@@ -112,17 +112,17 @@
       <div class="unit four-fifths">
         <article>
   <h2>
-    Home-brew python and ruby with PyENV and RVM
-    <a href="/contents/2015/07/25/home-python-ruby-with-pyenv-and-rvm/" class="permalink" title="Permalink">∞</a>
+    Simple Python Isolation with User Compiling
+    <a href="/contents/2016/07/29/simple-python-isolation-with-user-compiling/" class="permalink" title="Permalink">∞</a>
   </h2>
   <span class="post-category">
     <span class="label">
-      Ruby, Python, RVM, PyENV, pip, and gem
+      Python, Env, and Featured
     </span>
   </span>
   <div class="post-meta">
     <span class="post-date">
-      25 Jul 2015
+      29 Jul 2016
     </span>
     <a href="https://github.com/ProgramFan" class="post-author">
       ProgramFan
@@ -130,84 +130,70 @@
   </div>
   <div class="post-content">
     <div class="sect1">
-<h2 id="introduction">Introduction</h2>
+<h2 id="background">Background</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>I&#8217;m a heavy user of ipython and asciidoctor. IPython is built on python and requires several python packages to work properly. Asciidoctor is built on ruby and also requires several ruby gems. Although Fedora system has ipython and asciidoctor in the main repository, they are something lagging behind the development version. For example, IPython in Fedora 22 is still 2.4.2 while the new stable version is 3.2.0 with a lot new features worth using (Terminal session in the browser). Upgrading the bundled package is impossible. On the other hand, I can not install/upgrade system software on restricted systems such as our development platforms. So I need a way to manage and update my own set of python and ruby packages, preferably without persistant network connections.</p>
+<p>I would like to have a working python environment with python 2.7.12 and a
+series of packages. It shall be efficient, and yet easy to setup. The anaconda
+distribution almost satisfies my needs, except that it&#8217;s unreasonably slow to
+load, due to its bundle of system libs. There are also python version managers
+such as pyenv and pythonz. The drawback of pyenv is the shims, which are
+scripts to launch binaries such as python2 and pip. shims make powerline
+client slow, which is undesirable. As to pythonz, it only handles multiple
+versions of python, no other infrastructure is provided.</p>
 </div>
 <div class="paragraph">
-<p>I then came accrous RVM, the Ruby Version Manager. RVM is a set of shell scripts to manage several versions of ruby in user&#8217;s home directory, and protects the home-brew ruby and gems from the system&#8217;s default ruby and gems. This makes RVM a perfect ruby version manager, and a perfect ruby environment manager with gem (the ruby package manager).</p>
+<p>After some experimentation, I found that just compile python from source and
+install it into customized location works just fine. There are some caveats,
+so I record it here.</p>
 </div>
-<div class="paragraph">
-<p>The same goody exists for python, it is the <a href="http://github.com/yyuu/pyenv">PyENV</a>. It does the same to python as RVM to ruby. It&#8217;s written in shell scripts instead of python. Together with pip (the python package manager), pyenv fits perfectly into the need of home-brew python environment manager.</p>
-</div>
-<div class="paragraph">
-<p>The other problem remains is that there are often no Internet access in restricted environments, rendering pip and gem useless. Luckly, pip and gem supports local install. We can download the source packages or gems on Internet enabled machines and use local install to install them without internet connection. Both PIP and RubyGem support dependency resolution when downloading packages. This solves all problems.</p>
-</div>
-<div class="paragraph">
-<p>One question may arise is that why not using python distributions such as Anaconda. The reason is simple. Anaconda does not upgrade frequently (although usually more up-to-date than system bundled version), and it bundled very low version of system libs, makeing itself slower than native version. On the other hand, almost all python packages are available via PiPY but only a small portion is in Anaconda.</p>
-</div>
-<!-- more -->
 </div>
 </div>
 <div class="sect1">
-<h2 id="how-to-do-it">How to do it</h2>
+<h2 id="compile-python">Compile Python</h2>
 <div class="sectionbody">
-<div class="sect2">
-<h3 id="rvm-and-gems">RVM and Gems</h3>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Install RVM</p>
-</li>
-<li>
-<p>Install Ruby without Internet using RVM</p>
-</li>
-<li>
-<p>Install gems without Internet using gem</p>
-</li>
-</ol>
+<div class="paragraph">
+<p>Compile python is easy, just be sure to install bundled pip.</p>
 </div>
-</div>
-<div class="sect2">
-<h3 id="pyenv-and-pip">PyENV and pip</h3>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Install PyEnv</p>
-</li>
-<li>
-<p>Install Python without Internet using PyEnv</p>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="bash">wget -o ~/.pyenv/cache/Python-2.7.10.tar.gz XXXX
-pyenv install 2.7.10</code></pre>
+<pre class="pygments highlight"><code data-lang="bash">tar -zxvf Python-2.7.12.tgz
+<span class="tok-nb">cd </span>Python-2.7.12
+./configure --prefix<span class="tok-o">=</span><span class="tok-nv">$LOCATION</span> --with-ensurepip<span class="tok-o">=</span>install
+make
+make install</code></pre>
 </div>
 </div>
-</li>
-<li>
-<p>Install python packages without Internet using pip</p>
+<div class="paragraph">
+<p>After that, you can find python under <code>$LOCATION</code>. <code>$LOCATION/bin/python -m
+site</code> will show site-packages under <code>$LOCATION/lib/python2.7/site-packages</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="install-packages-using-pip">Install Packages using Pip</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>We would expect <code>pip install XXX</code> to install packages into site-packages. But
+this does not work in practice. Even with bundled pip, it often installs
+packages into system&#8217;s site-packages. To install to the correct location, we
+have to use <code>python -m pip</code>.</p>
+</div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="bash">pip install --download DIR --no-binary -r requirements.txt  <i class="conum" data-value="1"></i><b>(1)</b>
-pip install --no-index --find-links<span class="tok-o">=</span>DIR -r requirements.txt <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+<pre class="pygments highlight"><code data-lang="bash"><span class="tok-nb">export </span><span class="tok-nv">PATH</span><span class="tok-o">=</span><span class="tok-nv">$LOCATION</span>/bin:<span class="tok-nv">$PATH</span>
+python -m pip install XXX</code></pre>
 </div>
 </div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Download packages to DIR</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Install packages from DIR without Internet</td>
-</tr>
-</table>
 </div>
-</li>
-</ol>
 </div>
+<div class="sect1">
+<h2 id="move-installation-around">Move Installation Around</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>I have not yet tested it, but I expect it would be just copy <code>$LOCATION</code> to a
+new location and set <code>PYTHONPATH</code> and <code>PATH</code> to correct values in new
+location. I will try it.</p>
 </div>
 </div>
 </div>
@@ -217,8 +203,8 @@ pip install --no-index --find-links<span class="tok-o">=</span>DIR -r requiremen
   <script type="text/javascript">
   /* * * CONFIGURATION VARIABLES * * */
   var disqus_shortname = 'progfan-write-space';
-  var disqus_title = 'Home-brew python and ruby with PyENV and RVM';
-  var disqus_url = 'http://programfan.github.io/contents/2015/07/25/home-python-ruby-with-pyenv-and-rvm/';
+  var disqus_title = 'Simple Python Isolation with User Compiling';
+  var disqus_url = 'http://programfan.github.io/contents/2016/07/29/simple-python-isolation-with-user-compiling/';
 
   /* * * DON'T EDIT BELOW THIS LINE * * */
   (function() {
@@ -275,7 +261,7 @@ pip install --no-index --find-links<span class="tok-o">=</span>DIR -r requiremen
     <ul>
         
         
-        <li class="">
+        <li class="current">
           <a href="/contents/2016/07/29/simple-python-isolation-with-user-compiling/">Simple Python Isolation with User Compiling</a>
         </li>
         
@@ -305,7 +291,7 @@ pip install --no-index --find-links<span class="tok-o">=</span>DIR -r requiremen
         
         
         
-        <li class="current">
+        <li class="">
           <a href="/contents/2015/07/25/home-python-ruby-with-pyenv-and-rvm/">Home-brew python and ruby with PyENV and RVM</a>
         </li>
         

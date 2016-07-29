@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>ProgramFan's Writing Space - Blog</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="generator" content="Jekyll v2.5.3">
+  <meta name="generator" content="Jekyll v3.2.0">
   <link rel="alternate" type="application/rss+xml"
         title="ProgramFan • Research, Learning, Thinking and Growing up - Feed" href="/feed.xml">
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic,900">
@@ -80,6 +80,8 @@
     <option value="/news/">Home</option>
     <optgroup label="v1.x">
       
+      <option value="/contents/2016/07/29/simple-python-isolation-with-user-compiling/">Simple Python Isolation with User Compiling</option>
+      
       <option value="/contents/2015/10/11/poorman-solution-to-usbstick-encryption/">Poorman's Usbstick Encryption</option>
       
       <option value="/contents/2015/10/02/deploy-python-working-environments-using-pip/">Deploy python working environments with pip under restricted connections</option>
@@ -112,13 +114,63 @@
 
   <article>
   <h2>
+    <a href="/contents/2015/09/05/analyse-mpi-applications-with-intel-vtune-inspector/">
+      Analyse MPI Applications with Intel VTune/Inspector
+    </a>
+  </h2>
+  <span class="post-category">
+    <span class="label">
+      Performance Tuning, MPI, and VTune
+    </span>
+  </span>
+  <div class="post-meta">
+    <span class="post-date">
+      05 Sep 2015
+    </span>
+    <a href="https://github.com/ProgramFan" class="post-author">
+      ProgramFan
+    </a>
+  </div>
+  <div class="post-content">
+    <div class="sect1">
+<h2 id="mpi-applications-support-for-intel-vtune-and-inspector">MPI Applications Support for Intel VTune and Inspector</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Intel® Cluster Studio helps exploit scalable parallelism of a modern cluster at
+all levels of hybrid parallel or sequential computing for a Fortran/C/C++ MPI
+application: message passing, threading and SIMD / data levels. The Intel® MPI
+Library is used at the process messaging level. The Intel OpenMP* library,
+Intel® Threading Building Blocks (Intel® TBB), and Intel® Cilk™ Plus extensions
+can be used for thread parallelism. The Intel® Math Kernel Library (Intel® MKL)
+can be used to automatically exploit threading, message passing through
+ScaLAPACK, and SIMD data parallelism capabilities of Intel hardware.</p>
+</div>
+<div class="paragraph">
+<p>This section describes the workflow and capabilities for doing performance and
+correctness analysis of MPI applications using the Intel® VTune™ Amplifier and
+the Intel® Inspector tools available in Intel Cluster Studio.</p>
+</div>
+
+</div>
+</div>
+    <br/>
+    <div class="post-more">
+      <a href="/contents/2015/09/05/analyse-mpi-applications-with-intel-vtune-inspector/"> <i class="fa fa-link"></i> &nbsp; Read the rest
+          of this post </b></a>
+    </div>
+  </div>
+</article>
+
+
+  <article>
+  <h2>
     <a href="/contents/2015/07/25/home-python-ruby-with-pyenv-and-rvm/">
       Home-brew python and ruby with PyENV and RVM
     </a>
   </h2>
   <span class="post-category">
     <span class="label">
-      ruby, python, rvm, pyenv, pip, and gem
+      Ruby, Python, RVM, PyENV, pip, and gem
     </span>
   </span>
   <div class="post-meta">
@@ -160,39 +212,6 @@
 </article>
 
 
-  <article>
-  <h2>
-    <a href="/contents/2015/07/11/config-cjk-for-asciidoctor-fopub/">
-      Config CJK fonts for Asciidoctor-fopub
-    </a>
-  </h2>
-  <span class="post-category">
-    <span class="label">
-      asciidoc, fopub, cjk, and docbook
-    </span>
-  </span>
-  <div class="post-meta">
-    <span class="post-date">
-      11 Jul 2015
-    </span>
-    <a href="https://github.com/ProgramFan" class="post-author">
-      ProgramFan
-    </a>
-  </div>
-  <div class="post-content">
-    <div class="paragraph">
-<p>I blogged on asciidoctor-fopub <a href="/contents/2015/04/20/convert-chinese-asciidoc-to-pdf/">previously</a>. The fonts are configured by generating XML description file. Recently I find from Apache FOP document that fop supports automatically registering fonts and discourage the use of XML description files. It shall make config custom fonts for Apache FOP less pain. So I blog it here.</p>
-</div>
-
-    <br/>
-    <div class="post-more">
-      <a href="/contents/2015/07/11/config-cjk-for-asciidoctor-fopub/"> <i class="fa fa-link"></i> &nbsp; Read the rest
-          of this post </b></a>
-    </div>
-  </div>
-</article>
-
-
 
 <!-- Pagination links -->
 <div class="section-nav">
@@ -223,6 +242,40 @@
     <ul>
         
         
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    </ul>
+    <h4>Other Posts</h4>
+    <ul>
+        
+        
+        <li class="">
+          <a href="/contents/2016/07/29/simple-python-isolation-with-user-compiling/">Simple Python Isolation with User Compiling</a>
+        </li>
+        
+        
+        
         <li class="">
           <a href="/contents/2015/10/11/poorman-solution-to-usbstick-encryption/">Poorman's Usbstick Encryption</a>
         </li>
@@ -238,40 +291,6 @@
         <li class="">
           <a href="/contents/2015/09/20/user-local-python-pkg-install-with-pip/">User-local python package install with pip</a>
         </li>
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        <li class="">
-          <a href="/contents/2015/05/05/using-rvm-to-isolate-rubygems-on-fedora-21/">Using RVM to Isolate RubyGems on Fedora 21</a>
-        </li>
-        
-        
-        
-        
-        
-        <li class="">
-          <a href="/contents/2015/04/27/prevent-gcc-optimize-away-code/">Prevent GCC from optimizing away a snippet of code</a>
-        </li>
-        
-        
-        
-        
-    </ul>
-    <h4>Other Posts</h4>
-    <ul>
-        
-        
-        
-        
-        
         
         
         
@@ -299,6 +318,10 @@
         
         
         
+        <li class="">
+          <a href="/contents/2015/05/05/using-rvm-to-isolate-rubygems-on-fedora-21/">Using RVM to Isolate RubyGems on Fedora 21</a>
+        </li>
+        
         
         
         <li class="">
@@ -306,6 +329,10 @@
         </li>
         
         
+        
+        <li class="">
+          <a href="/contents/2015/04/27/prevent-gcc-optimize-away-code/">Prevent GCC from optimizing away a snippet of code</a>
+        </li>
         
         
         
@@ -329,7 +356,7 @@
   <div class="grid">
     <div class="unit one-third center-on-mobiles">
       <p>The contents of this website are &copy;&nbsp;
-      2015 by Yang Zhang under the terms of the MIT License.</p>
+      2016 by Yang Zhang under the terms of the MIT License.</p>
     </div>
     <div class="unit two-thirds align-right center-on-mobiles">
       <p>

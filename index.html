@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>ProgramFan's Writing Space</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="generator" content="Jekyll v2.5.3">
+  <meta name="generator" content="Jekyll v3.2.0">
   <link rel="alternate" type="application/rss+xml"
         title="ProgramFan • Research, Learning, Thinking and Growing up - Feed" href="/feed.xml">
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic,900">
@@ -26,7 +26,7 @@
   <header role="banner">
   <nav class="mobile-nav show-on-mobiles">
     <ul>
-  <li class="current">
+  <li class="">
     <a href="/">Home</a>
   </li>
   <li class="">
@@ -52,7 +52,7 @@
     </div>
     <nav class="main-nav unit two-thirds hide-on-mobiles">
       <ul>
-  <li class="current">
+  <li class="">
     <a href="/">Home</a>
   </li>
   <li class="">
@@ -89,48 +89,29 @@
 <div class="ulist">
 <ul>
 <li>
-<p>Featured</p>
+<p>Featured
+{% for post in site.posts %}
+{% if post.categories contains 'featured' %}</p>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="/contents/2015/10/11/poorman-solution-to-usbstick-encryption/">Poorman&#8217;s Usbstick Encryption</a></p>
-</li>
-<li>
-<p><a href="/contents/2015/10/02/deploy-python-working-environments-using-pip/">Deploy python working environments with pip under restricted connections</a></p>
-</li>
-<li>
-<p><a href="/contents/2015/09/20/user-local-python-pkg-install-with-pip/">User-local python package install with pip</a></p>
-</li>
-<li>
-<p><a href="/contents/2015/05/05/using-rvm-to-isolate-rubygems-on-fedora-21/">Using RVM to Isolate RubyGems on Fedora 21</a></p>
-</li>
-<li>
-<p><a href="/contents/2015/04/27/prevent-gcc-optimize-away-code/">Prevent GCC from optimizing away a snippet of code</a></p>
+<p><a href="{{post.url}}">{{ post.title }}</a>
+{% endif %}
+{% endfor %}</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p>Other</p>
+<p>Other
+{% for post in site.posts %}
+{% unless post.categories contains 'featured' %}</p>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="/contents/2015/09/05/analyse-mpi-applications-with-intel-vtune-inspector/">Analyse MPI Applications with Intel VTune/Inspector</a></p>
-</li>
-<li>
-<p><a href="/contents/2015/07/25/home-python-ruby-with-pyenv-and-rvm/">Home-brew python and ruby with PyENV and RVM</a></p>
-</li>
-<li>
-<p><a href="/contents/2015/07/11/config-cjk-for-asciidoctor-fopub/">Config CJK fonts for Asciidoctor-fopub</a></p>
-</li>
-<li>
-<p><a href="/contents/2015/06/23/asciidoc-pdf-cjk-status/">Asciidoctor-pdf CJK support status</a></p>
-</li>
-<li>
-<p><a href="/contents/2015/05/01/fix-boost-python-argument-error-lvalue/">Fix Argument Error with lvalue In Boost.Python</a></p>
-</li>
-<li>
-<p><a href="/contents/2015/04/20/convert-chinese-asciidoc-to-pdf/">Convert Chinese Asciidoc Documents to PDF</a></p>
+<p><a href="{{post.url}}">{{ post.title }}</a>
+{% endunless %}
+{% endfor %}</p>
 </li>
 </ul>
 </div>
@@ -152,7 +133,7 @@
   <div class="grid">
     <div class="unit one-third center-on-mobiles">
       <p>The contents of this website are &copy;&nbsp;
-      2015 by Yang Zhang under the terms of the MIT License.</p>
+      2016 by Yang Zhang under the terms of the MIT License.</p>
     </div>
     <div class="unit two-thirds align-right center-on-mobiles">
       <p>

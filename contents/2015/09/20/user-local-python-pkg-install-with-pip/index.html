@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>User-local python package install with pip</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="generator" content="Jekyll v2.5.3">
+  <meta name="generator" content="Jekyll v3.2.0">
   <link rel="alternate" type="application/rss+xml"
         title="ProgramFan • Research, Learning, Thinking and Growing up - Feed" href="/feed.xml">
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic,900">
@@ -80,6 +80,8 @@
     <option value="/news/">Home</option>
     <optgroup label="v1.x">
       
+      <option value="/contents/2016/07/29/simple-python-isolation-with-user-compiling/">Simple Python Isolation with User Compiling</option>
+      
       <option value="/contents/2015/10/11/poorman-solution-to-usbstick-encryption/">Poorman's Usbstick Encryption</option>
       
       <option value="/contents/2015/10/02/deploy-python-working-environments-using-pip/">Deploy python working environments with pip under restricted connections</option>
@@ -115,7 +117,7 @@
   </h2>
   <span class="post-category">
     <span class="label">
-      python, pip, and featured
+      Python, PIP, and Featured
     </span>
   </span>
   <div class="post-meta">
@@ -134,7 +136,7 @@
 <p>PyENV has done a fairly good job in managing user-local python versions, as well as per-version pip packages. However, some packages such as PyQt5 need deep system integration and can not be installed using pip. This makes packages such as jupyter-qtconsole upset. The use of shims in PyENV also forces any provided command to be started with a shell script (so a shell process). This makes packages such as python-powerline much slower.</p>
 </div>
 <div class="paragraph">
-<p>To solve the above problems, I choose to go back to the standard python user-local install process and choose pip user install. pip user install relys on system python to work correctly, and integrates tightly with system packages. That is to say, if one install PyQt5 using system package manager, he/she can use it in a user-local toyplot package, avoiding install PyQt5 manually (since not possible with pip). Moreover, binaries provided by packages are directly avaliable to the system, which greatly improves the speed of packages such as python-powerline <span class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnote_1" title="View footnote.">1</a>]</span></p>
+<p>To solve the above problems, I choose to go back to the standard python user-local install process and choose pip user install. pip user install relys on system python to work correctly, and integrates tightly with system packages. That is to say, if one install PyQt5 using system package manager, he/she can use it in a user-local toyplot package, avoiding install PyQt5 manually (since not possible with pip). Moreover, binaries provided by packages are directly avaliable to the system, which greatly improves the speed of packages such as python-powerline <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnote_1" title="View footnote.">1</a>]</sup></p>
 </div>
 <!-- more -->
 </div>
@@ -189,7 +191,7 @@
 <div id="footnotes">
 <hr>
 <div class="footnote" id="_footnote_1">
-<a href="#_footnoteref_1">1</a> python-powerline uses a binary powerline-client to accelerate shell prompt rendering, which is much more responsive than shell scripts. The latter causes visiable lag even on recent ivebridge CPUs.
+<a href="#_footnoteref_1">1</a>. python-powerline uses a binary powerline-client to accelerate shell prompt rendering, which is much more responsive than shell scripts. The latter causes visiable lag even on recent ivebridge CPUs.
 </div>
 </div>
   </div>
@@ -228,6 +230,40 @@
     <ul>
         
         
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    </ul>
+    <h4>Other Posts</h4>
+    <ul>
+        
+        
+        <li class="">
+          <a href="/contents/2016/07/29/simple-python-isolation-with-user-compiling/">Simple Python Isolation with User Compiling</a>
+        </li>
+        
+        
+        
         <li class="">
           <a href="/contents/2015/10/11/poorman-solution-to-usbstick-encryption/">Poorman's Usbstick Encryption</a>
         </li>
@@ -243,40 +279,6 @@
         <li class="current">
           <a href="/contents/2015/09/20/user-local-python-pkg-install-with-pip/">User-local python package install with pip</a>
         </li>
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        <li class="">
-          <a href="/contents/2015/05/05/using-rvm-to-isolate-rubygems-on-fedora-21/">Using RVM to Isolate RubyGems on Fedora 21</a>
-        </li>
-        
-        
-        
-        
-        
-        <li class="">
-          <a href="/contents/2015/04/27/prevent-gcc-optimize-away-code/">Prevent GCC from optimizing away a snippet of code</a>
-        </li>
-        
-        
-        
-        
-    </ul>
-    <h4>Other Posts</h4>
-    <ul>
-        
-        
-        
-        
-        
         
         
         
@@ -304,6 +306,10 @@
         
         
         
+        <li class="">
+          <a href="/contents/2015/05/05/using-rvm-to-isolate-rubygems-on-fedora-21/">Using RVM to Isolate RubyGems on Fedora 21</a>
+        </li>
+        
         
         
         <li class="">
@@ -311,6 +317,10 @@
         </li>
         
         
+        
+        <li class="">
+          <a href="/contents/2015/04/27/prevent-gcc-optimize-away-code/">Prevent GCC from optimizing away a snippet of code</a>
+        </li>
         
         
         
@@ -334,7 +344,7 @@
   <div class="grid">
     <div class="unit one-third center-on-mobiles">
       <p>The contents of this website are &copy;&nbsp;
-      2015 by Yang Zhang under the terms of the MIT License.</p>
+      2016 by Yang Zhang under the terms of the MIT License.</p>
     </div>
     <div class="unit two-thirds align-right center-on-mobiles">
       <p>
