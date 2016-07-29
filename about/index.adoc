@@ -1,24 +1,28 @@
----
-layout: page
-title: ProgramFan's Writing Space - About
----
+= ProgramFan's Writing Space - About
+:page-layout: page
 
 == About the content
 
-This site is a work in progress. I usually write about some Linux/vim/python/c++ tips here.
-
-I am also writing in more detail about my workspace configuration on http://gitbook.com.
+This site is a work in progress. I usually write about some
+Linux/vim/python/c++ tips here.
 
 == About the theme
 
-This site forks from jekyllrb.com and modifyed to enable latex, fontawesome and asciidoctor integration. All posts are written in asciidoc and converted to html by jelyll-asciidoc. Feel free to clone this site from link:http://github.com/ProgramFan/programfan.github.io.git[its git repository].
+This site forks from jekyllrb.com and modifyed to enable latex, fontawesome
+and asciidoctor integration. All posts are written in asciidoc and converted
+to html by jelyll-asciidoc. Feel free to clone this site from
+link:http://github.com/ProgramFan/programfan.github.io.git[its git
+repository].
 
 == Tests
 
 === LaTeX support through KaTeX
 
-LaTeX is supported well through http://khan.github.io/KaTeX[KaTeX]. For example, `$ a^2 + b^2 = c^2 $` is rendered as $ a^2 + b^2 = c^2 $, and `\[ a^2 + b^2 = c^2 \]` is rendered as \[ a^2 + b^2 = c^2 \].
+LaTeX is supported well through http://khan.github.io/KaTeX[KaTeX]. For
+example, `$ a^2 + b^2 = c^2 $` is rendered as $a^2 + b^2 = c^2$, and
+`\[ a^2 + b^2 = c^2 \]` is rendered as \[ a^2 + b^2 = c^2 \].
 
 === FontAwesome support
 
-Test for FontAwesome icons in asciidoctor. This is `\icon:file[]` and `\icon:apple[]` (icon:file[], icon:apple[]).
+Test for FontAwesome icons in asciidoctor. This is `\icon:file[]` and
+`\icon:apple[]` (icon:file[], icon:apple[]).
