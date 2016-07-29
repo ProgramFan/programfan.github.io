@@ -1,5 +1,5 @@
 ---
-layout: news_item
+layout: blog_post
 title: "User-local python package install with pip"
 author: ProgramFan
 tags: [Python, PIP, Featured]

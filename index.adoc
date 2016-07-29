@@ -1,7 +1,6 @@
----
-layout: page
-title: ProgramFan's Writing Space
----
+= ProgramFan's Writing Space
+ProgramFan <zyangmath@gmail.com>
+:page-layout: page
 
 This is a work in progress. I usually write about some Linux/vim/python/c++ tips here.
 

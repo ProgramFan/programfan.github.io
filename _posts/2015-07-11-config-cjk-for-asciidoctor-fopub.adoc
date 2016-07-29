@@ -1,5 +1,5 @@
 ---
-layout: news_item
+layout: blog_post
 title: Config CJK fonts for Asciidoctor-fopub
 author: ProgramFan
 tags: [asciidoc, fopub, cjk, docbook]

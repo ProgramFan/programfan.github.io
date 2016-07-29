@@ -1,5 +1,5 @@
 ---
-layout: news_item
+layout: blog_post
 title: Using RVM to Isolate RubyGems on Fedora 21
 author: ProgramFan
 tags: [RVM, RubyGems, Featured]

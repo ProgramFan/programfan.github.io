@@ -1,6 +1,6 @@
 = Convert Chinese Asciidoc Documents to PDF
 ProgramFan <zyangmath@gmail.com>
-:page-layout: news_item
+:page-layout: blog_post
 :page-tags: [Asciidoc, PDF, FOP, Asciidoctor]
 
 Asciidoctor does well in translating asciidoc documents to html5, docbook and etc. Chinese documents also looks great in html5 and docbook. But sometimes we need to use PDF to share with others. Unfortunately, this is not easy for Chinese documents. This document shares my experience converting Chinese asciidoc documents into pdfs.

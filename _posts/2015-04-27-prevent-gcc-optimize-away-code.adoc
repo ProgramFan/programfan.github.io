@@ -1,6 +1,6 @@
 = Prevent GCC from optimizing away a snippet of code
 ProgramFan <zyangmath@gmail.com>
-:page-layout: news_item
+:page-layout: blog_post
 :page-tags: [C++, GCC, Featured]
 
 Nowadays compilers are extremely capable of elimiting 'dead' code. But in

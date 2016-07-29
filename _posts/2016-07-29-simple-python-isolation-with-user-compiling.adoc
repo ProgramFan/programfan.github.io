@@ -1,6 +1,6 @@
 = Simple Python Isolation with User Compiling
 ProgramFan <zyangmath.gmail.com>
-:page-layout: news_item
+:page-layout: blog_post
 :page-tags: [Python, Env, Featured]
 
 == Background
