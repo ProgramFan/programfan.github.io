@@ -21,12 +21,11 @@ asciidoc:
   ext: adoc, asciidoc
 asciidoctor:
   attributes:
-    - hardbreaks!
-    - stylesheet!
+    - page-liquid
     - icons=font
     - source-highlighter=pygments
-    - pygment-css=class
-    - page-liquid
+    - pygments-css=style
+    - pygments-style=monokai
 
 # Jekyll generator config
 permalink: /contents/:year/:month/:day/:title/
