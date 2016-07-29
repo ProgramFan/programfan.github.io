@@ -5,7 +5,6 @@
 gems:
   - jekyll-asciidoc
   - jekyll-paginate
-#  - jekyll-scholar
 
 # Markdown engine config
 # math_engin set to null to let katex parse math
@@ -17,8 +16,9 @@ kramdown:
   math_engine: null
 
 # Asciidoc engine config
-asciidoc: asciidoctor
-asciidoc_ext: adoc, asciidoc
+asciidoc:
+  processor: asciidoctor
+  ext: adoc, asciidoc
 asciidoctor:
   attributes:
     - hardbreaks!
@@ -26,6 +26,7 @@ asciidoctor:
     - icons=font
     - source-highlighter=pygments
     - pygment-css=class
+    - page-liquid
 
 # Jekyll generator config
 permalink: /contents/:year/:month/:day/:title/
