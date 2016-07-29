@@ -11,8 +11,8 @@
     <title xml:lang="en">ProgramFan's Writing Space</title>
     <atom:link type="application/atom+xml" href="http://programfan.github.io/feed.xml" rel="self"/>
     <link>http://programfan.github.io </link>
-    <pubDate>Fri, 29 Jul 2016 03:45:34 +0000</pubDate>
-    <lastBuildDate>Fri, 29 Jul 2016 03:45:34 +0000</lastBuildDate>
+    <pubDate>Fri, 29 Jul 2016 05:04:14 +0000</pubDate>
+    <lastBuildDate>Fri, 29 Jul 2016 05:04:14 +0000</lastBuildDate>
     <language>en-US</language>
     <generator>Jekyll v3.2.0</generator>
     <description></description>
@@ -75,8 +75,8 @@ make install&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;After that, you can find python under &lt;code&gt;$LOCATION&lt;/code&gt;. &lt;code&gt;$LOCATION/bin/python -m
-site&lt;/code&gt; will show site-packages under &lt;code&gt;$LOCATION/lib/python2.7/site-packages&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;After that, you can find python under &lt;code&gt;$LOCATION&lt;/code&gt;. &lt;code&gt;$LOCATION/bin/python -m site&lt;/code&gt;
+will show site-packages under &lt;code&gt;$LOCATION/lib/python2.7/site-packages&lt;/code&gt;.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -1398,7 +1398,9 @@ std::string&lt;span class=&quot;tok-o&quot;&gt;)&lt;/span&gt;^@&lt;/code&gt;&lt;
       <category>Featured</category>
       
       <guid isPermaLink="true">http://programfan.github.io/contents/2015/04/27/prevent-gcc-optimize-away-code/</guid>
-      <description>&lt;div class=&quot;paragraph&quot;&gt;
+      <description>&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Nowadays compilers are extremely capable of elimiting 'dead' code. But in
 benchmarking we need some seemingly 'useless' code to do the work we want. For
 example, to do computation in registers in order to measure instruction
@@ -1409,6 +1411,8 @@ disable optimization.&lt;/p&gt;
 &lt;p&gt;This document keep an up-to-date collections of techniques to temporarily
 disable compiler optimizations. These techniques are tested on a recent gcc or
 icc compiler.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;sect1&quot;&gt;
 &lt;h2 id=&quot;using-volatile&quot;&gt;Using volatile&lt;/h2&gt;
