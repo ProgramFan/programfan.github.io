@@ -11,8 +11,8 @@
     <title xml:lang="en">ProgramFan's Writing Space</title>
     <atom:link type="application/atom+xml" href="http://programfan.github.io/feed.xml" rel="self"/>
     <link>http://programfan.github.io </link>
-    <pubDate>Fri, 29 Jul 2016 05:04:14 +0000</pubDate>
-    <lastBuildDate>Fri, 29 Jul 2016 05:04:14 +0000</lastBuildDate>
+    <pubDate>Fri, 29 Jul 2016 13:43:43 +0000</pubDate>
+    <lastBuildDate>Fri, 29 Jul 2016 13:43:43 +0000</lastBuildDate>
     <language>en-US</language>
     <generator>Jekyll v3.2.0</generator>
     <description></description>
@@ -31,12 +31,12 @@
       <pubDate>Fri, 29 Jul 2016 00:00:00 +0000</pubDate>
       <dc:creator>ProgramFan</dc:creator>
       
-      
       <category>Python</category>
       
       <category>Env</category>
       
       <category>Featured</category>
+      
       
       <guid isPermaLink="true">http://programfan.github.io/contents/2016/07/29/simple-python-isolation-with-user-compiling/</guid>
       <description>&lt;div class=&quot;sect1&quot;&gt;
@@ -110,11 +110,10 @@ location. I will try it.&lt;/p&gt;
     </item>
     
     <item>
-      <title>Poorman's Usbstick Encryption</title>
+      <title>Poorman&amp;#8217;s Usbstick Encryption</title>
       <link>127.0.0.1/contents/2015/10/11/poorman-solution-to-usbstick-encryption/</link>
       <pubDate>Sun, 11 Oct 2015 00:00:00 +0000</pubDate>
       <dc:creator>ProgramFan</dc:creator>
-      
       
       <category>Linux</category>
       
@@ -124,8 +123,11 @@ location. I will try it.&lt;/p&gt;
       
       <category>Featured</category>
       
+      
       <guid isPermaLink="true">http://programfan.github.io/contents/2015/10/11/poorman-solution-to-usbstick-encryption/</guid>
-      <description>&lt;div class=&quot;paragraph&quot;&gt;
+      <description>&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Recently I need to setup an encrypted usbstick to carry some files. The first and best approach is of course hardware-encrypted usbsticks. However, they are not cheep at all. And they support only digital passphrases. Some encrypted usbsticks needs special software to operate, thus does not work with Linux system. Luckily enough, I found LUKS and managed to setup an encrypted usbstick, which also works on Windows.&lt;/p&gt;
 &lt;/div&gt;
 &lt;!-- more --&gt;
@@ -160,6 +162,8 @@ location. I will try it.&lt;/p&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;You can always download LibreCryptExplorer and store it in a plain partition on the usbstick, so you can open your contents on windows systems without administrator privilage.&lt;/p&gt;
 &lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
 &lt;div class=&quot;sect1&quot;&gt;
 &lt;h2 id=&quot;appendix-i-problems-with-two-partitions-in-a-usbstick&quot;&gt;Appendix I: Problems with two partitions in a usbstick&lt;/h2&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
@@ -185,7 +189,6 @@ location. I will try it.&lt;/p&gt;
       <pubDate>Fri, 02 Oct 2015 00:00:00 +0000</pubDate>
       <dc:creator>ProgramFan</dc:creator>
       
-      
       <category>Python</category>
       
       <category>PIP</category>
@@ -193,6 +196,7 @@ location. I will try it.&lt;/p&gt;
       <category>Working Env</category>
       
       <category>Featured</category>
+      
       
       <guid isPermaLink="true">http://programfan.github.io/contents/2015/10/02/deploy-python-working-environments-using-pip/</guid>
       <description>&lt;div class=&quot;sect1&quot;&gt;
@@ -329,12 +333,12 @@ RHEL 5.4 system. It works.&lt;/p&gt;
       <pubDate>Sun, 20 Sep 2015 00:00:00 +0000</pubDate>
       <dc:creator>ProgramFan</dc:creator>
       
-      
       <category>Python</category>
       
       <category>PIP</category>
       
       <category>Featured</category>
+      
       
       <guid isPermaLink="true">http://programfan.github.io/contents/2015/09/20/user-local-python-pkg-install-with-pip/</guid>
       <description>&lt;div class=&quot;sect1&quot;&gt;
@@ -410,12 +414,12 @@ RHEL 5.4 system. It works.&lt;/p&gt;
       <pubDate>Sat, 05 Sep 2015 00:00:00 +0000</pubDate>
       <dc:creator>ProgramFan</dc:creator>
       
-      
       <category>Performance Tuning</category>
       
       <category>MPI</category>
       
       <category>VTune</category>
+      
       
       <guid isPermaLink="true">http://programfan.github.io/contents/2015/09/05/analyse-mpi-applications-with-intel-vtune-inspector/</guid>
       <description>&lt;div class=&quot;sect1&quot;&gt;
@@ -748,7 +752,6 @@ applications: Intel MPI Library and OpenMP at
       <pubDate>Sat, 25 Jul 2015 00:00:00 +0000</pubDate>
       <dc:creator>ProgramFan</dc:creator>
       
-      
       <category>Ruby</category>
       
       <category>Python</category>
@@ -760,6 +763,7 @@ applications: Intel MPI Library and OpenMP at
       <category>pip</category>
       
       <category>gem</category>
+      
       
       <guid isPermaLink="true">http://programfan.github.io/contents/2015/07/25/home-python-ruby-with-pyenv-and-rvm/</guid>
       <description>&lt;div class=&quot;sect1&quot;&gt;
@@ -852,7 +856,6 @@ pip install --no-index --find-links&lt;span class=&quot;tok-o&quot;&gt;=&lt;/spa
       <pubDate>Sat, 11 Jul 2015 00:00:00 +0000</pubDate>
       <dc:creator>ProgramFan</dc:creator>
       
-      
       <category>asciidoc</category>
       
       <category>fopub</category>
@@ -860,6 +863,7 @@ pip install --no-index --find-links&lt;span class=&quot;tok-o&quot;&gt;=&lt;/spa
       <category>cjk</category>
       
       <category>docbook</category>
+      
       
       <guid isPermaLink="true">http://programfan.github.io/contents/2015/07/11/config-cjk-for-asciidoctor-fopub/</guid>
       <description>&lt;div class=&quot;paragraph&quot;&gt;
@@ -1007,10 +1011,10 @@ If the same font is find by &lt;code&gt;auto-detect&lt;/code&gt; and &lt;code&gt
       <pubDate>Tue, 23 Jun 2015 00:00:00 +0000</pubDate>
       <dc:creator>ProgramFan</dc:creator>
       
-      
       <category>asciidoc</category>
       
       <category>cjk</category>
+      
       
       <guid isPermaLink="true">http://programfan.github.io/contents/2015/06/23/asciidoc-pdf-cjk-status/</guid>
       <description>&lt;div class=&quot;paragraph&quot;&gt;
@@ -1170,12 +1174,12 @@ int main(int argc, char** argv) {
       <pubDate>Tue, 05 May 2015 00:00:00 +0000</pubDate>
       <dc:creator>ProgramFan</dc:creator>
       
-      
       <category>RVM</category>
       
       <category>RubyGems</category>
       
       <category>Featured</category>
+      
       
       <guid isPermaLink="true">http://programfan.github.io/contents/2015/05/05/using-rvm-to-isolate-rubygems-on-fedora-21/</guid>
       <description>&lt;div class=&quot;paragraph&quot;&gt;
@@ -1342,12 +1346,12 @@ If one want to use bundle to install a set of gems, one shall &lt;code&gt;gem in
       <pubDate>Fri, 01 May 2015 00:00:00 +0000</pubDate>
       <dc:creator>ProgramFan</dc:creator>
       
-      
       <category>Boost</category>
       
       <category>Python</category>
       
       <category>C++</category>
+      
       
       <guid isPermaLink="true">http://programfan.github.io/contents/2015/05/01/fix-boost-python-argument-error-lvalue/</guid>
       <description>&lt;div class=&quot;sect1&quot;&gt;
@@ -1390,12 +1394,12 @@ std::string&lt;span class=&quot;tok-o&quot;&gt;)&lt;/span&gt;^@&lt;/code&gt;&lt;
       <pubDate>Mon, 27 Apr 2015 00:00:00 +0000</pubDate>
       <dc:creator>ProgramFan</dc:creator>
       
-      
       <category>C++</category>
       
       <category>GCC</category>
       
       <category>Featured</category>
+      
       
       <guid isPermaLink="true">http://programfan.github.io/contents/2015/04/27/prevent-gcc-optimize-away-code/</guid>
       <description>&lt;div id=&quot;preamble&quot;&gt;
@@ -1601,7 +1605,6 @@ The above pragma can be replaced by function attribute
       <pubDate>Mon, 20 Apr 2015 00:00:00 +0000</pubDate>
       <dc:creator>ProgramFan</dc:creator>
       
-      
       <category>Asciidoc</category>
       
       <category>PDF</category>
@@ -1610,9 +1613,14 @@ The above pragma can be replaced by function attribute
       
       <category>Asciidoctor</category>
       
+      
       <guid isPermaLink="true">http://programfan.github.io/contents/2015/04/20/convert-chinese-asciidoc-to-pdf/</guid>
-      <description>&lt;div class=&quot;paragraph&quot;&gt;
+      <description>&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Asciidoctor does well in translating asciidoc documents to html5, docbook and etc. Chinese documents also looks great in html5 and docbook. But sometimes we need to use PDF to share with others. Unfortunately, this is not easy for Chinese documents. This document shares my experience converting Chinese asciidoc documents into pdfs.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;sect1&quot;&gt;
 &lt;h2 id=&quot;overview-of-approaches-to-convert-asciidoc-to-pdfs&quot;&gt;Overview of approaches to convert asciidoc to PDFs&lt;/h2&gt;
