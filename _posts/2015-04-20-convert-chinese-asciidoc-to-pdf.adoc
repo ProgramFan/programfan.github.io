@@ -16,10 +16,8 @@ http://github.com/asciidoctor/asciidoctor-pdf[asciidoctor-pdf] is an alpha-state
 While asciidoctor is nimble, it does not support CJK/multilingual documents.The output of asciidoctor-pdf is quite similar to that of asciidoctor to html5 backends, with coderay or pygments code highlights and similar fonts as the html5 backends. It's worth trying for english documents.
 +
 At the time of writing, asciidoctor-pdf does not support fontawesome icon font. So the callouts and admotions are simple charactors.
-+
-++++
-<!-- more -->
-++++
+
+// more
 
 2. asciidoctor-latex
 +

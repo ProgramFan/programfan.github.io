@@ -17,9 +17,7 @@ The other problem remains is that there are often no Internet access in restrict
 
 One question may arise is that why not using python distributions such as Anaconda. The reason is simple. Anaconda does not upgrade frequently (although usually more up-to-date than system bundled version), and it bundled very low version of system libs, makeing itself slower than native version. On the other hand, almost all python packages are available via PiPY but only a small portion is in Anaconda.
 
-++++
-<!-- more -->
-++++
+// more
 
 == How to do it
 

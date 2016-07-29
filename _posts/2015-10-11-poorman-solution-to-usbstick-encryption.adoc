@@ -5,9 +5,7 @@ ProgramFan <zyangmath@gmail.com>
 
 Recently I need to setup an encrypted usbstick to carry some files. The first and best approach is of course hardware-encrypted usbsticks. However, they are not cheep at all. And they support only digital passphrases. Some encrypted usbsticks needs special software to operate, thus does not work with Linux system. Luckily enough, I found LUKS and managed to setup an encrypted usbstick, which also works on Windows.
 
-++++
-<!-- more -->
-++++
+// more
 
 LUKS is an standard to store encrypted information on disks. Although originally developed on Linux platforms, LUKS is well supported on Windows systems via LibreCrypt project. Fedora (at least 22) comes with LUKS support by default. So its is a perfect fit for my needs.
 

@@ -20,9 +20,7 @@ This section describes the workflow and capabilities for doing performance and
 correctness analysis of MPI applications using the Intel® VTune™ Amplifier and
 the Intel® Inspector tools available in Intel Cluster Studio.
 
-++++
-<!-- more -->
-++++
+// more
 
 == MPI Analysis Workflow
 

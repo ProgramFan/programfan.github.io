@@ -7,9 +7,7 @@ tags: [asciidoc, cjk]
 
 http://github.com/asciidoctor/asciidoctor-pdf[Asciidoc-pdf] is a fast evoluving project. CJK support was still on the wish list when I blog about it last time. But at the day of writing, it's CJK support is in somewhat usable state and there are a lot of other progresses (see its milestone on GitHub). More specifically, asciidoctor is able to process CJK documents and produce CJK enabled PDFs with the help of a custom theme, although the line wrap breaks currently (a fix has already been proposed). Here is my experiences.
 
-++++
-<!-- more -->
-++++
+// more
 
 == The technology
 

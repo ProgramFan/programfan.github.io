@@ -29,7 +29,7 @@ asciidoctor:
 
 # Jekyll generator config
 permalink: /contents/:year/:month/:day/:title/
-excerpt_separator: "<!-- more -->"
+excerpt_separator: "// more"
 paginate: 2
 paginate_path: "/blog/page:num/"
 

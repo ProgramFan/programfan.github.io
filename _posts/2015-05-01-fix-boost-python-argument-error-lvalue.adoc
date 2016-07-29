@@ -22,9 +22,7 @@ GetCompilationInfoForFile(YouCompleteMe::CompilationDatabase {lvalue},
 std::string)^@
 ----
 
-++++
-<!-- more -->
-++++
+// more
 
 == The solution
 

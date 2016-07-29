@@ -16,9 +16,7 @@ NOTE: For example, user install jekyll does not work with system rubygem-json, w
 
 The ideal way to solve the above problem is to setup isolated (possible non-root) ruby environment for specificed purpose. For example, if one managed to setup seperate ruby interpreter and gems for jekyll, problem 2 does not even exists. https://rvm.io[RVM] comes right to the problem.
 
-++++
-<!-- more -->
-++++
+// more
 
 == Introduction of RVM
 

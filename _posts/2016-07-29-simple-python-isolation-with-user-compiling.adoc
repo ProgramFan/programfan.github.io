@@ -18,6 +18,8 @@ After some experimentation, I found that just compile python from source and
 install it into customized location works just fine. There are some caveats,
 so I record it here.
 
+// more
+
 == Compile Python
 
 Compile python is easy, just be sure to install bundled pip.

@@ -11,9 +11,7 @@ PyENV has done a fairly good job in managing user-local python versions, as well
 
 To solve the above problems, I choose to go back to the standard python user-local install process and choose pip user install. pip user install relys on system python to work correctly, and integrates tightly with system packages. That is to say, if one install PyQt5 using system package manager, he/she can use it in a user-local toyplot package, avoiding install PyQt5 manually (since not possible with pip). Moreover, binaries provided by packages are directly avaliable to the system, which greatly improves the speed of packages such as python-powerline footnote:[python-powerline uses a binary powerline-client to accelerate shell prompt rendering, which is much more responsive than shell scripts. The latter causes visiable lag even on recent ivebridge CPUs.]
 
-++++
-<!-- more -->
-++++
+// more
 
 == Instructions
 

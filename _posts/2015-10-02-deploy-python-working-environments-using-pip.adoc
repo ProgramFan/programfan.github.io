@@ -36,9 +36,7 @@ following considerations:
  3. Good performance. The distributed packages shall run fast and be
     responsive on the target platform.
 
-++++
-<!-- more -->
-++++
+// more
 
 == The key ideas
 
