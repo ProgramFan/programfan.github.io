@@ -1,7 +1,7 @@
 = Simple Python Isolation with User Compiling
 ProgramFan <zyangmath.gmail.com>
 :page-layout: news_item
-:page-categories: [Python, Env, Featured]
+:page-tags: [Python, Env, Featured]
 
 == Background
 

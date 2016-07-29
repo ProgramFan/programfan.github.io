@@ -2,7 +2,7 @@
 layout: news_item
 title: "User-local python package install with pip"
 author: ProgramFan
-categories: [Python, PIP, Featured]
+tags: [Python, PIP, Featured]
 ---
 
 == Motivation

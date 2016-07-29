@@ -2,7 +2,7 @@
 layout: news_item
 title: Home-brew python and ruby with PyENV and RVM
 author: ProgramFan
-categories: [Ruby, Python, RVM, PyENV, pip, gem]
+tags: [Ruby, Python, RVM, PyENV, pip, gem]
 ---
 
 == Introduction

@@ -2,7 +2,7 @@
 layout: news_item
 title: Analyse MPI Applications with Intel VTune/Inspector
 author: ProgramFan
-categories: [Performance Tuning, MPI, VTune]
+tags: [Performance Tuning, MPI, VTune]
 ---
 
 == MPI Applications Support for Intel VTune and Inspector

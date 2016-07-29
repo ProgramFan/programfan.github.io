@@ -1,9 +1,7 @@
----
-layout: news_item
-title: Poorman's Usbstick Encryption
-author: ProgramFan
-categories: [Linux, Encryption, Usbstick, Featured]
----
+= Poorman's Usbstick Encryption
+ProgramFan <zyangmath@gmail.com>
+:page-layout: news_item
+:page-tags: [Linux, Encryption, Usbstick, Featured]
 
 Recently I need to setup an encrypted usbstick to carry some files. The first and best approach is of course hardware-encrypted usbsticks. However, they are not cheep at all. And they support only digital passphrases. Some encrypted usbsticks needs special software to operate, thus does not work with Linux system. Luckily enough, I found LUKS and managed to setup an encrypted usbstick, which also works on Windows.
 

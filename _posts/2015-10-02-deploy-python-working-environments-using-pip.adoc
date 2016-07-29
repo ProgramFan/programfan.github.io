@@ -2,7 +2,7 @@
 layout: news_item
 title: Deploy python working environments with pip under restricted connections
 author: ProgramFan
-categories: [Python, PIP, Working Env, Featured]
+tags: [Python, PIP, Working Env, Featured]
 ---
 
 == Background

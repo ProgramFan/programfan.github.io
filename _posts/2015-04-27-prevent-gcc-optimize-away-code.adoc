@@ -1,7 +1,7 @@
 = Prevent GCC from optimizing away a snippet of code
 ProgramFan <zyangmath@gmail.com>
 :page-layout: news_item
-:page-categories: [C++, GCC, Featured]
+:page-tags: [C++, GCC, Featured]
 
 Nowadays compilers are extremely capable of elimiting 'dead' code. But in
 benchmarking we need some seemingly 'useless' code to do the work we want. For

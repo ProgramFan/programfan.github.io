@@ -2,7 +2,7 @@
 layout: news_item
 title: Fix Argument Error with lvalue In Boost.Python
 author: ProgramFan
-categories: [Boost, Python, C++]
+tags: [Boost, Python, C++]
 ---
 
 // Yang Zhang <yang_zhang@iapcm.ac.cn>

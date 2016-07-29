@@ -2,7 +2,7 @@
 layout: news_item
 title: Using RVM to Isolate RubyGems on Fedora 21
 author: ProgramFan
-categories: [RVM, RubyGems, Featured]
+tags: [RVM, RubyGems, Featured]
 ---
 
 Ruby comes with a rich set of packages, which is named by the community as 'Ruby Gems'. Ruby gems are quite alike python packages. They both have dependencies, they rely on specific interpreter versions, they are both managed by centralized repositories footnote:[Python have PyPI, ruby have RubyGems].
