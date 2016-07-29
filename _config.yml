@@ -4,6 +4,7 @@
 # Extra GEMs config
 gems:
   - jekyll-asciidoc
+  - jekyll-paginate
 #  - jekyll-scholar
 
 # Markdown engine config
