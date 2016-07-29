@@ -1,0 +1,33 @@
+---
+layout: blog
+title: ProgramFan's Writing Space - Research
+---
+
+<!-- Pagination pages -->
+{% for post in paginator.posts %}
+  {% include blog_post_brief.html %}
+{% endfor %}
+
+<!-- Pagination links -->
+<div class="section-nav">
+  <div class="left align-right">
+    {% if paginator.previous_page %}
+      <a href="{{ paginator.previous_page_path }}" class="prev">Newer</a>
+    {% else %}
+      <span class="prev disabled">Newer</span>
+    {% endif %}
+  </div>
+  <!--
+  <div class="center align-center">
+    Page: {{ paginator.page }} of {{ paginator.total_pages }}
+  </div>
+  -->
+  <div class="right align-left">
+    {% if paginator.next_page %}
+      <a href="{{ paginator.next_page_path }}" class="next">Older</a>
+    {% else %}
+      <span class="next disabled">Older</span>
+    {% endif %}
+  </div>
+</div>
+<div class="clear"></div>
