@@ -1,0 +1,8 @@
+= ProgramFan's Writing Space
+ProgramFan <zyangmath@gmail.com>
+:page-layout: blog
+
+* Featured
+{% for post in site.research %}
+** link:++{{post.url}}++[{{ post.title }}]
+{% endfor %}

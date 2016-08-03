@@ -1,0 +1,31 @@
+= Poorman's Usbstick Encryption
+ProgramFan <zyangmath@gmail.com>
+:page-layout: blog_post
+:page-tags: [Linux, Encryption, Usbstick, Featured]
+
+Recently I need to setup an encrypted usbstick to carry some files. The first and best approach is of course hardware-encrypted usbsticks. However, they are not cheep at all. And they support only digital passphrases. Some encrypted usbsticks needs special software to operate, thus does not work with Linux system. Luckily enough, I found LUKS and managed to setup an encrypted usbstick, which also works on Windows.
+
+// more
+
+LUKS is an standard to store encrypted information on disks. Although originally developed on Linux platforms, LUKS is well supported on Windows systems via LibreCrypt project. Fedora (at least 22) comes with LUKS support by default. So its is a perfect fit for my needs.
+
+The step is fairly easy if you use graphical tools.
+
+1. Open Gnome Disks.
+2. Delete all partitions on the target usbstick.
+3. Create partitions as you want on the usbstick, DO NOT format them.
+4. Format target partition as "LUKS + Ext4" via the gear menu.
+5. You can see two partitions on the same storage after step 4. Now reformat the 'Ext4' partition to any format you want (but without 'LUKS').
+6. Enjoy.
+
+You can always download LibreCryptExplorer and store it in a plain partition on the usbstick, so you can open your contents on windows systems without administrator privilage.
+
+== Appendix I: Problems with two partitions in a usbstick
+
+It seems that Windows XP/7 (i686) only recognize the first partition on a multi-partition usbstick. For example, I have /dev/sdc1 and /dev/sdc2 on my usbstics, I can only see /dev/sdc1 on Windows 7. AFAK, there is no way to mount the missing /dev/sdc2, regardless of the partition format.
+
+This can create the following problem: One use /dev/sdc1 as the LUKS encrypted storage, and use /dev/sdc2 as open-visit parittion. Then on Windows XP/7, only the encrypted storage is mounted and Windows asks for parititon formatting.
+
+The above problem can be work-around by swapping the role of the two partitions, so one can still visit contents in the open-visit storage. But one can not visit the encrypted storage on Windows any more, since the partition is no longer mountable.
+
+I will search for a better solution if I have time.

@@ -1,0 +1,78 @@
+---
+layout: blog_post
+title: Config CJK fonts for Asciidoctor-fopub
+author: ProgramFan
+tags: [asciidoc, fopub, cjk, docbook]
+---
+
+I blogged on asciidoctor-fopub link:/contents/2015/04/20/convert-chinese-asciidoc-to-pdf/[previously]. The fonts are configured by generating XML description file. Recently I find from Apache FOP document that fop supports automatically registering fonts and discourage the use of XML description files. It shall make config custom fonts for Apache FOP less pain. So I blog it here.
+
+// more
+
+== The easiest approach
+
+Newer versions of FOP support block registration as well as automatically register system fonts. To use this approach, following the steps:
+
+1. Add font registration directives in `fop-config.xml`:
++
+[source, xml]
+----
+<fonts>
+  <directory>/usr/share/fonts/dejavu</directory> <1>
+  <auto-detect/> <2>
+</fonts>
+----
+<1> Add a directory of fonts, set `recursive="true"` to recursively scan the directory.
+<2> Automatically register system fonts installed.
++
+NOTE: If the same font is find by `auto-detect` and `directory`, the latter takes precedence.
+
+2. Reference font by regular name in `fo-pdf.xsl`:
++
+[source, xml]
+----
+<xsl:template name="pickfont-sans">
+  <xsl:text>DejaVu Sans, Source Han Sans CN, sans-serif</xsl:text>
+</xsl:template>
+----
+
+== The self-contained approach
+
+One can customize the font name and its bold/italic variants by configuring directly the `font` tag like the original XML description file approach. But at this time, the XML description files are no longer needed. Using this approach, we can select different font for italic/bold/bolditalic variants of a single fontname, which is highly demanded for Chinese document. Here is how:
+
+1. Put the fonts in a directory, say `$FONT_DIR`
++
+[source, xml]
+----
+<font-base>$FONT_DIR</font-base>   <1>
+  <fonts>
+    <font embed-url="SourceHanSansSC.ttf" kerning="yes">    <2>
+    <font-triplet name="SourceHanSansSC"
+                  style="normal" weight="normal" />         <3>
+  </font>
+</fonts>
+----
+<1> Set the base directory so we can use relative path for `embed-url`.
+<2> Reference the font file using relative path.
+<3> Set the font triplet and choose a cool name.
+
+2. Reference the font using `SourceHanSansSC` in `fo-pdf.xsl`.
+
+[appendix]
+== Bundle fonts with asciidoctor-fopub gem
+
+In Asciidoctor-fopub, one can do futhur by bundling fonts with the gem. The approach is a direct extension of <<The self-contained approach, self-contained approach above>>. Here are the steps:
+
+1. Put fonts in `$REPO/src/dist/docbook-xsl/fonts`.
+2. Configure `fop-config.xml` and `fo-pdf.xsl` using the above approach, but set `font-base` to `@FONT-BASE@`.
+3. Add the following lines to `$REPO/fopub` shell script:
++
+[source, bash]
+----
+# Modify fop-config.xml to fix bundled font-path
+FOP_CONFIG_XML="$DOCBOOK_XSL_ABS_DIR/fop-config.xml"
+BUNDLED_FONTS_DIR="$DOCBOOK_XSL_ABS_DIR/fonts"
+if [ -f "$FOP_CONFIG_XML" ]; then
+  sed -i "s|@FONT-BASE@|$BUNDLED_FONTS_DIR|g" "$FOP_CONFIG_XML"
+fi
+----

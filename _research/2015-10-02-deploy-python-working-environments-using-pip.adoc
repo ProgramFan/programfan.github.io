@@ -1,0 +1,92 @@
+---
+layout: blog_post
+title: Deploy python working environments with pip under restricted connections
+author: ProgramFan
+tags: [Python, PIP, Working Env, Featured]
+---
+
+== Background
+
+One can often use pre-built python distributions to setup python working
+environments, for example http://www.continuum.io[Anaconda],
+https://store.enthought.com[Enthought Canopy]. But these distributions has the
+following common problems, which reduces their usefulness:
+
+ 1. It's hard to upgrade packages without internet connections. It's also hard
+    to install packages not contained in the distribution.
+
+ 2. It does not play well with existing packages on the target systems. For
+    example, Anaconda bundles mpich, which conflict with system MPIs.
+
+ 3. These distributions has poor performances. Since they are built on
+    relatively old platforms and possibly with no optimizations, they are
+    often slower than native python. For example, I found anaconda python on a
+    RHEL 6.3 system very slow to start.
+
+For me, it's essential to deploy my python working environments with the
+following considerations:
+
+ 1. Easy to install/upgrade packages on demand, under restricted connections.
+    Some systems I work with does not have internet connections.
+
+ 2. It shall integrate well with existing python packages. Some packages such
+    as PyQt5 requires deep system integration so I would better install them
+    with system package manager.
+
+ 3. Good performance. The distributed packages shall run fast and be
+    responsive on the target platform.
+
+// more
+
+== The key ideas
+
+*The first is pip user install*. With `pip`, we have the most complete
+python package collection. Almost all packages are available in PyPI, and we
+can always make home-brew python packages pip-compatible. `pip` is a standard
+python module since python 2.7.6 and is easy to install for prior python
+versions. So `pip` serves as a built-in package manager. `pip` supports
+installing packages in the users directory and plays well with existing
+packages. For example, `pip install` will skip a package if already available
+and capable. `pip` user install adds paths to standard python module paths,
+instead of overwriting them.
+
+*The second is python requirement file*. `pip` supports install packages and
+its dependencies from a _requirement file_. That is, you list packages you
+want, `pip` automatically solves the dependency, grabs proper packages and
+install them. It makes both install and upgrade a piece of cake. 
+
+*The last is python wheels*. Python wheels is simply pre-built python
+packages. The real power with python wheels is that you can build your own
+wheel for packages in a requirement list, together with all dependencies.
+After that, you can install directly from wheels without the need of a network
+connection.
+
+== In practice
+
+With the above three key ideas, I develop the following method to solve the
+_python working environment distribution_ problem:
+
+1. Set up a base CPython version. One can choose to rely on system python, or
+   compile their own CPython.
+
+2. Maintain a _requirement file_. Only list packages you need in the
+   requirements. You can also specify version constraints.
+
+3. Build wheels for distribution.
++
+```bash
+pip install --user --upgrade wheel
+pip wheel -r requirements.txt
+```
+
+4. Distributing wheels and install packages from wheels.
++
+```bash
+pip install --user --upgrade -r requirements.txt --no-index -f ${WHEELSDIR}
+```
+
+5. Enjoy.
+
+The above method is used to distribute my python working environments in 4
+different platforms: two Fedora 22 workstations, one RHEL 6.3 system and one
+RHEL 5.4 system. It works.

@@ -28,10 +28,21 @@ asciidoctor:
     - pygments-style=monokai
 
 # Jekyll generator config
-permalink: /contents/:year/:month/:day/:title/
 excerpt_separator: "// more"
 paginate: 2
 paginate_path: "/blog/page:num/"
+
+collections:
+  research:
+    output: true
+    permalink: /research/:year/:month/:day/:title/
+    paginate: 2
+    paginate_path: "/research/page:num/"
+  posts:
+    output: true
+    permalink: /blog/:year/:month/:day/:title/
+    paginate: 2
+    paginate_path: "/blog/page:num/"
 
 # Extra site global variable used by templates
 site_title: "ProgramFan's Writing Space"

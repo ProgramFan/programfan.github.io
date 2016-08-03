@@ -1,0 +1,56 @@
+= Simple Python Isolation with User Compiling
+ProgramFan <zyangmath.gmail.com>
+:page-layout: blog_post
+:page-tags: [Python, Env, Featured]
+
+== Background
+
+I would like to have a working python environment with python 2.7.12 and a
+series of packages. It shall be efficient, and yet easy to setup. The anaconda
+distribution almost satisfies my needs, except that it's unreasonably slow to
+load, due to its bundle of system libs. There are also python version managers
+such as pyenv and pythonz. The drawback of pyenv is the shims, which are
+scripts to launch binaries such as python2 and pip. shims make powerline
+client slow, which is undesirable. As to pythonz, it only handles multiple
+versions of python, no other infrastructure is provided.
+
+After some experimentation, I found that just compile python from source and
+install it into customized location works just fine. There are some caveats,
+so I record it here.
+
+// more
+
+== Compile Python
+
+Compile python is easy, just be sure to install bundled pip.
+
+[source, bash]
+----
+tar -zxvf Python-2.7.12.tgz
+cd Python-2.7.12
+./configure --prefix=$LOCATION --with-ensurepip=install
+make
+make install
+----
+
+After that, you can find python under `$LOCATION`. `$LOCATION/bin/python -m site`
+will show site-packages under `$LOCATION/lib/python2.7/site-packages`.
+
+## Install Packages using Pip
+
+We would expect `pip install XXX` to install packages into site-packages. But
+this does not work in practice. Even with bundled pip, it often installs
+packages into system's site-packages. To install to the correct location, we
+have to use `python -m pip`.
+
+[source, bash]
+----
+export PATH=$LOCATION/bin:$PATH
+python -m pip install XXX
+----
+
+== Move Installation Around
+
+I have not yet tested it, but I expect it would be just copy `$LOCATION` to a
+new location and set `PYTHONPATH` and `PATH` to correct values in new
+location. I will try it.

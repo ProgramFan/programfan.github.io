@@ -1,0 +1,95 @@
+---
+layout: blog_post
+title: Using RVM to Isolate RubyGems on Fedora 21
+author: ProgramFan
+tags: [RVM, RubyGems, Featured]
+---
+
+Ruby comes with a rich set of packages, which is named by the community as 'Ruby Gems'. Ruby gems are quite alike python packages. They both have dependencies, they rely on specific interpreter versions, they are both managed by centralized repositories footnote:[Python have PyPI, ruby have RubyGems].
+
+Just like Python, Fedora 21 comes with several Ruby gems as packages in official repository (they are named 'rubygem-xxx'). But gems in the official repo can be outdated, some gems are missing and there are still other problems which makes the official rubygem package inadequate. The users have to manually install gems, which causes several problems, to name a few:
+
+1. Gems interfere with system packages.
+2. Some user installed gems does not work properly with system installed gems.
++
+NOTE: For example, user install jekyll does not work with system rubygem-json, which stops it from working.
+
+The ideal way to solve the above problem is to setup isolated (possible non-root) ruby environment for specificed purpose. For example, if one managed to setup seperate ruby interpreter and gems for jekyll, problem 2 does not even exists. https://rvm.io[RVM] comes right to the problem.
+
+// more
+
+== Introduction of RVM
+
+RVM is the asyncornous for "Ruby Version Manager". It installs and manages several ruby versions as well as gems seperately in a non-root manner and make switching between them super easy. More information is to be found in http://rvm.io.
+
+== Using RVM to manage jekyll gems
+
+We will use the power of RVM to manage a seperate set of gems for jekyll and jekyll-asciidoc, which is used to generate this blog. We will install RVM as a normal user in the 'stand alone' mode, install jekyll related gems as a seperate gemset, and enable the gemset only when in the project repository. The installed gems then live in their own isolated world and other parts in the system is untouched.
+
+=== Install RVM
+
+Install RVM is straight forward. just go to http://rvm.io for instructions. For those in a hurry, here comes the commands:
+[source, bash]
+----
+curl -sSL https://get.rvm.io | bash -s --no-dotfiles
+----
+
+After that, RVM will be installed in `$HOME/.rvm` and one shall configure the system to setup RVM paths by adding the following to `.bashrc` and alike:
+[source, bash]
+----
+source $HOME/.rvm/scripts/rvm
+----
+
+=== Using RVM gemset
+
+Now we create a seperate `gemset` for our jekyll related gems. Gemset is introduced by RVM to manage different gem configurations. They live in there own directories and rely on specific ruby interpreter.
+
+We would like to use the latest stable ruby for our jekyll (ruby 2.2 at the time of writting). Here comes the steps:
+
+1. Install ruby 2.2 by RVM.
++
+[source, bash]
+----
+rvm install ruby-2.2
+----
+
+2. Create and switch to specific gemset.
++
+[source, bash]
+----
+rvm use ruby-2.2.2
+rvm gemset create jekyll
+rvm getset use jekyll
+----
+
+3. Install ruby gems as usual.
++
+[source, bash]
+----
+gem install jekyll jekyll-asciidoc rake-jekyll
+----
++
+NOTE: If one want to use bundle to install a set of gems, one shall `gem install bundle` first. If this is skipped and the system environment comes with preinstalled bundle, the system will hang up as bundle spawns lots and lots of ruby-mris. I don't know why.
+
+=== Use specific gemset only in jekyll blog directory
+
+Now we have new ruby-2.2.2 intepreter (the preinstalled on Fedora 21 is ruby-2.1.6) and a set of jekyll related gems. We want to restrict them to my jekyll based blog. This is done by defaulting to system ruby and using RVM `.rvmrc` automatically switch to jekyll and ruby-2.2.2 when in blog directory.
+
+1. Make RVM use system ruby by default
++
+[source, bash]
+----
+rvm use system --default
+----
+
+2. Enabling gemset in blog root directory. Assuming blog in `$HOME/blog`, create `.rvmrc` or `.ruby-version`, add the following content:
++
+[source, bash]
+----
+ruby-2.2.2@jekyll
+----
+
+=== Enjoy RVM
+
+After the above steps, we are using system ruby and gems when in other directories and use ruby-2.2.2 and jekyll gemset in our blog. Life is so amazing from now on. One can install multiple versions and/or multiple gemsets using the above approach, and even better, use `rvm use xxx` to switch between them on the fly.
+
