@@ -1,0 +1,517 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <title>Prevent GCC from optimizing away a snippet of code</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="generator" content="Jekyll v3.4.0">
+  <link rel="alternate" type="application/rss+xml"
+        title="ProgramFan • Research, Learning, Thinking and Growing up - Feed" href="/feed.xml">
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic,900">
+  <link rel="stylesheet" href="/css/screen.css">
+  <!-- <link rel="stylesheet" href="/css/prism.css"> -->
+  <!-- <script src="/js/prism.min.js" type="text/javascript"></script> -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <!--[if lt IE 9]>
+  <script src="/js/html5shiv.min.js"></script>
+  <script src="/js/respond.min.js"></script>
+  <![endif]-->
+  <link href="/css/katex.min.css" rel="stylesheet" type="text/css">
+  <script src="/js/katex.min.js" type="text/javascript"></script>
+  <script src="/js/auto-render.min.js" type="text/javascript"></script>
+</head>
+
+
+<body class="wrap">
+  <header role="banner">
+  <nav class="mobile-nav show-on-mobiles">
+    <ul>
+  <li class="">
+    <a href="/">Home</a>
+  </li>
+  <li class="current">
+    <a href="/research/">Research</a>
+  </li>
+  <li class="">
+    <a href="/blog/">Blog</a>
+  </li>
+  <li class="">
+    <a href="/about/">About</a>
+  </li>
+</ul>
+
+  </nav>
+  <div class="grid">
+    <div class="unit one-third center-on-mobiles">
+      <h1>
+        <a href="/">
+          <span class="sr-only">ProgramFan's Writing Space</span>
+          <img src="/img/logo-2x.png" width="300" height="115" alt="Site Logo">
+        </a>
+      </h1>
+    </div>
+    <nav class="main-nav unit two-thirds hide-on-mobiles">
+      <ul>
+  <li class="">
+    <a href="/">Home</a>
+  </li>
+  <li class="current">
+    <a href="/research/">Research</a>
+  </li>
+  <li class="">
+    <a href="/blog/">Blog</a>
+  </li>
+  <li class="">
+    <a href="/about/">About</a>
+  </li>
+</ul>
+
+    </nav>
+  </div>
+</header>
+
+
+    <section class="news">
+    <div class="grid">
+      <div class="unit four-fifths">
+        <article>
+  <h2>
+    Prevent GCC from optimizing away a snippet of code
+    <a href="/research/2015/04/27/prevent-gcc-optimize-away-code/" class="permalink" title="Permalink">∞</a>
+  </h2>
+  <span class="post-category">
+    <span class="label">
+      C++, GCC, and Featured
+    </span>
+  </span>
+  <div class="post-meta">
+    <span class="post-date">
+      27 Apr 2015
+    </span>
+    <a href="https://github.com/ProgramFan" class="post-author">
+      ProgramFan
+    </a>
+  </div>
+  <div class="post-content">
+    <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Nowadays compilers are extremely capable of elimiting 'dead' code. But in
+benchmarking we need some seemingly 'useless' code to do the work we want. For
+example, to do computation in registers in order to measure instruction
+latency and throughput. In these cases, we need a mechanism to temporarily
+disable optimization.</p>
+</div>
+<div class="paragraph">
+<p>This document keep an up-to-date collections of techniques to temporarily
+disable compiler optimizations. These techniques are tested on a recent gcc or
+icc compiler.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="using-volatile">Using volatile</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><code>volatile</code> makes compilers be extremely careful (or conservative) on memory
+load and store of a variable. Most compilers tend to do no optimizations at
+all (even for proven dead code). So the <code>volatile</code> technique becomes the top 1
+used.</p>
+</div>
+<div class="paragraph">
+<p>For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span style="color: #66d9ef">void</span> <span style="color: #a6e22e">doTest</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
+    <span style="color: #66d9ef">volatile</span> <span style="color: #66d9ef">int</span> <span style="color: #f8f8f2">a</span> <span style="color: #f92672">=</span> <span style="color: #ae81ff">0</span><span style="color: #f8f8f2">;</span>
+    <span style="color: #f8f8f2">a</span> <span style="color: #f92672">+=</span> <span style="color: #ae81ff">1</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>g++ -std=c++98 -O2</code> compiles the above code down to</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="asm"><span style="color: #a6e22e">movl</span>   <span style="color: #66d9ef">$</span><span style="color: #ae81ff">0x0</span><span style="color: #f8f8f2">,</span><span style="color: #f92672">-</span><span style="color: #ae81ff">0x4</span><span style="color: #f8f8f2">(</span><span style="color: #f92672">%</span><span style="color: #f8f8f2">rsp)</span>
+<span style="color: #a6e22e">mov</span>    <span style="color: #f92672">-</span><span style="color: #ae81ff">0x4</span><span style="color: #f8f8f2">(</span><span style="color: #f92672">%</span><span style="color: #f8f8f2">rsp),</span><span style="color: #f92672">%</span><span style="color: #f8f8f2">eax</span>
+<span style="color: #a6e22e">add</span>    <span style="color: #66d9ef">$</span><span style="color: #ae81ff">0x1</span><span style="color: #f8f8f2">,</span><span style="color: #f92672">%</span><span style="color: #f8f8f2">eax</span>
+<span style="color: #a6e22e">mov</span>    <span style="color: #f92672">%</span><span style="color: #f8f8f2">eax,</span><span style="color: #f92672">-</span><span style="color: #ae81ff">0x4</span><span style="color: #f8f8f2">(</span><span style="color: #f92672">%</span><span style="color: #f8f8f2">rsp)</span>
+<span style="color: #a6e22e">retq</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>icpc -std=c++98 -O2</code> compiles it down to</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="asm"><span style="color: #a6e22e">movl</span>   <span style="color: #66d9ef">$</span><span style="color: #ae81ff">0x0</span><span style="color: #f8f8f2">,</span><span style="color: #f92672">-</span><span style="color: #ae81ff">0x8</span><span style="color: #f8f8f2">(</span><span style="color: #f92672">%</span><span style="color: #f8f8f2">rsp)</span>
+<span style="color: #a6e22e">incl</span>   <span style="color: #f92672">-</span><span style="color: #ae81ff">0x8</span><span style="color: #f8f8f2">(</span><span style="color: #f92672">%</span><span style="color: #f8f8f2">rsp)</span>
+<span style="color: #a6e22e">retq</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="empty-assembly">Empty assembly</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Another current weakness of compilers is that they are careful with inline
+assembly. Some version of gcc and icc tends to leave inline assembly touched
+variable intact. This becomes the second technique to prevent optimizations.</p>
+</div>
+<div class="paragraph">
+<p>For example, Facebook&#8217;s <a href="http://github.com/facebook/folly">Folly</a> library uses
+the following <code>doNotOptimizeAway</code> function to prevent optimizing an
+expression:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span style="color: #66d9ef">template</span> <span style="color: #f92672">&lt;</span><span style="color: #66d9ef">typename</span> <span style="color: #f8f8f2">T</span><span style="color: #f92672">&gt;</span> <span style="color: #66d9ef">inline</span> <span style="color: #f8f8f2">doNotOptimizeAway(T</span><span style="color: #f92672">&amp;&amp;</span> <span style="color: #f8f8f2">datum)</span> <span style="color: #f8f8f2">{</span>
+    <span style="color: #66d9ef">asm</span> <span style="color: #66d9ef">volatile</span> <span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;&quot;</span> <span style="color: #f92672">:</span> <span style="color: #e6db74">&quot;+r&quot;</span> <span style="color: #f8f8f2">datum);</span>
+<span style="color: #f8f8f2">}</span>
+<span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">doTest()</span> <span style="color: #f8f8f2">{</span>
+    <span style="color: #66d9ef">int</span> <span style="color: #f8f8f2">a;</span>
+    <span style="color: #f8f8f2">doNotOptimizeAway(a</span> <span style="color: #f92672">=</span> <span style="color: #ae81ff">0</span><span style="color: #f8f8f2">);</span>
+    <span style="color: #f8f8f2">doNotOptimizeAway(a</span> <span style="color: #f92672">+=</span> <span style="color: #ae81ff">16</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>icpc -std=c++11 -O2</code> compiles the above down to</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="asm"><span style="color: #a6e22e">movl</span>   <span style="color: #66d9ef">$</span><span style="color: #ae81ff">0x0</span><span style="color: #f8f8f2">,</span><span style="color: #f92672">-</span><span style="color: #ae81ff">0x8</span><span style="color: #f8f8f2">(</span><span style="color: #f92672">%</span><span style="color: #f8f8f2">rsp)</span>
+<span style="color: #a6e22e">mov</span>    <span style="color: #f92672">-</span><span style="color: #ae81ff">0x8</span><span style="color: #f8f8f2">(</span><span style="color: #f92672">%</span><span style="color: #f8f8f2">rsp),</span><span style="color: #f92672">%</span><span style="color: #f8f8f2">eax</span>
+<span style="color: #a6e22e">mov</span>    <span style="color: #f92672">%</span><span style="color: #f8f8f2">eax,</span><span style="color: #f92672">-</span><span style="color: #ae81ff">0x8</span><span style="color: #f8f8f2">(</span><span style="color: #f92672">%</span><span style="color: #f8f8f2">rsp)</span>
+<span style="color: #a6e22e">addl</span>   <span style="color: #66d9ef">$</span><span style="color: #ae81ff">0x10</span><span style="color: #f8f8f2">,</span><span style="color: #f92672">-</span><span style="color: #ae81ff">0x8</span><span style="color: #f8f8f2">(</span><span style="color: #f92672">%</span><span style="color: #f8f8f2">rsp)</span>
+<span style="color: #a6e22e">mov</span>    <span style="color: #f92672">-</span><span style="color: #ae81ff">0x8</span><span style="color: #f8f8f2">(</span><span style="color: #f92672">%</span><span style="color: #f8f8f2">rsp),</span><span style="color: #f92672">%</span><span style="color: #f8f8f2">edx</span>
+<span style="color: #a6e22e">mov</span>    <span style="color: #f92672">%</span><span style="color: #f8f8f2">edx,</span><span style="color: #f92672">-</span><span style="color: #ae81ff">0x8</span><span style="color: #f8f8f2">(</span><span style="color: #f92672">%</span><span style="color: #f8f8f2">rsp)</span>
+<span style="color: #a6e22e">incl</span>   <span style="color: #f92672">-</span><span style="color: #ae81ff">0x8</span><span style="color: #f8f8f2">(</span><span style="color: #f92672">%</span><span style="color: #f8f8f2">rsp)</span>
+<span style="color: #a6e22e">mov</span>    <span style="color: #f92672">-</span><span style="color: #ae81ff">0x8</span><span style="color: #f8f8f2">(</span><span style="color: #f92672">%</span><span style="color: #f8f8f2">rsp),</span><span style="color: #f92672">%</span><span style="color: #f8f8f2">ecx</span>
+<span style="color: #a6e22e">mov</span>    <span style="color: #f92672">%</span><span style="color: #f8f8f2">ecx,</span><span style="color: #f92672">-</span><span style="color: #ae81ff">0x8</span><span style="color: #f8f8f2">(</span><span style="color: #f92672">%</span><span style="color: #f8f8f2">rsp)</span>
+<span style="color: #a6e22e">retq</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>g++ -std=c++11 -O2</code> compiles straightly down to</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="asm"><span style="color: #a6e22e">xor</span>    <span style="color: #f92672">%</span><span style="color: #f8f8f2">eax,</span><span style="color: #f92672">%</span><span style="color: #f8f8f2">eax</span>
+<span style="color: #a6e22e">add</span>    <span style="color: #66d9ef">$</span><span style="color: #ae81ff">0x10</span><span style="color: #f8f8f2">,</span><span style="color: #f92672">%</span><span style="color: #f8f8f2">eax</span>
+<span style="color: #a6e22e">retq</span></code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The <code>+r</code> modifier and the volatile modifier in the assembly is
+essential. <code>+r</code> means the <code>datum</code> is both read from and write to by the
+assembly, so compiler can not optimized it out. <code>volatile</code> stops the compiler
+from removing the empty assembly. If you try <code>=r</code> instead of <code>+r</code>, gcc will
+optimize it away but icc will keep it.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="compiler-specific-pragma">Compiler specific pragma</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Compilers provides ways to control their optimizer. gcc provides <code>pragma GCC</code> as a way to control temporarily the compiler behavior. By using <code>pragma GCC optimize("O0")</code>, the optimization level can be set to zero, which means absolutely no optimize for gcc.</p>
+</div>
+<div class="paragraph">
+<p>For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="cpp"><span style="color: #75715e">#pragma GCC push_options</span>
+<span style="color: #75715e">#pragma GCC optimize(&quot;O0&quot;)</span>
+<span style="color: #66d9ef">void</span> <span style="color: #a6e22e">doTest</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
+    <span style="color: #66d9ef">int</span> <span style="color: #f8f8f2">a;</span>
+    <span style="color: #f8f8f2">a</span> <span style="color: #f92672">=</span> <span style="color: #ae81ff">15</span><span style="color: #f8f8f2">;</span>
+    <span style="color: #f8f8f2">a</span> <span style="color: #f92672">+=</span> <span style="color: #ae81ff">1</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">}</span>
+<span style="color: #75715e">#pragma GCC pop_options</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>g++ -std=c++98 -O2</code> compiles it straight forwardly down to</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="asm"><span style="color: #a6e22e">movl</span>   <span style="color: #66d9ef">$</span><span style="color: #ae81ff">0xf</span><span style="color: #f8f8f2">,</span><span style="color: #f92672">-</span><span style="color: #ae81ff">0x4</span><span style="color: #f8f8f2">(</span><span style="color: #f92672">%</span><span style="color: #f8f8f2">rsp)</span>
+<span style="color: #a6e22e">addl</span>   <span style="color: #66d9ef">$</span><span style="color: #ae81ff">0x1</span><span style="color: #f8f8f2">,</span><span style="color: #f92672">-</span><span style="color: #ae81ff">0x4</span><span style="color: #f8f8f2">(</span><span style="color: #f92672">%</span><span style="color: #f8f8f2">rsp)</span>
+<span style="color: #a6e22e">retq</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>icpc -std=c++98 -O2</code> compiles it down to</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="asm"><span style="color: #a6e22e">sub</span>    <span style="color: #66d9ef">$</span><span style="color: #ae81ff">0x10</span><span style="color: #f8f8f2">,</span><span style="color: #f92672">%</span><span style="color: #f8f8f2">rsp</span>
+<span style="color: #a6e22e">movl</span>   <span style="color: #66d9ef">$</span><span style="color: #ae81ff">0xf</span><span style="color: #f8f8f2">,</span><span style="color: #f92672">-</span><span style="color: #ae81ff">0x10</span><span style="color: #f8f8f2">(</span><span style="color: #f92672">%</span><span style="color: #f8f8f2">rbp)</span>
+<span style="color: #a6e22e">mov</span>    <span style="color: #66d9ef">$</span><span style="color: #ae81ff">0x1</span><span style="color: #f8f8f2">,</span><span style="color: #f92672">%</span><span style="color: #f8f8f2">eax</span>
+<span style="color: #a6e22e">add</span>    <span style="color: #f92672">-</span><span style="color: #ae81ff">0x10</span><span style="color: #f8f8f2">(</span><span style="color: #f92672">%</span><span style="color: #f8f8f2">rbp),</span><span style="color: #f92672">%</span><span style="color: #f8f8f2">eax</span>
+<span style="color: #a6e22e">mov</span>    <span style="color: #f92672">%</span><span style="color: #f8f8f2">eax,</span><span style="color: #f92672">-</span><span style="color: #ae81ff">0x10</span><span style="color: #f8f8f2">(</span><span style="color: #f92672">%</span><span style="color: #f8f8f2">rbp)</span>
+<span style="color: #a6e22e">leaveq</span>
+<span style="color: #a6e22e">retq</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Although icc does a strange transformation to the code, it leaves the code any
+way.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The above pragma can be replaced by function attribute
+<code>__attribute__((optimize("O0")))</code>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+  </div>
+  
+  <div class="post-comments" id="disqus_thread"></div>
+  <script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES * * */
+  var disqus_shortname = 'progfan-write-space';
+  var disqus_title = 'Prevent GCC from optimizing away a snippet of code';
+  var disqus_url = 'http://programfan.github.io/research/2015/04/27/prevent-gcc-optimize-away-code/';
+
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+   var dsq = document.createElement('script');
+   dsq.type = 'text/javascript'; dsq.async = true;
+   dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+   (document.getElementsByTagName('head')[0] ||
+    document.getElementsByTagName('body')[0]).appendChild(dsq);
+   })();
+  </script>
+  <noscript>
+    Please enable JavaScript to view the
+    <a href="https://disqus.com/?ref_noscript" rel="nofollow">
+      comments powered by Disqus.
+    </a>
+  </noscript>
+
+ 
+</article>
+
+      </div>
+
+      <div class="unit one-fifth hide-on-mobiles">
+  <aside>
+    <h4>Featured</h4>
+    <ul>
+        
+        
+        <li class="">
+          <a href="/blog/2016/07/29/simple-python-isolation-with-user-compiling/">Simple Python Isolation with User Compiling</a>
+        </li>
+        
+        
+        
+        <li class="">
+          <a href="/blog/2015/10/11/poorman-solution-to-usbstick-encryption/">Poorman&#8217;s Usbstick Encryption</a>
+        </li>
+        
+        
+        
+        <li class="">
+          <a href="/blog/2015/10/02/deploy-python-working-environments-using-pip/">Deploy python working environments with pip under restricted connections</a>
+        </li>
+        
+        
+        
+        <li class="">
+          <a href="/blog/2015/09/20/user-local-python-pkg-install-with-pip/">User-local python package install with pip</a>
+        </li>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <li class="">
+          <a href="/blog/2015/05/05/using-rvm-to-isolate-rubygems-on-fedora-21/">Using RVM to Isolate RubyGems on Fedora 21</a>
+        </li>
+        
+        
+        
+        
+        
+        <li class="current">
+          <a href="/blog/2015/04/27/prevent-gcc-optimize-away-code/">Prevent GCC from optimizing away a snippet of code</a>
+        </li>
+        
+        
+        
+        
+    </ul>
+    <h4>Other Posts</h4>
+    <ul>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <li class="">
+          <a href="/blog/2015/09/05/analyse-mpi-applications-with-intel-vtune-inspector/">Analyse MPI Applications with Intel VTune/Inspector</a>
+        </li>
+        
+        
+        
+        <li class="">
+          <a href="/blog/2015/07/25/home-python-ruby-with-pyenv-and-rvm/">Home-brew python and ruby with PyENV and RVM</a>
+        </li>
+        
+        
+        
+        <li class="">
+          <a href="/blog/2015/07/11/config-cjk-for-asciidoctor-fopub/">Config CJK fonts for Asciidoctor-fopub</a>
+        </li>
+        
+        
+        
+        <li class="">
+          <a href="/blog/2015/06/23/asciidoc-pdf-cjk-status/">Asciidoctor-pdf CJK support status</a>
+        </li>
+        
+        
+        
+        
+        
+        <li class="">
+          <a href="/blog/2015/05/01/fix-boost-python-argument-error-lvalue/">Fix Argument Error with lvalue In Boost.Python</a>
+        </li>
+        
+        
+        
+        
+        
+        <li class="">
+          <a href="/blog/2015/04/20/convert-chinese-asciidoc-to-pdf/">Convert Chinese Asciidoc Documents to PDF</a>
+        </li>
+        
+        
+    </ul>
+  </aside>
+</div>
+
+
+      <div class="clear"></div>
+    </div>
+  </section>
+
+
+  <footer role="contentinfo">
+  <div class="grid">
+    <div class="unit one-third center-on-mobiles">
+      <p>The contents of this website are &copy;&nbsp;
+      2017 by Yang Zhang under the terms of the MIT License.</p>
+    </div>
+    <div class="unit two-thirds align-right center-on-mobiles">
+      <p>
+        Proudly hosted by
+        <a href="https://github.com">
+          <img src="/img/footer-logo.png" width="100" height="30" alt="GitHub • Social coding">
+        </a>
+      </p>
+    </div>
+  </div>
+</footer>
+
+  <script>
+  var anchorForId = function (id) {
+    var anchor = document.createElement("a");
+    anchor.className = "header-link";
+    anchor.href      = "#" + id;
+    anchor.innerHTML = "<span class=\"sr-only\">Permalink</span><i class=\"fa fa-link\"></i>";
+    anchor.title = "Permalink";
+    return anchor;
+  };
+
+  var linkifyAnchors = function (level, containingElement) {
+    var headers = containingElement.getElementsByTagName("h" + level);
+    for (var h = 0; h < headers.length; h++) {
+      var header = headers[h];
+
+      if (typeof header.id !== "undefined" && header.id !== "") {
+        header.appendChild(anchorForId(header.id));
+      }
+    }
+  };
+
+  document.onreadystatechange = function () {
+    if (this.readyState === "complete") {
+      var contentBlock = document.getElementsByClassName("docs")[0] || document.getElementsByClassName("news")[0];
+      if (!contentBlock) {
+        return;
+      }
+      for (var level = 1; level <= 6; level++) {
+        linkifyAnchors(level, contentBlock);
+      }
+    }
+  };
+</script>
+
+  
+
+
+  <!-- Google Analytics (http://google.com/analytics) -->
+  <script>
+    !function(j,e,k,y,l,L){j.GoogleAnalyticsObject=y,j[y]||(j[y]=function(){
+    (j[y].q=j[y].q||[]).push(arguments)}),j[y].l=+new Date,l=e.createElement(k),
+    L=e.getElementsByTagName(k)[0],l.src='//www.google-analytics.com/analytics.js',
+    L.parentNode.insertBefore(l,L)}(window,document,'script','ga');
+
+    ga('create', 'UA-62602586-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+
+    <!-- KaTeX auto render-->
+  <script>
+    var _options =  {
+      delimiters: [
+        {left: "$$", right: "$$", display: true},
+        {left: "$", right: "$", display: false},
+        {left: "\\[", right: "\\]", display: true},
+        {left: "\\(", right: "\\)", display: false}
+      ]
+    };
+    renderMathInElement(document.body, _options);
+  </script>
+
+
+</body>
+</html>

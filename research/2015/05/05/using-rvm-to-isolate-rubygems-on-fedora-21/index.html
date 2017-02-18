@@ -2,7 +2,7 @@
 <html lang="en-US">
 <head>
   <meta charset="UTF-8">
-  <title>ProgramFan's Writing Space - Blog</title>
+  <title>Using RVM to Isolate RubyGems on Fedora 21</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="generator" content="Jekyll v3.4.0">
   <link rel="alternate" type="application/rss+xml"
@@ -29,10 +29,10 @@
   <li class="">
     <a href="/">Home</a>
   </li>
-  <li class="">
+  <li class="current">
     <a href="/research/">Research</a>
   </li>
-  <li class="current">
+  <li class="">
     <a href="/blog/">Blog</a>
   </li>
   <li class="">
@@ -55,10 +55,10 @@
   <li class="">
     <a href="/">Home</a>
   </li>
-  <li class="">
+  <li class="current">
     <a href="/research/">Research</a>
   </li>
-  <li class="current">
+  <li class="">
     <a href="/blog/">Blog</a>
   </li>
   <li class="">
@@ -74,153 +74,207 @@
     <section class="news">
     <div class="grid">
       <div class="unit four-fifths">
-        <!-- Pagination pages -->
-
-  <article>
+        <article>
   <h2>
-    <a href="/blog/2015/10/02/deploy-python-working-environments-using-pip/">
-      Deploy python working environments with pip under restricted connections
-    </a>
+    Using RVM to Isolate RubyGems on Fedora 21
+    <a href="/research/2015/05/05/using-rvm-to-isolate-rubygems-on-fedora-21/" class="permalink" title="Permalink">∞</a>
   </h2>
   <span class="post-category">
     <span class="label">
-      Python, PIP, Working Env, and Featured
+      RVM, RubyGems, and Featured
     </span>
   </span>
   <div class="post-meta">
     <span class="post-date">
-      02 Oct 2015
+      05 May 2015
     </span>
     <a href="https://github.com/ProgramFan" class="post-author">
       ProgramFan
     </a>
   </div>
   <div class="post-content">
-    <div class="sect1">
-<h2 id="background">Background</h2>
-<div class="sectionbody">
+    <div class="paragraph">
+<p>Ruby comes with a rich set of packages, which is named by the community as 'Ruby Gems'. Ruby gems are quite alike python packages. They both have dependencies, they rely on specific interpreter versions, they are both managed by centralized repositories <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnote_1" title="View footnote.">1</a>]</sup>.</p>
+</div>
 <div class="paragraph">
-<p>One can often use pre-built python distributions to setup python working
-environments, for example <a href="http://www.continuum.io">Anaconda</a>,
-<a href="https://store.enthought.com">Enthought Canopy</a>. But these distributions has the
-following common problems, which reduces their usefulness:</p>
+<p>Just like Python, Fedora 21 comes with several Ruby gems as packages in official repository (they are named 'rubygem-xxx'). But gems in the official repo can be outdated, some gems are missing and there are still other problems which makes the official rubygem package inadequate. The users have to manually install gems, which causes several problems, to name a few:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>It&#8217;s hard to upgrade packages without internet connections. It&#8217;s also hard
-to install packages not contained in the distribution.</p>
+<p>Gems interfere with system packages.</p>
 </li>
 <li>
-<p>It does not play well with existing packages on the target systems. For
-example, Anaconda bundles mpich, which conflict with system MPIs.</p>
-</li>
-<li>
-<p>These distributions has poor performances. Since they are built on
-relatively old platforms and possibly with no optimizations, they are
-often slower than native python. For example, I found anaconda python on a
-RHEL 6.3 system very slow to start.</p>
+<p>Some user installed gems does not work properly with system installed gems.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+For example, user install jekyll does not work with system rubygem-json, which stops it from working.
+</td>
+</tr>
+</table>
+</div>
 </li>
 </ol>
 </div>
 <div class="paragraph">
-<p>For me, it&#8217;s essential to deploy my python working environments with the
-following considerations:</p>
+<p>The ideal way to solve the above problem is to setup isolated (possible non-root) ruby environment for specificed purpose. For example, if one managed to setup seperate ruby interpreter and gems for jekyll, problem 2 does not even exists. <a href="https://rvm.io">RVM</a> comes right to the problem.</p>
+</div>
+<div class="sect1">
+<h2 id="introduction-of-rvm">Introduction of RVM</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>RVM is the asyncornous for "Ruby Version Manager". It installs and manages several ruby versions as well as gems seperately in a non-root manner and make switching between them super easy. More information is to be found in <a href="http://rvm.io" class="bare">http://rvm.io</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="using-rvm-to-manage-jekyll-gems">Using RVM to manage jekyll gems</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>We will use the power of RVM to manage a seperate set of gems for jekyll and jekyll-asciidoc, which is used to generate this blog. We will install RVM as a normal user in the 'stand alone' mode, install jekyll related gems as a seperate gemset, and enable the gemset only when in the project repository. The installed gems then live in their own isolated world and other parts in the system is untouched.</p>
+</div>
+<div class="sect2">
+<h3 id="install-rvm">Install RVM</h3>
+<div class="paragraph">
+<p>Install RVM is straight forward. just go to <a href="http://rvm.io" class="bare">http://rvm.io</a> for instructions. For those in a hurry, here comes the commands:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash">curl -sSL https://get.rvm.io <span style="color: #f8f8f2">|</span> bash -s --no-dotfiles</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>After that, RVM will be installed in <code>$HOME/.rvm</code> and one shall configure the system to setup RVM paths by adding the following to <code>.bashrc</code> and alike:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash"><span style="color: #f8f8f2">source</span> <span style="color: #f8f8f2">$HOME</span>/.rvm/scripts/rvm</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="using-rvm-gemset">Using RVM gemset</h3>
+<div class="paragraph">
+<p>Now we create a seperate <code>gemset</code> for our jekyll related gems. Gemset is introduced by RVM to manage different gem configurations. They live in there own directories and rely on specific ruby interpreter.</p>
+</div>
+<div class="paragraph">
+<p>We would like to use the latest stable ruby for our jekyll (ruby 2.2 at the time of writting). Here comes the steps:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Easy to install/upgrade packages on demand, under restricted connections.
-Some systems I work with does not have internet connections.</p>
+<p>Install ruby 2.2 by RVM.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash">rvm install ruby-2.2</code></pre>
+</div>
+</div>
 </li>
 <li>
-<p>It shall integrate well with existing python packages. Some packages such
-as PyQt5 requires deep system integration so I would better install them
-with system package manager.</p>
+<p>Create and switch to specific gemset.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash">rvm use ruby-2.2.2
+rvm gemset create jekyll
+rvm getset use jekyll</code></pre>
+</div>
+</div>
 </li>
 <li>
-<p>Good performance. The distributed packages shall run fast and be
-responsive on the target platform.</p>
+<p>Install ruby gems as usual.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash">gem install jekyll jekyll-asciidoc rake-jekyll</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If one want to use bundle to install a set of gems, one shall <code>gem install bundle</code> first. If this is skipped and the system environment comes with preinstalled bundle, the system will hang up as bundle spawns lots and lots of ruby-mris. I don&#8217;t know why.
+</td>
+</tr>
+</table>
+</div>
 </li>
 </ol>
 </div>
 </div>
-</div>
-    <br/>
-    <div class="post-more">
-      <a href="/blog/2015/10/02/deploy-python-working-environments-using-pip/"> <i class="fa fa-link"></i> &nbsp; Read the rest
-          of this post </b></a>
-    </div>
-  </div>
-</article>
-
-
-  <article>
-  <h2>
-    <a href="/blog/2015/09/20/user-local-python-pkg-install-with-pip/">
-      User-local python package install with pip
-    </a>
-  </h2>
-  <span class="post-category">
-    <span class="label">
-      Python, PIP, and Featured
-    </span>
-  </span>
-  <div class="post-meta">
-    <span class="post-date">
-      20 Sep 2015
-    </span>
-    <a href="https://github.com/ProgramFan" class="post-author">
-      ProgramFan
-    </a>
-  </div>
-  <div class="post-content">
-    <div class="sect1">
-<h2 id="motivation">Motivation</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="use-specific-gemset-only-in-jekyll-blog-directory">Use specific gemset only in jekyll blog directory</h3>
 <div class="paragraph">
-<p>PyENV has done a fairly good job in managing user-local python versions, as well as per-version pip packages. However, some packages such as PyQt5 need deep system integration and can not be installed using pip. This makes packages such as jupyter-qtconsole upset. The use of shims in PyENV also forces any provided command to be started with a shell script (so a shell process). This makes packages such as python-powerline much slower.</p>
+<p>Now we have new ruby-2.2.2 intepreter (the preinstalled on Fedora 21 is ruby-2.1.6) and a set of jekyll related gems. We want to restrict them to my jekyll based blog. This is done by defaulting to system ruby and using RVM <code>.rvmrc</code> automatically switch to jekyll and ruby-2.2.2 when in blog directory.</p>
 </div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Make RVM use system ruby by default</p>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash">rvm use system --default</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Enabling gemset in blog root directory. Assuming blog in <code>$HOME/blog</code>, create <code>.rvmrc</code> or <code>.ruby-version</code>, add the following content:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash">ruby-2.2.2@jekyll</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="enjoy-rvm">Enjoy RVM</h3>
 <div class="paragraph">
-<p>To solve the above problems, I choose to go back to the standard python user-local install process and choose pip user install. pip user install relys on system python to work correctly, and integrates tightly with system packages. That is to say, if one install PyQt5 using system package manager, he/she can use it in a user-local toyplot package, avoiding install PyQt5 manually (since not possible with pip). Moreover, binaries provided by packages are directly avaliable to the system, which greatly improves the speed of packages such as python-powerline <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnote_1" title="View footnote.">1</a>]</sup></p>
+<p>After the above steps, we are using system ruby and gems when in other directories and use ruby-2.2.2 and jekyll gemset in our blog. Life is so amazing from now on. One can install multiple versions and/or multiple gemsets using the above approach, and even better, use <code>rvm use xxx</code> to switch between them on the fly.</p>
+</div>
 </div>
 </div>
 </div>
 <div id="footnotes">
 <hr>
 <div class="footnote" id="_footnote_1">
-<a href="#_footnoteref_1">1</a>. python-powerline uses a binary powerline-client to accelerate shell prompt rendering, which is much more responsive than shell scripts. The latter causes visiable lag even on recent ivebridge CPUs.
+<a href="#_footnoteref_1">1</a>. Python have PyPI, ruby have RubyGems
 </div>
 </div>
-    <br/>
-    <div class="post-more">
-      <a href="/blog/2015/09/20/user-local-python-pkg-install-with-pip/"> <i class="fa fa-link"></i> &nbsp; Read the rest
-          of this post </b></a>
-    </div>
   </div>
+  
+  <div class="post-comments" id="disqus_thread"></div>
+  <script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES * * */
+  var disqus_shortname = 'progfan-write-space';
+  var disqus_title = 'Using RVM to Isolate RubyGems on Fedora 21';
+  var disqus_url = 'http://programfan.github.io/research/2015/05/05/using-rvm-to-isolate-rubygems-on-fedora-21/';
+
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+   var dsq = document.createElement('script');
+   dsq.type = 'text/javascript'; dsq.async = true;
+   dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+   (document.getElementsByTagName('head')[0] ||
+    document.getElementsByTagName('body')[0]).appendChild(dsq);
+   })();
+  </script>
+  <noscript>
+    Please enable JavaScript to view the
+    <a href="https://disqus.com/?ref_noscript" rel="nofollow">
+      comments powered by Disqus.
+    </a>
+  </noscript>
+
+ 
 </article>
-
-
-
-<!-- Pagination links -->
-<div class="section-nav">
-  <div class="left align-right">
-    
-      <a href="/blog/" class="prev">Newer</a>
-    
-  </div>
-  <!--
-  <div class="center align-center">
-    Page: 2 of 6
-  </div>
-  -->
-  <div class="right align-left">
-    
-      <a href="/blog/page3/" class="next">Older</a>
-    
-  </div>
-</div>
-<div class="clear"></div>
 
       </div>
 
@@ -262,7 +316,7 @@ responsive on the target platform.</p>
         
         
         
-        <li class="">
+        <li class="current">
           <a href="/blog/2015/05/05/using-rvm-to-isolate-rubygems-on-fedora-21/">Using RVM to Isolate RubyGems on Fedora 21</a>
         </li>
         

@@ -2,7 +2,7 @@
 <html lang="en-US">
 <head>
   <meta charset="UTF-8">
-  <title>ProgramFan's Writing Space - Blog</title>
+  <title>Deploy python working environments with pip under restricted connections</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="generator" content="Jekyll v3.4.0">
   <link rel="alternate" type="application/rss+xml"
@@ -74,116 +74,177 @@
     <section class="news">
     <div class="grid">
       <div class="unit four-fifths">
-        <!-- Pagination pages -->
-
-  <article>
+        <article>
   <h2>
-    <a href="/blog/2015/04/27/prevent-gcc-optimize-away-code/">
-      Prevent GCC from optimizing away a snippet of code
-    </a>
+    Deploy python working environments with pip under restricted connections
+    <a href="/blog/2015/10/02/deploy-python-working-environments-using-pip/" class="permalink" title="Permalink">∞</a>
   </h2>
   <span class="post-category">
     <span class="label">
-      C++, GCC, and Featured
+      Python, PIP, Working Env, and Featured
     </span>
   </span>
   <div class="post-meta">
     <span class="post-date">
-      27 Apr 2015
+      02 Oct 2015
     </span>
     <a href="https://github.com/ProgramFan" class="post-author">
       ProgramFan
     </a>
   </div>
   <div class="post-content">
-    <div id="preamble">
+    <div class="sect1">
+<h2 id="background">Background</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Nowadays compilers are extremely capable of elimiting 'dead' code. But in
-benchmarking we need some seemingly 'useless' code to do the work we want. For
-example, to do computation in registers in order to measure instruction
-latency and throughput. In these cases, we need a mechanism to temporarily
-disable optimization.</p>
+<p>One can often use pre-built python distributions to setup python working
+environments, for example <a href="http://www.continuum.io">Anaconda</a>,
+<a href="https://store.enthought.com">Enthought Canopy</a>. But these distributions has the
+following common problems, which reduces their usefulness:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>It&#8217;s hard to upgrade packages without internet connections. It&#8217;s also hard
+to install packages not contained in the distribution.</p>
+</li>
+<li>
+<p>It does not play well with existing packages on the target systems. For
+example, Anaconda bundles mpich, which conflict with system MPIs.</p>
+</li>
+<li>
+<p>These distributions has poor performances. Since they are built on
+relatively old platforms and possibly with no optimizations, they are
+often slower than native python. For example, I found anaconda python on a
+RHEL 6.3 system very slow to start.</p>
+</li>
+</ol>
 </div>
 <div class="paragraph">
-<p>This document keep an up-to-date collections of techniques to temporarily
-disable compiler optimizations. These techniques are tested on a recent gcc or
-icc compiler.</p>
+<p>For me, it&#8217;s essential to deploy my python working environments with the
+following considerations:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Easy to install/upgrade packages on demand, under restricted connections.
+Some systems I work with does not have internet connections.</p>
+</li>
+<li>
+<p>It shall integrate well with existing python packages. Some packages such
+as PyQt5 requires deep system integration so I would better install them
+with system package manager.</p>
+</li>
+<li>
+<p>Good performance. The distributed packages shall run fast and be
+responsive on the target platform.</p>
+</li>
+</ol>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="using-volatile">Using volatile</h2>
+<h2 id="the-key-ideas">The key ideas</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>volatile</code> makes compilers be extremely careful (or conservative) on memory
-load and store of a variable. Most compilers tend to do no optimizations at
-all (even for proven dead code). So the <code>volatile</code> technique becomes the top 1
-used.</p>
+<p><strong>The first is pip user install</strong>. With <code>pip</code>, we have the most complete
+python package collection. Almost all packages are available in PyPI, and we
+can always make home-brew python packages pip-compatible. <code>pip</code> is a standard
+python module since python 2.7.6 and is easy to install for prior python
+versions. So <code>pip</code> serves as a built-in package manager. <code>pip</code> supports
+installing packages in the users directory and plays well with existing
+packages. For example, <code>pip install</code> will skip a package if already available
+and capable. <code>pip</code> user install adds paths to standard python module paths,
+instead of overwriting them.</p>
+</div>
+<div class="paragraph">
+<p><strong>The second is python requirement file</strong>. <code>pip</code> supports install packages and
+its dependencies from a <em>requirement file</em>. That is, you list packages you
+want, <code>pip</code> automatically solves the dependency, grabs proper packages and
+install them. It makes both install and upgrade a piece of cake.</p>
+</div>
+<div class="paragraph">
+<p><strong>The last is python wheels</strong>. Python wheels is simply pre-built python
+packages. The real power with python wheels is that you can build your own
+wheel for packages in a requirement list, together with all dependencies.
+After that, you can install directly from wheels without the need of a network
+connection.</p>
 </div>
 </div>
 </div>
-    <br/>
-    <div class="post-more">
-      <a href="/blog/2015/04/27/prevent-gcc-optimize-away-code/"> <i class="fa fa-link"></i> &nbsp; Read the rest
-          of this post </b></a>
-    </div>
+<div class="sect1">
+<h2 id="in-practice">In practice</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>With the above three key ideas, I develop the following method to solve the
+<em>python working environment distribution</em> problem:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Set up a base CPython version. One can choose to rely on system python, or
+compile their own CPython.</p>
+</li>
+<li>
+<p>Maintain a <em>requirement file</em>. Only list packages you need in the
+requirements. You can also specify version constraints.</p>
+</li>
+<li>
+<p>Build wheels for distribution.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash">pip install --user --upgrade wheel
+pip wheel -r requirements.txt</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Distributing wheels and install packages from wheels.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash">pip install --user --upgrade -r requirements.txt --no-index -f <span style="color: #e6db74">${</span><span style="color: #f8f8f2">WHEELSDIR</span><span style="color: #e6db74">}</span></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Enjoy.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>The above method is used to distribute my python working environments in 4
+different platforms: two Fedora 22 workstations, one RHEL 6.3 system and one
+RHEL 5.4 system. It works.</p>
+</div>
+</div>
+</div>
   </div>
-</article>
+  
+  <div class="post-comments" id="disqus_thread"></div>
+  <script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES * * */
+  var disqus_shortname = 'progfan-write-space';
+  var disqus_title = 'Deploy python working environments with pip under restricted connections';
+  var disqus_url = 'http://programfan.github.io/blog/2015/10/02/deploy-python-working-environments-using-pip/';
 
-
-  <article>
-  <h2>
-    <a href="/blog/2015/04/20/convert-chinese-asciidoc-to-pdf/">
-      Convert Chinese Asciidoc Documents to PDF
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+   var dsq = document.createElement('script');
+   dsq.type = 'text/javascript'; dsq.async = true;
+   dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+   (document.getElementsByTagName('head')[0] ||
+    document.getElementsByTagName('body')[0]).appendChild(dsq);
+   })();
+  </script>
+  <noscript>
+    Please enable JavaScript to view the
+    <a href="https://disqus.com/?ref_noscript" rel="nofollow">
+      comments powered by Disqus.
     </a>
-  </h2>
-  <span class="post-category">
-    <span class="label">
-      Asciidoc, PDF, FOP, and Asciidoctor
-    </span>
-  </span>
-  <div class="post-meta">
-    <span class="post-date">
-      20 Apr 2015
-    </span>
-    <a href="https://github.com/ProgramFan" class="post-author">
-      ProgramFan
-    </a>
-  </div>
-  <div class="post-content">
-    <div class="paragraph">
-<p>Asciidoctor does well in translating asciidoc documents to html5, docbook and etc. Chinese documents also looks great in html5 and docbook. But sometimes we need to use PDF to share with others. Unfortunately, this is not easy for Chinese documents. This document shares my experience converting Chinese asciidoc documents into pdfs.</p>
-</div>
-    <br/>
-    <div class="post-more">
-      <a href="/blog/2015/04/20/convert-chinese-asciidoc-to-pdf/"> <i class="fa fa-link"></i> &nbsp; Read the rest
-          of this post </b></a>
-    </div>
-  </div>
+  </noscript>
+
+ 
 </article>
-
-
-
-<!-- Pagination links -->
-<div class="section-nav">
-  <div class="left align-right">
-    
-      <a href="/blog/page5/" class="prev">Newer</a>
-    
-  </div>
-  <!--
-  <div class="center align-center">
-    Page: 6 of 6
-  </div>
-  -->
-  <div class="right align-left">
-    
-      <span class="next disabled">Older</span>
-    
-  </div>
-</div>
-<div class="clear"></div>
 
       </div>
 
@@ -205,7 +266,7 @@ used.</p>
         
         
         
-        <li class="">
+        <li class="current">
           <a href="/blog/2015/10/02/deploy-python-working-environments-using-pip/">Deploy python working environments with pip under restricted connections</a>
         </li>
         

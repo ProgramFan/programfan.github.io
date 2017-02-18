@@ -2,7 +2,7 @@
 <html lang="en-US">
 <head>
   <meta charset="UTF-8">
-  <title>ProgramFan's Writing Space - Blog</title>
+  <title>Fix Argument Error with lvalue In Boost.Python</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="generator" content="Jekyll v3.4.0">
   <link rel="alternate" type="application/rss+xml"
@@ -74,116 +74,83 @@
     <section class="news">
     <div class="grid">
       <div class="unit four-fifths">
-        <!-- Pagination pages -->
-
-  <article>
+        <article>
   <h2>
-    <a href="/blog/2015/04/27/prevent-gcc-optimize-away-code/">
-      Prevent GCC from optimizing away a snippet of code
-    </a>
+    Fix Argument Error with lvalue In Boost.Python
+    <a href="/blog/2015/05/01/fix-boost-python-argument-error-lvalue/" class="permalink" title="Permalink">∞</a>
   </h2>
   <span class="post-category">
     <span class="label">
-      C++, GCC, and Featured
+      Boost, Python, and C++
     </span>
   </span>
   <div class="post-meta">
     <span class="post-date">
-      27 Apr 2015
+      01 May 2015
     </span>
     <a href="https://github.com/ProgramFan" class="post-author">
       ProgramFan
     </a>
   </div>
   <div class="post-content">
-    <div id="preamble">
+    <div class="sect1">
+<h2 id="the-problem">The problem</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Nowadays compilers are extremely capable of elimiting 'dead' code. But in
-benchmarking we need some seemingly 'useless' code to do the work we want. For
-example, to do computation in registers in order to measure instruction
-latency and throughput. In these cases, we need a mechanism to temporarily
-disable optimization.</p>
+<p><a href="http://www.boost.org">Boost.Python</a> is often used to interface c++ classes to python. It&#8217;s easy to use, handles c++ string and containers automatically and non-intrusive.</p>
 </div>
 <div class="paragraph">
-<p>This document keep an up-to-date collections of techniques to temporarily
-disable compiler optimizations. These techniques are tested on a recent gcc or
-icc compiler.</p>
+<p><a href="http://github.com/Vallioc/YouCompleteMe">YouCompleteMe</a> uses Boost.Python to export its c++ classes to python so users can use them in their <code>ycm_extra_conf.py</code> file. Recently, I encountered the following strange problem when using <code>CompilationDatabase.GetCompilationFlagsForFile</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash">ArgumentError: Python argument types in^@
+CompilationDatabase.GetCompilationInfoForFile<span style="color: #f92672">(</span>CompilationDatabase, unicode<span style="color: #f92672">)</span>^@
+did not match pass:<span style="color: #f92672">[</span>c++<span style="color: #f92672">]</span> signature:^@
+GetCompilationInfoForFile<span style="color: #f92672">(</span>YouCompleteMe::CompilationDatabase <span style="color: #f92672">{</span>lvalue<span style="color: #f92672">}</span>,
+std::string<span style="color: #f92672">)</span>^@</code></pre>
+</div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="using-volatile">Using volatile</h2>
+<h2 id="the-solution">The solution</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>volatile</code> makes compilers be extremely careful (or conservative) on memory
-load and store of a variable. Most compilers tend to do no optimizations at
-all (even for proven dead code). So the <code>volatile</code> technique becomes the top 1
-used.</p>
+<p>It&#8217;s strange that the c++ interface uses lvalue for the object for the first sign. But after digging into the problem, I find that every part of the <code>ycm_extra_conf.py</code> works as expected, except that the filename is a reference file chosen randomly from the <code>compilation_commands.json</code>. Then it turns out that python load json strings as <code>unicode</code> objects but the c++ part only accepts <code>std::string</code>, which is the real difference in the interface. after manually converting the json string to python string with <code>str</code>, the error disappeared.</p>
+</div>
+<div class="paragraph">
+<p>So it seems that Boost.Python handles lvalue well, but has problems with unicode objects and <code>std::string</code>. Try to use always python string instead of unicode in Boost.Python interfaced c++ classes.</p>
 </div>
 </div>
 </div>
-    <br/>
-    <div class="post-more">
-      <a href="/blog/2015/04/27/prevent-gcc-optimize-away-code/"> <i class="fa fa-link"></i> &nbsp; Read the rest
-          of this post </b></a>
-    </div>
   </div>
-</article>
+  
+  <div class="post-comments" id="disqus_thread"></div>
+  <script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES * * */
+  var disqus_shortname = 'progfan-write-space';
+  var disqus_title = 'Fix Argument Error with lvalue In Boost.Python';
+  var disqus_url = 'http://programfan.github.io/blog/2015/05/01/fix-boost-python-argument-error-lvalue/';
 
-
-  <article>
-  <h2>
-    <a href="/blog/2015/04/20/convert-chinese-asciidoc-to-pdf/">
-      Convert Chinese Asciidoc Documents to PDF
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+   var dsq = document.createElement('script');
+   dsq.type = 'text/javascript'; dsq.async = true;
+   dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+   (document.getElementsByTagName('head')[0] ||
+    document.getElementsByTagName('body')[0]).appendChild(dsq);
+   })();
+  </script>
+  <noscript>
+    Please enable JavaScript to view the
+    <a href="https://disqus.com/?ref_noscript" rel="nofollow">
+      comments powered by Disqus.
     </a>
-  </h2>
-  <span class="post-category">
-    <span class="label">
-      Asciidoc, PDF, FOP, and Asciidoctor
-    </span>
-  </span>
-  <div class="post-meta">
-    <span class="post-date">
-      20 Apr 2015
-    </span>
-    <a href="https://github.com/ProgramFan" class="post-author">
-      ProgramFan
-    </a>
-  </div>
-  <div class="post-content">
-    <div class="paragraph">
-<p>Asciidoctor does well in translating asciidoc documents to html5, docbook and etc. Chinese documents also looks great in html5 and docbook. But sometimes we need to use PDF to share with others. Unfortunately, this is not easy for Chinese documents. This document shares my experience converting Chinese asciidoc documents into pdfs.</p>
-</div>
-    <br/>
-    <div class="post-more">
-      <a href="/blog/2015/04/20/convert-chinese-asciidoc-to-pdf/"> <i class="fa fa-link"></i> &nbsp; Read the rest
-          of this post </b></a>
-    </div>
-  </div>
+  </noscript>
+
+ 
 </article>
-
-
-
-<!-- Pagination links -->
-<div class="section-nav">
-  <div class="left align-right">
-    
-      <a href="/blog/page5/" class="prev">Newer</a>
-    
-  </div>
-  <!--
-  <div class="center align-center">
-    Page: 6 of 6
-  </div>
-  -->
-  <div class="right align-left">
-    
-      <span class="next disabled">Older</span>
-    
-  </div>
-</div>
-<div class="clear"></div>
 
       </div>
 
@@ -279,7 +246,7 @@ used.</p>
         
         
         
-        <li class="">
+        <li class="current">
           <a href="/blog/2015/05/01/fix-boost-python-argument-error-lvalue/">Fix Argument Error with lvalue In Boost.Python</a>
         </li>
         

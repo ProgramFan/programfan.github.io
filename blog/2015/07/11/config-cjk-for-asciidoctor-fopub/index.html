@@ -2,7 +2,7 @@
 <html lang="en-US">
 <head>
   <meta charset="UTF-8">
-  <title>ProgramFan's Writing Space - Blog</title>
+  <title>Config CJK fonts for Asciidoctor-fopub</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="generator" content="Jekyll v3.4.0">
   <link rel="alternate" type="application/rss+xml"
@@ -74,22 +74,19 @@
     <section class="news">
     <div class="grid">
       <div class="unit four-fifths">
-        <!-- Pagination pages -->
-
-  <article>
+        <article>
   <h2>
-    <a href="/blog/2015/05/05/using-rvm-to-isolate-rubygems-on-fedora-21/">
-      Using RVM to Isolate RubyGems on Fedora 21
-    </a>
+    Config CJK fonts for Asciidoctor-fopub
+    <a href="/blog/2015/07/11/config-cjk-for-asciidoctor-fopub/" class="permalink" title="Permalink">∞</a>
   </h2>
   <span class="post-category">
     <span class="label">
-      RVM, RubyGems, and Featured
+      asciidoc, fopub, cjk, and docbook
     </span>
   </span>
   <div class="post-meta">
     <span class="post-date">
-      05 May 2015
+      11 Jul 2015
     </span>
     <a href="https://github.com/ProgramFan" class="post-author">
       ProgramFan
@@ -97,18 +94,38 @@
   </div>
   <div class="post-content">
     <div class="paragraph">
-<p>Ruby comes with a rich set of packages, which is named by the community as 'Ruby Gems'. Ruby gems are quite alike python packages. They both have dependencies, they rely on specific interpreter versions, they are both managed by centralized repositories <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnote_1" title="View footnote.">1</a>]</sup>.</p>
+<p>I blogged on asciidoctor-fopub <a href="/contents/2015/04/20/convert-chinese-asciidoc-to-pdf/">previously</a>. The fonts are configured by generating XML description file. Recently I find from Apache FOP document that fop supports automatically registering fonts and discourage the use of XML description files. It shall make config custom fonts for Apache FOP less pain. So I blog it here.</p>
 </div>
+<div class="sect1">
+<h2 id="the-easiest-approach">The easiest approach</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>Just like Python, Fedora 21 comes with several Ruby gems as packages in official repository (they are named 'rubygem-xxx'). But gems in the official repo can be outdated, some gems are missing and there are still other problems which makes the official rubygem package inadequate. The users have to manually install gems, which causes several problems, to name a few:</p>
+<p>Newer versions of FOP support block registration as well as automatically register system fonts. To use this approach, following the steps:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Gems interfere with system packages.</p>
-</li>
-<li>
-<p>Some user installed gems does not work properly with system installed gems.</p>
+<p>Add font registration directives in <code>fop-config.xml</code>:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #f92672">&lt;fonts&gt;</span>
+  <span style="color: #f92672">&lt;directory&gt;</span>/usr/share/fonts/dejavu<span style="color: #f92672">&lt;/directory&gt;</span> <i class="conum" data-value="1"></i><b>(1)</b>
+  <span style="color: #f92672">&lt;auto-detect/&gt;</span> <i class="conum" data-value="2"></i><b>(2)</b>
+<span style="color: #f92672">&lt;/fonts&gt;</span></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Add a directory of fonts, set <code>recursive="true"</code> to recursively scan the directory.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Automatically register system fonts installed.</td>
+</tr>
+</table>
+</div>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -116,101 +133,129 @@
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-For example, user install jekyll does not work with system rubygem-json, which stops it from working.
+If the same font is find by <code>auto-detect</code> and <code>directory</code>, the latter takes precedence.
 </td>
 </tr>
 </table>
 </div>
 </li>
-</ol>
-</div>
-<div class="paragraph">
-<p>The ideal way to solve the above problem is to setup isolated (possible non-root) ruby environment for specificed purpose. For example, if one managed to setup seperate ruby interpreter and gems for jekyll, problem 2 does not even exists. <a href="https://rvm.io">RVM</a> comes right to the problem.</p>
-</div>
-<div id="footnotes">
-<hr>
-<div class="footnote" id="_footnote_1">
-<a href="#_footnoteref_1">1</a>. Python have PyPI, ruby have RubyGems
-</div>
-</div>
-    <br/>
-    <div class="post-more">
-      <a href="/blog/2015/05/05/using-rvm-to-isolate-rubygems-on-fedora-21/"> <i class="fa fa-link"></i> &nbsp; Read the rest
-          of this post </b></a>
-    </div>
-  </div>
-</article>
-
-
-  <article>
-  <h2>
-    <a href="/blog/2015/05/01/fix-boost-python-argument-error-lvalue/">
-      Fix Argument Error with lvalue In Boost.Python
-    </a>
-  </h2>
-  <span class="post-category">
-    <span class="label">
-      Boost, Python, and C++
-    </span>
-  </span>
-  <div class="post-meta">
-    <span class="post-date">
-      01 May 2015
-    </span>
-    <a href="https://github.com/ProgramFan" class="post-author">
-      ProgramFan
-    </a>
-  </div>
-  <div class="post-content">
-    <div class="sect1">
-<h2 id="the-problem">The problem</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p><a href="http://www.boost.org">Boost.Python</a> is often used to interface c++ classes to python. It&#8217;s easy to use, handles c++ string and containers automatically and non-intrusive.</p>
-</div>
-<div class="paragraph">
-<p><a href="http://github.com/Vallioc/YouCompleteMe">YouCompleteMe</a> uses Boost.Python to export its c++ classes to python so users can use them in their <code>ycm_extra_conf.py</code> file. Recently, I encountered the following strange problem when using <code>CompilationDatabase.GetCompilationFlagsForFile</code>:</p>
-</div>
+<li>
+<p>Reference font by regular name in <code>fo-pdf.xsl</code>:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="bash">ArgumentError: Python argument types in^@
-CompilationDatabase.GetCompilationInfoForFile<span style="color: #f92672">(</span>CompilationDatabase, unicode<span style="color: #f92672">)</span>^@
-did not match pass:<span style="color: #f92672">[</span>c++<span style="color: #f92672">]</span> signature:^@
-GetCompilationInfoForFile<span style="color: #f92672">(</span>YouCompleteMe::CompilationDatabase <span style="color: #f92672">{</span>lvalue<span style="color: #f92672">}</span>,
-std::string<span style="color: #f92672">)</span>^@</code></pre>
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #f92672">&lt;xsl:template</span> <span style="color: #a6e22e">name=</span><span style="color: #e6db74">&quot;pickfont-sans&quot;</span><span style="color: #f92672">&gt;</span>
+  <span style="color: #f92672">&lt;xsl:text&gt;</span>DejaVu Sans, Source Han Sans CN, sans-serif<span style="color: #f92672">&lt;/xsl:text&gt;</span>
+<span style="color: #f92672">&lt;/xsl:template&gt;</span></code></pre>
+</div>
+</div>
+</li>
+</ol>
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="the-self-contained-approach">The self-contained approach</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>One can customize the font name and its bold/italic variants by configuring directly the <code>font</code> tag like the original XML description file approach. But at this time, the XML description files are no longer needed. Using this approach, we can select different font for italic/bold/bolditalic variants of a single fontname, which is highly demanded for Chinese document. Here is how:</p>
 </div>
-    <br/>
-    <div class="post-more">
-      <a href="/blog/2015/05/01/fix-boost-python-argument-error-lvalue/"> <i class="fa fa-link"></i> &nbsp; Read the rest
-          of this post </b></a>
-    </div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Put the fonts in a directory, say <code>$FONT_DIR</code></p>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #f92672">&lt;font-base&gt;</span>$FONT_DIR<span style="color: #f92672">&lt;/font-base&gt;</span>   <i class="conum" data-value="1"></i><b>(1)</b>
+  <span style="color: #f92672">&lt;fonts&gt;</span>
+    <span style="color: #f92672">&lt;font</span> <span style="color: #a6e22e">embed-url=</span><span style="color: #e6db74">&quot;SourceHanSansSC.ttf&quot;</span> <span style="color: #a6e22e">kerning=</span><span style="color: #e6db74">&quot;yes&quot;</span><span style="color: #f92672">&gt;</span>    <i class="conum" data-value="2"></i><b>(2)</b>
+    <span style="color: #f92672">&lt;font-triplet</span> <span style="color: #a6e22e">name=</span><span style="color: #e6db74">&quot;SourceHanSansSC&quot;</span>
+                  <span style="color: #a6e22e">style=</span><span style="color: #e6db74">&quot;normal&quot;</span> <span style="color: #a6e22e">weight=</span><span style="color: #e6db74">&quot;normal&quot;</span> <span style="color: #f92672">/&gt;</span>         <i class="conum" data-value="3"></i><b>(3)</b>
+  <span style="color: #f92672">&lt;/font&gt;</span>
+<span style="color: #f92672">&lt;/fonts&gt;</span></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Set the base directory so we can use relative path for <code>embed-url</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Reference the font file using relative path.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Set the font triplet and choose a cool name.</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Reference the font using <code>SourceHanSansSC</code> in <code>fo-pdf.xsl</code>.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="bundle-fonts-with-asciidoctor-fopub-gem">Appendix A: Bundle fonts with asciidoctor-fopub gem</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In Asciidoctor-fopub, one can do futhur by bundling fonts with the gem. The approach is a direct extension of <a href="#the-self-contained-approach">self-contained approach above</a>. Here are the steps:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Put fonts in <code>$REPO/src/dist/docbook-xsl/fonts</code>.</p>
+</li>
+<li>
+<p>Configure <code>fop-config.xml</code> and <code>fo-pdf.xsl</code> using the above approach, but set <code>font-base</code> to <code>@FONT-BASE@</code>.</p>
+</li>
+<li>
+<p>Add the following lines to <code>$REPO/fopub</code> shell script:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash"><span style="color: #75715e"># Modify fop-config.xml to fix bundled font-path</span>
+<span style="color: #f8f8f2">FOP_CONFIG_XML</span><span style="color: #f92672">=</span><span style="color: #e6db74">&quot;</span><span style="color: #f8f8f2">$DOCBOOK_XSL_ABS_DIR</span><span style="color: #e6db74">/fop-config.xml&quot;</span>
+<span style="color: #f8f8f2">BUNDLED_FONTS_DIR</span><span style="color: #f92672">=</span><span style="color: #e6db74">&quot;</span><span style="color: #f8f8f2">$DOCBOOK_XSL_ABS_DIR</span><span style="color: #e6db74">/fonts&quot;</span>
+<span style="color: #66d9ef">if</span> <span style="color: #f92672">[</span> -f <span style="color: #e6db74">&quot;</span><span style="color: #f8f8f2">$FOP_CONFIG_XML</span><span style="color: #e6db74">&quot;</span> <span style="color: #f92672">]</span><span style="color: #f8f8f2">;</span> <span style="color: #66d9ef">then</span>
+  sed -i <span style="color: #e6db74">&quot;s|@FONT-BASE@|</span><span style="color: #f8f8f2">$BUNDLED_FONTS_DIR</span><span style="color: #e6db74">|g&quot;</span> <span style="color: #e6db74">&quot;</span><span style="color: #f8f8f2">$FOP_CONFIG_XML</span><span style="color: #e6db74">&quot;</span>
+<span style="color: #66d9ef">fi</span></code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
   </div>
+  
+  <div class="post-comments" id="disqus_thread"></div>
+  <script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES * * */
+  var disqus_shortname = 'progfan-write-space';
+  var disqus_title = 'Config CJK fonts for Asciidoctor-fopub';
+  var disqus_url = 'http://programfan.github.io/blog/2015/07/11/config-cjk-for-asciidoctor-fopub/';
+
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+   var dsq = document.createElement('script');
+   dsq.type = 'text/javascript'; dsq.async = true;
+   dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+   (document.getElementsByTagName('head')[0] ||
+    document.getElementsByTagName('body')[0]).appendChild(dsq);
+   })();
+  </script>
+  <noscript>
+    Please enable JavaScript to view the
+    <a href="https://disqus.com/?ref_noscript" rel="nofollow">
+      comments powered by Disqus.
+    </a>
+  </noscript>
+
+ 
 </article>
-
-
-
-<!-- Pagination links -->
-<div class="section-nav">
-  <div class="left align-right">
-    
-      <a href="/blog/page4/" class="prev">Newer</a>
-    
-  </div>
-  <!--
-  <div class="center align-center">
-    Page: 5 of 6
-  </div>
-  -->
-  <div class="right align-left">
-    
-      <a href="/blog/page6/" class="next">Older</a>
-    
-  </div>
-</div>
-<div class="clear"></div>
 
       </div>
 
@@ -292,7 +337,7 @@ std::string<span style="color: #f92672">)</span>^@</code></pre>
         
         
         
-        <li class="">
+        <li class="current">
           <a href="/blog/2015/07/11/config-cjk-for-asciidoctor-fopub/">Config CJK fonts for Asciidoctor-fopub</a>
         </li>
         

@@ -2,7 +2,7 @@
 <html lang="en-US">
 <head>
   <meta charset="UTF-8">
-  <title>ProgramFan's Writing Space - Blog</title>
+  <title>Poorman&#8217;s Usbstick Encryption</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="generator" content="Jekyll v3.4.0">
   <link rel="alternate" type="application/rss+xml"
@@ -74,22 +74,19 @@
     <section class="news">
     <div class="grid">
       <div class="unit four-fifths">
-        <!-- Pagination pages -->
-
-  <article>
+        <article>
   <h2>
-    <a href="/blog/2015/04/27/prevent-gcc-optimize-away-code/">
-      Prevent GCC from optimizing away a snippet of code
-    </a>
+    Poorman&#8217;s Usbstick Encryption
+    <a href="/blog/2015/10/11/poorman-solution-to-usbstick-encryption/" class="permalink" title="Permalink">∞</a>
   </h2>
   <span class="post-category">
     <span class="label">
-      C++, GCC, and Featured
+      Linux, Encryption, Usbstick, and Featured
     </span>
   </span>
   <div class="post-meta">
     <span class="post-date">
-      27 Apr 2015
+      11 Oct 2015
     </span>
     <a href="https://github.com/ProgramFan" class="post-author">
       ProgramFan
@@ -99,91 +96,85 @@
     <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Nowadays compilers are extremely capable of elimiting 'dead' code. But in
-benchmarking we need some seemingly 'useless' code to do the work we want. For
-example, to do computation in registers in order to measure instruction
-latency and throughput. In these cases, we need a mechanism to temporarily
-disable optimization.</p>
+<p>Recently I need to setup an encrypted usbstick to carry some files. The first and best approach is of course hardware-encrypted usbsticks. However, they are not cheep at all. And they support only digital passphrases. Some encrypted usbsticks needs special software to operate, thus does not work with Linux system. Luckily enough, I found LUKS and managed to setup an encrypted usbstick, which also works on Windows.</p>
 </div>
 <div class="paragraph">
-<p>This document keep an up-to-date collections of techniques to temporarily
-disable compiler optimizations. These techniques are tested on a recent gcc or
-icc compiler.</p>
+<p>LUKS is an standard to store encrypted information on disks. Although originally developed on Linux platforms, LUKS is well supported on Windows systems via LibreCrypt project. Fedora (at least 22) comes with LUKS support by default. So its is a perfect fit for my needs.</p>
+</div>
+<div class="paragraph">
+<p>The step is fairly easy if you use graphical tools.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Open Gnome Disks.</p>
+</li>
+<li>
+<p>Delete all partitions on the target usbstick.</p>
+</li>
+<li>
+<p>Create partitions as you want on the usbstick, DO NOT format them.</p>
+</li>
+<li>
+<p>Format target partition as "LUKS + Ext4" via the gear menu.</p>
+</li>
+<li>
+<p>You can see two partitions on the same storage after step 4. Now reformat the 'Ext4' partition to any format you want (but without 'LUKS').</p>
+</li>
+<li>
+<p>Enjoy.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>You can always download LibreCryptExplorer and store it in a plain partition on the usbstick, so you can open your contents on windows systems without administrator privilage.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="using-volatile">Using volatile</h2>
+<h2 id="appendix-i-problems-with-two-partitions-in-a-usbstick">Appendix I: Problems with two partitions in a usbstick</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>volatile</code> makes compilers be extremely careful (or conservative) on memory
-load and store of a variable. Most compilers tend to do no optimizations at
-all (even for proven dead code). So the <code>volatile</code> technique becomes the top 1
-used.</p>
+<p>It seems that Windows XP/7 (i686) only recognize the first partition on a multi-partition usbstick. For example, I have /dev/sdc1 and /dev/sdc2 on my usbstics, I can only see /dev/sdc1 on Windows 7. AFAK, there is no way to mount the missing /dev/sdc2, regardless of the partition format.</p>
+</div>
+<div class="paragraph">
+<p>This can create the following problem: One use /dev/sdc1 as the LUKS encrypted storage, and use /dev/sdc2 as open-visit parittion. Then on Windows XP/7, only the encrypted storage is mounted and Windows asks for parititon formatting.</p>
+</div>
+<div class="paragraph">
+<p>The above problem can be work-around by swapping the role of the two partitions, so one can still visit contents in the open-visit storage. But one can not visit the encrypted storage on Windows any more, since the partition is no longer mountable.</p>
+</div>
+<div class="paragraph">
+<p>I will search for a better solution if I have time.</p>
 </div>
 </div>
 </div>
-    <br/>
-    <div class="post-more">
-      <a href="/blog/2015/04/27/prevent-gcc-optimize-away-code/"> <i class="fa fa-link"></i> &nbsp; Read the rest
-          of this post </b></a>
-    </div>
   </div>
-</article>
+  
+  <div class="post-comments" id="disqus_thread"></div>
+  <script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES * * */
+  var disqus_shortname = 'progfan-write-space';
+  var disqus_title = 'Poorman&#8217;s Usbstick Encryption';
+  var disqus_url = 'http://programfan.github.io/blog/2015/10/11/poorman-solution-to-usbstick-encryption/';
 
-
-  <article>
-  <h2>
-    <a href="/blog/2015/04/20/convert-chinese-asciidoc-to-pdf/">
-      Convert Chinese Asciidoc Documents to PDF
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+   var dsq = document.createElement('script');
+   dsq.type = 'text/javascript'; dsq.async = true;
+   dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+   (document.getElementsByTagName('head')[0] ||
+    document.getElementsByTagName('body')[0]).appendChild(dsq);
+   })();
+  </script>
+  <noscript>
+    Please enable JavaScript to view the
+    <a href="https://disqus.com/?ref_noscript" rel="nofollow">
+      comments powered by Disqus.
     </a>
-  </h2>
-  <span class="post-category">
-    <span class="label">
-      Asciidoc, PDF, FOP, and Asciidoctor
-    </span>
-  </span>
-  <div class="post-meta">
-    <span class="post-date">
-      20 Apr 2015
-    </span>
-    <a href="https://github.com/ProgramFan" class="post-author">
-      ProgramFan
-    </a>
-  </div>
-  <div class="post-content">
-    <div class="paragraph">
-<p>Asciidoctor does well in translating asciidoc documents to html5, docbook and etc. Chinese documents also looks great in html5 and docbook. But sometimes we need to use PDF to share with others. Unfortunately, this is not easy for Chinese documents. This document shares my experience converting Chinese asciidoc documents into pdfs.</p>
-</div>
-    <br/>
-    <div class="post-more">
-      <a href="/blog/2015/04/20/convert-chinese-asciidoc-to-pdf/"> <i class="fa fa-link"></i> &nbsp; Read the rest
-          of this post </b></a>
-    </div>
-  </div>
+  </noscript>
+
+ 
 </article>
-
-
-
-<!-- Pagination links -->
-<div class="section-nav">
-  <div class="left align-right">
-    
-      <a href="/blog/page5/" class="prev">Newer</a>
-    
-  </div>
-  <!--
-  <div class="center align-center">
-    Page: 6 of 6
-  </div>
-  -->
-  <div class="right align-left">
-    
-      <span class="next disabled">Older</span>
-    
-  </div>
-</div>
-<div class="clear"></div>
 
       </div>
 
@@ -199,7 +190,7 @@ used.</p>
         
         
         
-        <li class="">
+        <li class="current">
           <a href="/blog/2015/10/11/poorman-solution-to-usbstick-encryption/">Poorman&#8217;s Usbstick Encryption</a>
         </li>
         

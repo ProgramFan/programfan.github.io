@@ -11,10 +11,10 @@
     <title xml:lang="en">ProgramFan's Writing Space</title>
     <atom:link type="application/atom+xml" href="http://programfan.github.io/feed.xml" rel="self"/>
     <link>http://programfan.github.io </link>
-    <pubDate>Fri, 29 Jul 2016 14:17:36 +0000</pubDate>
-    <lastBuildDate>Fri, 29 Jul 2016 14:17:36 +0000</lastBuildDate>
+    <pubDate>Sat, 18 Feb 2017 11:14:36 +0000</pubDate>
+    <lastBuildDate>Sat, 18 Feb 2017 11:14:36 +0000</lastBuildDate>
     <language>en-US</language>
-    <generator>Jekyll v3.2.0</generator>
+    <generator>Jekyll v3.4.0</generator>
     <description></description>
     <image>
       <description>Transform your plain text into static websites and blogs.</description>
@@ -27,7 +27,7 @@
     
     <item>
       <title>Simple Python Isolation with User Compiling</title>
-      <link>127.0.0.1/contents/2016/07/29/simple-python-isolation-with-user-compiling/</link>
+      <link>127.0.0.1/blog/2016/07/29/simple-python-isolation-with-user-compiling/</link>
       <pubDate>Fri, 29 Jul 2016 00:00:00 +0000</pubDate>
       <dc:creator>ProgramFan</dc:creator>
       
@@ -38,7 +38,7 @@
       <category>Featured</category>
       
       
-      <guid isPermaLink="true">http://programfan.github.io/contents/2016/07/29/simple-python-isolation-with-user-compiling/</guid>
+      <guid isPermaLink="true">http://programfan.github.io/blog/2016/07/29/simple-python-isolation-with-user-compiling/</guid>
       <description>&lt;div class=&quot;sect1&quot;&gt;
 &lt;h2 id=&quot;background&quot;&gt;Background&lt;/h2&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
@@ -46,16 +46,19 @@
 &lt;p&gt;I would like to have a working python environment with python 2.7.12 and a
 series of packages. It shall be efficient, and yet easy to setup. The anaconda
 distribution almost satisfies my needs, except that it&amp;#8217;s unreasonably slow to
-load, due to its bundle of system libs. There are also python version managers
-such as pyenv and pythonz. The drawback of pyenv is the shims, which are
-scripts to launch binaries such as python2 and pip. shims make powerline
-client slow, which is undesirable. As to pythonz, it only handles multiple
-versions of python, no other infrastructure is provided.&lt;/p&gt;
+load, due to its bundle of system libraries. There are also python version
+managers such as PYENV and PYTHONZ. The drawback of PYENV is the shims, which
+are scripts to launch binaries such as python-2 and pip. shims make
+powerline-client slow, which is undesirable. As to PYTHONZ, it only handles
+multiple versions of python, no other infrastructure is provided.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;After some experimentation, I found that just compile python from source and
-install it into customized location works just fine. There are some caveats,
-so I record it here.&lt;/p&gt;
+install it into customized location works just fine. There are some caveats, so
+I record it here.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;I do not like this ideas is a linter test. Linter. How can one use it?&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -68,8 +71,8 @@ so I record it here.&lt;/p&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
 &lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;tar -zxvf Python-2.7.12.tgz
-&lt;span class=&quot;tok-nb&quot;&gt;cd &lt;/span&gt;Python-2.7.12
-./configure --prefix&lt;span class=&quot;tok-o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;tok-nv&quot;&gt;$LOCATION&lt;/span&gt; --with-ensurepip&lt;span class=&quot;tok-o&quot;&gt;=&lt;/span&gt;install
+&lt;span style=&quot;color: #f8f8f2&quot;&gt;cd&lt;/span&gt; Python-2.7.12
+./configure --prefix&lt;span style=&quot;color: #f92672&quot;&gt;=&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;$LOCATION&lt;/span&gt; --with-ensurepip&lt;span style=&quot;color: #f92672&quot;&gt;=&lt;/span&gt;install
 make
 make install&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
@@ -91,8 +94,8 @@ have to use &lt;code&gt;python -m pip&lt;/code&gt;.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;tok-nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;tok-nv&quot;&gt;PATH&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;tok-nv&quot;&gt;$LOCATION&lt;/span&gt;/bin:&lt;span class=&quot;tok-nv&quot;&gt;$PATH&lt;/span&gt;
-python -m pip install XXX&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;export&lt;/span&gt; &lt;span style=&quot;color: #f8f8f2&quot;&gt;PATH&lt;/span&gt;&lt;span style=&quot;color: #f92672&quot;&gt;=&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;$LOCATION&lt;/span&gt;/bin:&lt;span style=&quot;color: #f8f8f2&quot;&gt;$PATH&lt;/span&gt;
+python -m pip install PACKAGE&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -111,7 +114,7 @@ location. I will try it.&lt;/p&gt;
     
     <item>
       <title>Poorman&amp;#8217;s Usbstick Encryption</title>
-      <link>127.0.0.1/contents/2015/10/11/poorman-solution-to-usbstick-encryption/</link>
+      <link>127.0.0.1/blog/2015/10/11/poorman-solution-to-usbstick-encryption/</link>
       <pubDate>Sun, 11 Oct 2015 00:00:00 +0000</pubDate>
       <dc:creator>ProgramFan</dc:creator>
       
@@ -124,13 +127,12 @@ location. I will try it.&lt;/p&gt;
       <category>Featured</category>
       
       
-      <guid isPermaLink="true">http://programfan.github.io/contents/2015/10/11/poorman-solution-to-usbstick-encryption/</guid>
+      <guid isPermaLink="true">http://programfan.github.io/blog/2015/10/11/poorman-solution-to-usbstick-encryption/</guid>
       <description>&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Recently I need to setup an encrypted usbstick to carry some files. The first and best approach is of course hardware-encrypted usbsticks. However, they are not cheep at all. And they support only digital passphrases. Some encrypted usbsticks needs special software to operate, thus does not work with Linux system. Luckily enough, I found LUKS and managed to setup an encrypted usbstick, which also works on Windows.&lt;/p&gt;
 &lt;/div&gt;
-&lt;!-- more --&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;LUKS is an standard to store encrypted information on disks. Although originally developed on Linux platforms, LUKS is well supported on Windows systems via LibreCrypt project. Fedora (at least 22) comes with LUKS support by default. So its is a perfect fit for my needs.&lt;/p&gt;
 &lt;/div&gt;
@@ -185,7 +187,7 @@ location. I will try it.&lt;/p&gt;
     
     <item>
       <title>Deploy python working environments with pip under restricted connections</title>
-      <link>127.0.0.1/contents/2015/10/02/deploy-python-working-environments-using-pip/</link>
+      <link>127.0.0.1/blog/2015/10/02/deploy-python-working-environments-using-pip/</link>
       <pubDate>Fri, 02 Oct 2015 00:00:00 +0000</pubDate>
       <dc:creator>ProgramFan</dc:creator>
       
@@ -198,7 +200,7 @@ location. I will try it.&lt;/p&gt;
       <category>Featured</category>
       
       
-      <guid isPermaLink="true">http://programfan.github.io/contents/2015/10/02/deploy-python-working-environments-using-pip/</guid>
+      <guid isPermaLink="true">http://programfan.github.io/blog/2015/10/02/deploy-python-working-environments-using-pip/</guid>
       <description>&lt;div class=&quot;sect1&quot;&gt;
 &lt;h2 id=&quot;background&quot;&gt;Background&lt;/h2&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
@@ -247,7 +249,6 @@ responsive on the target platform.&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;/div&gt;
-&lt;!-- more --&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;sect1&quot;&gt;
@@ -309,7 +310,7 @@ pip wheel -r requirements.txt&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Distributing wheels and install packages from wheels.&lt;/p&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;pip install --user --upgrade -r requirements.txt --no-index -f &lt;span class=&quot;tok-k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;tok-nv&quot;&gt;WHEELSDIR&lt;/span&gt;&lt;span class=&quot;tok-k&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;pip install --user --upgrade -r requirements.txt --no-index -f &lt;span style=&quot;color: #e6db74&quot;&gt;${&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;WHEELSDIR&lt;/span&gt;&lt;span style=&quot;color: #e6db74&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/li&gt;
@@ -329,7 +330,7 @@ RHEL 5.4 system. It works.&lt;/p&gt;
     
     <item>
       <title>User-local python package install with pip</title>
-      <link>127.0.0.1/contents/2015/09/20/user-local-python-pkg-install-with-pip/</link>
+      <link>127.0.0.1/blog/2015/09/20/user-local-python-pkg-install-with-pip/</link>
       <pubDate>Sun, 20 Sep 2015 00:00:00 +0000</pubDate>
       <dc:creator>ProgramFan</dc:creator>
       
@@ -340,7 +341,7 @@ RHEL 5.4 system. It works.&lt;/p&gt;
       <category>Featured</category>
       
       
-      <guid isPermaLink="true">http://programfan.github.io/contents/2015/09/20/user-local-python-pkg-install-with-pip/</guid>
+      <guid isPermaLink="true">http://programfan.github.io/blog/2015/09/20/user-local-python-pkg-install-with-pip/</guid>
       <description>&lt;div class=&quot;sect1&quot;&gt;
 &lt;h2 id=&quot;motivation&quot;&gt;Motivation&lt;/h2&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
@@ -350,7 +351,6 @@ RHEL 5.4 system. It works.&lt;/p&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;To solve the above problems, I choose to go back to the standard python user-local install process and choose pip user install. pip user install relys on system python to work correctly, and integrates tightly with system packages. That is to say, if one install PyQt5 using system package manager, he/she can use it in a user-local toyplot package, avoiding install PyQt5 manually (since not possible with pip). Moreover, binaries provided by packages are directly avaliable to the system, which greatly improves the speed of packages such as python-powerline &lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_1&quot; class=&quot;footnote&quot; href=&quot;#_footnote_1&quot; title=&quot;View footnote.&quot;&gt;1&lt;/a&gt;]&lt;/sup&gt;&lt;/p&gt;
 &lt;/div&gt;
-&lt;!-- more --&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;sect1&quot;&gt;
@@ -369,7 +369,7 @@ RHEL 5.4 system. It works.&lt;/p&gt;
 &lt;p&gt;Install packages we want using the following command:&lt;/p&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;tok-nv&quot;&gt;PYTHONUSERBASE&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;tok-nv&quot;&gt;$MYINSTALL&lt;/span&gt; pip install --user --upgrade &amp;lt;PACKAGES&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;PYTHONUSERBASE&lt;/span&gt;&lt;span style=&quot;color: #f92672&quot;&gt;=&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;$MYINSTALL&lt;/span&gt; pip install --user --upgrade &amp;lt;PACKAGES&amp;gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/li&gt;
@@ -377,8 +377,8 @@ RHEL 5.4 system. It works.&lt;/p&gt;
 &lt;p&gt;Setup python path and binary path&lt;/p&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;tok-nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;tok-nv&quot;&gt;PYTHONPATH&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;tok-nv&quot;&gt;$MYINSTALL&lt;/span&gt;:&lt;span class=&quot;tok-nv&quot;&gt;$PYTHONPATH&lt;/span&gt;
-&lt;span class=&quot;tok-nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;tok-nv&quot;&gt;PATH&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;tok-nv&quot;&gt;$MYINSTALL&lt;/span&gt;/bin:&lt;span class=&quot;tok-nv&quot;&gt;$PATH&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;export&lt;/span&gt; &lt;span style=&quot;color: #f8f8f2&quot;&gt;PYTHONPATH&lt;/span&gt;&lt;span style=&quot;color: #f92672&quot;&gt;=&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;$MYINSTALL&lt;/span&gt;:&lt;span style=&quot;color: #f8f8f2&quot;&gt;$PYTHONPATH&lt;/span&gt;
+&lt;span style=&quot;color: #f8f8f2&quot;&gt;export&lt;/span&gt; &lt;span style=&quot;color: #f8f8f2&quot;&gt;PATH&lt;/span&gt;&lt;span style=&quot;color: #f92672&quot;&gt;=&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;$MYINSTALL&lt;/span&gt;/bin:&lt;span style=&quot;color: #f8f8f2&quot;&gt;$PATH&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/li&gt;
@@ -410,7 +410,7 @@ RHEL 5.4 system. It works.&lt;/p&gt;
     
     <item>
       <title>Analyse MPI Applications with Intel VTune/Inspector</title>
-      <link>127.0.0.1/contents/2015/09/05/analyse-mpi-applications-with-intel-vtune-inspector/</link>
+      <link>127.0.0.1/blog/2015/09/05/analyse-mpi-applications-with-intel-vtune-inspector/</link>
       <pubDate>Sat, 05 Sep 2015 00:00:00 +0000</pubDate>
       <dc:creator>ProgramFan</dc:creator>
       
@@ -421,7 +421,7 @@ RHEL 5.4 system. It works.&lt;/p&gt;
       <category>VTune</category>
       
       
-      <guid isPermaLink="true">http://programfan.github.io/contents/2015/09/05/analyse-mpi-applications-with-intel-vtune-inspector/</guid>
+      <guid isPermaLink="true">http://programfan.github.io/blog/2015/09/05/analyse-mpi-applications-with-intel-vtune-inspector/</guid>
       <description>&lt;div class=&quot;sect1&quot;&gt;
 &lt;h2 id=&quot;mpi-applications-support-for-intel-vtune-and-inspector&quot;&gt;MPI Applications Support for Intel VTune and Inspector&lt;/h2&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
@@ -440,7 +440,6 @@ ScaLAPACK, and SIMD data parallelism capabilities of Intel hardware.&lt;/p&gt;
 correctness analysis of MPI applications using the Intel® VTune™ Amplifier and
 the Intel® Inspector tools available in Intel Cluster Studio.&lt;/p&gt;
 &lt;/div&gt;
-&lt;!-- more --&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;sect1&quot;&gt;
@@ -527,7 +526,7 @@ should be used:&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;tok-nv&quot;&gt;$ &lt;/span&gt;mpirun -n &amp;lt;N&amp;gt; &amp;lt;abbr&amp;gt;-cl -r my_result -collect &amp;lt;analysis &lt;span class=&quot;tok-nb&quot;&gt;type&lt;/span&gt;&amp;gt; my_app &lt;span class=&quot;tok-o&quot;&gt;[&lt;/span&gt;my_app_ options&lt;span class=&quot;tok-o&quot;&gt;]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;$ mpirun -n &amp;lt;N&amp;gt; &amp;lt;abbr&amp;gt;-cl -r my_result -collect &amp;lt;analysis type&amp;gt; my_app &lt;span style=&quot;color: #f92672&quot;&gt;[&lt;/span&gt;my_app_ options&lt;span style=&quot;color: #f92672&quot;&gt;]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
@@ -576,7 +575,7 @@ hotspots, so an example of full command line for collection would be:&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;tok-nv&quot;&gt;$ &lt;/span&gt;mpirun -n &lt;span class=&quot;tok-m&quot;&gt;4&lt;/span&gt; amplxe-cl -r my_result -collect hotspots -- my_app &lt;span class=&quot;tok-o&quot;&gt;[&lt;/span&gt;my_app_options&lt;span class=&quot;tok-o&quot;&gt;]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;$ mpirun -n &lt;span style=&quot;color: #ae81ff&quot;&gt;4&lt;/span&gt; amplxe-cl -r my_result -collect hotspots -- my_app &lt;span style=&quot;color: #f92672&quot;&gt;[&lt;/span&gt;my_app_options&lt;span style=&quot;color: #f92672&quot;&gt;]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
@@ -586,8 +585,8 @@ respectively) would look like:&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;tok-nv&quot;&gt;$ &lt;/span&gt;mpirun -n &lt;span class=&quot;tok-m&quot;&gt;4&lt;/span&gt; inspxe-cl -r my_result -collect mi1 -- my_app &lt;span class=&quot;tok-o&quot;&gt;[&lt;/span&gt;my_app_options&lt;span class=&quot;tok-o&quot;&gt;]&lt;/span&gt;
-&lt;span class=&quot;tok-nv&quot;&gt;$ &lt;/span&gt;mpirun -n &lt;span class=&quot;tok-m&quot;&gt;4&lt;/span&gt; inspxe-cl -r my_result -collect ti1 -- my_app &lt;span class=&quot;tok-o&quot;&gt;[&lt;/span&gt;my_app_options&lt;span class=&quot;tok-o&quot;&gt;]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;$ mpirun -n &lt;span style=&quot;color: #ae81ff&quot;&gt;4&lt;/span&gt; inspxe-cl -r my_result -collect mi1 -- my_app &lt;span style=&quot;color: #f92672&quot;&gt;[&lt;/span&gt;my_app_options&lt;span style=&quot;color: #f92672&quot;&gt;]&lt;/span&gt;
+$ mpirun -n &lt;span style=&quot;color: #ae81ff&quot;&gt;4&lt;/span&gt; inspxe-cl -r my_result -collect ti1 -- my_app &lt;span style=&quot;color: #f92672&quot;&gt;[&lt;/span&gt;my_app_options&lt;span style=&quot;color: #f92672&quot;&gt;]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
@@ -617,7 +616,7 @@ it is possible to create a configuration file with the following content:&lt;/p&
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;tok-nv&quot;&gt;$ &lt;/span&gt;mpirun -configfile ./config.txt&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;sh&quot;&gt;$ mpirun -configfile ./config.txt&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
@@ -748,7 +747,7 @@ applications: Intel MPI Library and OpenMP at
     
     <item>
       <title>Home-brew python and ruby with PyENV and RVM</title>
-      <link>127.0.0.1/contents/2015/07/25/home-python-ruby-with-pyenv-and-rvm/</link>
+      <link>127.0.0.1/blog/2015/07/25/home-python-ruby-with-pyenv-and-rvm/</link>
       <pubDate>Sat, 25 Jul 2015 00:00:00 +0000</pubDate>
       <dc:creator>ProgramFan</dc:creator>
       
@@ -765,7 +764,7 @@ applications: Intel MPI Library and OpenMP at
       <category>gem</category>
       
       
-      <guid isPermaLink="true">http://programfan.github.io/contents/2015/07/25/home-python-ruby-with-pyenv-and-rvm/</guid>
+      <guid isPermaLink="true">http://programfan.github.io/blog/2015/07/25/home-python-ruby-with-pyenv-and-rvm/</guid>
       <description>&lt;div class=&quot;sect1&quot;&gt;
 &lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
@@ -784,7 +783,6 @@ applications: Intel MPI Library and OpenMP at
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;One question may arise is that why not using python distributions such as Anaconda. The reason is simple. Anaconda does not upgrade frequently (although usually more up-to-date than system bundled version), and it bundled very low version of system libs, makeing itself slower than native version. On the other hand, almost all python packages are available via PiPY but only a small portion is in Anaconda.&lt;/p&gt;
 &lt;/div&gt;
-&lt;!-- more --&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;sect1&quot;&gt;
@@ -818,7 +816,7 @@ applications: Intel MPI Library and OpenMP at
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
 &lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;wget -o ~/.pyenv/cache/Python-2.7.10.tar.gz XXXX
-pyenv install 2.7.10&lt;/code&gt;&lt;/pre&gt;
+pyenv install &lt;span style=&quot;color: #ae81ff&quot;&gt;2&lt;/span&gt;.7.10&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/li&gt;
@@ -827,7 +825,7 @@ pyenv install 2.7.10&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
 &lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;pip install --download DIR --no-binary -r requirements.txt  &lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;(1)&lt;/b&gt;
-pip install --no-index --find-links&lt;span class=&quot;tok-o&quot;&gt;=&lt;/span&gt;DIR -r requirements.txt &lt;i class=&quot;conum&quot; data-value=&quot;2&quot;&gt;&lt;/i&gt;&lt;b&gt;(2)&lt;/b&gt;&lt;/code&gt;&lt;/pre&gt;
+pip install --no-index --find-links&lt;span style=&quot;color: #f92672&quot;&gt;=&lt;/span&gt;DIR -r requirements.txt &lt;i class=&quot;conum&quot; data-value=&quot;2&quot;&gt;&lt;/i&gt;&lt;b&gt;(2)&lt;/b&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;colist arabic&quot;&gt;
@@ -852,7 +850,7 @@ pip install --no-index --find-links&lt;span class=&quot;tok-o&quot;&gt;=&lt;/spa
     
     <item>
       <title>Config CJK fonts for Asciidoctor-fopub</title>
-      <link>127.0.0.1/contents/2015/07/11/config-cjk-for-asciidoctor-fopub/</link>
+      <link>127.0.0.1/blog/2015/07/11/config-cjk-for-asciidoctor-fopub/</link>
       <pubDate>Sat, 11 Jul 2015 00:00:00 +0000</pubDate>
       <dc:creator>ProgramFan</dc:creator>
       
@@ -865,11 +863,10 @@ pip install --no-index --find-links&lt;span class=&quot;tok-o&quot;&gt;=&lt;/spa
       <category>docbook</category>
       
       
-      <guid isPermaLink="true">http://programfan.github.io/contents/2015/07/11/config-cjk-for-asciidoctor-fopub/</guid>
+      <guid isPermaLink="true">http://programfan.github.io/blog/2015/07/11/config-cjk-for-asciidoctor-fopub/</guid>
       <description>&lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;I blogged on asciidoctor-fopub &lt;a href=&quot;/contents/2015/04/20/convert-chinese-asciidoc-to-pdf/&quot;&gt;previously&lt;/a&gt;. The fonts are configured by generating XML description file. Recently I find from Apache FOP document that fop supports automatically registering fonts and discourage the use of XML description files. It shall make config custom fonts for Apache FOP less pain. So I blog it here.&lt;/p&gt;
 &lt;/div&gt;
-&lt;!-- more --&gt;
 &lt;div class=&quot;sect1&quot;&gt;
 &lt;h2 id=&quot;the-easiest-approach&quot;&gt;The easiest approach&lt;/h2&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
@@ -882,10 +879,10 @@ pip install --no-index --find-links&lt;span class=&quot;tok-o&quot;&gt;=&lt;/spa
 &lt;p&gt;Add font registration directives in &lt;code&gt;fop-config.xml&lt;/code&gt;:&lt;/p&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;xml&quot;&gt;&lt;span class=&quot;tok-nt&quot;&gt;&amp;lt;fonts&amp;gt;&lt;/span&gt;
-  &lt;span class=&quot;tok-nt&quot;&gt;&amp;lt;directory&amp;gt;&lt;/span&gt;/usr/share/fonts/dejavu&lt;span class=&quot;tok-nt&quot;&gt;&amp;lt;/directory&amp;gt;&lt;/span&gt; &lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;(1)&lt;/b&gt;
-  &lt;span class=&quot;tok-nt&quot;&gt;&amp;lt;auto-detect/&amp;gt;&lt;/span&gt; &lt;i class=&quot;conum&quot; data-value=&quot;2&quot;&gt;&lt;/i&gt;&lt;b&gt;(2)&lt;/b&gt;
-&lt;span class=&quot;tok-nt&quot;&gt;&amp;lt;/fonts&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;xml&quot;&gt;&lt;span style=&quot;color: #f92672&quot;&gt;&amp;lt;fonts&amp;gt;&lt;/span&gt;
+  &lt;span style=&quot;color: #f92672&quot;&gt;&amp;lt;directory&amp;gt;&lt;/span&gt;/usr/share/fonts/dejavu&lt;span style=&quot;color: #f92672&quot;&gt;&amp;lt;/directory&amp;gt;&lt;/span&gt; &lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;(1)&lt;/b&gt;
+  &lt;span style=&quot;color: #f92672&quot;&gt;&amp;lt;auto-detect/&amp;gt;&lt;/span&gt; &lt;i class=&quot;conum&quot; data-value=&quot;2&quot;&gt;&lt;/i&gt;&lt;b&gt;(2)&lt;/b&gt;
+&lt;span style=&quot;color: #f92672&quot;&gt;&amp;lt;/fonts&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;colist arabic&quot;&gt;
@@ -917,9 +914,9 @@ If the same font is find by &lt;code&gt;auto-detect&lt;/code&gt; and &lt;code&gt
 &lt;p&gt;Reference font by regular name in &lt;code&gt;fo-pdf.xsl&lt;/code&gt;:&lt;/p&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;xml&quot;&gt;&lt;span class=&quot;tok-nt&quot;&gt;&amp;lt;xsl:template&lt;/span&gt; &lt;span class=&quot;tok-na&quot;&gt;name=&lt;/span&gt;&lt;span class=&quot;tok-s&quot;&gt;&amp;quot;pickfont-sans&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-nt&quot;&gt;&amp;gt;&lt;/span&gt;
-  &lt;span class=&quot;tok-nt&quot;&gt;&amp;lt;xsl:text&amp;gt;&lt;/span&gt;DejaVu Sans, Source Han Sans CN, sans-serif&lt;span class=&quot;tok-nt&quot;&gt;&amp;lt;/xsl:text&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;tok-nt&quot;&gt;&amp;lt;/xsl:template&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;xml&quot;&gt;&lt;span style=&quot;color: #f92672&quot;&gt;&amp;lt;xsl:template&lt;/span&gt; &lt;span style=&quot;color: #a6e22e&quot;&gt;name=&lt;/span&gt;&lt;span style=&quot;color: #e6db74&quot;&gt;&amp;quot;pickfont-sans&amp;quot;&lt;/span&gt;&lt;span style=&quot;color: #f92672&quot;&gt;&amp;gt;&lt;/span&gt;
+  &lt;span style=&quot;color: #f92672&quot;&gt;&amp;lt;xsl:text&amp;gt;&lt;/span&gt;DejaVu Sans, Source Han Sans CN, sans-serif&lt;span style=&quot;color: #f92672&quot;&gt;&amp;lt;/xsl:text&amp;gt;&lt;/span&gt;
+&lt;span style=&quot;color: #f92672&quot;&gt;&amp;lt;/xsl:template&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/li&gt;
@@ -939,13 +936,13 @@ If the same font is find by &lt;code&gt;auto-detect&lt;/code&gt; and &lt;code&gt
 &lt;p&gt;Put the fonts in a directory, say &lt;code&gt;$FONT_DIR&lt;/code&gt;&lt;/p&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;xml&quot;&gt;&lt;span class=&quot;tok-nt&quot;&gt;&amp;lt;font-base&amp;gt;&lt;/span&gt;$FONT_DIR&lt;span class=&quot;tok-nt&quot;&gt;&amp;lt;/font-base&amp;gt;&lt;/span&gt;   &lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;(1)&lt;/b&gt;
-  &lt;span class=&quot;tok-nt&quot;&gt;&amp;lt;fonts&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;tok-nt&quot;&gt;&amp;lt;font&lt;/span&gt; &lt;span class=&quot;tok-na&quot;&gt;embed-url=&lt;/span&gt;&lt;span class=&quot;tok-s&quot;&gt;&amp;quot;SourceHanSansSC.ttf&amp;quot;&lt;/span&gt; &lt;span class=&quot;tok-na&quot;&gt;kerning=&lt;/span&gt;&lt;span class=&quot;tok-s&quot;&gt;&amp;quot;yes&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-nt&quot;&gt;&amp;gt;&lt;/span&gt;    &lt;i class=&quot;conum&quot; data-value=&quot;2&quot;&gt;&lt;/i&gt;&lt;b&gt;(2)&lt;/b&gt;
-    &lt;span class=&quot;tok-nt&quot;&gt;&amp;lt;font-triplet&lt;/span&gt; &lt;span class=&quot;tok-na&quot;&gt;name=&lt;/span&gt;&lt;span class=&quot;tok-s&quot;&gt;&amp;quot;SourceHanSansSC&amp;quot;&lt;/span&gt;
-                  &lt;span class=&quot;tok-na&quot;&gt;style=&lt;/span&gt;&lt;span class=&quot;tok-s&quot;&gt;&amp;quot;normal&amp;quot;&lt;/span&gt; &lt;span class=&quot;tok-na&quot;&gt;weight=&lt;/span&gt;&lt;span class=&quot;tok-s&quot;&gt;&amp;quot;normal&amp;quot;&lt;/span&gt; &lt;span class=&quot;tok-nt&quot;&gt;/&amp;gt;&lt;/span&gt;         &lt;i class=&quot;conum&quot; data-value=&quot;3&quot;&gt;&lt;/i&gt;&lt;b&gt;(3)&lt;/b&gt;
-  &lt;span class=&quot;tok-nt&quot;&gt;&amp;lt;/font&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;tok-nt&quot;&gt;&amp;lt;/fonts&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;xml&quot;&gt;&lt;span style=&quot;color: #f92672&quot;&gt;&amp;lt;font-base&amp;gt;&lt;/span&gt;$FONT_DIR&lt;span style=&quot;color: #f92672&quot;&gt;&amp;lt;/font-base&amp;gt;&lt;/span&gt;   &lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;(1)&lt;/b&gt;
+  &lt;span style=&quot;color: #f92672&quot;&gt;&amp;lt;fonts&amp;gt;&lt;/span&gt;
+    &lt;span style=&quot;color: #f92672&quot;&gt;&amp;lt;font&lt;/span&gt; &lt;span style=&quot;color: #a6e22e&quot;&gt;embed-url=&lt;/span&gt;&lt;span style=&quot;color: #e6db74&quot;&gt;&amp;quot;SourceHanSansSC.ttf&amp;quot;&lt;/span&gt; &lt;span style=&quot;color: #a6e22e&quot;&gt;kerning=&lt;/span&gt;&lt;span style=&quot;color: #e6db74&quot;&gt;&amp;quot;yes&amp;quot;&lt;/span&gt;&lt;span style=&quot;color: #f92672&quot;&gt;&amp;gt;&lt;/span&gt;    &lt;i class=&quot;conum&quot; data-value=&quot;2&quot;&gt;&lt;/i&gt;&lt;b&gt;(2)&lt;/b&gt;
+    &lt;span style=&quot;color: #f92672&quot;&gt;&amp;lt;font-triplet&lt;/span&gt; &lt;span style=&quot;color: #a6e22e&quot;&gt;name=&lt;/span&gt;&lt;span style=&quot;color: #e6db74&quot;&gt;&amp;quot;SourceHanSansSC&amp;quot;&lt;/span&gt;
+                  &lt;span style=&quot;color: #a6e22e&quot;&gt;style=&lt;/span&gt;&lt;span style=&quot;color: #e6db74&quot;&gt;&amp;quot;normal&amp;quot;&lt;/span&gt; &lt;span style=&quot;color: #a6e22e&quot;&gt;weight=&lt;/span&gt;&lt;span style=&quot;color: #e6db74&quot;&gt;&amp;quot;normal&amp;quot;&lt;/span&gt; &lt;span style=&quot;color: #f92672&quot;&gt;/&amp;gt;&lt;/span&gt;         &lt;i class=&quot;conum&quot; data-value=&quot;3&quot;&gt;&lt;/i&gt;&lt;b&gt;(3)&lt;/b&gt;
+  &lt;span style=&quot;color: #f92672&quot;&gt;&amp;lt;/font&amp;gt;&lt;/span&gt;
+&lt;span style=&quot;color: #f92672&quot;&gt;&amp;lt;/fonts&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;colist arabic&quot;&gt;
@@ -990,12 +987,12 @@ If the same font is find by &lt;code&gt;auto-detect&lt;/code&gt; and &lt;code&gt
 &lt;p&gt;Add the following lines to &lt;code&gt;$REPO/fopub&lt;/code&gt; shell script:&lt;/p&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;tok-c&quot;&gt;# Modify fop-config.xml to fix bundled font-path&lt;/span&gt;
-&lt;span class=&quot;tok-nv&quot;&gt;FOP_CONFIG_XML&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;tok-s2&quot;&gt;&amp;quot;$DOCBOOK_XSL_ABS_DIR/fop-config.xml&amp;quot;&lt;/span&gt;
-&lt;span class=&quot;tok-nv&quot;&gt;BUNDLED_FONTS_DIR&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;tok-s2&quot;&gt;&amp;quot;$DOCBOOK_XSL_ABS_DIR/fonts&amp;quot;&lt;/span&gt;
-&lt;span class=&quot;tok-k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;tok-o&quot;&gt;[&lt;/span&gt; -f &lt;span class=&quot;tok-s2&quot;&gt;&amp;quot;$FOP_CONFIG_XML&amp;quot;&lt;/span&gt; &lt;span class=&quot;tok-o&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;tok-k&quot;&gt;then&lt;/span&gt;
-  sed -i &lt;span class=&quot;tok-s2&quot;&gt;&amp;quot;s|@FONT-BASE@|$BUNDLED_FONTS_DIR|g&amp;quot;&lt;/span&gt; &lt;span class=&quot;tok-s2&quot;&gt;&amp;quot;$FOP_CONFIG_XML&amp;quot;&lt;/span&gt;
-&lt;span class=&quot;tok-k&quot;&gt;fi&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color: #75715e&quot;&gt;# Modify fop-config.xml to fix bundled font-path&lt;/span&gt;
+&lt;span style=&quot;color: #f8f8f2&quot;&gt;FOP_CONFIG_XML&lt;/span&gt;&lt;span style=&quot;color: #f92672&quot;&gt;=&lt;/span&gt;&lt;span style=&quot;color: #e6db74&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;$DOCBOOK_XSL_ABS_DIR&lt;/span&gt;&lt;span style=&quot;color: #e6db74&quot;&gt;/fop-config.xml&amp;quot;&lt;/span&gt;
+&lt;span style=&quot;color: #f8f8f2&quot;&gt;BUNDLED_FONTS_DIR&lt;/span&gt;&lt;span style=&quot;color: #f92672&quot;&gt;=&lt;/span&gt;&lt;span style=&quot;color: #e6db74&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;$DOCBOOK_XSL_ABS_DIR&lt;/span&gt;&lt;span style=&quot;color: #e6db74&quot;&gt;/fonts&amp;quot;&lt;/span&gt;
+&lt;span style=&quot;color: #66d9ef&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color: #f92672&quot;&gt;[&lt;/span&gt; -f &lt;span style=&quot;color: #e6db74&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;$FOP_CONFIG_XML&lt;/span&gt;&lt;span style=&quot;color: #e6db74&quot;&gt;&amp;quot;&lt;/span&gt; &lt;span style=&quot;color: #f92672&quot;&gt;]&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;;&lt;/span&gt; &lt;span style=&quot;color: #66d9ef&quot;&gt;then&lt;/span&gt;
+  sed -i &lt;span style=&quot;color: #e6db74&quot;&gt;&amp;quot;s|@FONT-BASE@|&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;$BUNDLED_FONTS_DIR&lt;/span&gt;&lt;span style=&quot;color: #e6db74&quot;&gt;|g&amp;quot;&lt;/span&gt; &lt;span style=&quot;color: #e6db74&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;$FOP_CONFIG_XML&lt;/span&gt;&lt;span style=&quot;color: #e6db74&quot;&gt;&amp;quot;&lt;/span&gt;
+&lt;span style=&quot;color: #66d9ef&quot;&gt;fi&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/li&gt;
@@ -1007,7 +1004,7 @@ If the same font is find by &lt;code&gt;auto-detect&lt;/code&gt; and &lt;code&gt
     
     <item>
       <title>Asciidoctor-pdf CJK support status</title>
-      <link>127.0.0.1/contents/2015/06/23/asciidoc-pdf-cjk-status/</link>
+      <link>127.0.0.1/blog/2015/06/23/asciidoc-pdf-cjk-status/</link>
       <pubDate>Tue, 23 Jun 2015 00:00:00 +0000</pubDate>
       <dc:creator>ProgramFan</dc:creator>
       
@@ -1016,11 +1013,10 @@ If the same font is find by &lt;code&gt;auto-detect&lt;/code&gt; and &lt;code&gt
       <category>cjk</category>
       
       
-      <guid isPermaLink="true">http://programfan.github.io/contents/2015/06/23/asciidoc-pdf-cjk-status/</guid>
+      <guid isPermaLink="true">http://programfan.github.io/blog/2015/06/23/asciidoc-pdf-cjk-status/</guid>
       <description>&lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;&lt;a href=&quot;http://github.com/asciidoctor/asciidoctor-pdf&quot;&gt;Asciidoc-pdf&lt;/a&gt; is a fast evoluving project. CJK support was still on the wish list when I blog about it last time. But at the day of writing, it&amp;#8217;s CJK support is in somewhat usable state and there are a lot of other progresses (see its milestone on GitHub). More specifically, asciidoctor is able to process CJK documents and produce CJK enabled PDFs with the help of a custom theme, although the line wrap breaks currently (a fix has already been proposed). Here is my experiences.&lt;/p&gt;
 &lt;/div&gt;
-&lt;!-- more --&gt;
 &lt;div class=&quot;sect1&quot;&gt;
 &lt;h2 id=&quot;the-technology&quot;&gt;The technology&lt;/h2&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
@@ -1069,30 +1065,30 @@ If the same font is find by &lt;code&gt;auto-detect&lt;/code&gt; and &lt;code&gt
 &lt;p&gt;Enable custome fonts in cn-theme.yml:&lt;/p&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;yaml&quot;&gt;&lt;span class=&quot;tok-l-Scalar-Plain&quot;&gt;font&lt;/span&gt;&lt;span class=&quot;tok-p-Indicator&quot;&gt;:&lt;/span&gt;
-  &lt;span class=&quot;tok-l-Scalar-Plain&quot;&gt;catalog&lt;/span&gt;&lt;span class=&quot;tok-p-Indicator&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;tok-l-Scalar-Plain&quot;&gt;NotoSerif&lt;/span&gt;&lt;span class=&quot;tok-p-Indicator&quot;&gt;:&lt;/span&gt;
-      &lt;span class=&quot;tok-l-Scalar-Plain&quot;&gt;normal&lt;/span&gt;&lt;span class=&quot;tok-p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-l-Scalar-Plain&quot;&gt;notoserif-regular-latin.ttf&lt;/span&gt;
-      &lt;span class=&quot;tok-l-Scalar-Plain&quot;&gt;bold&lt;/span&gt;&lt;span class=&quot;tok-p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-l-Scalar-Plain&quot;&gt;notoserif-bold-latin.ttf&lt;/span&gt;
-      &lt;span class=&quot;tok-l-Scalar-Plain&quot;&gt;italic&lt;/span&gt;&lt;span class=&quot;tok-p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-l-Scalar-Plain&quot;&gt;notoserif-italic-latin.ttf&lt;/span&gt;
-      &lt;span class=&quot;tok-l-Scalar-Plain&quot;&gt;bold_italic&lt;/span&gt;&lt;span class=&quot;tok-p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-l-Scalar-Plain&quot;&gt;notoserif-bolditalic-latin.ttf&lt;/span&gt;
-    &lt;span class=&quot;tok-l-Scalar-Plain&quot;&gt;Mplus1mn&lt;/span&gt;&lt;span class=&quot;tok-p-Indicator&quot;&gt;:&lt;/span&gt;
-      &lt;span class=&quot;tok-l-Scalar-Plain&quot;&gt;normal&lt;/span&gt;&lt;span class=&quot;tok-p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-l-Scalar-Plain&quot;&gt;mplus1mn-regular-ascii-conums.ttf&lt;/span&gt;
-      &lt;span class=&quot;tok-l-Scalar-Plain&quot;&gt;bold&lt;/span&gt;&lt;span class=&quot;tok-p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-l-Scalar-Plain&quot;&gt;mplus1mn-bold-ascii.ttf&lt;/span&gt;
-      &lt;span class=&quot;tok-l-Scalar-Plain&quot;&gt;italic&lt;/span&gt;&lt;span class=&quot;tok-p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-l-Scalar-Plain&quot;&gt;mplus1mn-italic-ascii.ttf&lt;/span&gt;
-      &lt;span class=&quot;tok-l-Scalar-Plain&quot;&gt;bold_italic&lt;/span&gt;&lt;span class=&quot;tok-p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-l-Scalar-Plain&quot;&gt;mplus1mn-bolditalic-ascii.ttf&lt;/span&gt;
-    &lt;span class=&quot;tok-l-Scalar-Plain&quot;&gt;Mplus1pMultilingual&lt;/span&gt;&lt;span class=&quot;tok-p-Indicator&quot;&gt;:&lt;/span&gt;
-      &lt;span class=&quot;tok-l-Scalar-Plain&quot;&gt;normal&lt;/span&gt;&lt;span class=&quot;tok-p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-l-Scalar-Plain&quot;&gt;mplus1p-regular-multilingual.ttf&lt;/span&gt;
-      &lt;span class=&quot;tok-l-Scalar-Plain&quot;&gt;bold&lt;/span&gt;&lt;span class=&quot;tok-p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-l-Scalar-Plain&quot;&gt;mplus1p-regular-multilingual.ttf&lt;/span&gt;
-      &lt;span class=&quot;tok-l-Scalar-Plain&quot;&gt;italic&lt;/span&gt;&lt;span class=&quot;tok-p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-l-Scalar-Plain&quot;&gt;mplus1p-regular-multilingual.ttf&lt;/span&gt;
-      &lt;span class=&quot;tok-l-Scalar-Plain&quot;&gt;bold_italic&lt;/span&gt;&lt;span class=&quot;tok-p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-l-Scalar-Plain&quot;&gt;mplus1p-regular-multilingual.ttf&lt;/span&gt;
-    &lt;span class=&quot;tok-l-Scalar-Plain&quot;&gt;SourceHanSansSC&lt;/span&gt;&lt;span class=&quot;tok-p-Indicator&quot;&gt;:&lt;/span&gt;  &lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;(1)&lt;/b&gt;
-      &lt;span class=&quot;tok-l-Scalar-Plain&quot;&gt;normal&lt;/span&gt;&lt;span class=&quot;tok-p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-l-Scalar-Plain&quot;&gt;SourceHanSansSC-Normal.ttf&lt;/span&gt;
-      &lt;span class=&quot;tok-l-Scalar-Plain&quot;&gt;bold&lt;/span&gt;&lt;span class=&quot;tok-p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-l-Scalar-Plain&quot;&gt;SourceHanSansSC-Bold.ttf&lt;/span&gt;
-      &lt;span class=&quot;tok-l-Scalar-Plain&quot;&gt;italic&lt;/span&gt;&lt;span class=&quot;tok-p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-l-Scalar-Plain&quot;&gt;SourceHanSansSC-Normal.ttf&lt;/span&gt;
-      &lt;span class=&quot;tok-l-Scalar-Plain&quot;&gt;bold_italic&lt;/span&gt;&lt;span class=&quot;tok-p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-l-Scalar-Plain&quot;&gt;SourceHanSansSC-Normal.ttf&lt;/span&gt;
-  &lt;span class=&quot;tok-l-Scalar-Plain&quot;&gt;fallbacks&lt;/span&gt;&lt;span class=&quot;tok-p-Indicator&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;tok-p-Indicator&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;tok-l-Scalar-Plain&quot;&gt;SourceHanSansSC&lt;/span&gt; &lt;i class=&quot;conum&quot; data-value=&quot;2&quot;&gt;&lt;/i&gt;&lt;b&gt;(2)&lt;/b&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;yaml&quot;&gt;&lt;span style=&quot;color: #ae81ff&quot;&gt;font&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;:&lt;/span&gt;
+  &lt;span style=&quot;color: #ae81ff&quot;&gt;catalog&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;:&lt;/span&gt;
+    &lt;span style=&quot;color: #ae81ff&quot;&gt;NotoSerif&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;:&lt;/span&gt;
+      &lt;span style=&quot;color: #ae81ff&quot;&gt;normal&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;:&lt;/span&gt; &lt;span style=&quot;color: #ae81ff&quot;&gt;notoserif-regular-latin.ttf&lt;/span&gt;
+      &lt;span style=&quot;color: #ae81ff&quot;&gt;bold&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;:&lt;/span&gt; &lt;span style=&quot;color: #ae81ff&quot;&gt;notoserif-bold-latin.ttf&lt;/span&gt;
+      &lt;span style=&quot;color: #ae81ff&quot;&gt;italic&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;:&lt;/span&gt; &lt;span style=&quot;color: #ae81ff&quot;&gt;notoserif-italic-latin.ttf&lt;/span&gt;
+      &lt;span style=&quot;color: #ae81ff&quot;&gt;bold_italic&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;:&lt;/span&gt; &lt;span style=&quot;color: #ae81ff&quot;&gt;notoserif-bolditalic-latin.ttf&lt;/span&gt;
+    &lt;span style=&quot;color: #ae81ff&quot;&gt;Mplus1mn&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;:&lt;/span&gt;
+      &lt;span style=&quot;color: #ae81ff&quot;&gt;normal&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;:&lt;/span&gt; &lt;span style=&quot;color: #ae81ff&quot;&gt;mplus1mn-regular-ascii-conums.ttf&lt;/span&gt;
+      &lt;span style=&quot;color: #ae81ff&quot;&gt;bold&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;:&lt;/span&gt; &lt;span style=&quot;color: #ae81ff&quot;&gt;mplus1mn-bold-ascii.ttf&lt;/span&gt;
+      &lt;span style=&quot;color: #ae81ff&quot;&gt;italic&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;:&lt;/span&gt; &lt;span style=&quot;color: #ae81ff&quot;&gt;mplus1mn-italic-ascii.ttf&lt;/span&gt;
+      &lt;span style=&quot;color: #ae81ff&quot;&gt;bold_italic&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;:&lt;/span&gt; &lt;span style=&quot;color: #ae81ff&quot;&gt;mplus1mn-bolditalic-ascii.ttf&lt;/span&gt;
+    &lt;span style=&quot;color: #ae81ff&quot;&gt;Mplus1pMultilingual&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;:&lt;/span&gt;
+      &lt;span style=&quot;color: #ae81ff&quot;&gt;normal&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;:&lt;/span&gt; &lt;span style=&quot;color: #ae81ff&quot;&gt;mplus1p-regular-multilingual.ttf&lt;/span&gt;
+      &lt;span style=&quot;color: #ae81ff&quot;&gt;bold&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;:&lt;/span&gt; &lt;span style=&quot;color: #ae81ff&quot;&gt;mplus1p-regular-multilingual.ttf&lt;/span&gt;
+      &lt;span style=&quot;color: #ae81ff&quot;&gt;italic&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;:&lt;/span&gt; &lt;span style=&quot;color: #ae81ff&quot;&gt;mplus1p-regular-multilingual.ttf&lt;/span&gt;
+      &lt;span style=&quot;color: #ae81ff&quot;&gt;bold_italic&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;:&lt;/span&gt; &lt;span style=&quot;color: #ae81ff&quot;&gt;mplus1p-regular-multilingual.ttf&lt;/span&gt;
+    &lt;span style=&quot;color: #ae81ff&quot;&gt;SourceHanSansSC&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;:&lt;/span&gt;  &lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;(1)&lt;/b&gt;
+      &lt;span style=&quot;color: #ae81ff&quot;&gt;normal&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;:&lt;/span&gt; &lt;span style=&quot;color: #ae81ff&quot;&gt;SourceHanSansSC-Normal.ttf&lt;/span&gt;
+      &lt;span style=&quot;color: #ae81ff&quot;&gt;bold&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;:&lt;/span&gt; &lt;span style=&quot;color: #ae81ff&quot;&gt;SourceHanSansSC-Bold.ttf&lt;/span&gt;
+      &lt;span style=&quot;color: #ae81ff&quot;&gt;italic&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;:&lt;/span&gt; &lt;span style=&quot;color: #ae81ff&quot;&gt;SourceHanSansSC-Normal.ttf&lt;/span&gt;
+      &lt;span style=&quot;color: #ae81ff&quot;&gt;bold_italic&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;:&lt;/span&gt; &lt;span style=&quot;color: #ae81ff&quot;&gt;SourceHanSansSC-Normal.ttf&lt;/span&gt;
+  &lt;span style=&quot;color: #ae81ff&quot;&gt;fallbacks&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;:&lt;/span&gt;
+    &lt;span style=&quot;color: #f8f8f2&quot;&gt;-&lt;/span&gt; &lt;span style=&quot;color: #ae81ff&quot;&gt;SourceHanSansSC&lt;/span&gt; &lt;i class=&quot;conum&quot; data-value=&quot;2&quot;&gt;&lt;/i&gt;&lt;b&gt;(2)&lt;/b&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;colist arabic&quot;&gt;
@@ -1112,7 +1108,7 @@ If the same font is find by &lt;code&gt;auto-detect&lt;/code&gt; and &lt;code&gt
 &lt;p&gt;Make pdf documents with the custom theme&lt;/p&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;asciidoctor-pdf -a pdf-style&lt;span class=&quot;tok-o&quot;&gt;=&lt;/span&gt;data/themes/cn-theme.yml -a pdf-fontsdir&lt;span class=&quot;tok-o&quot;&gt;=&lt;/span&gt;data/fonts example.adoc&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;asciidoctor-pdf -a pdf-style&lt;span style=&quot;color: #f92672&quot;&gt;=&lt;/span&gt;data/themes/cn-theme.yml -a pdf-fontsdir&lt;span style=&quot;color: #f92672&quot;&gt;=&lt;/span&gt;data/fonts example.adoc&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/li&gt;
@@ -1170,7 +1166,7 @@ int main(int argc, char** argv) {
     
     <item>
       <title>Using RVM to Isolate RubyGems on Fedora 21</title>
-      <link>127.0.0.1/contents/2015/05/05/using-rvm-to-isolate-rubygems-on-fedora-21/</link>
+      <link>127.0.0.1/blog/2015/05/05/using-rvm-to-isolate-rubygems-on-fedora-21/</link>
       <pubDate>Tue, 05 May 2015 00:00:00 +0000</pubDate>
       <dc:creator>ProgramFan</dc:creator>
       
@@ -1181,7 +1177,7 @@ int main(int argc, char** argv) {
       <category>Featured</category>
       
       
-      <guid isPermaLink="true">http://programfan.github.io/contents/2015/05/05/using-rvm-to-isolate-rubygems-on-fedora-21/</guid>
+      <guid isPermaLink="true">http://programfan.github.io/blog/2015/05/05/using-rvm-to-isolate-rubygems-on-fedora-21/</guid>
       <description>&lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Ruby comes with a rich set of packages, which is named by the community as 'Ruby Gems'. Ruby gems are quite alike python packages. They both have dependencies, they rely on specific interpreter versions, they are both managed by centralized repositories &lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_1&quot; class=&quot;footnote&quot; href=&quot;#_footnote_1&quot; title=&quot;View footnote.&quot;&gt;1&lt;/a&gt;]&lt;/sup&gt;.&lt;/p&gt;
 &lt;/div&gt;
@@ -1213,7 +1209,6 @@ For example, user install jekyll does not work with system rubygem-json, which s
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;The ideal way to solve the above problem is to setup isolated (possible non-root) ruby environment for specificed purpose. For example, if one managed to setup seperate ruby interpreter and gems for jekyll, problem 2 does not even exists. &lt;a href=&quot;https://rvm.io&quot;&gt;RVM&lt;/a&gt; comes right to the problem.&lt;/p&gt;
 &lt;/div&gt;
-&lt;!-- more --&gt;
 &lt;div class=&quot;sect1&quot;&gt;
 &lt;h2 id=&quot;introduction-of-rvm&quot;&gt;Introduction of RVM&lt;/h2&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
@@ -1235,7 +1230,7 @@ For example, user install jekyll does not work with system rubygem-json, which s
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;curl -sSL https://get.rvm.io &lt;span class=&quot;tok-p&quot;&gt;|&lt;/span&gt; bash -s --no-dotfiles&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;curl -sSL https://get.rvm.io &lt;span style=&quot;color: #f8f8f2&quot;&gt;|&lt;/span&gt; bash -s --no-dotfiles&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
@@ -1243,7 +1238,7 @@ For example, user install jekyll does not work with system rubygem-json, which s
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;tok-nb&quot;&gt;source&lt;/span&gt; &lt;span class=&quot;tok-nv&quot;&gt;$HOME&lt;/span&gt;/.rvm/scripts/rvm&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;source&lt;/span&gt; &lt;span style=&quot;color: #f8f8f2&quot;&gt;$HOME&lt;/span&gt;/.rvm/scripts/rvm&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -1342,7 +1337,7 @@ If one want to use bundle to install a set of gems, one shall &lt;code&gt;gem in
     
     <item>
       <title>Fix Argument Error with lvalue In Boost.Python</title>
-      <link>127.0.0.1/contents/2015/05/01/fix-boost-python-argument-error-lvalue/</link>
+      <link>127.0.0.1/blog/2015/05/01/fix-boost-python-argument-error-lvalue/</link>
       <pubDate>Fri, 01 May 2015 00:00:00 +0000</pubDate>
       <dc:creator>ProgramFan</dc:creator>
       
@@ -1353,7 +1348,7 @@ If one want to use bundle to install a set of gems, one shall &lt;code&gt;gem in
       <category>C++</category>
       
       
-      <guid isPermaLink="true">http://programfan.github.io/contents/2015/05/01/fix-boost-python-argument-error-lvalue/</guid>
+      <guid isPermaLink="true">http://programfan.github.io/blog/2015/05/01/fix-boost-python-argument-error-lvalue/</guid>
       <description>&lt;div class=&quot;sect1&quot;&gt;
 &lt;h2 id=&quot;the-problem&quot;&gt;The problem&lt;/h2&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
@@ -1366,13 +1361,12 @@ If one want to use bundle to install a set of gems, one shall &lt;code&gt;gem in
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
 &lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;ArgumentError: Python argument types in^@
-CompilationDatabase.GetCompilationInfoForFile&lt;span class=&quot;tok-o&quot;&gt;(&lt;/span&gt;CompilationDatabase, unicode&lt;span class=&quot;tok-o&quot;&gt;)&lt;/span&gt;^@
-did not match pass:&lt;span class=&quot;tok-o&quot;&gt;[&lt;/span&gt;c++&lt;span class=&quot;tok-o&quot;&gt;]&lt;/span&gt; signature:^@
-GetCompilationInfoForFile&lt;span class=&quot;tok-o&quot;&gt;(&lt;/span&gt;YouCompleteMe::CompilationDatabase &lt;span class=&quot;tok-o&quot;&gt;{&lt;/span&gt;lvalue&lt;span class=&quot;tok-o&quot;&gt;}&lt;/span&gt;,
-std::string&lt;span class=&quot;tok-o&quot;&gt;)&lt;/span&gt;^@&lt;/code&gt;&lt;/pre&gt;
+CompilationDatabase.GetCompilationInfoForFile&lt;span style=&quot;color: #f92672&quot;&gt;(&lt;/span&gt;CompilationDatabase, unicode&lt;span style=&quot;color: #f92672&quot;&gt;)&lt;/span&gt;^@
+did not match pass:&lt;span style=&quot;color: #f92672&quot;&gt;[&lt;/span&gt;c++&lt;span style=&quot;color: #f92672&quot;&gt;]&lt;/span&gt; signature:^@
+GetCompilationInfoForFile&lt;span style=&quot;color: #f92672&quot;&gt;(&lt;/span&gt;YouCompleteMe::CompilationDatabase &lt;span style=&quot;color: #f92672&quot;&gt;{&lt;/span&gt;lvalue&lt;span style=&quot;color: #f92672&quot;&gt;}&lt;/span&gt;,
+std::string&lt;span style=&quot;color: #f92672&quot;&gt;)&lt;/span&gt;^@&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;!-- more --&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;sect1&quot;&gt;
@@ -1390,7 +1384,7 @@ std::string&lt;span class=&quot;tok-o&quot;&gt;)&lt;/span&gt;^@&lt;/code&gt;&lt;
     
     <item>
       <title>Prevent GCC from optimizing away a snippet of code</title>
-      <link>127.0.0.1/contents/2015/04/27/prevent-gcc-optimize-away-code/</link>
+      <link>127.0.0.1/blog/2015/04/27/prevent-gcc-optimize-away-code/</link>
       <pubDate>Mon, 27 Apr 2015 00:00:00 +0000</pubDate>
       <dc:creator>ProgramFan</dc:creator>
       
@@ -1401,7 +1395,7 @@ std::string&lt;span class=&quot;tok-o&quot;&gt;)&lt;/span&gt;^@&lt;/code&gt;&lt;
       <category>Featured</category>
       
       
-      <guid isPermaLink="true">http://programfan.github.io/contents/2015/04/27/prevent-gcc-optimize-away-code/</guid>
+      <guid isPermaLink="true">http://programfan.github.io/blog/2015/04/27/prevent-gcc-optimize-away-code/</guid>
       <description>&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
@@ -1427,16 +1421,15 @@ load and store of a variable. Most compilers tend to do no optimizations at
 all (even for proven dead code). So the &lt;code&gt;volatile&lt;/code&gt; technique becomes the top 1
 used.&lt;/p&gt;
 &lt;/div&gt;
-&lt;!-- more --&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;For example:&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;tok-kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;tok-nf&quot;&gt;doTest&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;tok-k&quot;&gt;volatile&lt;/span&gt; &lt;span class=&quot;tok-kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;tok-n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;tok-o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;tok-mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;tok-n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;tok-o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;tok-mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;tok-p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span style=&quot;color: #66d9ef&quot;&gt;void&lt;/span&gt; &lt;span style=&quot;color: #a6e22e&quot;&gt;doTest&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;()&lt;/span&gt; &lt;span style=&quot;color: #f8f8f2&quot;&gt;{&lt;/span&gt;
+    &lt;span style=&quot;color: #66d9ef&quot;&gt;volatile&lt;/span&gt; &lt;span style=&quot;color: #66d9ef&quot;&gt;int&lt;/span&gt; &lt;span style=&quot;color: #f8f8f2&quot;&gt;a&lt;/span&gt; &lt;span style=&quot;color: #f92672&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color: #ae81ff&quot;&gt;0&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;;&lt;/span&gt;
+    &lt;span style=&quot;color: #f8f8f2&quot;&gt;a&lt;/span&gt; &lt;span style=&quot;color: #f92672&quot;&gt;+=&lt;/span&gt; &lt;span style=&quot;color: #ae81ff&quot;&gt;1&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;;&lt;/span&gt;
+&lt;span style=&quot;color: #f8f8f2&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
@@ -1444,11 +1437,11 @@ used.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;asm&quot;&gt;&lt;span class=&quot;tok-nf&quot;&gt;movl&lt;/span&gt;   &lt;span class=&quot;tok-kc&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;tok-mh&quot;&gt;0x0&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;tok-mh&quot;&gt;0x4&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;tok-nb&quot;&gt;rsp&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;tok-nf&quot;&gt;mov&lt;/span&gt;    &lt;span class=&quot;tok-o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;tok-mh&quot;&gt;0x4&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;tok-nb&quot;&gt;rsp&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;tok-nb&quot;&gt;eax&lt;/span&gt;
-&lt;span class=&quot;tok-nf&quot;&gt;add&lt;/span&gt;    &lt;span class=&quot;tok-kc&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;tok-mh&quot;&gt;0x1&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;tok-nb&quot;&gt;eax&lt;/span&gt;
-&lt;span class=&quot;tok-nf&quot;&gt;mov&lt;/span&gt;    &lt;span class=&quot;tok-o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;tok-nb&quot;&gt;eax&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;tok-mh&quot;&gt;0x4&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;tok-nb&quot;&gt;rsp&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;tok-nf&quot;&gt;retq&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;asm&quot;&gt;&lt;span style=&quot;color: #a6e22e&quot;&gt;movl&lt;/span&gt;   &lt;span style=&quot;color: #66d9ef&quot;&gt;$&lt;/span&gt;&lt;span style=&quot;color: #ae81ff&quot;&gt;0x0&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;,&lt;/span&gt;&lt;span style=&quot;color: #f92672&quot;&gt;-&lt;/span&gt;&lt;span style=&quot;color: #ae81ff&quot;&gt;0x4&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color: #f92672&quot;&gt;%&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;rsp)&lt;/span&gt;
+&lt;span style=&quot;color: #a6e22e&quot;&gt;mov&lt;/span&gt;    &lt;span style=&quot;color: #f92672&quot;&gt;-&lt;/span&gt;&lt;span style=&quot;color: #ae81ff&quot;&gt;0x4&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color: #f92672&quot;&gt;%&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;rsp),&lt;/span&gt;&lt;span style=&quot;color: #f92672&quot;&gt;%&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;eax&lt;/span&gt;
+&lt;span style=&quot;color: #a6e22e&quot;&gt;add&lt;/span&gt;    &lt;span style=&quot;color: #66d9ef&quot;&gt;$&lt;/span&gt;&lt;span style=&quot;color: #ae81ff&quot;&gt;0x1&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;,&lt;/span&gt;&lt;span style=&quot;color: #f92672&quot;&gt;%&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;eax&lt;/span&gt;
+&lt;span style=&quot;color: #a6e22e&quot;&gt;mov&lt;/span&gt;    &lt;span style=&quot;color: #f92672&quot;&gt;%&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;eax,&lt;/span&gt;&lt;span style=&quot;color: #f92672&quot;&gt;-&lt;/span&gt;&lt;span style=&quot;color: #ae81ff&quot;&gt;0x4&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color: #f92672&quot;&gt;%&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;rsp)&lt;/span&gt;
+&lt;span style=&quot;color: #a6e22e&quot;&gt;retq&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
@@ -1456,9 +1449,9 @@ used.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;asm&quot;&gt;&lt;span class=&quot;tok-nf&quot;&gt;movl&lt;/span&gt;   &lt;span class=&quot;tok-kc&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;tok-mh&quot;&gt;0x0&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;tok-mh&quot;&gt;0x8&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;tok-nb&quot;&gt;rsp&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;tok-nf&quot;&gt;incl&lt;/span&gt;   &lt;span class=&quot;tok-o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;tok-mh&quot;&gt;0x8&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;tok-nb&quot;&gt;rsp&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;tok-nf&quot;&gt;retq&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;asm&quot;&gt;&lt;span style=&quot;color: #a6e22e&quot;&gt;movl&lt;/span&gt;   &lt;span style=&quot;color: #66d9ef&quot;&gt;$&lt;/span&gt;&lt;span style=&quot;color: #ae81ff&quot;&gt;0x0&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;,&lt;/span&gt;&lt;span style=&quot;color: #f92672&quot;&gt;-&lt;/span&gt;&lt;span style=&quot;color: #ae81ff&quot;&gt;0x8&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color: #f92672&quot;&gt;%&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;rsp)&lt;/span&gt;
+&lt;span style=&quot;color: #a6e22e&quot;&gt;incl&lt;/span&gt;   &lt;span style=&quot;color: #f92672&quot;&gt;-&lt;/span&gt;&lt;span style=&quot;color: #ae81ff&quot;&gt;0x8&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color: #f92672&quot;&gt;%&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;rsp)&lt;/span&gt;
+&lt;span style=&quot;color: #a6e22e&quot;&gt;retq&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -1478,14 +1471,14 @@ expression:&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;tok-k&quot;&gt;template&lt;/span&gt; &lt;span class=&quot;tok-o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;tok-k&quot;&gt;typename&lt;/span&gt; &lt;span class=&quot;tok-n&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;tok-kr&quot;&gt;inline&lt;/span&gt; &lt;span class=&quot;tok-n&quot;&gt;doNotOptimizeAway&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-n&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;tok-n&quot;&gt;datum&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;tok-k&quot;&gt;asm&lt;/span&gt; &lt;span class=&quot;tok-k&quot;&gt;volatile&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-s&quot;&gt;&amp;quot;&amp;quot;&lt;/span&gt; &lt;span class=&quot;tok-o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-s&quot;&gt;&amp;quot;+r&amp;quot;&lt;/span&gt; &lt;span class=&quot;tok-n&quot;&gt;datum&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;tok-p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;tok-kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;tok-n&quot;&gt;doTest&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;tok-kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;tok-n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;tok-n&quot;&gt;doNotOptimizeAway&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;tok-o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;tok-mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;tok-n&quot;&gt;doNotOptimizeAway&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;tok-o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;tok-mi&quot;&gt;16&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;tok-p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span style=&quot;color: #66d9ef&quot;&gt;template&lt;/span&gt; &lt;span style=&quot;color: #f92672&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&quot;color: #66d9ef&quot;&gt;typename&lt;/span&gt; &lt;span style=&quot;color: #f8f8f2&quot;&gt;T&lt;/span&gt;&lt;span style=&quot;color: #f92672&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&quot;color: #66d9ef&quot;&gt;inline&lt;/span&gt; &lt;span style=&quot;color: #f8f8f2&quot;&gt;doNotOptimizeAway(T&lt;/span&gt;&lt;span style=&quot;color: #f92672&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span style=&quot;color: #f8f8f2&quot;&gt;datum)&lt;/span&gt; &lt;span style=&quot;color: #f8f8f2&quot;&gt;{&lt;/span&gt;
+    &lt;span style=&quot;color: #66d9ef&quot;&gt;asm&lt;/span&gt; &lt;span style=&quot;color: #66d9ef&quot;&gt;volatile&lt;/span&gt; &lt;span style=&quot;color: #f8f8f2&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color: #e6db74&quot;&gt;&amp;quot;&amp;quot;&lt;/span&gt; &lt;span style=&quot;color: #f92672&quot;&gt;:&lt;/span&gt; &lt;span style=&quot;color: #e6db74&quot;&gt;&amp;quot;+r&amp;quot;&lt;/span&gt; &lt;span style=&quot;color: #f8f8f2&quot;&gt;datum);&lt;/span&gt;
+&lt;span style=&quot;color: #f8f8f2&quot;&gt;}&lt;/span&gt;
+&lt;span style=&quot;color: #66d9ef&quot;&gt;void&lt;/span&gt; &lt;span style=&quot;color: #f8f8f2&quot;&gt;doTest()&lt;/span&gt; &lt;span style=&quot;color: #f8f8f2&quot;&gt;{&lt;/span&gt;
+    &lt;span style=&quot;color: #66d9ef&quot;&gt;int&lt;/span&gt; &lt;span style=&quot;color: #f8f8f2&quot;&gt;a;&lt;/span&gt;
+    &lt;span style=&quot;color: #f8f8f2&quot;&gt;doNotOptimizeAway(a&lt;/span&gt; &lt;span style=&quot;color: #f92672&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color: #ae81ff&quot;&gt;0&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;);&lt;/span&gt;
+    &lt;span style=&quot;color: #f8f8f2&quot;&gt;doNotOptimizeAway(a&lt;/span&gt; &lt;span style=&quot;color: #f92672&quot;&gt;+=&lt;/span&gt; &lt;span style=&quot;color: #ae81ff&quot;&gt;16&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;);&lt;/span&gt;
+&lt;span style=&quot;color: #f8f8f2&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
@@ -1493,16 +1486,16 @@ expression:&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;asm&quot;&gt;&lt;span class=&quot;tok-nf&quot;&gt;movl&lt;/span&gt;   &lt;span class=&quot;tok-kc&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;tok-mh&quot;&gt;0x0&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;tok-mh&quot;&gt;0x8&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;tok-nb&quot;&gt;rsp&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;tok-nf&quot;&gt;mov&lt;/span&gt;    &lt;span class=&quot;tok-o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;tok-mh&quot;&gt;0x8&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;tok-nb&quot;&gt;rsp&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;tok-nb&quot;&gt;eax&lt;/span&gt;
-&lt;span class=&quot;tok-nf&quot;&gt;mov&lt;/span&gt;    &lt;span class=&quot;tok-o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;tok-nb&quot;&gt;eax&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;tok-mh&quot;&gt;0x8&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;tok-nb&quot;&gt;rsp&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;tok-nf&quot;&gt;addl&lt;/span&gt;   &lt;span class=&quot;tok-kc&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;tok-mh&quot;&gt;0x10&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;tok-mh&quot;&gt;0x8&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;tok-nb&quot;&gt;rsp&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;tok-nf&quot;&gt;mov&lt;/span&gt;    &lt;span class=&quot;tok-o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;tok-mh&quot;&gt;0x8&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;tok-nb&quot;&gt;rsp&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;tok-nb&quot;&gt;edx&lt;/span&gt;
-&lt;span class=&quot;tok-nf&quot;&gt;mov&lt;/span&gt;    &lt;span class=&quot;tok-o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;tok-nb&quot;&gt;edx&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;tok-mh&quot;&gt;0x8&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;tok-nb&quot;&gt;rsp&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;tok-nf&quot;&gt;incl&lt;/span&gt;   &lt;span class=&quot;tok-o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;tok-mh&quot;&gt;0x8&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;tok-nb&quot;&gt;rsp&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;tok-nf&quot;&gt;mov&lt;/span&gt;    &lt;span class=&quot;tok-o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;tok-mh&quot;&gt;0x8&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;tok-nb&quot;&gt;rsp&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;tok-nb&quot;&gt;ecx&lt;/span&gt;
-&lt;span class=&quot;tok-nf&quot;&gt;mov&lt;/span&gt;    &lt;span class=&quot;tok-o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;tok-nb&quot;&gt;ecx&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;tok-mh&quot;&gt;0x8&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;tok-nb&quot;&gt;rsp&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;tok-nf&quot;&gt;retq&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;asm&quot;&gt;&lt;span style=&quot;color: #a6e22e&quot;&gt;movl&lt;/span&gt;   &lt;span style=&quot;color: #66d9ef&quot;&gt;$&lt;/span&gt;&lt;span style=&quot;color: #ae81ff&quot;&gt;0x0&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;,&lt;/span&gt;&lt;span style=&quot;color: #f92672&quot;&gt;-&lt;/span&gt;&lt;span style=&quot;color: #ae81ff&quot;&gt;0x8&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color: #f92672&quot;&gt;%&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;rsp)&lt;/span&gt;
+&lt;span style=&quot;color: #a6e22e&quot;&gt;mov&lt;/span&gt;    &lt;span style=&quot;color: #f92672&quot;&gt;-&lt;/span&gt;&lt;span style=&quot;color: #ae81ff&quot;&gt;0x8&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color: #f92672&quot;&gt;%&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;rsp),&lt;/span&gt;&lt;span style=&quot;color: #f92672&quot;&gt;%&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;eax&lt;/span&gt;
+&lt;span style=&quot;color: #a6e22e&quot;&gt;mov&lt;/span&gt;    &lt;span style=&quot;color: #f92672&quot;&gt;%&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;eax,&lt;/span&gt;&lt;span style=&quot;color: #f92672&quot;&gt;-&lt;/span&gt;&lt;span style=&quot;color: #ae81ff&quot;&gt;0x8&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color: #f92672&quot;&gt;%&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;rsp)&lt;/span&gt;
+&lt;span style=&quot;color: #a6e22e&quot;&gt;addl&lt;/span&gt;   &lt;span style=&quot;color: #66d9ef&quot;&gt;$&lt;/span&gt;&lt;span style=&quot;color: #ae81ff&quot;&gt;0x10&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;,&lt;/span&gt;&lt;span style=&quot;color: #f92672&quot;&gt;-&lt;/span&gt;&lt;span style=&quot;color: #ae81ff&quot;&gt;0x8&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color: #f92672&quot;&gt;%&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;rsp)&lt;/span&gt;
+&lt;span style=&quot;color: #a6e22e&quot;&gt;mov&lt;/span&gt;    &lt;span style=&quot;color: #f92672&quot;&gt;-&lt;/span&gt;&lt;span style=&quot;color: #ae81ff&quot;&gt;0x8&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color: #f92672&quot;&gt;%&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;rsp),&lt;/span&gt;&lt;span style=&quot;color: #f92672&quot;&gt;%&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;edx&lt;/span&gt;
+&lt;span style=&quot;color: #a6e22e&quot;&gt;mov&lt;/span&gt;    &lt;span style=&quot;color: #f92672&quot;&gt;%&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;edx,&lt;/span&gt;&lt;span style=&quot;color: #f92672&quot;&gt;-&lt;/span&gt;&lt;span style=&quot;color: #ae81ff&quot;&gt;0x8&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color: #f92672&quot;&gt;%&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;rsp)&lt;/span&gt;
+&lt;span style=&quot;color: #a6e22e&quot;&gt;incl&lt;/span&gt;   &lt;span style=&quot;color: #f92672&quot;&gt;-&lt;/span&gt;&lt;span style=&quot;color: #ae81ff&quot;&gt;0x8&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color: #f92672&quot;&gt;%&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;rsp)&lt;/span&gt;
+&lt;span style=&quot;color: #a6e22e&quot;&gt;mov&lt;/span&gt;    &lt;span style=&quot;color: #f92672&quot;&gt;-&lt;/span&gt;&lt;span style=&quot;color: #ae81ff&quot;&gt;0x8&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color: #f92672&quot;&gt;%&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;rsp),&lt;/span&gt;&lt;span style=&quot;color: #f92672&quot;&gt;%&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;ecx&lt;/span&gt;
+&lt;span style=&quot;color: #a6e22e&quot;&gt;mov&lt;/span&gt;    &lt;span style=&quot;color: #f92672&quot;&gt;%&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;ecx,&lt;/span&gt;&lt;span style=&quot;color: #f92672&quot;&gt;-&lt;/span&gt;&lt;span style=&quot;color: #ae81ff&quot;&gt;0x8&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color: #f92672&quot;&gt;%&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;rsp)&lt;/span&gt;
+&lt;span style=&quot;color: #a6e22e&quot;&gt;retq&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
@@ -1510,9 +1503,9 @@ expression:&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;asm&quot;&gt;&lt;span class=&quot;tok-nf&quot;&gt;xor&lt;/span&gt;    &lt;span class=&quot;tok-o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;tok-nb&quot;&gt;eax&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;tok-nb&quot;&gt;eax&lt;/span&gt;
-&lt;span class=&quot;tok-nf&quot;&gt;add&lt;/span&gt;    &lt;span class=&quot;tok-kc&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;tok-mh&quot;&gt;0x10&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;tok-nb&quot;&gt;eax&lt;/span&gt;
-&lt;span class=&quot;tok-nf&quot;&gt;retq&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;asm&quot;&gt;&lt;span style=&quot;color: #a6e22e&quot;&gt;xor&lt;/span&gt;    &lt;span style=&quot;color: #f92672&quot;&gt;%&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;eax,&lt;/span&gt;&lt;span style=&quot;color: #f92672&quot;&gt;%&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;eax&lt;/span&gt;
+&lt;span style=&quot;color: #a6e22e&quot;&gt;add&lt;/span&gt;    &lt;span style=&quot;color: #66d9ef&quot;&gt;$&lt;/span&gt;&lt;span style=&quot;color: #ae81ff&quot;&gt;0x10&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;,&lt;/span&gt;&lt;span style=&quot;color: #f92672&quot;&gt;%&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;eax&lt;/span&gt;
+&lt;span style=&quot;color: #a6e22e&quot;&gt;retq&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;admonitionblock note&quot;&gt;
@@ -1544,14 +1537,14 @@ optimize it away but icc will keep it.
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;tok-cp&quot;&gt;#pragma GCC push_options&lt;/span&gt;
-&lt;span class=&quot;tok-cp&quot;&gt;#pragma GCC optimize(&amp;quot;O0&amp;quot;)&lt;/span&gt;
-&lt;span class=&quot;tok-kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;tok-nf&quot;&gt;doTest&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;tok-kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;tok-n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;tok-n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;tok-o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;tok-mi&quot;&gt;15&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;tok-n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;tok-o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;tok-mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;tok-p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;tok-cp&quot;&gt;#pragma GCC pop_options&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;cpp&quot;&gt;&lt;span style=&quot;color: #75715e&quot;&gt;#pragma GCC push_options&lt;/span&gt;
+&lt;span style=&quot;color: #75715e&quot;&gt;#pragma GCC optimize(&amp;quot;O0&amp;quot;)&lt;/span&gt;
+&lt;span style=&quot;color: #66d9ef&quot;&gt;void&lt;/span&gt; &lt;span style=&quot;color: #a6e22e&quot;&gt;doTest&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;()&lt;/span&gt; &lt;span style=&quot;color: #f8f8f2&quot;&gt;{&lt;/span&gt;
+    &lt;span style=&quot;color: #66d9ef&quot;&gt;int&lt;/span&gt; &lt;span style=&quot;color: #f8f8f2&quot;&gt;a;&lt;/span&gt;
+    &lt;span style=&quot;color: #f8f8f2&quot;&gt;a&lt;/span&gt; &lt;span style=&quot;color: #f92672&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color: #ae81ff&quot;&gt;15&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;;&lt;/span&gt;
+    &lt;span style=&quot;color: #f8f8f2&quot;&gt;a&lt;/span&gt; &lt;span style=&quot;color: #f92672&quot;&gt;+=&lt;/span&gt; &lt;span style=&quot;color: #ae81ff&quot;&gt;1&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;;&lt;/span&gt;
+&lt;span style=&quot;color: #f8f8f2&quot;&gt;}&lt;/span&gt;
+&lt;span style=&quot;color: #75715e&quot;&gt;#pragma GCC pop_options&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
@@ -1559,9 +1552,9 @@ optimize it away but icc will keep it.
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;asm&quot;&gt;&lt;span class=&quot;tok-nf&quot;&gt;movl&lt;/span&gt;   &lt;span class=&quot;tok-kc&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;tok-mh&quot;&gt;0xf&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;tok-mh&quot;&gt;0x4&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;tok-nb&quot;&gt;rsp&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;tok-nf&quot;&gt;addl&lt;/span&gt;   &lt;span class=&quot;tok-kc&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;tok-mh&quot;&gt;0x1&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;tok-mh&quot;&gt;0x4&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;tok-nb&quot;&gt;rsp&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;tok-nf&quot;&gt;retq&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;asm&quot;&gt;&lt;span style=&quot;color: #a6e22e&quot;&gt;movl&lt;/span&gt;   &lt;span style=&quot;color: #66d9ef&quot;&gt;$&lt;/span&gt;&lt;span style=&quot;color: #ae81ff&quot;&gt;0xf&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;,&lt;/span&gt;&lt;span style=&quot;color: #f92672&quot;&gt;-&lt;/span&gt;&lt;span style=&quot;color: #ae81ff&quot;&gt;0x4&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color: #f92672&quot;&gt;%&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;rsp)&lt;/span&gt;
+&lt;span style=&quot;color: #a6e22e&quot;&gt;addl&lt;/span&gt;   &lt;span style=&quot;color: #66d9ef&quot;&gt;$&lt;/span&gt;&lt;span style=&quot;color: #ae81ff&quot;&gt;0x1&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;,&lt;/span&gt;&lt;span style=&quot;color: #f92672&quot;&gt;-&lt;/span&gt;&lt;span style=&quot;color: #ae81ff&quot;&gt;0x4&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color: #f92672&quot;&gt;%&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;rsp)&lt;/span&gt;
+&lt;span style=&quot;color: #a6e22e&quot;&gt;retq&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
@@ -1569,13 +1562,13 @@ optimize it away but icc will keep it.
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;asm&quot;&gt;&lt;span class=&quot;tok-nf&quot;&gt;sub&lt;/span&gt;    &lt;span class=&quot;tok-kc&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;tok-mh&quot;&gt;0x10&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;tok-nb&quot;&gt;rsp&lt;/span&gt;
-&lt;span class=&quot;tok-nf&quot;&gt;movl&lt;/span&gt;   &lt;span class=&quot;tok-kc&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;tok-mh&quot;&gt;0xf&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;tok-mh&quot;&gt;0x10&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;tok-nb&quot;&gt;rbp&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;tok-nf&quot;&gt;mov&lt;/span&gt;    &lt;span class=&quot;tok-kc&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;tok-mh&quot;&gt;0x1&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;tok-nb&quot;&gt;eax&lt;/span&gt;
-&lt;span class=&quot;tok-nf&quot;&gt;add&lt;/span&gt;    &lt;span class=&quot;tok-o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;tok-mh&quot;&gt;0x10&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;tok-nb&quot;&gt;rbp&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;tok-nb&quot;&gt;eax&lt;/span&gt;
-&lt;span class=&quot;tok-nf&quot;&gt;mov&lt;/span&gt;    &lt;span class=&quot;tok-o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;tok-nb&quot;&gt;eax&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;tok-mh&quot;&gt;0x10&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;tok-nb&quot;&gt;rbp&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;tok-nf&quot;&gt;leaveq&lt;/span&gt;
-&lt;span class=&quot;tok-nf&quot;&gt;retq&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;asm&quot;&gt;&lt;span style=&quot;color: #a6e22e&quot;&gt;sub&lt;/span&gt;    &lt;span style=&quot;color: #66d9ef&quot;&gt;$&lt;/span&gt;&lt;span style=&quot;color: #ae81ff&quot;&gt;0x10&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;,&lt;/span&gt;&lt;span style=&quot;color: #f92672&quot;&gt;%&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;rsp&lt;/span&gt;
+&lt;span style=&quot;color: #a6e22e&quot;&gt;movl&lt;/span&gt;   &lt;span style=&quot;color: #66d9ef&quot;&gt;$&lt;/span&gt;&lt;span style=&quot;color: #ae81ff&quot;&gt;0xf&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;,&lt;/span&gt;&lt;span style=&quot;color: #f92672&quot;&gt;-&lt;/span&gt;&lt;span style=&quot;color: #ae81ff&quot;&gt;0x10&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color: #f92672&quot;&gt;%&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;rbp)&lt;/span&gt;
+&lt;span style=&quot;color: #a6e22e&quot;&gt;mov&lt;/span&gt;    &lt;span style=&quot;color: #66d9ef&quot;&gt;$&lt;/span&gt;&lt;span style=&quot;color: #ae81ff&quot;&gt;0x1&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;,&lt;/span&gt;&lt;span style=&quot;color: #f92672&quot;&gt;%&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;eax&lt;/span&gt;
+&lt;span style=&quot;color: #a6e22e&quot;&gt;add&lt;/span&gt;    &lt;span style=&quot;color: #f92672&quot;&gt;-&lt;/span&gt;&lt;span style=&quot;color: #ae81ff&quot;&gt;0x10&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color: #f92672&quot;&gt;%&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;rbp),&lt;/span&gt;&lt;span style=&quot;color: #f92672&quot;&gt;%&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;eax&lt;/span&gt;
+&lt;span style=&quot;color: #a6e22e&quot;&gt;mov&lt;/span&gt;    &lt;span style=&quot;color: #f92672&quot;&gt;%&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;eax,&lt;/span&gt;&lt;span style=&quot;color: #f92672&quot;&gt;-&lt;/span&gt;&lt;span style=&quot;color: #ae81ff&quot;&gt;0x10&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color: #f92672&quot;&gt;%&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;rbp)&lt;/span&gt;
+&lt;span style=&quot;color: #a6e22e&quot;&gt;leaveq&lt;/span&gt;
+&lt;span style=&quot;color: #a6e22e&quot;&gt;retq&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
@@ -1601,7 +1594,7 @@ The above pragma can be replaced by function attribute
     
     <item>
       <title>Convert Chinese Asciidoc Documents to PDF</title>
-      <link>127.0.0.1/contents/2015/04/20/convert-chinese-asciidoc-to-pdf/</link>
+      <link>127.0.0.1/blog/2015/04/20/convert-chinese-asciidoc-to-pdf/</link>
       <pubDate>Mon, 20 Apr 2015 00:00:00 +0000</pubDate>
       <dc:creator>ProgramFan</dc:creator>
       
@@ -1614,7 +1607,7 @@ The above pragma can be replaced by function attribute
       <category>Asciidoctor</category>
       
       
-      <guid isPermaLink="true">http://programfan.github.io/contents/2015/04/20/convert-chinese-asciidoc-to-pdf/</guid>
+      <guid isPermaLink="true">http://programfan.github.io/blog/2015/04/20/convert-chinese-asciidoc-to-pdf/</guid>
       <description>&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
@@ -1641,7 +1634,6 @@ The above pragma can be replaced by function attribute
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;At the time of writing, asciidoctor-pdf does not support fontawesome icon font. So the callouts and admotions are simple charactors.&lt;/p&gt;
 &lt;/div&gt;
-&lt;!-- more --&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;asciidoctor-latex&lt;/p&gt;
@@ -1748,9 +1740,9 @@ fopub EXAMPLE.xml &lt;i class=&quot;conum&quot; data-value=&quot;2&quot;&gt;&lt;
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;java -cp &lt;span class=&quot;tok-nv&quot;&gt;$fop_libs_dir&lt;/span&gt;:&lt;span class=&quot;tok-nv&quot;&gt;$fop_libs_dir&lt;/span&gt;/* &lt;span class=&quot;tok-se&quot;&gt;\ &lt;/span&gt;    &lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;(1)&lt;/b&gt;
-    org.apache.fop.fonts.apps.TTFReader -q &lt;span class=&quot;tok-se&quot;&gt;\ &lt;/span&gt;&lt;i class=&quot;conum&quot; data-value=&quot;2&quot;&gt;&lt;/i&gt;&lt;b&gt;(2)&lt;/b&gt;
-    &lt;span class=&quot;tok-nv&quot;&gt;$fontfile&lt;/span&gt; &lt;span class=&quot;tok-nv&quot;&gt;$metricfile&lt;/span&gt; &lt;i class=&quot;conum&quot; data-value=&quot;3&quot;&gt;&lt;/i&gt;&lt;b&gt;(3)&lt;/b&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;java -cp &lt;span style=&quot;color: #f8f8f2&quot;&gt;$fop_libs_dir&lt;/span&gt;:&lt;span style=&quot;color: #f8f8f2&quot;&gt;$fop_libs_dir&lt;/span&gt;/* &lt;span style=&quot;color: #ae81ff&quot;&gt;\ &lt;/span&gt;    &lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;(1)&lt;/b&gt;
+    org.apache.fop.fonts.apps.TTFReader -q &lt;span style=&quot;color: #ae81ff&quot;&gt;\ &lt;/span&gt;&lt;i class=&quot;conum&quot; data-value=&quot;2&quot;&gt;&lt;/i&gt;&lt;b&gt;(2)&lt;/b&gt;
+    &lt;span style=&quot;color: #f8f8f2&quot;&gt;$fontfile&lt;/span&gt; &lt;span style=&quot;color: #f8f8f2&quot;&gt;$metricfile&lt;/span&gt; &lt;i class=&quot;conum&quot; data-value=&quot;3&quot;&gt;&lt;/i&gt;&lt;b&gt;(3)&lt;/b&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;colist arabic&quot;&gt;
@@ -1780,10 +1772,10 @@ fopub EXAMPLE.xml &lt;i class=&quot;conum&quot; data-value=&quot;2&quot;&gt;&lt;
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;xml&quot;&gt;&lt;span class=&quot;tok-nt&quot;&gt;&amp;lt;font&lt;/span&gt; &lt;span class=&quot;tok-na&quot;&gt;metrics-url=&lt;/span&gt;&lt;span class=&quot;tok-s&quot;&gt;&amp;quot;$fop_fonts_dir/$metricfile&amp;quot;&lt;/span&gt;   &lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;(1)&lt;/b&gt;
-     &lt;span class=&quot;tok-na&quot;&gt;embed-url=&lt;/span&gt;&lt;span class=&quot;tok-s&quot;&gt;&amp;quot;$fonefile&amp;quot;&lt;/span&gt; &lt;span class=&quot;tok-na&quot;&gt;kerning=&lt;/span&gt;&lt;span class=&quot;tok-s&quot;&gt;&amp;quot;yes&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-nt&quot;&gt;&amp;gt;&lt;/span&gt;        &lt;i class=&quot;conum&quot; data-value=&quot;2&quot;&gt;&lt;/i&gt;&lt;b&gt;(2)&lt;/b&gt;
-     &lt;span class=&quot;tok-nt&quot;&gt;&amp;lt;font-triplet&lt;/span&gt; &lt;span class=&quot;tok-na&quot;&gt;name=&lt;/span&gt;&lt;span class=&quot;tok-s&quot;&gt;&amp;quot;$FontName&amp;quot;&lt;/span&gt; &lt;span class=&quot;tok-na&quot;&gt;style=&lt;/span&gt;&lt;span class=&quot;tok-s&quot;&gt;&amp;quot;normal&amp;quot;&lt;/span&gt; &lt;span class=&quot;tok-na&quot;&gt;weight=&lt;/span&gt;&lt;span class=&quot;tok-s&quot;&gt;&amp;quot;normal&amp;quot;&lt;/span&gt; &lt;span class=&quot;tok-nt&quot;&gt;/&amp;gt;&lt;/span&gt; &lt;i class=&quot;conum&quot; data-value=&quot;3&quot;&gt;&lt;/i&gt;&lt;b&gt;(3)&lt;/b&gt;
-&lt;span class=&quot;tok-nt&quot;&gt;&amp;lt;/font&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;xml&quot;&gt;&lt;span style=&quot;color: #f92672&quot;&gt;&amp;lt;font&lt;/span&gt; &lt;span style=&quot;color: #a6e22e&quot;&gt;metrics-url=&lt;/span&gt;&lt;span style=&quot;color: #e6db74&quot;&gt;&amp;quot;$fop_fonts_dir/$metricfile&amp;quot;&lt;/span&gt;   &lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;(1)&lt;/b&gt;
+     &lt;span style=&quot;color: #a6e22e&quot;&gt;embed-url=&lt;/span&gt;&lt;span style=&quot;color: #e6db74&quot;&gt;&amp;quot;$fonefile&amp;quot;&lt;/span&gt; &lt;span style=&quot;color: #a6e22e&quot;&gt;kerning=&lt;/span&gt;&lt;span style=&quot;color: #e6db74&quot;&gt;&amp;quot;yes&amp;quot;&lt;/span&gt;&lt;span style=&quot;color: #f92672&quot;&gt;&amp;gt;&lt;/span&gt;        &lt;i class=&quot;conum&quot; data-value=&quot;2&quot;&gt;&lt;/i&gt;&lt;b&gt;(2)&lt;/b&gt;
+     &lt;span style=&quot;color: #f92672&quot;&gt;&amp;lt;font-triplet&lt;/span&gt; &lt;span style=&quot;color: #a6e22e&quot;&gt;name=&lt;/span&gt;&lt;span style=&quot;color: #e6db74&quot;&gt;&amp;quot;$FontName&amp;quot;&lt;/span&gt; &lt;span style=&quot;color: #a6e22e&quot;&gt;style=&lt;/span&gt;&lt;span style=&quot;color: #e6db74&quot;&gt;&amp;quot;normal&amp;quot;&lt;/span&gt; &lt;span style=&quot;color: #a6e22e&quot;&gt;weight=&lt;/span&gt;&lt;span style=&quot;color: #e6db74&quot;&gt;&amp;quot;normal&amp;quot;&lt;/span&gt; &lt;span style=&quot;color: #f92672&quot;&gt;/&amp;gt;&lt;/span&gt; &lt;i class=&quot;conum&quot; data-value=&quot;3&quot;&gt;&lt;/i&gt;&lt;b&gt;(3)&lt;/b&gt;
+&lt;span style=&quot;color: #f92672&quot;&gt;&amp;lt;/font&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;colist arabic&quot;&gt;
@@ -1810,9 +1802,9 @@ fopub EXAMPLE.xml &lt;i class=&quot;conum&quot; data-value=&quot;2&quot;&gt;&lt;
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;xml&quot;&gt;&lt;span class=&quot;tok-nt&quot;&gt;&amp;lt;xsl:template&lt;/span&gt; &lt;span class=&quot;tok-na&quot;&gt;name=&lt;/span&gt;&lt;span class=&quot;tok-s&quot;&gt;&amp;quot;pickfont-sans&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-nt&quot;&gt;&amp;gt;&lt;/span&gt;
-  &lt;span class=&quot;tok-nt&quot;&gt;&amp;lt;xsl:text&amp;gt;&lt;/span&gt;Arial,sans-serif,SimSun&lt;span class=&quot;tok-nt&quot;&gt;&amp;lt;/xsl:text&amp;gt;&lt;/span&gt;   &lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;(1)&lt;/b&gt;
-&lt;span class=&quot;tok-nt&quot;&gt;&amp;lt;/xsl:template&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;xml&quot;&gt;&lt;span style=&quot;color: #f92672&quot;&gt;&amp;lt;xsl:template&lt;/span&gt; &lt;span style=&quot;color: #a6e22e&quot;&gt;name=&lt;/span&gt;&lt;span style=&quot;color: #e6db74&quot;&gt;&amp;quot;pickfont-sans&amp;quot;&lt;/span&gt;&lt;span style=&quot;color: #f92672&quot;&gt;&amp;gt;&lt;/span&gt;
+  &lt;span style=&quot;color: #f92672&quot;&gt;&amp;lt;xsl:text&amp;gt;&lt;/span&gt;Arial,sans-serif,SimSun&lt;span style=&quot;color: #f92672&quot;&gt;&amp;lt;/xsl:text&amp;gt;&lt;/span&gt;   &lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;(1)&lt;/b&gt;
+&lt;span style=&quot;color: #f92672&quot;&gt;&amp;lt;/xsl:template&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;colist arabic&quot;&gt;
@@ -1837,132 +1829,132 @@ fopub EXAMPLE.xml &lt;i class=&quot;conum&quot; data-value=&quot;2&quot;&gt;&lt;
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;tok-c&quot;&gt;#!/bin/bash&lt;/span&gt;
-&lt;span class=&quot;tok-c&quot;&gt;# ttf2fop - Prepare TrueType fonts for use with Apache FOP&lt;/span&gt;
-&lt;span class=&quot;tok-c&quot;&gt;# Copyright (C) 2011 Damien Goutte-Gattat&lt;/span&gt;
-&lt;span class=&quot;tok-c&quot;&gt;#&lt;/span&gt;
-&lt;span class=&quot;tok-c&quot;&gt;# Copying and distribution of this file, with or without modification,&lt;/span&gt;
-&lt;span class=&quot;tok-c&quot;&gt;# are permitted in any medium without royalty provided the copyright&lt;/span&gt;
-&lt;span class=&quot;tok-c&quot;&gt;# notice and this notice are preserved.&lt;/span&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color: #75715e&quot;&gt;#!/bin/bash&lt;/span&gt;
+&lt;span style=&quot;color: #75715e&quot;&gt;# ttf2fop - Prepare TrueType fonts for use with Apache FOP&lt;/span&gt;
+&lt;span style=&quot;color: #75715e&quot;&gt;# Copyright (C) 2011 Damien Goutte-Gattat&lt;/span&gt;
+&lt;span style=&quot;color: #75715e&quot;&gt;#&lt;/span&gt;
+&lt;span style=&quot;color: #75715e&quot;&gt;# Copying and distribution of this file, with or without modification,&lt;/span&gt;
+&lt;span style=&quot;color: #75715e&quot;&gt;# are permitted in any medium without royalty provided the copyright&lt;/span&gt;
+&lt;span style=&quot;color: #75715e&quot;&gt;# notice and this notice are preserved.&lt;/span&gt;
 
-&lt;span class=&quot;tok-nb&quot;&gt;set&lt;/span&gt; -e
+&lt;span style=&quot;color: #f8f8f2&quot;&gt;set&lt;/span&gt; -e
 
-&lt;span class=&quot;tok-nv&quot;&gt;program_name&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;tok-k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;tok-nv&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;##*/&lt;/span&gt;&lt;span class=&quot;tok-k&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;tok-nv&quot;&gt;fop_libs_dir&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;=&lt;/span&gt;/usr/share/java
-&lt;span class=&quot;tok-nv&quot;&gt;fop_fonts_dir&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;tok-nv&quot;&gt;$HOME&lt;/span&gt;/.local/share/fop/fonts
+&lt;span style=&quot;color: #f8f8f2&quot;&gt;program_name&lt;/span&gt;&lt;span style=&quot;color: #f92672&quot;&gt;=&lt;/span&gt;&lt;span style=&quot;color: #e6db74&quot;&gt;${&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;0##*/&lt;/span&gt;&lt;span style=&quot;color: #e6db74&quot;&gt;}&lt;/span&gt;
+&lt;span style=&quot;color: #f8f8f2&quot;&gt;fop_libs_dir&lt;/span&gt;&lt;span style=&quot;color: #f92672&quot;&gt;=&lt;/span&gt;/usr/share/java
+&lt;span style=&quot;color: #f8f8f2&quot;&gt;fop_fonts_dir&lt;/span&gt;&lt;span style=&quot;color: #f92672&quot;&gt;=&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;$HOME&lt;/span&gt;/.local/share/fop/fonts
 
-die&lt;span class=&quot;tok-o&quot;&gt;()&lt;/span&gt;
-&lt;span class=&quot;tok-o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;tok-nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;tok-s2&quot;&gt;&amp;quot;$program_name: $@&amp;quot;&lt;/span&gt; &amp;gt;&lt;span class=&quot;tok-p&quot;&gt;&amp;amp;&lt;/span&gt;2
-    &lt;span class=&quot;tok-nb&quot;&gt;exit &lt;/span&gt;1
-&lt;span class=&quot;tok-o&quot;&gt;}&lt;/span&gt;
+die&lt;span style=&quot;color: #f92672&quot;&gt;()&lt;/span&gt;
+&lt;span style=&quot;color: #f92672&quot;&gt;{&lt;/span&gt;
+    &lt;span style=&quot;color: #f8f8f2&quot;&gt;echo&lt;/span&gt; &lt;span style=&quot;color: #e6db74&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;$program_name&lt;/span&gt;&lt;span style=&quot;color: #e6db74&quot;&gt;: &lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;$@&lt;/span&gt;&lt;span style=&quot;color: #e6db74&quot;&gt;&amp;quot;&lt;/span&gt; &amp;gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&quot;color: #ae81ff&quot;&gt;2&lt;/span&gt;
+    &lt;span style=&quot;color: #f8f8f2&quot;&gt;exit&lt;/span&gt; &lt;span style=&quot;color: #ae81ff&quot;&gt;1&lt;/span&gt;
+&lt;span style=&quot;color: #f92672&quot;&gt;}&lt;/span&gt;
 
-show_usage&lt;span class=&quot;tok-o&quot;&gt;()&lt;/span&gt;
-&lt;span class=&quot;tok-o&quot;&gt;{&lt;/span&gt;
-    cat &lt;span class=&quot;tok-s&quot;&gt;&amp;lt;&amp;lt;EOH&lt;/span&gt;
-&lt;span class=&quot;tok-s&quot;&gt;Usage: $program_name [options] TTF_FILE...&lt;/span&gt;
-&lt;span class=&quot;tok-s&quot;&gt;Generate a FOP metrics file for each TTF file given on the&lt;/span&gt;
-&lt;span class=&quot;tok-s&quot;&gt;command line. If no file is given, read TTF filenames from&lt;/span&gt;
-&lt;span class=&quot;tok-s&quot;&gt;standard input.&lt;/span&gt;
+show_usage&lt;span style=&quot;color: #f92672&quot;&gt;()&lt;/span&gt;
+&lt;span style=&quot;color: #f92672&quot;&gt;{&lt;/span&gt;
+    cat &lt;span style=&quot;color: #e6db74&quot;&gt;&amp;lt;&amp;lt;EOH&lt;/span&gt;
+&lt;span style=&quot;color: #e6db74&quot;&gt;Usage: $program_name [options] TTF_FILE...&lt;/span&gt;
+&lt;span style=&quot;color: #e6db74&quot;&gt;Generate a FOP metrics file for each TTF file given on the&lt;/span&gt;
+&lt;span style=&quot;color: #e6db74&quot;&gt;command line. If no file is given, read TTF filenames from&lt;/span&gt;
+&lt;span style=&quot;color: #e6db74&quot;&gt;standard input.&lt;/span&gt;
 
-&lt;span class=&quot;tok-s&quot;&gt;Options:&lt;/span&gt;
-&lt;span class=&quot;tok-s&quot;&gt;  -h, --help                Show this help message.&lt;/span&gt;
-&lt;span class=&quot;tok-s&quot;&gt;  -v, --version             Show the version message.&lt;/span&gt;
+&lt;span style=&quot;color: #e6db74&quot;&gt;Options:&lt;/span&gt;
+&lt;span style=&quot;color: #e6db74&quot;&gt;  -h, --help                Show this help message.&lt;/span&gt;
+&lt;span style=&quot;color: #e6db74&quot;&gt;  -v, --version             Show the version message.&lt;/span&gt;
 
-&lt;span class=&quot;tok-s&quot;&gt;  -l, --fop-libs PATH       Specify the location of FOP&lt;/span&gt;
-&lt;span class=&quot;tok-s&quot;&gt;                            Jar files (default: $fop_libs_dir).&lt;/span&gt;
-&lt;span class=&quot;tok-s&quot;&gt;  -d, --fonts-dir PATH      Specify the directory where the&lt;/span&gt;
-&lt;span class=&quot;tok-s&quot;&gt;                            metrics file should be stored&lt;/span&gt;
-&lt;span class=&quot;tok-s&quot;&gt;                            (default: $fop_fonts_dir).&lt;/span&gt;
-&lt;span class=&quot;tok-s&quot;&gt;EOH&lt;/span&gt;
-&lt;span class=&quot;tok-o&quot;&gt;}&lt;/span&gt;
+&lt;span style=&quot;color: #e6db74&quot;&gt;  -l, --fop-libs PATH       Specify the location of FOP&lt;/span&gt;
+&lt;span style=&quot;color: #e6db74&quot;&gt;                            Jar files (default: $fop_libs_dir).&lt;/span&gt;
+&lt;span style=&quot;color: #e6db74&quot;&gt;  -d, --fonts-dir PATH      Specify the directory where the&lt;/span&gt;
+&lt;span style=&quot;color: #e6db74&quot;&gt;                            metrics file should be stored&lt;/span&gt;
+&lt;span style=&quot;color: #e6db74&quot;&gt;                            (default: $fop_fonts_dir).&lt;/span&gt;
+&lt;span style=&quot;color: #e6db74&quot;&gt;EOH&lt;/span&gt;
+&lt;span style=&quot;color: #f92672&quot;&gt;}&lt;/span&gt;
 
-process_ttf_file&lt;span class=&quot;tok-o&quot;&gt;()&lt;/span&gt;
-&lt;span class=&quot;tok-o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;tok-nv&quot;&gt;fontfile&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;tok-nv&quot;&gt;$1&lt;/span&gt;
-    &lt;span class=&quot;tok-o&quot;&gt;[&lt;/span&gt; -f &lt;span class=&quot;tok-s2&quot;&gt;&amp;quot;$fontfile&amp;quot;&lt;/span&gt; &lt;span class=&quot;tok-o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;tok-o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;tok-k&quot;&gt;return&lt;/span&gt;
+process_ttf_file&lt;span style=&quot;color: #f92672&quot;&gt;()&lt;/span&gt;
+&lt;span style=&quot;color: #f92672&quot;&gt;{&lt;/span&gt;
+    &lt;span style=&quot;color: #f8f8f2&quot;&gt;fontfile&lt;/span&gt;&lt;span style=&quot;color: #f92672&quot;&gt;=&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;$1&lt;/span&gt;
+    &lt;span style=&quot;color: #f92672&quot;&gt;[&lt;/span&gt; -f &lt;span style=&quot;color: #e6db74&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;$fontfile&lt;/span&gt;&lt;span style=&quot;color: #e6db74&quot;&gt;&amp;quot;&lt;/span&gt; &lt;span style=&quot;color: #f92672&quot;&gt;]&lt;/span&gt; &lt;span style=&quot;color: #f92672&quot;&gt;||&lt;/span&gt; &lt;span style=&quot;color: #66d9ef&quot;&gt;return&lt;/span&gt;
 
-    &lt;span class=&quot;tok-nv&quot;&gt;fontname&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;tok-k&quot;&gt;$(&lt;/span&gt;basename &lt;span class=&quot;tok-nv&quot;&gt;$fontfile&lt;/span&gt; .ttf&lt;span class=&quot;tok-k&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;tok-nv&quot;&gt;fontbasename&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;tok-k&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;tok-nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;tok-nv&quot;&gt;$fontname&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;|&lt;/span&gt; cut -d- -f1&lt;span class=&quot;tok-k&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;tok-nv&quot;&gt;fontstylespec&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;tok-k&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;tok-nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;tok-nv&quot;&gt;$fontname&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;|&lt;/span&gt; cut -d- -f2&lt;span class=&quot;tok-k&quot;&gt;)&lt;/span&gt;
+    &lt;span style=&quot;color: #f8f8f2&quot;&gt;fontname&lt;/span&gt;&lt;span style=&quot;color: #f92672&quot;&gt;=&lt;/span&gt;&lt;span style=&quot;color: #66d9ef&quot;&gt;$(&lt;/span&gt;basename &lt;span style=&quot;color: #f8f8f2&quot;&gt;$fontfile&lt;/span&gt; .ttf&lt;span style=&quot;color: #66d9ef&quot;&gt;)&lt;/span&gt;
+    &lt;span style=&quot;color: #f8f8f2&quot;&gt;fontbasename&lt;/span&gt;&lt;span style=&quot;color: #f92672&quot;&gt;=&lt;/span&gt;&lt;span style=&quot;color: #66d9ef&quot;&gt;$(&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;echo&lt;/span&gt; &lt;span style=&quot;color: #f8f8f2&quot;&gt;$fontname&lt;/span&gt; &lt;span style=&quot;color: #f8f8f2&quot;&gt;|&lt;/span&gt; cut -d- -f1&lt;span style=&quot;color: #66d9ef&quot;&gt;)&lt;/span&gt;
+    &lt;span style=&quot;color: #f8f8f2&quot;&gt;fontstylespec&lt;/span&gt;&lt;span style=&quot;color: #f92672&quot;&gt;=&lt;/span&gt;&lt;span style=&quot;color: #66d9ef&quot;&gt;$(&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;echo&lt;/span&gt; &lt;span style=&quot;color: #f8f8f2&quot;&gt;$fontname&lt;/span&gt; &lt;span style=&quot;color: #f8f8f2&quot;&gt;|&lt;/span&gt; cut -d- -f2&lt;span style=&quot;color: #66d9ef&quot;&gt;)&lt;/span&gt;
 
-    &lt;span class=&quot;tok-k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;tok-s2&quot;&gt;&amp;quot;$fontstylespec&amp;quot;&lt;/span&gt; in
-    Italic&lt;span class=&quot;tok-p&quot;&gt;|&lt;/span&gt;Oblique&lt;span class=&quot;tok-o&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;tok-nv&quot;&gt;fontstyle&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;=&lt;/span&gt;italic
-        &lt;span class=&quot;tok-nv&quot;&gt;fontweight&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;=&lt;/span&gt;normal
-        &lt;span class=&quot;tok-nv&quot;&gt;filequalifier&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;=&lt;/span&gt;italic
-        &lt;span class=&quot;tok-p&quot;&gt;;;&lt;/span&gt;
-    Bold&lt;span class=&quot;tok-o&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;tok-nv&quot;&gt;fontstyle&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;=&lt;/span&gt;normal
-        &lt;span class=&quot;tok-nv&quot;&gt;fontweight&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;=&lt;/span&gt;bold
-        &lt;span class=&quot;tok-nv&quot;&gt;filequalifier&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;=&lt;/span&gt;bold
-        &lt;span class=&quot;tok-p&quot;&gt;;;&lt;/span&gt;
+    &lt;span style=&quot;color: #66d9ef&quot;&gt;case&lt;/span&gt; &lt;span style=&quot;color: #e6db74&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;$fontstylespec&lt;/span&gt;&lt;span style=&quot;color: #e6db74&quot;&gt;&amp;quot;&lt;/span&gt; in
+    Italic&lt;span style=&quot;color: #f8f8f2&quot;&gt;|&lt;/span&gt;Oblique&lt;span style=&quot;color: #f92672&quot;&gt;)&lt;/span&gt;
+        &lt;span style=&quot;color: #f8f8f2&quot;&gt;fontstyle&lt;/span&gt;&lt;span style=&quot;color: #f92672&quot;&gt;=&lt;/span&gt;italic
+        &lt;span style=&quot;color: #f8f8f2&quot;&gt;fontweight&lt;/span&gt;&lt;span style=&quot;color: #f92672&quot;&gt;=&lt;/span&gt;normal
+        &lt;span style=&quot;color: #f8f8f2&quot;&gt;filequalifier&lt;/span&gt;&lt;span style=&quot;color: #f92672&quot;&gt;=&lt;/span&gt;italic
+        &lt;span style=&quot;color: #f8f8f2&quot;&gt;;;&lt;/span&gt;
+    Bold&lt;span style=&quot;color: #f92672&quot;&gt;)&lt;/span&gt;
+        &lt;span style=&quot;color: #f8f8f2&quot;&gt;fontstyle&lt;/span&gt;&lt;span style=&quot;color: #f92672&quot;&gt;=&lt;/span&gt;normal
+        &lt;span style=&quot;color: #f8f8f2&quot;&gt;fontweight&lt;/span&gt;&lt;span style=&quot;color: #f92672&quot;&gt;=&lt;/span&gt;bold
+        &lt;span style=&quot;color: #f8f8f2&quot;&gt;filequalifier&lt;/span&gt;&lt;span style=&quot;color: #f92672&quot;&gt;=&lt;/span&gt;bold
+        &lt;span style=&quot;color: #f8f8f2&quot;&gt;;;&lt;/span&gt;
 
-    BoldItalic&lt;span class=&quot;tok-p&quot;&gt;|&lt;/span&gt;BoldOblique&lt;span class=&quot;tok-o&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;tok-nv&quot;&gt;fontstyle&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;=&lt;/span&gt;italic
-        &lt;span class=&quot;tok-nv&quot;&gt;fontweight&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;=&lt;/span&gt;bold
-        &lt;span class=&quot;tok-nv&quot;&gt;filequalifier&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;=&lt;/span&gt;bold-italic
-        &lt;span class=&quot;tok-p&quot;&gt;;;&lt;/span&gt;
+    BoldItalic&lt;span style=&quot;color: #f8f8f2&quot;&gt;|&lt;/span&gt;BoldOblique&lt;span style=&quot;color: #f92672&quot;&gt;)&lt;/span&gt;
+        &lt;span style=&quot;color: #f8f8f2&quot;&gt;fontstyle&lt;/span&gt;&lt;span style=&quot;color: #f92672&quot;&gt;=&lt;/span&gt;italic
+        &lt;span style=&quot;color: #f8f8f2&quot;&gt;fontweight&lt;/span&gt;&lt;span style=&quot;color: #f92672&quot;&gt;=&lt;/span&gt;bold
+        &lt;span style=&quot;color: #f8f8f2&quot;&gt;filequalifier&lt;/span&gt;&lt;span style=&quot;color: #f92672&quot;&gt;=&lt;/span&gt;bold-italic
+        &lt;span style=&quot;color: #f8f8f2&quot;&gt;;;&lt;/span&gt;
 
-    *&lt;span class=&quot;tok-o&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;tok-nv&quot;&gt;fontstyle&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;=&lt;/span&gt;normal
-        &lt;span class=&quot;tok-nv&quot;&gt;fontweight&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;=&lt;/span&gt;normal
-        &lt;span class=&quot;tok-nv&quot;&gt;filequalifier&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;=&lt;/span&gt;regular
-        &lt;span class=&quot;tok-p&quot;&gt;;;&lt;/span&gt;
-    &lt;span class=&quot;tok-k&quot;&gt;esac&lt;/span&gt;
+    *&lt;span style=&quot;color: #f92672&quot;&gt;)&lt;/span&gt;
+        &lt;span style=&quot;color: #f8f8f2&quot;&gt;fontstyle&lt;/span&gt;&lt;span style=&quot;color: #f92672&quot;&gt;=&lt;/span&gt;normal
+        &lt;span style=&quot;color: #f8f8f2&quot;&gt;fontweight&lt;/span&gt;&lt;span style=&quot;color: #f92672&quot;&gt;=&lt;/span&gt;normal
+        &lt;span style=&quot;color: #f8f8f2&quot;&gt;filequalifier&lt;/span&gt;&lt;span style=&quot;color: #f92672&quot;&gt;=&lt;/span&gt;regular
+        &lt;span style=&quot;color: #f8f8f2&quot;&gt;;;&lt;/span&gt;
+    &lt;span style=&quot;color: #66d9ef&quot;&gt;esac&lt;/span&gt;
 
-    java -cp &lt;span class=&quot;tok-nv&quot;&gt;$fop_libs_dir&lt;/span&gt;:&lt;span class=&quot;tok-nv&quot;&gt;$fop_libs_dir&lt;/span&gt;/* &lt;span class=&quot;tok-se&quot;&gt;\&lt;/span&gt;
-      org.apache.fop.fonts.apps.TTFReader -q &lt;span class=&quot;tok-se&quot;&gt;\&lt;/span&gt;
-      &lt;span class=&quot;tok-nv&quot;&gt;$fontfile&lt;/span&gt; -ttcname SimSun &lt;span class=&quot;tok-nv&quot;&gt;$fontbasename&lt;/span&gt;-&lt;span class=&quot;tok-nv&quot;&gt;$filequalifier&lt;/span&gt;.xml
-    cat &lt;span class=&quot;tok-s&quot;&gt;&amp;lt;&amp;lt;EOF&lt;/span&gt;
-&lt;span class=&quot;tok-s&quot;&gt;    &amp;lt;font metrics-url=&amp;quot;$fop_fonts_dir/$fontbasename-$filequalifier.xml&amp;quot;&lt;/span&gt;
-&lt;span class=&quot;tok-s&quot;&gt;        embed-url=&amp;quot;$fontfile&amp;quot;&lt;/span&gt;
-&lt;span class=&quot;tok-s&quot;&gt;        kerning=&amp;quot;yes&amp;quot;&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;tok-s&quot;&gt;        &amp;lt;font-triplet name=&amp;quot;$fontbasename&amp;quot; style=&amp;quot;$fontstyle&amp;quot; weight=&amp;quot;$fontweight&amp;quot; /&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;tok-s&quot;&gt;    &amp;lt;/font&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;tok-s&quot;&gt;EOF&lt;/span&gt;
-&lt;span class=&quot;tok-o&quot;&gt;}&lt;/span&gt;
+    java -cp &lt;span style=&quot;color: #f8f8f2&quot;&gt;$fop_libs_dir&lt;/span&gt;:&lt;span style=&quot;color: #f8f8f2&quot;&gt;$fop_libs_dir&lt;/span&gt;/* &lt;span style=&quot;color: #ae81ff&quot;&gt;\&lt;/span&gt;
+      org.apache.fop.fonts.apps.TTFReader -q &lt;span style=&quot;color: #ae81ff&quot;&gt;\&lt;/span&gt;
+      &lt;span style=&quot;color: #f8f8f2&quot;&gt;$fontfile&lt;/span&gt; -ttcname SimSun &lt;span style=&quot;color: #f8f8f2&quot;&gt;$fontbasename&lt;/span&gt;-&lt;span style=&quot;color: #f8f8f2&quot;&gt;$filequalifier&lt;/span&gt;.xml
+    cat &lt;span style=&quot;color: #e6db74&quot;&gt;&amp;lt;&amp;lt;EOF&lt;/span&gt;
+&lt;span style=&quot;color: #e6db74&quot;&gt;    &amp;lt;font metrics-url=&amp;quot;$fop_fonts_dir/$fontbasename-$filequalifier.xml&amp;quot;&lt;/span&gt;
+&lt;span style=&quot;color: #e6db74&quot;&gt;        embed-url=&amp;quot;$fontfile&amp;quot;&lt;/span&gt;
+&lt;span style=&quot;color: #e6db74&quot;&gt;        kerning=&amp;quot;yes&amp;quot;&amp;gt;&lt;/span&gt;
+&lt;span style=&quot;color: #e6db74&quot;&gt;        &amp;lt;font-triplet name=&amp;quot;$fontbasename&amp;quot; style=&amp;quot;$fontstyle&amp;quot; weight=&amp;quot;$fontweight&amp;quot; /&amp;gt;&lt;/span&gt;
+&lt;span style=&quot;color: #e6db74&quot;&gt;    &amp;lt;/font&amp;gt;&lt;/span&gt;
+&lt;span style=&quot;color: #e6db74&quot;&gt;EOF&lt;/span&gt;
+&lt;span style=&quot;color: #f92672&quot;&gt;}&lt;/span&gt;
 
-&lt;span class=&quot;tok-k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;tok-nb&quot;&gt;true&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;tok-k&quot;&gt;do&lt;/span&gt;
-    &lt;span class=&quot;tok-k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;tok-s2&quot;&gt;&amp;quot;$1&amp;quot;&lt;/span&gt; in
-    -h&lt;span class=&quot;tok-p&quot;&gt;|&lt;/span&gt;--help&lt;span class=&quot;tok-o&quot;&gt;)&lt;/span&gt;
+&lt;span style=&quot;color: #66d9ef&quot;&gt;while&lt;/span&gt; &lt;span style=&quot;color: #f8f8f2&quot;&gt;true&lt;/span&gt; &lt;span style=&quot;color: #f8f8f2&quot;&gt;;&lt;/span&gt; &lt;span style=&quot;color: #66d9ef&quot;&gt;do&lt;/span&gt;
+    &lt;span style=&quot;color: #66d9ef&quot;&gt;case&lt;/span&gt; &lt;span style=&quot;color: #e6db74&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;$1&lt;/span&gt;&lt;span style=&quot;color: #e6db74&quot;&gt;&amp;quot;&lt;/span&gt; in
+    -h&lt;span style=&quot;color: #f8f8f2&quot;&gt;|&lt;/span&gt;--help&lt;span style=&quot;color: #f92672&quot;&gt;)&lt;/span&gt;
         show_usage
-        &lt;span class=&quot;tok-nb&quot;&gt;exit &lt;/span&gt;0
-        &lt;span class=&quot;tok-p&quot;&gt;;;&lt;/span&gt;
+        &lt;span style=&quot;color: #f8f8f2&quot;&gt;exit&lt;/span&gt; &lt;span style=&quot;color: #ae81ff&quot;&gt;0&lt;/span&gt;
+        &lt;span style=&quot;color: #f8f8f2&quot;&gt;;;&lt;/span&gt;
 
-    -v&lt;span class=&quot;tok-p&quot;&gt;|&lt;/span&gt;--version&lt;span class=&quot;tok-o&quot;&gt;)&lt;/span&gt;
-        sed -n &lt;span class=&quot;tok-s1&quot;&gt;&amp;#39;2,/^$/ s/^# //p&amp;#39;&lt;/span&gt; &lt;span class=&quot;tok-nv&quot;&gt;$0&lt;/span&gt;
-        &lt;span class=&quot;tok-nb&quot;&gt;exit &lt;/span&gt;0
-        &lt;span class=&quot;tok-p&quot;&gt;;;&lt;/span&gt;
+    -v&lt;span style=&quot;color: #f8f8f2&quot;&gt;|&lt;/span&gt;--version&lt;span style=&quot;color: #f92672&quot;&gt;)&lt;/span&gt;
+        sed -n &lt;span style=&quot;color: #e6db74&quot;&gt;&amp;#39;2,/^$/ s/^# //p&amp;#39;&lt;/span&gt; &lt;span style=&quot;color: #f8f8f2&quot;&gt;$0&lt;/span&gt;
+        &lt;span style=&quot;color: #f8f8f2&quot;&gt;exit&lt;/span&gt; &lt;span style=&quot;color: #ae81ff&quot;&gt;0&lt;/span&gt;
+        &lt;span style=&quot;color: #f8f8f2&quot;&gt;;;&lt;/span&gt;
 
-    -l&lt;span class=&quot;tok-p&quot;&gt;|&lt;/span&gt;--fop-libs&lt;span class=&quot;tok-o&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;tok-o&quot;&gt;[&lt;/span&gt; -n &lt;span class=&quot;tok-s2&quot;&gt;&amp;quot;$2&amp;quot;&lt;/span&gt; &lt;span class=&quot;tok-o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;tok-o&quot;&gt;||&lt;/span&gt; die &lt;span class=&quot;tok-s2&quot;&gt;&amp;quot;missing argument for option --fop-libs&amp;quot;&lt;/span&gt;
-        &lt;span class=&quot;tok-nv&quot;&gt;fop_libs_dir&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;tok-nv&quot;&gt;$2&lt;/span&gt;
-        &lt;span class=&quot;tok-nb&quot;&gt;shift &lt;/span&gt;2
-        &lt;span class=&quot;tok-p&quot;&gt;;;&lt;/span&gt;
+    -l&lt;span style=&quot;color: #f8f8f2&quot;&gt;|&lt;/span&gt;--fop-libs&lt;span style=&quot;color: #f92672&quot;&gt;)&lt;/span&gt;
+        &lt;span style=&quot;color: #f92672&quot;&gt;[&lt;/span&gt; -n &lt;span style=&quot;color: #e6db74&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;$2&lt;/span&gt;&lt;span style=&quot;color: #e6db74&quot;&gt;&amp;quot;&lt;/span&gt; &lt;span style=&quot;color: #f92672&quot;&gt;]&lt;/span&gt; &lt;span style=&quot;color: #f92672&quot;&gt;||&lt;/span&gt; die &lt;span style=&quot;color: #e6db74&quot;&gt;&amp;quot;missing argument for option --fop-libs&amp;quot;&lt;/span&gt;
+        &lt;span style=&quot;color: #f8f8f2&quot;&gt;fop_libs_dir&lt;/span&gt;&lt;span style=&quot;color: #f92672&quot;&gt;=&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;$2&lt;/span&gt;
+        &lt;span style=&quot;color: #f8f8f2&quot;&gt;shift&lt;/span&gt; &lt;span style=&quot;color: #ae81ff&quot;&gt;2&lt;/span&gt;
+        &lt;span style=&quot;color: #f8f8f2&quot;&gt;;;&lt;/span&gt;
 
-    -d&lt;span class=&quot;tok-p&quot;&gt;|&lt;/span&gt;--fonts-dir&lt;span class=&quot;tok-o&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;tok-o&quot;&gt;[&lt;/span&gt; -n &lt;span class=&quot;tok-s2&quot;&gt;&amp;quot;$2&amp;quot;&lt;/span&gt; &lt;span class=&quot;tok-o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;tok-o&quot;&gt;||&lt;/span&gt; die &lt;span class=&quot;tok-s2&quot;&gt;&amp;quot;missing argument for option --fonts-dir&amp;quot;&lt;/span&gt;
-        &lt;span class=&quot;tok-nv&quot;&gt;fop_fonts_dir&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;tok-nv&quot;&gt;$2&lt;/span&gt;
-        &lt;span class=&quot;tok-nb&quot;&gt;shift &lt;/span&gt;2
-        &lt;span class=&quot;tok-p&quot;&gt;;;&lt;/span&gt;
+    -d&lt;span style=&quot;color: #f8f8f2&quot;&gt;|&lt;/span&gt;--fonts-dir&lt;span style=&quot;color: #f92672&quot;&gt;)&lt;/span&gt;
+        &lt;span style=&quot;color: #f92672&quot;&gt;[&lt;/span&gt; -n &lt;span style=&quot;color: #e6db74&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;$2&lt;/span&gt;&lt;span style=&quot;color: #e6db74&quot;&gt;&amp;quot;&lt;/span&gt; &lt;span style=&quot;color: #f92672&quot;&gt;]&lt;/span&gt; &lt;span style=&quot;color: #f92672&quot;&gt;||&lt;/span&gt; die &lt;span style=&quot;color: #e6db74&quot;&gt;&amp;quot;missing argument for option --fonts-dir&amp;quot;&lt;/span&gt;
+        &lt;span style=&quot;color: #f8f8f2&quot;&gt;fop_fonts_dir&lt;/span&gt;&lt;span style=&quot;color: #f92672&quot;&gt;=&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;$2&lt;/span&gt;
+        &lt;span style=&quot;color: #f8f8f2&quot;&gt;shift&lt;/span&gt; &lt;span style=&quot;color: #ae81ff&quot;&gt;2&lt;/span&gt;
+        &lt;span style=&quot;color: #f8f8f2&quot;&gt;;;&lt;/span&gt;
 
-    *&lt;span class=&quot;tok-o&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;tok-nb&quot;&gt;break&lt;/span&gt;
-        &lt;span class=&quot;tok-p&quot;&gt;;;&lt;/span&gt;
-    &lt;span class=&quot;tok-k&quot;&gt;esac&lt;/span&gt;
-&lt;span class=&quot;tok-k&quot;&gt;done&lt;/span&gt;
+    *&lt;span style=&quot;color: #f92672&quot;&gt;)&lt;/span&gt;
+        &lt;span style=&quot;color: #f8f8f2&quot;&gt;break&lt;/span&gt;
+        &lt;span style=&quot;color: #f8f8f2&quot;&gt;;;&lt;/span&gt;
+    &lt;span style=&quot;color: #66d9ef&quot;&gt;esac&lt;/span&gt;
+&lt;span style=&quot;color: #66d9ef&quot;&gt;done&lt;/span&gt;
 
-&lt;span class=&quot;tok-nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;tok-s2&quot;&gt;&amp;quot;&amp;lt;?xml version=\&amp;quot;1.0\&amp;quot;?&amp;gt;&amp;quot;&lt;/span&gt;
-&lt;span class=&quot;tok-nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;tok-s2&quot;&gt;&amp;quot;&amp;lt;fonts&amp;gt;&amp;quot;&lt;/span&gt;
+&lt;span style=&quot;color: #f8f8f2&quot;&gt;echo&lt;/span&gt; &lt;span style=&quot;color: #e6db74&quot;&gt;&amp;quot;&amp;lt;?xml version=\&amp;quot;1.0\&amp;quot;?&amp;gt;&amp;quot;&lt;/span&gt;
+&lt;span style=&quot;color: #f8f8f2&quot;&gt;echo&lt;/span&gt; &lt;span style=&quot;color: #e6db74&quot;&gt;&amp;quot;&amp;lt;fonts&amp;gt;&amp;quot;&lt;/span&gt;
 
-&lt;span class=&quot;tok-k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;tok-o&quot;&gt;[&lt;/span&gt; -z &lt;span class=&quot;tok-s2&quot;&gt;&amp;quot;$*&amp;quot;&lt;/span&gt; &lt;span class=&quot;tok-o&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;tok-k&quot;&gt;then&lt;/span&gt;
-    cat &lt;span class=&quot;tok-p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;tok-k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;tok-nb&quot;&gt;read &lt;/span&gt;f &lt;span class=&quot;tok-p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;tok-k&quot;&gt;do&lt;/span&gt; process_ttf_file &lt;span class=&quot;tok-nv&quot;&gt;$f&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;tok-k&quot;&gt;done&lt;/span&gt;
-&lt;span class=&quot;tok-k&quot;&gt;else&lt;/span&gt;
-    &lt;span class=&quot;tok-k&quot;&gt;for&lt;/span&gt; f in &lt;span class=&quot;tok-s2&quot;&gt;&amp;quot;$@&amp;quot;&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;tok-k&quot;&gt;do&lt;/span&gt; process_ttf_file &lt;span class=&quot;tok-nv&quot;&gt;$f&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;tok-k&quot;&gt;done&lt;/span&gt;
-&lt;span class=&quot;tok-k&quot;&gt;fi&lt;/span&gt;
+&lt;span style=&quot;color: #66d9ef&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color: #f92672&quot;&gt;[&lt;/span&gt; -z &lt;span style=&quot;color: #e6db74&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;$*&lt;/span&gt;&lt;span style=&quot;color: #e6db74&quot;&gt;&amp;quot;&lt;/span&gt; &lt;span style=&quot;color: #f92672&quot;&gt;]&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;;&lt;/span&gt; &lt;span style=&quot;color: #66d9ef&quot;&gt;then&lt;/span&gt;
+    cat &lt;span style=&quot;color: #f8f8f2&quot;&gt;|&lt;/span&gt; &lt;span style=&quot;color: #66d9ef&quot;&gt;while&lt;/span&gt; &lt;span style=&quot;color: #f8f8f2&quot;&gt;read&lt;/span&gt; f &lt;span style=&quot;color: #f8f8f2&quot;&gt;;&lt;/span&gt; &lt;span style=&quot;color: #66d9ef&quot;&gt;do&lt;/span&gt; process_ttf_file &lt;span style=&quot;color: #f8f8f2&quot;&gt;$f&lt;/span&gt; &lt;span style=&quot;color: #f8f8f2&quot;&gt;;&lt;/span&gt; &lt;span style=&quot;color: #66d9ef&quot;&gt;done&lt;/span&gt;
+&lt;span style=&quot;color: #66d9ef&quot;&gt;else&lt;/span&gt;
+    &lt;span style=&quot;color: #66d9ef&quot;&gt;for&lt;/span&gt; f in &lt;span style=&quot;color: #e6db74&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span style=&quot;color: #f8f8f2&quot;&gt;$@&lt;/span&gt;&lt;span style=&quot;color: #e6db74&quot;&gt;&amp;quot;&lt;/span&gt; &lt;span style=&quot;color: #f8f8f2&quot;&gt;;&lt;/span&gt; &lt;span style=&quot;color: #66d9ef&quot;&gt;do&lt;/span&gt; process_ttf_file &lt;span style=&quot;color: #f8f8f2&quot;&gt;$f&lt;/span&gt; &lt;span style=&quot;color: #f8f8f2&quot;&gt;;&lt;/span&gt; &lt;span style=&quot;color: #66d9ef&quot;&gt;done&lt;/span&gt;
+&lt;span style=&quot;color: #66d9ef&quot;&gt;fi&lt;/span&gt;
 
-&lt;span class=&quot;tok-nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;tok-s2&quot;&gt;&amp;quot;&amp;lt;/fonts&amp;gt;&amp;quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;span style=&quot;color: #f8f8f2&quot;&gt;echo&lt;/span&gt; &lt;span style=&quot;color: #e6db74&quot;&gt;&amp;quot;&amp;lt;/fonts&amp;gt;&amp;quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -1975,7 +1967,7 @@ process_ttf_file&lt;span class=&quot;tok-o&quot;&gt;()&lt;/span&gt;
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;asciidoctor -b docbook -a &lt;span class=&quot;tok-nv&quot;&gt;lang&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;=&lt;/span&gt;zh_CN XXX.adoc&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;bash&quot;&gt;asciidoctor -b docbook -a &lt;span style=&quot;color: #f8f8f2&quot;&gt;lang&lt;/span&gt;&lt;span style=&quot;color: #f92672&quot;&gt;=&lt;/span&gt;zh_CN XXX.adoc&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;

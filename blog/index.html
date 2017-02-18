@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>ProgramFan's Writing Space - Blog</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="generator" content="Jekyll v3.2.0">
+  <meta name="generator" content="Jekyll v3.4.0">
   <link rel="alternate" type="application/rss+xml"
         title="ProgramFan • Research, Learning, Thinking and Growing up - Feed" href="/feed.xml">
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic,900">
@@ -29,14 +29,14 @@
   <li class="">
     <a href="/">Home</a>
   </li>
+  <li class="">
+    <a href="/research/">Research</a>
+  </li>
   <li class="current">
     <a href="/blog/">Blog</a>
   </li>
   <li class="">
     <a href="/about/">About</a>
-  </li>
-  <li>
-    <a href="https://github.com/ProgramFan">View on GitHub</a>
   </li>
 </ul>
 
@@ -55,14 +55,14 @@
   <li class="">
     <a href="/">Home</a>
   </li>
+  <li class="">
+    <a href="/research/">Research</a>
+  </li>
   <li class="current">
     <a href="/blog/">Blog</a>
   </li>
   <li class="">
     <a href="/about/">About</a>
-  </li>
-  <li>
-    <a href="https://github.com/ProgramFan">View on GitHub</a>
   </li>
 </ul>
 
@@ -78,7 +78,7 @@
 
   <article>
   <h2>
-    <a href="/contents/2016/07/29/simple-python-isolation-with-user-compiling/">
+    <a href="/blog/2016/07/29/simple-python-isolation-with-user-compiling/">
       Simple Python Isolation with User Compiling
     </a>
   </h2>
@@ -103,70 +103,25 @@
 <p>I would like to have a working python environment with python 2.7.12 and a
 series of packages. It shall be efficient, and yet easy to setup. The anaconda
 distribution almost satisfies my needs, except that it&#8217;s unreasonably slow to
-load, due to its bundle of system libs. There are also python version managers
-such as pyenv and pythonz. The drawback of pyenv is the shims, which are
-scripts to launch binaries such as python2 and pip. shims make powerline
-client slow, which is undesirable. As to pythonz, it only handles multiple
-versions of python, no other infrastructure is provided.</p>
+load, due to its bundle of system libraries. There are also python version
+managers such as PYENV and PYTHONZ. The drawback of PYENV is the shims, which
+are scripts to launch binaries such as python-2 and pip. shims make
+powerline-client slow, which is undesirable. As to PYTHONZ, it only handles
+multiple versions of python, no other infrastructure is provided.</p>
 </div>
 <div class="paragraph">
 <p>After some experimentation, I found that just compile python from source and
-install it into customized location works just fine. There are some caveats,
-so I record it here.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="compile-python">Compile Python</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Compile python is easy, just be sure to install bundled pip.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="bash">tar -zxvf Python-2.7.12.tgz
-<span class="tok-nb">cd </span>Python-2.7.12
-./configure --prefix<span class="tok-o">=</span><span class="tok-nv">$LOCATION</span> --with-ensurepip<span class="tok-o">=</span>install
-make
-make install</code></pre>
-</div>
+install it into customized location works just fine. There are some caveats, so
+I record it here.</p>
 </div>
 <div class="paragraph">
-<p>After that, you can find python under <code>$LOCATION</code>. <code>$LOCATION/bin/python -m site</code>
-will show site-packages under <code>$LOCATION/lib/python2.7/site-packages</code>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="install-packages-using-pip">Install Packages using Pip</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>We would expect <code>pip install XXX</code> to install packages into site-packages. But
-this does not work in practice. Even with bundled pip, it often installs
-packages into system&#8217;s site-packages. To install to the correct location, we
-have to use <code>python -m pip</code>.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="bash"><span class="tok-nb">export </span><span class="tok-nv">PATH</span><span class="tok-o">=</span><span class="tok-nv">$LOCATION</span>/bin:<span class="tok-nv">$PATH</span>
-python -m pip install XXX</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="move-installation-around">Move Installation Around</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>I have not yet tested it, but I expect it would be just copy <code>$LOCATION</code> to a
-new location and set <code>PYTHONPATH</code> and <code>PATH</code> to correct values in new
-location. I will try it.</p>
+<p>I do not like this ideas is a linter test. Linter. How can one use it?</p>
 </div>
 </div>
 </div>
     <br/>
     <div class="post-more">
-      <a href="/contents/2016/07/29/simple-python-isolation-with-user-compiling/"> <i class="fa fa-link"></i> &nbsp; Read the rest
+      <a href="/blog/2016/07/29/simple-python-isolation-with-user-compiling/"> <i class="fa fa-link"></i> &nbsp; Read the rest
           of this post </b></a>
     </div>
   </div>
@@ -175,7 +130,7 @@ location. I will try it.</p>
 
   <article>
   <h2>
-    <a href="/contents/2015/10/11/poorman-solution-to-usbstick-encryption/">
+    <a href="/blog/2015/10/11/poorman-solution-to-usbstick-encryption/">
       Poorman&#8217;s Usbstick Encryption
     </a>
   </h2>
@@ -196,10 +151,9 @@ location. I will try it.</p>
     <div class="paragraph">
 <p>Recently I need to setup an encrypted usbstick to carry some files. The first and best approach is of course hardware-encrypted usbsticks. However, they are not cheep at all. And they support only digital passphrases. Some encrypted usbsticks needs special software to operate, thus does not work with Linux system. Luckily enough, I found LUKS and managed to setup an encrypted usbstick, which also works on Windows.</p>
 </div>
-
     <br/>
     <div class="post-more">
-      <a href="/contents/2015/10/11/poorman-solution-to-usbstick-encryption/"> <i class="fa fa-link"></i> &nbsp; Read the rest
+      <a href="/blog/2015/10/11/poorman-solution-to-usbstick-encryption/"> <i class="fa fa-link"></i> &nbsp; Read the rest
           of this post </b></a>
     </div>
   </div>
@@ -236,47 +190,47 @@ location. I will try it.</p>
         
         
         <li class="">
-          <a href="/contents/2016/07/29/simple-python-isolation-with-user-compiling/">Simple Python Isolation with User Compiling</a>
+          <a href="/blog/2016/07/29/simple-python-isolation-with-user-compiling/">Simple Python Isolation with User Compiling</a>
         </li>
         
         
         
         <li class="">
-          <a href="/contents/2015/10/11/poorman-solution-to-usbstick-encryption/">Poorman&#8217;s Usbstick Encryption</a>
+          <a href="/blog/2015/10/11/poorman-solution-to-usbstick-encryption/">Poorman&#8217;s Usbstick Encryption</a>
         </li>
         
         
         
         <li class="">
-          <a href="/contents/2015/10/02/deploy-python-working-environments-using-pip/">Deploy python working environments with pip under restricted connections</a>
+          <a href="/blog/2015/10/02/deploy-python-working-environments-using-pip/">Deploy python working environments with pip under restricted connections</a>
         </li>
         
         
         
         <li class="">
-          <a href="/contents/2015/09/20/user-local-python-pkg-install-with-pip/">User-local python package install with pip</a>
-        </li>
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        <li class="">
-          <a href="/contents/2015/05/05/using-rvm-to-isolate-rubygems-on-fedora-21/">Using RVM to Isolate RubyGems on Fedora 21</a>
+          <a href="/blog/2015/09/20/user-local-python-pkg-install-with-pip/">User-local python package install with pip</a>
         </li>
         
         
         
         
         
+        
+        
+        
+        
+        
+        
         <li class="">
-          <a href="/contents/2015/04/27/prevent-gcc-optimize-away-code/">Prevent GCC from optimizing away a snippet of code</a>
+          <a href="/blog/2015/05/05/using-rvm-to-isolate-rubygems-on-fedora-21/">Using RVM to Isolate RubyGems on Fedora 21</a>
+        </li>
+        
+        
+        
+        
+        
+        <li class="">
+          <a href="/blog/2015/04/27/prevent-gcc-optimize-away-code/">Prevent GCC from optimizing away a snippet of code</a>
         </li>
         
         
@@ -296,33 +250,25 @@ location. I will try it.</p>
         
         
         <li class="">
-          <a href="/contents/2015/09/05/analyse-mpi-applications-with-intel-vtune-inspector/">Analyse MPI Applications with Intel VTune/Inspector</a>
+          <a href="/blog/2015/09/05/analyse-mpi-applications-with-intel-vtune-inspector/">Analyse MPI Applications with Intel VTune/Inspector</a>
         </li>
         
         
         
         <li class="">
-          <a href="/contents/2015/07/25/home-python-ruby-with-pyenv-and-rvm/">Home-brew python and ruby with PyENV and RVM</a>
+          <a href="/blog/2015/07/25/home-python-ruby-with-pyenv-and-rvm/">Home-brew python and ruby with PyENV and RVM</a>
         </li>
         
         
         
         <li class="">
-          <a href="/contents/2015/07/11/config-cjk-for-asciidoctor-fopub/">Config CJK fonts for Asciidoctor-fopub</a>
+          <a href="/blog/2015/07/11/config-cjk-for-asciidoctor-fopub/">Config CJK fonts for Asciidoctor-fopub</a>
         </li>
         
         
         
         <li class="">
-          <a href="/contents/2015/06/23/asciidoc-pdf-cjk-status/">Asciidoctor-pdf CJK support status</a>
-        </li>
-        
-        
-        
-        
-        
-        <li class="">
-          <a href="/contents/2015/05/01/fix-boost-python-argument-error-lvalue/">Fix Argument Error with lvalue In Boost.Python</a>
+          <a href="/blog/2015/06/23/asciidoc-pdf-cjk-status/">Asciidoctor-pdf CJK support status</a>
         </li>
         
         
@@ -330,7 +276,15 @@ location. I will try it.</p>
         
         
         <li class="">
-          <a href="/contents/2015/04/20/convert-chinese-asciidoc-to-pdf/">Convert Chinese Asciidoc Documents to PDF</a>
+          <a href="/blog/2015/05/01/fix-boost-python-argument-error-lvalue/">Fix Argument Error with lvalue In Boost.Python</a>
+        </li>
+        
+        
+        
+        
+        
+        <li class="">
+          <a href="/blog/2015/04/20/convert-chinese-asciidoc-to-pdf/">Convert Chinese Asciidoc Documents to PDF</a>
         </li>
         
         
@@ -348,7 +302,7 @@ location. I will try it.</p>
   <div class="grid">
     <div class="unit one-third center-on-mobiles">
       <p>The contents of this website are &copy;&nbsp;
-      2016 by Yang Zhang under the terms of the MIT License.</p>
+      2017 by Yang Zhang under the terms of the MIT License.</p>
     </div>
     <div class="unit two-thirds align-right center-on-mobiles">
       <p>
