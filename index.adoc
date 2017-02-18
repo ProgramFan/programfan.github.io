@@ -20,3 +20,4 @@ I blog about my daily experiences on Linux systems. Here comes the recommended p
 ** link:++{{post.url}}++[{{ post.title }}]
 {% endunless %}
 {% endfor %}
+
