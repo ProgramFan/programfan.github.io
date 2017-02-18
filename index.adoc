@@ -6,7 +6,7 @@ This is a work in progress. I usually write about some Linux/vim/python/c++ tips
 
 == Blog
 
-I blog about my experiences on using Linux system daily. Here comes the recommended posts:
+I blog about my daily experiences on Linux systems. Here comes the recommended posts:
 
 * Featured
 {% for post in site.posts %}
